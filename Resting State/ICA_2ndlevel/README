@@ -1,1 +1,5 @@
-ICA network connectivity results were analysed in SPM12 to compare sleep conditions and age groups. This folder contains the batch scripts for these analyses. Results were investigated using both a gray matter mask ("gm") and network-specific masks ("masked"). For some reason, the batch script for network 10, masked, was not saved, but it followed the same principle as the other scripts.
+ICA network connectivity results were analysed in SPM12 to compare sleep conditions and age groups. 
+This folder contains batch scripts, SPM objects, and results files for these analyses. 
+T maps, beta maps, and contrast maps are not included on account of their large sizes.
+Results were investigated using both network-specific masks ("masked") and a gray matter mask ("gm"). 
+T maps for the young-old and old-young contrasts (masked) will be posted on NeuroVault.
