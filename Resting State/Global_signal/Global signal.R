@@ -115,12 +115,39 @@ data_glob$condition <- relevel(data_glob$condition, ref = "fullsleep")
 # Main analyses
 require(nlme)
 require(effects)
+require(RColorBrewer)
 
 # Full model
 lm1 <- lme(globalsignal_rms ~ condition * AgeGroup + FD, data = data_glob, random = ~1|ID)
 summary(lm1)
 intervals(lm1)
 plot(effect("condition*AgeGroup", lm1))
+
+cols <- brewer.pal(n = 3, name = "Dark2")
+
+pdf("GS.pdf") 
+par(mar = c(4, 4, 0, 0))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(4100, 4400), xlab = "", ylab = "Global signal intensity", xaxt = "n", type = "n")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lm1)$fit[1:2], pch = 16, col = cols[3], type = "b")
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lm1)$fit[3:4], pch = 16, col = cols[2], type = "b")
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lm1)$lower[1], effect("condition*AgeGroup", lm1)$upper[1]), col = cols[3])
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lm1)$lower[2], effect("condition*AgeGroup", lm1)$upper[2]), col = cols[3])
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lm1)$lower[3], effect("condition*AgeGroup", lm1)$upper[3]), col = cols[2])
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lm1)$lower[4], effect("condition*AgeGroup", lm1)$upper[4]), col = cols[2])
+legend("topleft", lty = 1, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+# Model old and young separately due to interaction effect
+lm1b <- lme(globalsignal_rms ~ condition + FD, data = data_glob[data_glob$AgeGroup == "Young", ], random = ~1|ID)
+summary(lm1b)
+intervals(lm1b)
+
+lm1c <- lme(globalsignal_rms ~ condition + FD, data = data_glob[data_glob$AgeGroup == "Old", ], random = ~1|ID)
+summary(lm1c)
+intervals(lm1c)
+
+
 
 # Separate models for sessions (1 and 3) and (2 and 4) mostly as a kind of sensitivity analysis
 lm2 <- lme(globalsignal_rms ~ condition * AgeGroup + FD, data = subset(data_glob, data_glob$session %in% c(1, 3)), random = ~1|ID)
