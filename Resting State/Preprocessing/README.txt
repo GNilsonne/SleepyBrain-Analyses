@@ -6,7 +6,7 @@ DPARSFA_AutoSave_2015_10_7_16_22.mat	FunImgARW; detrend, filter
 DPARSFA_AutoSave_2015_10_7_16_47.mat	FunImgARWDF; nuisance covariates, scrubbing
 DPARSFA_AutoSave_2015_11_10_13_25.mat	FunImgARWDFC; scrubbing
 DPARSFA_AutoSave_2015_11_27_11_13.mat	FunImgARWDFCB; ReHo
-DPARSFA_AutoSave_2015_11_27_11_13.mat	FunImgARWSDFCB; functional connectivity, extract roi time courses
+DPARSFA_AutoSave_2015_11_27_13_29.mat	FunImgARWSDFCB; functional connectivity, extract roi time courses
 
 DPARSFA_AutoSave_2016_4_7_12_34.mat   FunImgARWSDF; nuisance covariates including global signal regression, scrubbing
 DPARSFA_AutoSave_2016_4_7_13_36.mat   FunImgARWSDFCB; functional connectivity, extract roi time courses
