@@ -1,0 +1,12 @@
+The scripts in this folder were written by Sandra Tamm.
+
+They are batch sripts for preprocessing in SPM12. In most cases, the scripts call files from a folder tree without specifying participants id:s. In cases where participants' files were called by id:s, these have been redacted to preserve anonymity.
+
+Order of preprocessing:
+- Slice time correction
+- Realignment
+- Coregistration
+- DARTEL segmentation
+- Normalisation and smoothing
+
+Images were manually realigned before normalisation.

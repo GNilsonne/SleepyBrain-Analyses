@@ -1,0 +1,5 @@
+These scripts were written by Sandra Tamm.
+
+There is a script to read Presentation logfiles and generate Matlab objects with event onsets and duration.
+
+There is also an SPM12 batch script to perform 1st level analysis.
