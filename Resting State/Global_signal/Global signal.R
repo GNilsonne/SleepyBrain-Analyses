@@ -38,7 +38,7 @@ for (i in 1:length(files_S4)){
 
 ########################
 
-# Calculate mean global signal and other measures and put in data frame
+# Calculate global signal amplitude and other measures and put in data frame
 fun_rms <- function(x) sqrt(mean(x^2))
 
 data_glob <- data.frame(
@@ -129,6 +129,103 @@ require(nlme)
 require(effects)
 require(RColorBrewer)
 cols <- brewer.pal(n = 3, name = "Dark2")
+
+# Full model, global signal amplitude (log SD to better meet model assumptions)
+lm1 <- lme(globalsignal_logsd ~ condition * AgeGroup + FD, data = data_glob, random = ~1|ID)
+summary(lm1)
+intervals(lm1)
+plot(effect("condition*AgeGroup", lm1))
+
+pdf("GS.pdf", height = 6, width = 6) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(2.3, 3.1), xlab = "", ylab = "Global signal amplitude (ln sd)", xaxt = "n", type = "n")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lm3)$fit[1:2], pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lm3)$fit[3:4], pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lm3)$lower[1], effect("condition*AgeGroup", lm3)$upper[1]), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lm3)$lower[2], effect("condition*AgeGroup", lm3)$upper[2]), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lm3)$lower[3], effect("condition*AgeGroup", lm3)$upper[3]), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lm3)$lower[4], effect("condition*AgeGroup", lm3)$upper[4]), col = cols[2], lwd = 1.5)
+legend("topleft", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+
+#######################
+
+# Analyses of covariates
+# KSS: analysed separately for the two conditions because sleepiness was higher in the sleep deprivation condition
+lm4 <- lme(globalsignal_logsd ~ kss * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID)
+summary(lm4)
+intervals(lm4)
+plot(effect("kss*AgeGroup", lm4))
+
+lm5 <- lme(globalsignal_logsd ~ kss * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID)
+summary(lm5)
+intervals(lm5)
+plot(effect("kss*AgeGroup", lm5))
+
+# ISI
+lm6 <- lme(globalsignal_logsd ~ condition * AgeGroup + ISI + FD, data = data_glob, random = ~1|ID)
+summary(lm6)
+intervals(lm6)
+lm7 <- lme(globalsignal_logsd ~ AgeGroup + ISI + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID)
+summary(lm7)
+intervals(lm7)
+lm8 <- lme(globalsignal_logsd ~ AgeGroup + ISI + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID)
+summary(lm8)
+intervals(lm8)
+
+# ESS
+ess1 <- lme(globalsignal_logsd ~ condition * AgeGroup + ESS + FD, data = data_glob, random = ~1|ID)
+summary(ess1)
+intervals(ess1)
+ess2 <- lme(globalsignal_logsd ~ AgeGroup + ESS + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID)
+summary(ess2)
+intervals(ess2)
+ess3 <- lme(globalsignal_logsd ~ AgeGroup + ESS + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID)
+summary(ess3)
+intervals(ess3)
+
+# KSQ sleep quality
+ksq1 <- lme(globalsignal_logsd ~ condition * AgeGroup + KSQ_SleepQualityIndex + FD, data = data_glob, random = ~1|ID)
+summary(ksq1)
+intervals(ksq1)
+ksq2 <- lme(globalsignal_logsd ~ AgeGroup + KSQ_SleepQualityIndex + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID)
+summary(ksq2)
+intervals(ksq2)
+ksq3 <- lme(globalsignal_logsd ~ AgeGroup + KSQ_SleepQualityIndex + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID)
+summary(ksq3)
+intervals(ksq3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Full model
 lm1 <- lme(globalsignal_rms ~ condition * AgeGroup + FD, data = data_glob, random = ~1|ID)
