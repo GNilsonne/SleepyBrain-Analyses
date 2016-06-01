@@ -115,6 +115,7 @@ Vpfiles_df$session[Vpfiles_df$subject == 299] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 324] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 496] <- 1
 
+Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointHands, ]
 
 # Cut out data for all included files
 setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
@@ -172,18 +173,18 @@ for(i in indices){
       flag <- "REJECTED"
     }
     
-    pdf(file = paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Eyetracking_QC/Eyetracking_HANDS_QC_", i, "_", j, ".pdf", sep = ""))
-    plot(data$V7full[cutout_start:cutout_end], type = "l", frame.plot = F, xaxt = "n", main = paste("Width, subject", subject, "session", session, "event", j, flag), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm", col = "gray")
-    axis(1, at = c(0, 240, 840), labels = c(-4, 0, 10))
-    lines(data$V7[cutout_start:cutout_end])
-    lines(data$width_lo001[cutout_start:cutout_end], type = "l", col = "red")
-    lines(data$diameter, col = "blue")
-    plot(data$V8full[cutout_start:cutout_end], type = "l", frame.plot = F, xaxt = "n", main = paste("Height, subject", subject, "session", session, "event", j, flag), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm", col = "gray")
-    axis(1, at = c(0, 240, 840), labels = c(-4, 0, 10))
-    lines(data$V8[cutout_start:cutout_end])
-    lines(data$height_lo001[cutout_start:cutout_end], type = "l", col = "red")
-    lines(data$diameter, col = "blue")
-    dev.off()
+    #pdf(file = paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Eyetracking_QC/Eyetracking_HANDS_QC_", i, "_", j, ".pdf", sep = ""))
+    #plot(data$V7full[cutout_start:cutout_end], type = "l", frame.plot = F, xaxt = "n", main = paste("Width, subject", subject, "session", session, "event", j, flag), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm", col = "gray")
+    #axis(1, at = c(0, 240, 840), labels = c(-4, 0, 10))
+    #lines(data$V7[cutout_start:cutout_end])
+    #lines(data$width_lo001[cutout_start:cutout_end], type = "l", col = "red")
+    #lines(data$diameter, col = "blue")
+    #plot(data$V8full[cutout_start:cutout_end], type = "l", frame.plot = F, xaxt = "n", main = paste("Height, subject", subject, "session", session, "event", j, flag), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm", col = "gray")
+    #axis(1, at = c(0, 240, 840), labels = c(-4, 0, 10))
+    #lines(data$V8[cutout_start:cutout_end])
+    #lines(data$height_lo001[cutout_start:cutout_end], type = "l", col = "red")
+    #lines(data$diameter, col = "blue")
+    #dev.off()
     
     cutout$index <- 1:length(cutout$subject)
     
@@ -257,6 +258,37 @@ axis(1, at = c(0, 40, 75, 95, 140), labels = c(-4, 0, 3.5, 5.5, 10))
 lines(diameter ~ index, data = dataout_pain_agg, col = "red")
 legend("topleft", lty = 1, legend = c("No pain", "Pain"), col = c("blue", "red"), bty = "n")
 
+# Aggregate by sleep condition
+dataout_agg_session <- NULL
+for (i in unique(data_out$subject)){
+  cutout5 <- data_out[data_out$subject == i, ]
+  cutout5_agg_session <- aggregate(cbind(height, width) ~ subject + date + index, data = cutout5, FUN = "mean")
+  if(exists("dataout_agg_session") == FALSE){
+    dataout_agg_session <- cutout5_agg_session
+  } else {
+    dataout_agg_session <- rbind(dataout_agg_session, cutout5_agg_session)
+  }
+}
+dataout_agg_session$diameter <- (dataout_agg_session$width + dataout_agg_session$height)/2
+dataout_agg_session <- merge(dataout_agg_session, demographics[, c("Subject", "AgeGroup", "Sex", "DateSession1", "DateSession2")], by.x = "subject", by.y = "Subject")
+dataout_agg_session <- merge(dataout_agg_session, randomisation[, c("Subject", "Sl_cond")], by.x = "subject", by.y = "Subject")
+dataout_agg_session$session <- NA
+dataout_agg_session$session[dataout_agg_session$date == dataout_agg_session$DateSession1] <- 1
+dataout_agg_session$session[dataout_agg_session$date == dataout_agg_session$DateSession2] <- 2
+anyNA(dataout_agg_session) # Should evaluate to FALSE
+dataout_agg_session$condition <- NA
+dataout_agg_session$condition[dataout_agg_session$session == 1 & dataout_agg_session$Sl_cond == 1] <- "SleepDeprived"
+dataout_agg_session$condition[dataout_agg_session$session == 1 & dataout_agg_session$Sl_cond == 2] <- "FullSleep"
+dataout_agg_session$condition[dataout_agg_session$session == 2 & dataout_agg_session$Sl_cond == 2] <- "SleepDeprived"
+dataout_agg_session$condition[dataout_agg_session$session == 2 & dataout_agg_session$Sl_cond == 1] <- "FullSleep"
+anyNA(dataout_agg_session)
+dataout_agg_fullsleep <- aggregate(diameter ~ index, data = dataout_agg_session[dataout_agg_session$condition == "FullSleep", ], FUN = "mean")
+dataout_agg_sleepdeprived <- aggregate(diameter ~ index, data = dataout_agg_session[dataout_agg_session$condition == "SleepDeprived", ], FUN = "mean")
+
+plot(diameter ~ index, data = dataout_agg_fullsleep, type = "l", frame.plot = F, xaxt = "n", main = paste("Pupil diameter"), ylim = c(0.15, 0.19), xlab = "Time, s", ylab = "Diameter, cm", col = "darkgreen")
+axis(1, at = c(0, 40, 75, 95, 140), labels = c(-4, 0, 3.5, 5.5, 10))
+lines(diameter ~ index, data = dataout_agg_sleepdeprived, col = "orange")
+legend("topleft", lty = 1, legend = c("Full sleep", "Sleep deprived"), col = c("darkgreen", "orange"), bty = "n")
 
 # Index data by mean diameter during anticipation for each response
 while(anyNA(data_out$height)){ # Impute missing values by last known value
@@ -328,13 +360,19 @@ anyNA(data_eventmeans2)
 data_eventmeans2$condition <- relevel(as.factor(data_eventmeans2$condition), ref = "FullSleep")
 
 # Build models
-lme1 <- lme(mean_event ~ stimulus*condition, data = data_eventmeans2, random = ~ 1|subject/event_no)
+# First model is without pain/no pain stimulus and sleep condition for purpose of technical validation
+lme1 <- lme(mean_event ~ 1, data = data_eventmeans2, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme1)
-plot(effect("stimulus*condition", lme1))
+intervals(lme1)
 
-lme2 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject/event_no)
+lme2 <- lme(mean_event ~ stimulus*condition, data = data_eventmeans2, random = ~ 1|subject)
 summary(lme2)
-plot(effect("stimulus*condition*AgeGroup", lme2))
+intervals(lme2)
+plot(effect("stimulus*condition", lme2))
+
+lme3 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject)
+summary(lme3)
+plot(effect("stimulus*condition*AgeGroup", lme3))
 
 # Determine variability
 data_eventsd <- aggregate(mean_event ~ subject + stimulus + condition, data = data_eventmeans2, FUN = sd)
