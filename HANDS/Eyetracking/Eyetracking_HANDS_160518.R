@@ -1,4 +1,5 @@
-# HEAD
+# Script to analyse eye-tracking in the HANDS experiment
+# Gustav Nilsonne 2016-06-01
 
 # Require packages
 require(nlme)
