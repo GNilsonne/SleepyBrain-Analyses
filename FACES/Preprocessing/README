@@ -1,1 +1,8 @@
 All scripts in this folder were written for SPM12 by Dr Colin Hawco.
+- run_analyses.m is the master script that calls the other scripts. It has inline comments providing some documentation.
+- sleep_segmentT1 performs segmentation
+- segment_QC provides plots to check segmentation
+- dartel_scripts performs DARTEL normalization of T1 images
+- preproc1.m performs slice time correction and realignment with unwarp
+- motion_QC plots estimated motion parameters
+- preproc2.m performs coregistration, normalization with DARTEL, and smoothing
