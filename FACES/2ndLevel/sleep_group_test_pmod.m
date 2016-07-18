@@ -11,9 +11,9 @@ basedir ='e:\sleepdata\ds201_R0.9.0\';
 for ses=1:2;
     %some  partiicpants excluded due to motion or other issues
     if ses == 1
-        ex = [20   49] %ex 28, 38-2, 67-1
+        ex = [20   49] 
     else
-        ex = [20  28 48] %ex 28, 38-2, 67-1
+        ex = [20  28 48] 
     end
     
     condir = [basedir 'GLMs\glm_pmods2\group_pmod2_' num2str(ses) '\'];
