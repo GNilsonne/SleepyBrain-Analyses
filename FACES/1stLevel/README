@@ -1,0 +1,5 @@
+This folder contains scripts to generate event onset files and perform 1st level analyses. In the "Preprocessing" subfolder, there is a master file ("run_analyses.m") that calls these scripts. Scripts were written by dr Colin Hawco, except the script to get event onsets, which was written by Gustav Nilsonne and adapted by Colin Hawco.
+The scripts are:
+- get_sleep_faces_events.m: generates event files
+- sleep_faces_glm.m:        performs 1st-level analyses
+- sleep_faces_glm_pmod.m:   performs 1st-level analyses with a parametric modulator to investigate habituation/sensitization
