@@ -13,7 +13,7 @@ condir = [basedir '\GLMs\ftest\'];
 mkdir(condir)
 
 %participants to exclude, by index in subs variable
-exclude = [20  28 48 49 ] %ex 28, 38-2, 67-1
+exclude = [20  28 48 49 ]
 % matlabbatch{1}.spm.stats.factorial_design.masking.em={'D:\work\FACES\output\ROI_masks\ROI_mask_IPC_right_MNI.img,1'};
 for cdx = 1:size(con_names,1) % loop over contrast numbers
     cdx
