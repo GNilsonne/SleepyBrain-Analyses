@@ -1,9 +1,11 @@
-% This script reads Presentation logfiles and creates Matlab files with event onsets and durations for use in SPM.
-% By Gustav Nilsonne and Hanna Thuné
+function ons = get_sleep_faces_events(pt,ses)
+% This script reads Presentation logfiles and creates Matlab files with
+% event onsets and durations for use in SPM.
 
-files = dir('/data/stress/FACES logfiles/*.log');
-for file = files'
-fid = fopen(fullfile('/data/stress/FACES logfiles/', file.name));
+cd(['e:\sleepdata\PresentationLogFiles\'])
+file = [pwd '\' ls([num2str(pt)   '_' num2str(ses) '*Presentationlogfiles']) '/FACES_sce.log']
+
+fid = fopen(file);
 C = textscan(fid, '%s%s%s%s%n%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s','HeaderLines',5,'Delimiter','\t');
 fclose(fid);
 n=size(C,1);
@@ -41,9 +43,9 @@ for j=1:length(C{1,4}),
     if strcmp(C{1,4}{j}, 'Pic2') == 1
         C{1,4}{j} = 'AllEvents';
     end
-end  
+end
 
-% Remove rows containing "Pulse" or "115", so that additional button up 
+% Remove rows containing "Pulse" or "115", so that additional button up
 % events can be detected as following straight after "Rate" events
 rowstokeep = cellfun('isempty', regexpi(C{1,4}, ('Pulse|115')));
 if length(C{1,5}) < length(C{1,4}),
@@ -62,13 +64,13 @@ end
 
 % Loop over conditions to be modeled
 for condnr = 1:size(names,2),
-
+    
     % Generate output vector
     msd{condnr}=[];
-
+    
     % Find the rows where events occur
     prcond{condnr}=strfind(C{1,4},names2{1,condnr});
-
+    
     % Write rows to output vector
     for k=1:length(C{1,4}),
         if ~isempty(prcond{condnr}{k}),
@@ -129,7 +131,7 @@ end
 msd{1,4} = sort([msd{1,4} extraneousleftbuttonpressesbegin]);
 msd{1,5} = sort([msd{1,5} extraneousrightbuttonpressesbegin]);
 
-% Find event onset times in seconds    
+% Find event onset times in seconds
 for condnr=1:size(names,2),
     onsets{1,condnr}=(C{1,5}(msd{condnr}) - trigg)/10000;
 end
@@ -152,11 +154,13 @@ durations{1,7}=zeros(size(onsets{1,7}));
 %Define duration of PAUSE event, which was always shown for 15000ms
 durations{1,8}= 15.0;
 
-% Try to put in time modulation
-%tmod{1,1}=1;
-%tmod{1,2}=1;
-%tmod{1,3}=1;
-%tmod{1,7}=0;
-
-save(fullfile('/data/stress/FACES_onset_files/', file.name(1:6)),'names','onsets','durations');
+n=1
+for idx = 1:7
+    ons(n:n+size(onsets{idx},1)-1,1)=1;
+    ons(n:n+size(onsets{idx},1)-1,2)=idx;
+    ons(n:n+size(onsets{idx},1)-1,3) = onsets{idx};
+    ons(n:n+size(onsets{idx},1)-1,4) = durations{idx};
+    n = n+size(onsets{idx},1);
 end
+
+
