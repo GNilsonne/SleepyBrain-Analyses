@@ -2,4 +2,4 @@ This folder contains scripts to generate event onset files and perform 1st level
 The scripts are:
 - get_sleep_faces_events.m: generates event files
 - sleep_faces_glm.m:        performs 1st-level analyses
-- sleep_faces_glm_pmod.m:   performs 1st-level analyses with a parametric modulator to investigate habituation/sensitization
+- sleep_faces_glm_pmod.m:   performs 1st-level analyses with parametric modulators to investigate habituation/sensitization
