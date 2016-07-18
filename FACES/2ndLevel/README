@@ -4,9 +4,9 @@ The scripts are:
 - sleep_group_sesstest.m:   Paired t-test for differeces between sleep deprived and full sleep conditions. 
 - sleep_group_agetest.m:    Independent-samples t-test for younger vs older participants, separately for each condition
 - sleep_group_Ftest.m:      Flexible factorial F-test for group by condition analysis
-- sleep_rois_mpfc.m:        Extracts data from mPFC ROI for PPI analysis (ROI can be found on NeuroVault, TODO)
-- sleep_FFA_rois.m:         Extracts data from FFA ROI for PPI analysis (ROI can be found on NeuroVault, TODO)
-- sleep_amyg_rois.m:        Extracts data from amygdala ROI for PPI analysis (ROI can be found on NeuroVault, TODO)
+- sleep_rois_mpfc.m:        Extracts data from mPFC ROI for PPI analysis (ROI can be found on NeuroVault: http://neurovault.org/collections/RLWUZRQN)
+- sleep_FFA_rois.m:         Extracts data from FFA ROI for PPI analysis (ROI:s can be found on NeuroVault: http://neurovault.org/collections/RLWUZRQN)
+- sleep_amyg_rois.m:        Extracts data from amygdala ROI for PPI analysis (ROI:s can be found on NeuroVault: http://neurovault.org/collections/RLWUZRQN)
 - sleep_group_test_PPI.m:   Performs PPI analyses
 - sleep_MPFC_PPI.m:         Analyses functional connectivity from mPFC
 - sleep_faces_glm_pmod.m:   Analyses habituation/sensitization (parametric modulation by time)
