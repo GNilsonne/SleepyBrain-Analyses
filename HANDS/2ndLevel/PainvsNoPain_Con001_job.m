@@ -1,0 +1,274 @@
+%-----------------------------------------------------------------------
+% Job saved on 30-Mar-2015 14:01:03 by cfg_util (rev $Rev: 6134 $)
+% spm SPM - SPM12 (6225)
+% cfg_basicio BasicIO - Unknown
+%-----------------------------------------------------------------------
+matlabbatch{1}.spm.stats.factorial_design.dir = {'/data/stress/HANDS_AGE/2nd_Level/1Sample_Ttest/PainvsNopain_All_150327'};
+%%
+matlabbatch{1}.spm.stats.factorial_design.des.t1.scans = {'/data/stress/HANDS_AGE/45Slices/002_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/015_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/037_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/038_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/040_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/043_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/049_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/070_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/075_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/081_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/086_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/090_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/094_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/104_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/115_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/127_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/129_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/137_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/140_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/143_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/146_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/156_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/45Slices/164_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/165_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/173_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/177_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/188_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/190_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/191_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/194_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/197_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/202_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/210_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/215_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/222_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/227_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/229_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/233_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/240_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/245_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/249_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/250_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/253_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/263_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/267_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/276_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/286_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/295_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/299_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/306_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/313_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/315_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/342_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/352_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/354_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/356_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/357_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/358_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/364_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/376_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/379_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/383_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/389_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/410_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/411_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/425_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/426_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/427_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/429_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/431_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/433_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/436_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/441_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/446_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/448_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/451_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/457_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/460_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/466_2/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/470_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/472_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/475_1/1st_level_150320/con_0003.nii,1'
+                                                          '/data/stress/HANDS_AGE/46Slices/497_2/1st_level_150320/con_0003.nii,1'};
+%%
+%%
+matlabbatch{1}.spm.stats.factorial_design.cov(1).c = [0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      0
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      0];
+%%
+matlabbatch{1}.spm.stats.factorial_design.cov(1).cname = 'AGE';
+matlabbatch{1}.spm.stats.factorial_design.cov(1).iCFI = 1;
+matlabbatch{1}.spm.stats.factorial_design.cov(1).iCC = 1;
+%%
+matlabbatch{1}.spm.stats.factorial_design.cov(2).c = [2
+                                                      1
+                                                      1
+                                                      2
+                                                      2
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      2
+                                                      2
+                                                      1
+                                                      2
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      2
+                                                      2
+                                                      2
+                                                      2
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      2
+                                                      1
+                                                      2
+                                                      1
+                                                      2
+                                                      2
+                                                      2
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      2
+                                                      1
+                                                      1
+                                                      1
+                                                      2];
+%%
+matlabbatch{1}.spm.stats.factorial_design.cov(2).cname = 'SESSION';
+matlabbatch{1}.spm.stats.factorial_design.cov(2).iCFI = 1;
+matlabbatch{1}.spm.stats.factorial_design.cov(2).iCC = 1;
+matlabbatch{1}.spm.stats.factorial_design.multi_cov = struct('files', {}, 'iCFI', {}, 'iCC', {});
+matlabbatch{1}.spm.stats.factorial_design.masking.tm.tm_none = 1;
+matlabbatch{1}.spm.stats.factorial_design.masking.im = 1;
+matlabbatch{1}.spm.stats.factorial_design.masking.em = {'/data/stress/Structural_HANDSAll/BinarisedMASK.nii,1'};
+matlabbatch{1}.spm.stats.factorial_design.globalc.g_omit = 1;
+matlabbatch{1}.spm.stats.factorial_design.globalm.gmsca.gmsca_no = 1;
+matlabbatch{1}.spm.stats.factorial_design.globalm.glonorm = 1;
