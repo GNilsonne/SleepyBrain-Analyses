@@ -1,0 +1,6 @@
+This folder contains scripts for 2nd-level analyses.
+- PainvsNoPain_MASKAll_150330_job.m:    Creates gray matter mask from DARTEL template
+- PainvsNoPain_Age_Session_job.m:       T-test for pain vs no pain with age group and session as covariates
+- PainvsNoPain_Con001_job.m:            Redundant with above? CHECK!
+- PainvsNoPain_Con003_job.m:            Redundant with above? CHECK!   
+- PainvsNoPain_Session_job.m:           T-test with session but not age as covariate
