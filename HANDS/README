@@ -1,1 +1,12 @@
+Scripts for fMRI analyses are found in the following folders:
+- Preprocessing
+- 1stLevel
+- 2ndLevel
+- Extract_ROI_data
+- MarsBar
+- PPI
 
+Scripts for behavioral and other physiological outcomes are in the following folders:
+- Ratings
+- Eyetracking
+- Heart_rate_HANDS
