@@ -1,0 +1,1074 @@
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Script to analyze brain activity in HANDS experiment
+% Sandra Tamm 141215
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+%\lstset{breaklines=true}
+
+\usepackage{listings}
+\usepackage{inconsolata}
+
+% Do some things to fix word wrap for listings
+<<echo=FALSE>>=
+  options(width=60)
+
+  listing <- function(x, options) {
+    paste("\\begin{lstlisting}[basicstyle=\\ttfamily,breaklines=true]\n",
+      x, "\\end{lstlisting}\n", sep = "")
+  }
+  knit_hooks$set(source=listing, output=listing)
+@
+
+
+\setlength{\topmargin}{-15mm}
+\setlength{\oddsidemargin}{-2mm}
+\setlength{\textwidth}{165mm}
+\setlength{\textheight}{250mm}
+
+\begin{document}
+
+
+\title{Analysis of Brain activity in the HANDS experiment (contrast Pain vs No Pain mean ROI values extracted). Sleepy Brain Project}
+\author{Sandra Tamm}
+\maketitle
+<<tidy = FALSE, warning = TRUE>>=
+  
+## Load packages
+require(nlme)
+
+# Write function for diagnostic plots of lme objects
+diagnostic <- function(x){
+  # Residuals for testing of homogeneity
+  plot(fitted(x), residuals(x), xlab = "Fitted Values", ylab = "Residuals", main = "Residuals vs Fitted")
+  abline(h=0, lty=2)
+  # Residuals for testing of normality
+  hist(residuals(x), main = "Histogram of Residuals")
+}
+
+# ADD INCLUSION LIST
+
+## Get the Beta values
+Data_Pain <- read.delim("~/Box Sync/Sleepy Brain/Datafiles/fMRI_HANDS/ExtractedBetas/Data_MCC_AI_IPC_beta_Pain")
+Data_NoPain <- read.delim("~/Box Sync/Sleepy Brain/Datafiles/fMRI_HANDS/ExtractedBetas/Data_MCC_AI_IPC_beta_NoPain")
+Data_BetaEstimates <- merge(Data_Pain, Data_NoPain, by.x = c("Subject", "Session"), by.y = c("Subject", "Session"))
+
+# Get KSS data
+KSSData <- read.csv("~/Box Sync/Sleepy Brain//Datafiles/140911_KSSData.csv", sep=";")
+Data_KSS4Ratings <- subset(KSSData, RatingNo == 4)
+
+# Merge KSS with brain data
+Data_BetaEstimates <- merge(Data_BetaEstimates, Data_KSS4Ratings, by.x = c("Subject", "Session"), by.y = c("Subject", "Session"))
+
+
+# Get demographic data
+Demographic <- read.csv("~/Box Sync/Sleepy Brain//Datafiles/140901_Demographic.csv", sep=";", dec=",")
+Data_BetaEstimates <- merge(Data_BetaEstimates, Demographic, by = "Subject")
+
+
+# Get PSG data
+PSGData <- read.csv("~/Box Sync/Sleepy Brain/Datafiles/SleepData_140901.csv", sep=";", dec=",")
+Data_BetaEstimates_2 <- merge(Data_BetaEstimates, PSGData, by.x = c("Subject", "Session"), by.y = c("Subject", "Session"))
+Data_BetaEstimates_2 <- Data_BetaEstimates_2[with(Data_BetaEstimates_2, order(Subject, Date)), ]
+
+
+# Make columns for sleep measures as absolute time
+Data_BetaEstimates_2$St3_min <- Data_BetaEstimates_2$St3_.*Data_BetaEstimates_2$TST/100
+Data_BetaEstimates_2$REM_min <- Data_BetaEstimates_2$REM_.*Data_BetaEstimates_2$TST/100
+
+
+# Subject list 
+#IncludedSubjects <- read.table("~/Dropbox/Sleepy Brain (1)/Datafiles/Subjects_140818.csv", sep=";", header=T)
+#SuccessfullIntervention <- as.integer(IncludedSubjects$CanBeIncludedForInterventionEffectsWithMRI)
+#CompletedScanning <- as.integer(IncludedSubjects$CompletedScanning)
+
+# Retain only subjects in list
+#Data_SuccessfullIntervention <- AllSleepSessions[AllSleepSessions$Subject %in% as.integer(SuccessfullIntervention), ]
+#Data_CompletedScanning <- AllSleepSessions[AllSleepSessions$Subject %in% as.integer(SuccessfullIntervention), ]
+
+
+# Remove all NA:S
+#Data_SuccessfullIntervention <- subset(Data_SuccessfullIntervention, Session != NA)
+@
+
+
+Plots for deprivation conditions...
+<<tidy = FALSE, warning = TRUE>>=
+## Plot activation (Pain vs Pain) per deprivation condition
+#
+boxplot(subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$MCC_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$MCC_NoPain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$MCC_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$MCC_NoPain, main = "Effect of PSD on caudal part of ACC", col = c("red", "blue", "red", "blue"), at = c(1,2,3,4), names = c("Pain_PSD", "NoPain_PSD", "Pain_FullSleep", "NoPain_FullSleep"))
+
+boxplot(subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$AI_L_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$AI_L_NoPain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$AI_L_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$AI_L_NoPain, main = "Effect of PSD on anterior Insula, left", col = c("red", "blue", "red", "blue"), at = c(1,2,3,4), names = c("Pain_PSD", "NoPain_PSD", "Pain_FullSleep", "NoPain_FullSleep"))
+
+boxplot(subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$AI_R_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Sleep Deprived")$AI_R_NoPain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$AI_R_Pain, subset(Data_BetaEstimates, DeprivationCondition == "Not Sleep Deprived")$AI_R_NoPain, main = "Effect of PSD on anterior Insula, right", col = c("red", "blue", "red", "blue"), at = c(1,2,3,4), names = c("Pain_PSD", "NoPain_PSD", "Pain_FullSleep", "NoPain_FullSleep"))
+
+## Left Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_L ~ DeprivationCondition, data = Data_SuccessfullIntervention,
+          main = "Activation by deprivation condition (Pain vs No Pain), All",
+          ylab = "Anterior Insula, left", ylim = c(-4, 3))
+
+boxplot(AI_L ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Young",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_L ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Old",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+## Right Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_R ~ DeprivationCondition, data = Data_SuccessfullIntervention,
+          main = "Activation by deprivation condition (Pain vs No Pain), All",
+          ylab = "Anterior Insula, right", ylim = c(-4, 3))
+
+boxplot(AI_R ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Young",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_R ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Old",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+
+# Anterior/medial Cingulate Cortex
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(MCC ~ DeprivationCondition, data = Data_SuccessfullIntervention,
+          main = "Activation by deprivation condition (Pain vs No Pain), All",
+          ylab = "Anterior/medial Cingulate Cortex", ylim = c(-4, 3))
+
+boxplot(MCC ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Young",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(MCC ~ DeprivationCondition, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by deprivation condition \n(Pain vs No Pain), Old",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+
+@
+
+Effect of session
+<<tidy = FALSE, warning = TRUE>>=
+## Left Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_L ~ Session, data = Data_SuccessfullIntervention,
+          main = "Activation by Session, All",
+          ylab = "Anterior Insula, left", ylim = c(-4, 3))
+
+boxplot(AI_L ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Session Young",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_L ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Session, Old",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+## Right Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_R ~ Session, data = Data_SuccessfullIntervention,
+          main = "Activation by Session, All",
+          ylab = "Anterior Insula, right", ylim = c(-4, 3))
+
+boxplot(AI_R ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Session, Young",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_R ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Session, Old",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+
+# Anterior/medial Cingulate Cortex
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(MCC ~ Session, data = Data_SuccessfullIntervention,
+          main = "Activation by Session, All",
+          ylab = "Anterior/medial Cingulate Cortex", ylim = c(-4, 3))
+
+boxplot(MCC ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Session, Young",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(MCC ~ Session, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Session, Old",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+@
+
+Effect of sex
+<<tidy = FALSE, warning = TRUE>>=
+## Left Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_L ~ Sex, data = Data_SuccessfullIntervention,
+          main = "Activation by Sex, All",
+          ylab = "Anterior Insula, left", ylim = c(-4, 3))
+
+boxplot(AI_L ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Sex Young",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_L ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Sex, Old",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+## Right Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_R ~ Sex, data = Data_SuccessfullIntervention,
+          main = "Activation by Sex, All",
+          ylab = "Anterior Insula, right", ylim = c(-4, 3))
+
+boxplot(AI_R ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Sex, Young",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_R ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Sex, Old",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+
+# Anterior/medial Cingulate Cortex
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(MCC ~ Sex, data = Data_SuccessfullIntervention,
+          main = "Activation by Sex, All",
+          ylab = "Anterior/medial Cingulate Cortex", ylim = c(-4, 3))
+
+boxplot(MCC ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by Sex, Young",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(MCC ~ Sex, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by Sex, Old",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+@
+
+Effect of TestTimeType
+<<tidy = FALSE, warning = TRUE>>=
+## Left Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_L ~ TestTimeType, data = Data_SuccessfullIntervention,
+          main = "Activation by TestTimeType, All",
+          ylab = "Anterior Insula, left", ylim = c(-4, 3))
+
+boxplot(AI_L ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by TestTimeType Young",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_L ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by TestTimeType, Old",
+          ylab = "Anterior Insula, left", cex.axis = 0.8, ylim = c(-4, 3))
+
+## Right Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_R ~ TestTimeType, data = Data_SuccessfullIntervention,
+          main = "Activation by TestTimeType, All",
+          ylab = "Anterior Insula, right", ylim = c(-4, 3))
+
+boxplot(AI_R ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by TestTimeType, Young",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(AI_R ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by TestTimeType, Old",
+          ylab = "Anterior Insula, right", cex.axis = 0.8, ylim = c(-4, 3))
+
+
+# Anterior/medial Cingulate Cortex
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(MCC ~ TestTimeType, data = Data_SuccessfullIntervention,
+          main = "Activation by TestTimeType, All",
+          ylab = "Anterior/medial Cingulate Cortex", ylim = c(-4, 3))
+
+boxplot(MCC ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"),
+          main = "Activation by TestTimeType, Young",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+boxplot(MCC ~ TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"),
+          main = "Activation by TestTimeType, Old",
+          ylab = "Anterior/medial Cingulate Cortex", cex.axis = 0.8, ylim = c(-4, 3))
+
+@
+
+Effect of age group
+<<tidy = FALSE, warning = TRUE>>=
+## Left Insula
+boxplot(AI_L ~ AgeGroup, data = Data_SuccessfullIntervention,
+          main = "Activation by AgeGroup, All",
+          ylab = "Anterior Insula, left", ylim = c(-4, 3))
+
+
+## Right Insula
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(AI_R ~ AgeGroup, data = Data_SuccessfullIntervention,
+          main = "Activation by AgeGroup, All",
+          ylab = "Anterior Insula, right", ylim = c(-4, 3))
+
+
+# Anterior/medial Cingulate Cortex
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+boxplot(MCC ~ AgeGroup, data = Data_SuccessfullIntervention,
+          main = "Activation by AgeGroup, All",
+          ylab = "Anterior/medial Cingulate Cortex", ylim = c(-4, 3))
+@
+
+
+Test effect of possible confounders
+<<tidy = FALSE, warning = TRUE>>=
+# Session (1 or 2)
+# All
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Young
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session, data = subset(Data_SuccessfullIntervention_Young, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Old
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session, data = subset(Data_SuccessfullIntervention_Old, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+@
+Session is not significant on brain activity, but on ratings of unpleasantness. Should be included in the model.
+
+
+<<tidy = FALSE, warning = TRUE>>=
+# Sex
+# All
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Young
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex, data = subset(Data_SuccessfullIntervention_Young, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Old
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex, data = subset(Data_SuccessfullIntervention_Old, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+@
+Sex is borderline significant on brain activity in young, and significant on ratings of unpleasantness. Should be included in the model.
+
+
+<<tidy = FALSE, warning = TRUE>>=
+# TestTimeType
+# All
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Young
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention_Young, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Old
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention_Old, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+@
+TestTimeType is not significant on brain activity and not significant on ratings of unpleasantness. Interaction with condition is significant. Should be included in the model.
+
+<<tidy = FALSE, warning = TRUE>>=
+# AgeGroup
+# All
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + AgeGroup, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+@
+AgeGroup is not significant on brain activity and not significant on ratings of unpleasantness. Interaction with condition and should be included in the model.
+
+
+
+
+<<tidy = FALSE, warning = TRUE>>=
+# Hyphotesis testing
+# All
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType + AgeGroup, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Young
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+# Old
+ModelAI_L <- lme(AI_L ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_L)
+anova(ModelAI_L)
+
+
+
+# Hyphotesis testing
+# Insula, right
+# All
+ModelAI_R <- lme(AI_R ~ DeprivationCondition + Session + Sex + TestTimeType + AgeGroup, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_R)
+anova(ModelAI_R)
+
+# Young
+ModelAI_R <- lme(AI_R ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_R)
+anova(ModelAI_R)
+
+# Old
+ModelAI_R <- lme(AI_R ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelAI_R)
+anova(ModelAI_R)
+
+
+
+# Hyphotesis testing
+# Medial/anterior cingulate cortex
+# All
+ModelMCC <- lme(MCC ~ DeprivationCondition + Session + Sex + TestTimeType + AgeGroup, data = Data_SuccessfullIntervention, random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelMCC)
+anova(ModelMCC)
+
+# Young
+ModelMCC <- lme(MCC ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelMCC)
+anova(ModelMCC)
+
+# Old
+ModelMCC <- lme(MCC ~ DeprivationCondition + Session + Sex + TestTimeType, data = subset(Data_SuccessfullIntervention, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
+diagnostic(ModelMCC)
+anova(ModelMCC)
+
+
+@
+Conclusions!
+
+
+<<tidy = FALSE, warning = TRUE>>=
+## Plot activation (Pain vs No Pain) and KSS (all)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ KSS_Rating, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = Data_CompletedScanning))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ KSS_Rating, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = Data_CompletedScanning))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ KSS_Rating, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = Data_CompletedScanning))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+
+## Plot activation (Pain vs No Pain) and KSS (only Young)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ KSS_Rating, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Young",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = Data_CompletedScanning_Young))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ KSS_Rating, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Young",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = Data_CompletedScanning_Young))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ KSS_Rating, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Young",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = Data_CompletedScanning_Young))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+## Plot activation (Pain vs No Pain) and KSS (only Old)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ KSS_Rating, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Old",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = Data_CompletedScanning_Old))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ KSS_Rating, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Old",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = Data_CompletedScanning_Old))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ KSS_Rating, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. KSS rating, All Old",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = Data_CompletedScanning_Old))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. KSS rating, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ KSS_Rating, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+@
+
+
+Maybe not?
+<<tidy = FALSE, warning = TRUE>>=
+# Hypothesis testing
+lme_AIL_KSS <- lme(AI_L ~ KSS + Session, data = AllSessionsKSS_demographics_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_KSS, type = "marginal")
+            diagnostic(lme_AIL_KSS)
+
+lme_AIL_KSS <- lme(AI_L ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_KSS, type = "marginal")
+            diagnostic(lme_AIL_KSS)
+
+lme_AIL_KSS <- lme(AI_L ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_KSS, type = "marginal")
+            diagnostic(lme_AIL_KSS)
+
+
+# Hypothesis testing
+lme_AIR_KSS <- lme(AI_R ~ KSS + Session, data = AllSessionsKSS_demographics_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_KSS, type = "marginal")
+            diagnostic(lme_AIR_KSS)
+
+lme_AIR_KSS <- lme(AI_R ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_KSS, type = "marginal")
+            diagnostic(lme_AIR_KSS)
+
+lme_AIR_KSS <- lme(AI_R ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_KSS, type = "marginal")
+            diagnostic(lme_AIR_KSS)
+
+
+
+# Hypothesis testing
+lme_MCC_KSS <- lme(MCC ~ KSS + Session, data = AllSessionsKSS_demographics_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_KSS, type = "marginal")
+            diagnostic(lme_MCC_KSS)
+
+lme_MCC_KSS <- lme(MCC ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_KSS, type = "marginal")
+            diagnostic(lme_MCC_KSS)
+
+lme_MCC_KSS <- lme(MCC ~ KSS + Session, data = subset(AllSessionsKSS_demographics_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_KSS, type = "marginal")
+            diagnostic(lme_MCC_KSS)
+
+
+
+@
+
+
+<<tidy = FALSE, warning = TRUE>>=
+## Plot activation (Pain vs No Pain) and TST (all)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ TST, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. TST, All",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = Data_CompletedScanning))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ TST, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. TST, All",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = Data_CompletedScanning))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ TST, data = Data_CompletedScanning,
+        main = "Activation (Pain vs No Pain) vs. TST, All",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = Data_CompletedScanning))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+## Plot activation (Pain vs No Pain) and TST (only Young)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ TST, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. TST, All Young",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = Data_CompletedScanning_Young))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ TST, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. TST, All Young",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = Data_CompletedScanning_Young))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ TST, data = Data_CompletedScanning_Young,
+        main = "Activation (Pain vs No Pain) vs. TST, All Young",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = Data_CompletedScanning_Young))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning_Young, DeprivationCondition == "Not Sleep Deprived")))
+
+## Plot activation (Pain vs No Pain) and TST (only Old)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ TST, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. TST, All Old",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = Data_CompletedScanning_Old))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_L ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ TST, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. TST, All Old",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = Data_CompletedScanning_Old))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(AI_R ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ TST, data = Data_CompletedScanning_Old,
+        main = "Activation (Pain vs No Pain) vs. TST, All Old",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = Data_CompletedScanning_Old))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Sleep Deprived")))
+
+plot(MCC ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. TST, Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ TST, data = subset(Data_CompletedScanning_Old, DeprivationCondition == "Not Sleep Deprived")))
+
+
+@
+
+
+<<tidy = FALSE, warning = TRUE>>=
+# Hypothesis testing
+lme_AIL_TST <- lme(AI_L ~ TST + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_TST, type = "marginal")
+            diagnostic(lme_AIL_TST)
+
+lme_AIL_TST <- lme(AI_L ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_TST, type = "marginal")
+            diagnostic(lme_AIL_TST)
+
+lme_AIL_TST <- lme(AI_L ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_TST, type = "marginal")
+            diagnostic(lme_AIL_TST)
+
+
+
+
+
+
+# Hypothesis testing
+lme_AIR_TST <- lme(AI_R ~ TST + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_TST, type = "marginal")
+            diagnostic(lme_AIR_TST)
+
+lme_AIR_TST <- lme(AI_R ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_TST, type = "marginal")
+            diagnostic(lme_AIR_TST)
+
+lme_AIR_TST <- lme(AI_R ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_TST, type = "marginal")
+            diagnostic(lme_AIR_TST)
+
+
+
+
+# Hypothesis testing
+lme_MCC_TST <- lme(MCC ~ TST + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_TST, type = "marginal")
+            diagnostic(lme_MCC_TST)
+
+lme_MCC_TST <- lme(MCC ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_TST, type = "marginal")
+            diagnostic(lme_MCC_TST)
+
+lme_MCC_TST <- lme(MCC ~ TST + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_TST, type = "marginal")
+            diagnostic(lme_MCC_TST)
+
+
+
+## Plot activation (Pain vs No Pain) and REM (only Young)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ REM_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. REM (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ REM_min, data = AllSessions_PSG_Young))
+
+plot(AI_L ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(AI_L ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+# Hypothesis testing
+lme_AIL_REM <- lme(AI_L ~ REM_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_REM, type = "marginal")
+            diagnostic(lme_AIL_REM)
+
+lme_AIL_REM <- lme(AI_L ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_REM, type = "marginal")
+            diagnostic(lme_AIL_REM)
+
+lme_AIL_REM <- lme(AI_L ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_REM, type = "marginal")
+            diagnostic(lme_AIL_REM)
+
+
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ REM_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. REM (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ REM_min, data = AllSessions_PSG_Young))
+
+plot(AI_R ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(AI_R ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+# Hypothesis testing
+lme_AIR_REM <- lme(AI_R ~ REM_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_REM, type = "marginal")
+            diagnostic(lme_AIR_REM)
+
+lme_AIR_REM <- lme(AI_R ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_REM, type = "marginal")
+            diagnostic(lme_AIR_REM)
+
+lme_AIR_REM <- lme(AI_R ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_REM, type = "marginal")
+            diagnostic(lme_AIR_REM)
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ REM_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. REM (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(MCC ~ REM_min, data = AllSessions_PSG_Young))
+
+plot(MCC ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(MCC ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. REM (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ REM_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+# Hypothesis testing
+lme_MCC_REM <- lme(MCC ~ REM_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_REM, type = "marginal")
+            diagnostic(lme_MCC_REM)
+
+lme_MCC_REM <- lme(MCC ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_REM, type = "marginal")
+            diagnostic(lme_MCC_REM)
+
+lme_MCC_REM <- lme(MCC ~ REM_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_REM, type = "marginal")
+            diagnostic(lme_MCC_REM)
+
+
+## Plot activation (Pain vs No Pain) and SWS (only Young)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_L ~ St3_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. SWS (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ St3_min, data = AllSessions_PSG_Young))
+
+plot(AI_L ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(AI_L ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_L ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+# Hypothesis testing
+lme_AIL_St3 <- lme(AI_L ~ St3_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_St3, type = "marginal")
+            diagnostic(lme_AIL_St3)
+
+lme_AIL_St3 <- lme(AI_L ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_St3, type = "marginal")
+            diagnostic(lme_AIL_St3)
+
+lme_AIL_St3 <- lme(AI_L ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIL_St3, type = "marginal")
+            diagnostic(lme_AIL_St3)
+
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(AI_R ~ St3_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. SWS (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ St3_min, data = AllSessions_PSG_Young))
+
+plot(AI_R ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(AI_R ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(AI_R ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+
+# Hypothesis testing
+lme_AIR_St3 <- lme(AI_R ~ St3_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_St3, type = "marginal")
+            diagnostic(lme_AIR_St3)
+
+lme_AIR_St3 <- lme(AI_R ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_St3, type = "marginal")
+            diagnostic(lme_AIR_St3)
+
+lme_AIR_St3 <- lme(AI_R ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_AIR_St3, type = "marginal")
+            diagnostic(lme_AIR_St3)
+
+
+
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+plot(MCC ~ St3_min, data = AllSessions_PSG_Young,
+        main = "Activation (Pain vs No Pain) vs. SWS (absolute), All Young",
+        ylim = c(-3,5))
+abline(lm(MCC ~ St3_min, data = AllSessions_PSG_Young))
+
+plot(MCC ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived")))
+
+plot(MCC ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"),
+        main = "Activation (Pain vs No Pain) \nvs. SWS (absolute), Not Sleep Deprived",
+        ylim = c(-3,5))
+abline(lm(MCC ~ St3_min, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived")))
+
+# Hypothesis testing
+lme_MCC_St3 <- lme(MCC ~ St3_min + Session, data = AllSessions_PSG_Young, random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_St3, type = "marginal")
+            diagnostic(lme_MCC_St3)
+
+lme_MCC_St3 <- lme(MCC ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_St3, type = "marginal")
+            diagnostic(lme_MCC_St3)
+
+lme_MCC_St3 <- lme(MCC ~ St3_min + Session, data = subset(AllSessions_PSG_Young, SleepCondition == "Not Sleep Deprived"), random = ~ 1|Subject, na.action = na.omit)
+            anova(lme_MCC_St3, type = "marginal")
+            diagnostic(lme_MCC_St3)
+
+@
+
+
+
+\end{document}
