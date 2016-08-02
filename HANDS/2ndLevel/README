@@ -2,6 +2,9 @@ This folder contains scripts for 2nd-level analyses. Main analyses:
 - PainBaseline_all_concatinated_nocov_160321_job.m:                   Pain vs baseline, uses estimate for each participant, with both sessions included for most participants but only one session included for some participants
 - PainNoPain_all_concatinated_nocov_160321_job.m:                     Pain vs no pain, uses estimate for each participant, with both sessions included for most participants but only one session included for some participants
 - PainXRatedUnpleasantnessvsBaseline_all_nocovariates_150825_job.m:   Pain vs baseline with rated unpleasantness as parametric modulator
+- AgeXSleep_painvsnopain_160323_job.m:                                Effects of sleep condition and age group on pain vs no pain contrast, factorial design
+- AgeXSleep_painvsbaseline_160323_job.m:                              Effects of sleep condition and age group on pain vs baseline contrast, factorial design
+- AgeXSleep_nopainvsbaseline_160323_job.m:                            Effects of sleep condition and age group on no pain vs baseline contrast, factorial design
 
 Analyses of covariates for the purpose of sensitivity:
 - PainvsBaseline_all_TestTimeType_150825_job.m:                       Pain vs baseline, test time type (early/late) as covariate
