@@ -1,0 +1,3 @@
+These scripts were used to extract data from regions of interest in anterior insula and anterior cingulate cortices. ROI:s were fefined as 10 mm spheres surrounding peak coordinates from a meta-analysis by Lamm et al, and are available at: http://neurovault.org/collections/IXIQPJMD/.
+- extract_means_spheres_1510227.m:                  Pain vs no pain contrast
+- extract_means_spheres_painvsbaseline_1510227.m    Pain vs baseline contrast
