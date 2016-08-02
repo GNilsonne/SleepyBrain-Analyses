@@ -2,4 +2,4 @@ These scripts were written by Sandra Tamm.
 
 There is a script to read Presentation logfiles and generate Matlab objects with event onsets and duration.
 
-There is also an SPM12 batch script to perform 1st level analysis.
+There are two SPM12 batch scripts to perform 1st level analysis. The script with "combined" in the file name models the two sessions as within-subjects and includes only those participants that have data from both sessions. The other 1st level script models all sessions as independent and includes every session for which data were available and could be included.
