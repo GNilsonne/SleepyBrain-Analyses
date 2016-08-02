@@ -1,5 +1,11 @@
 These scripts were written by Sandra Tamm.
 
-There is a script to read Presentation logfiles and generate Matlab objects with event onsets and duration.
+Three different 1st-level analysis scripts were used:
+- 1st_level_combined_160304_job.m:      Models the two sessions as within-subjects and includes only those participants that have data from both sessions.
+- first_level_150320_job.m:             Models all sessions as independent and includes every session for which data were available and could be included.
+- first_level_Modulated_1506232_job.m:  Models all sessions as independent and includes rated unpleasantness as a parametric modulator
 
-There are two SPM12 batch scripts to perform 1st level analysis. The script with "combined" in the file name models the two sessions as within-subjects and includes only those participants that have data from both sessions. The other 1st level script models all sessions as independent and includes every session for which data were available and could be included.
+Two scripts were used to read Presentation logfiles and create Matlab objects with event onsets and durations:
+- ScriptToGetOnsetsHANDS_150319.m:            Without parametric modulator
+- ScriptToGetOnsetsHANDS_modulated_150623.m:  WIth rated unpleasantness as parametric modulator
+
