@@ -1,6 +1,14 @@
-This folder contains scripts for 2nd-level analyses.
-- PainvsNoPain_MASKAll_150330_job.m:    T-test for pain vs no pain with age group and session as covariates and gray matter mask
-- PainvsNoPain_Age_Session_job.m:       T-test for pain vs no pain with age group and session as covariates
-- PainvsNoPain_Con001_job.m:            Redundant with above? CHECK!
-- PainvsNoPain_Con003_job.m:            Redundant with above? CHECK!   
-- PainvsNoPain_Session_job.m:           T-test with session but not age as covariate
+This folder contains scripts for 2nd-level analyses. Main analyses:
+- PainBaseline_all_concatinated_nocov_160321_job.m:                   Pain vs baseline, uses estimate for each participant, with both sessions included for most participants but only one session included for some participants
+- PainNoPain_all_concatinated_nocov_160321_job.m:                     Pain vs no pain, uses estimate for each participant, with both sessions included for most participants but only one session included for some participants
+- PainXRatedUnpleasantnessvsBaseline_all_nocovariates_150825_job.m:   Pain vs baseline with rated unpleasantness as parametric modulator
+
+Analyses of covariates for the purpose of sensitivity:
+- PainvsBaseline_all_TestTimeType_150825_job.m:                       Pain vs baseline, test time type (early/late) as covariate
+- PainvsBaseline_all_session_150825_job.m:                            Pain vs baseline, session (first/second) as covariate
+- PainvsBaseline_all_sex_150825_job.m:                                Pain vs baseline, sex (male/female) as covariate
+- PainvsNoPain_all_TestTimeType_150824_job.m:                         Pain vs no pain, test time type (early/late) as covariate
+- PainvsNoPain_all_session_150824_job.m:                              Pain vs no pain, session (first/second) as covariate
+- PainvsNoPain_all_sex_150824_job.m:                                  Pain vs no pain, sex (male/female) as covariate
+
+Note: analyses of covariates were based on 1st-level contrasts not used in main analyses above, see 1st-level scripts.
