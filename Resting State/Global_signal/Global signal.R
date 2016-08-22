@@ -1,4 +1,4 @@
-# Script to analyse global signal amplitude
+# Script to analyse global signal and its variance
 
 # Require packages
 require(xtable)
@@ -43,7 +43,7 @@ for (i in 1:length(files_S4)){
 
 ########################
 
-# Calculate global signal amplitude and other measures and put in data frame
+# Calculate global signal variance and other measures and put in data frame
 fun_rms <- function(x) sqrt(mean(x^2))
 
 data_glob <- data.frame(
@@ -151,7 +151,7 @@ plot(effect("condition*AgeGroup", lm1))
 
 pdf("GS.pdf", height = 6, width = 6) 
 par(mar = c(4, 5, 1, 2))
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(2.3, 3.1), xlab = "", ylab = "Global signal amplitude (ln sd)", xaxt = "n", type = "n")
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(2.3, 3.1), xlab = "", ylab = "Global signal variability (ln SD)", xaxt = "n", type = "n")
 axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
 lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lm1)$fit[1:2], pch = 16, col = cols[3], type = "b", lwd = 1.5)
 lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lm1)$fit[3:4], pch = 16, col = cols[2], type = "b", lwd = 1.5)
@@ -1115,3 +1115,143 @@ outtable2$p_sleepdeprived[outtable2$p_sleepdeprived > 0.01] <- round(outtable2$p
 outtable2$p_bothconditions[outtable2$p_bothconditions > 0.001] <- round(outtable2$p_bothconditions[outtable2$p_bothconditions > 0.001], 3)
 
 print.xtable(xtable(outtable2), include.rownames = F, type="html", file="GS_covariates2.html")
+
+#######################
+
+# Frequency analyses
+
+test <- fft(covs_S1[[1]])
+
+magn <- Mod(test)
+magn.1 <- magn[1:(length(magn)/2)] 
+plot(magn,type="l")
+plot(magn.1,type="l")
+x.axis <- 1:length(magn.1)/(163*2.5)
+plot(x=x.axis,y=magn.1,type="l", xlab = "frequency", ylab = "magnitude", xlim = c(0.002, 0.006), frame.plot = F)
+
+magn2 <- Mod(fft(covs_S2[[1]]))
+lines(x=x.axis,y=magn2[1:(length(magn2)/2)], col = "red")
+
+legend("topright", lty = 1, col = c("black", "red"), legend = c("full sleep", "sleep deprived"), bty = "n")
+
+# Conclusion: Pointless at present sampling rate
+
+#######################
+
+# Analyse global signal variance for different brain areas
+# ROI time courses were extracted using DPARFSA and the Harvard-Oxford atlas
+
+# Read files
+files_S1b <- list.files("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/FunImgARWSDFCB_ROISignals", pattern = c("ROISignals", ".txt"))
+files_S1b <- files_S1b[(seq(2, 106, 2))] # Workaround to get only .txt files
+for (i in 1:length(files_S1b)){
+  data <- read.table(paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/FunImgARWSDFCB_ROISignals/", files_S1b[i], sep = ""))
+  sd <- apply(data, 2, FUN = sd)
+  if (i == 1){
+    data_S1b <- data.frame(matrix(sd, ncol = 112))
+  } else {
+    data_S1b <- rbind(data_S1b, sd)
+  }
+}
+data_S1b$file = files_S1b
+data_S1b$run = 1
+
+files_S2b <- list.files("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S2_FunImgARWSDFCB_ROISignals", pattern = c("ROISignals", ".txt"))
+files_S2b <- files_S2b[(seq(2, 106, 2))] # Workaround to get only .txt files
+for (i in 1:length(files_S2b)){
+  data <- read.table(paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S2_FunImgARWSDFCB_ROISignals/", files_S2b[i], sep = ""))
+  sd <- apply(data, 2, FUN = sd)
+  if (i == 1){
+    data_S2b <- data.frame(matrix(sd, ncol = 112))
+  } else {
+    data_S2b <- rbind(data_S2b, sd)
+  }
+}
+data_S2b$file = files_S2b
+data_S2b$run = 2
+
+files_S3b <- list.files("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S3_FunImgARWSDFCB_ROISignals", pattern = c("ROISignals", ".txt"))
+files_S3b <- files_S3b[(seq(2, 106, 2))] # Workaround to get only .txt files
+for (i in 1:length(files_S3b)){
+  data <- read.table(paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S3_FunImgARWSDFCB_ROISignals/", files_S3b[i], sep = ""))
+  sd <- apply(data, 2, FUN = sd)
+  if (i == 1){
+    data_S3b <- data.frame(matrix(sd, ncol = 112))
+  } else {
+    data_S3b <- rbind(data_S3b, sd)
+  }
+}
+data_S3b$file = files_S3b
+data_S3b$run = 3
+
+files_S4b <- list.files("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S4_FunImgARWSDFCB_ROISignals", pattern = c("ROISignals", ".txt"))
+files_S4b <- files_S4b[(seq(2, 106, 2))] # Workaround to get only .txt files
+for (i in 1:length(files_S4b)){
+  data <- read.table(paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/S4_FunImgARWSDFCB_ROISignals/", files_S4b[i], sep = ""))
+  sd <- apply(data, 2, FUN = sd)
+  if (i == 1){
+    data_S4b <- data.frame(matrix(sd, ncol = 112))
+  } else {
+    data_S4b <- rbind(data_S4b, sd)
+  }
+}
+data_S4b$file = files_S4b
+data_S4b$run = 4
+
+data_sd <- rbind(data_S1b, data_S2b)
+data_sd <- rbind(data_sd, data_S3b)
+data_sd <- rbind(data_sd, data_S4b)
+
+data_sd$id <- as.integer(substr(data_sd$file, 12, 14))
+
+#data_sd <- merge(data_sd, subjects, by.x = "id", by.y = "subject", all.x = T)
+data_sd <- merge(data_sd, randlist[, 1:2], by.x = "id", by.y = "Subject", all.x = T)
+
+data_sd$condition <- "fullsleep"
+data_sd$condition[data_sd$run == 1 & data_sd$Sl_cond == 1] <- "sleepdeprived"
+data_sd$condition[data_sd$run == 3 & data_sd$Sl_cond == 1] <- "sleepdeprived"
+data_sd$condition[data_sd$run == 2 & data_sd$Sl_cond == 2] <- "sleepdeprived"
+data_sd$condition[data_sd$run == 4 & data_sd$Sl_cond == 2] <- "sleepdeprived"
+
+data_sd <- merge(data_sd, FDdata, by.x = c("id", "run"), by.y = c("subject", "time"), all.x = T)
+data_sd <- merge(data_sd, demdata[, c("subject", "AgeGroup")], by.x = "id", by.y = "subject", all.x = T)
+
+tvals <- vector()
+pvals <- vector()
+estimates <- vector()
+lower <- vector()
+upper <- vector()
+for(i in 3:114){
+  terms <- as.formula(paste(names(data_sd)[i], "~ condition*AgeGroup + FD"))
+  mod <- lme(terms, data = data_sd, random = ~1|id/run)
+  tvals <- c(tvals, summary(mod)$tTable[2, 4])
+  pvals <- c(pvals, summary(mod)$tTable[2, 5])
+  estimates <- c(estimates, intervals(mod, which = "fixed")$fixed[2, 2])
+  lower <- c(lower, intervals(mod, which = "fixed")$fixed[2, 1])
+  upper <- c(upper, intervals(mod, which = "fixed")$fixed[2, 3])
+}
+
+atlasNames <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Resting state/ROISignals_ForVariability_160815/HarvardOxford_Atlas_NewIndex_YCG.csv", sep=";")
+atlasNames$name <- paste(atlasNames$Nomenclature, atlasNames$Hemisphere)
+
+data_sd2 <- atlasNames
+data_sd2$t <- tvals
+data_sd2$p <- pvals
+data_sd2$estimate <- estimates
+data_sd2$lower <- lower
+data_sd2$upper <- upper
+
+data_sd2 <- data_sd2[order(data_sd2$estimate), ]
+par(mar = c(5, 10, 0, 1))
+plot(1:112 ~ data_sd2$estimate, pch = 16, frame.plot = F, xlim = c(min(lower), max(upper)), xlab = "Change in SD after sleep deprivation, estimate and 95 % CI", ylab = "", yaxt = "n")
+abline(v = 0, col = "gray")
+segments(x0 = data_sd2$lower, x1 = data_sd2$upper, y0 = 1:112, y1 = 1:112)
+axis(2, at = 1:112, labels = data_sd2$name, tick = F, cex.axis = 0.4, las = 1)
+
+data_sd2 <- data_sd2[order(data_sd2$lower), ]
+par(mar = c(5, 10, 0, 1))
+plot(1:112 ~ data_sd2$estimate, pch = 16, frame.plot = F, xlim = c(min(lower), max(upper)), xlab = "Change in SD after sleep deprivation, estimate and 95 % CI", ylab = "", yaxt = "n")
+abline(v = 0, col = "gray")
+segments(x0 = data_sd2$lower, x1 = data_sd2$upper, y0 = 1:112, y1 = 1:112)
+axis(2, at = 1:112, labels = data_sd2$name, tick = F, cex.axis = 0.3, las = 1)
+
