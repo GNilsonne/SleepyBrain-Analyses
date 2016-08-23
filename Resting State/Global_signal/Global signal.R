@@ -287,21 +287,21 @@ plot(effect("condition*fstst00_nsd", lm22))
 plot(effect("AgeGroup*fstst00_nsd", lm22))
 
 # Delta power, absolute
-lm23 <- lme(globalsignal_logsd ~ delta_t_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
+lm23 <- lme(globalsignal_logsd ~ delta_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
 summary(lm23)
 intervals(lm23)
-plot(effect("delta_t_l_n3_p25_m_use_nsd*AgeGroup", lm23))
+plot(effect("delta_l_n3_p25_m_use_nsd*AgeGroup", lm23))
 
-lm24 <- lme(globalsignal_logsd ~ delta_t_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
+lm24 <- lme(globalsignal_logsd ~ delta_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
 summary(lm24)
 intervals(lm24)
-plot(effect("delta_t_l_n3_p25_m_use_nsd*AgeGroup", lm24))
+plot(effect("delta_l_n3_p25_m_use_nsd*AgeGroup", lm24))
 
-lm25 <- lme(globalsignal_logsd ~ (condition + AgeGroup) * delta_t_l_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
+lm25 <- lme(globalsignal_logsd ~ (condition + AgeGroup) * delta_l_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
 summary(lm25)
 intervals(lm25)
-plot(effect("condition*delta_t_l_n3_p25_m_use_nsd", lm25))
-plot(effect("AgeGroup*delta_t_l_n3_p25_m_use_nsd", lm25))
+plot(effect("condition*delta_l_n3_p25_m_use_nsd", lm25))
+plot(effect("AgeGroup*delta_l_n3_p25_m_use_nsd", lm25))
 
 # Delta power, relative
 lm23b <- lme(globalsignal_logsd ~ delta_r_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
@@ -503,15 +503,15 @@ outtable <- rbind(outtable, data.frame(variable = "Stage 2-age group interaction
 
 
 outtable <- rbind(outtable, data.frame(variable = "Stage 3 main effect",
-                                       estimate_fullsleep = paste(round(intervals(lm23)$fixed[2, 2], 3), " [", round(intervals(lm23)$fixed[2, 1], 3), ", ", round(intervals(lm23)$fixed[2, 3], 3), "]", sep = ""), 
-                                       p_fullsleep = summary(lm23)$tTable[2, 5],
+                                       estimate_fullsleep = paste(round(intervals(lm17)$fixed[2, 2], 3), " [", round(intervals(lm17)$fixed[2, 1], 3), ", ", round(intervals(lm17)$fixed[2, 3], 3), "]", sep = ""), 
+                                       p_fullsleep = summary(lm17)$tTable[2, 5],
                                        estimate_sleepdeprived = paste(round(intervals(lm18)$fixed[2, 2], 3), " [", round(intervals(lm18)$fixed[2, 1], 3), ", ", round(intervals(lm18)$fixed[2, 3], 3), "]", sep = ""), 
                                        p_sleepdeprived = summary(lm18)$tTable[2, 5],
                                        estimate_bothconditions = paste(round(intervals(lm19)$fixed[4, 2], 3), " [", round(intervals(lm19)$fixed[4, 1], 3), ", ", round(intervals(lm19)$fixed[4, 3], 3), "]", sep = ""), 
                                        p_bothconditions = summary(lm19)$tTable[4, 5]))
 outtable <- rbind(outtable, data.frame(variable = "Stage 3-age group interaction",
-                                       estimate_fullsleep = paste(round(intervals(lm23)$fixed[5, 2], 3), " [", round(intervals(lm23)$fixed[5, 1], 3), ", ", round(intervals(lm23)$fixed[5, 3], 3), "]", sep = ""), 
-                                       p_fullsleep = summary(lm23)$tTable[5, 5],
+                                       estimate_fullsleep = paste(round(intervals(lm17)$fixed[5, 2], 3), " [", round(intervals(lm17)$fixed[5, 1], 3), ", ", round(intervals(lm17)$fixed[5, 3], 3), "]", sep = ""), 
+                                       p_fullsleep = summary(lm17)$tTable[5, 5],
                                        estimate_sleepdeprived = paste(round(intervals(lm18)$fixed[5, 2], 3), " [", round(intervals(lm18)$fixed[5, 1], 3), ", ", round(intervals(lm18)$fixed[5, 3], 3), "]", sep = ""), 
                                        p_sleepdeprived = summary(lm18)$tTable[5, 5],
                                        estimate_bothconditions = paste(round(intervals(lm19)$fixed[7, 2], 3), " [", round(intervals(lm19)$fixed[7, 1], 3), ", ", round(intervals(lm19)$fixed[7, 3], 3), "]", sep = ""), 
@@ -1108,6 +1108,50 @@ outtable2 <- rbind(outtable2, data.frame(variable = "Wake after sleep onset inte
                                        estimate_bothconditions = paste(round(intervals(lm34)$fixed[7, 2], 3), " [", round(intervals(lm34)$fixed[7, 1], 3), ", ", round(intervals(lm34)$fixed[7, 3], 3), "]", sep = ""), 
                                        p_bothconditions = summary(lm34)$tTable[7, 5]))
 
+outtable2 <- rbind(outtable2, data.frame(variable = "ISI main effect",
+                                         estimate_fullsleep = paste(round(intervals(lm35)$fixed[2, 2], 3), " [", round(intervals(lm35)$fixed[2, 1], 3), ", ", round(intervals(lm35)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm35)$tTable[2, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm36)$fixed[2, 2], 3), " [", round(intervals(lm36)$fixed[2, 1], 3), ", ", round(intervals(lm36)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm36)$tTable[2, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm37)$fixed[4, 2], 3), " [", round(intervals(lm37)$fixed[4, 1], 3), ", ", round(intervals(lm37)$fixed[4, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm37)$tTable[4, 5]))
+outtable2 <- rbind(outtable2, data.frame(variable = "ISI interaction",
+                                         estimate_fullsleep = paste(round(intervals(lm35)$fixed[5, 2], 3), " [", round(intervals(lm35)$fixed[5, 1], 3), ", ", round(intervals(lm35)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm35)$tTable[5, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm36)$fixed[5, 2], 3), " [", round(intervals(lm36)$fixed[5, 1], 3), ", ", round(intervals(lm36)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm36)$tTable[5, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm37)$fixed[7, 2], 3), " [", round(intervals(lm37)$fixed[7, 1], 3), ", ", round(intervals(lm37)$fixed[7, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm37)$tTable[7, 5]))
+
+outtable2 <- rbind(outtable2, data.frame(variable = "ESS main effect",
+                                         estimate_fullsleep = paste(round(intervals(lm38)$fixed[2, 2], 3), " [", round(intervals(lm38)$fixed[2, 1], 3), ", ", round(intervals(lm38)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm38)$tTable[2, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm39)$fixed[2, 2], 3), " [", round(intervals(lm39)$fixed[2, 1], 3), ", ", round(intervals(lm39)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm39)$tTable[2, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm40)$fixed[4, 2], 3), " [", round(intervals(lm40)$fixed[4, 1], 3), ", ", round(intervals(lm40)$fixed[4, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm40)$tTable[4, 5]))
+outtable2 <- rbind(outtable2, data.frame(variable = "ESS interaction",
+                                         estimate_fullsleep = paste(round(intervals(lm38)$fixed[5, 2], 3), " [", round(intervals(lm38)$fixed[5, 1], 3), ", ", round(intervals(lm38)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm38)$tTable[5, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm39)$fixed[5, 2], 3), " [", round(intervals(lm39)$fixed[5, 1], 3), ", ", round(intervals(lm39)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm39)$tTable[5, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm40)$fixed[7, 2], 3), " [", round(intervals(lm40)$fixed[7, 1], 3), ", ", round(intervals(lm40)$fixed[7, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm40)$tTable[7, 5]))
+
+outtable2 <- rbind(outtable2, data.frame(variable = "KSQ sleep quality main effect",
+                                         estimate_fullsleep = paste(round(intervals(lm41)$fixed[2, 2], 3), " [", round(intervals(lm41)$fixed[2, 1], 3), ", ", round(intervals(lm41)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm41)$tTable[2, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm42)$fixed[2, 2], 3), " [", round(intervals(lm42)$fixed[2, 1], 3), ", ", round(intervals(lm42)$fixed[2, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm42)$tTable[2, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm43)$fixed[4, 2], 3), " [", round(intervals(lm43)$fixed[4, 1], 3), ", ", round(intervals(lm43)$fixed[4, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm43)$tTable[4, 5]))
+outtable2 <- rbind(outtable2, data.frame(variable = "KSQ sleep quality interaction",
+                                         estimate_fullsleep = paste(round(intervals(lm41)$fixed[5, 2], 3), " [", round(intervals(lm41)$fixed[5, 1], 3), ", ", round(intervals(lm41)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_fullsleep = summary(lm41)$tTable[5, 5],
+                                         estimate_sleepdeprived = paste(round(intervals(lm42)$fixed[5, 2], 3), " [", round(intervals(lm42)$fixed[5, 1], 3), ", ", round(intervals(lm42)$fixed[5, 3], 3), "]", sep = ""), 
+                                         p_sleepdeprived = summary(lm42)$tTable[5, 5],
+                                         estimate_bothconditions = paste(round(intervals(lm43)$fixed[7, 2], 3), " [", round(intervals(lm43)$fixed[7, 1], 3), ", ", round(intervals(lm43)$fixed[7, 3], 3), "]", sep = ""), 
+                                         p_bothconditions = summary(lm43)$tTable[7, 5]))
 
 
 outtable2$p_fullsleep[outtable2$p_fullsleep > 0.01] <- round(outtable2$p_fullsleep[outtable2$p_fullsleep > 0.01], 2)
