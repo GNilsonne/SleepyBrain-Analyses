@@ -65,6 +65,19 @@ sd(PSGdata$n1p__00_nsd[PSGdata$agensd > 40], na.rm = T)
 mean(PSGdata$n1p__00_sd[PSGdata$agensd > 40], na.rm = T)
 sd(PSGdata$n1p__00_sd[PSGdata$agensd > 40], na.rm = T)
 
+mean(PSGdata$n2p__00_nsd, na.rm = T)
+sd(PSGdata$n2p__00_nsd, na.rm = T)
+mean(PSGdata$n2p__00_sd, na.rm = T)
+sd(PSGdata$n2p__00_sd, na.rm = T)
+mean(PSGdata$n2p__00_nsd[PSGdata$agensd < 40], na.rm = T)
+sd(PSGdata$n2p__00_nsd[PSGdata$agensd < 40], na.rm = T)
+mean(PSGdata$n2p__00_sd[PSGdata$agensd < 40], na.rm = T)
+sd(PSGdata$n2p__00_sd[PSGdata$agensd < 40], na.rm = T)
+mean(PSGdata$n2p__00_nsd[PSGdata$agensd > 40], na.rm = T)
+sd(PSGdata$n2p__00_nsd[PSGdata$agensd > 40], na.rm = T)
+mean(PSGdata$n2p__00_sd[PSGdata$agensd > 40], na.rm = T)
+sd(PSGdata$n2p__00_sd[PSGdata$agensd > 40], na.rm = T)
+
 mean(PSGdata$n3p__00_nsd, na.rm = T)
 sd(PSGdata$n3p__00_nsd, na.rm = T)
 mean(PSGdata$n3p__00_sd, na.rm = T)
@@ -151,6 +164,12 @@ sd(demo2$KSQ_SleepQualityIndex[demo2$AgeGroup == "Young"])
 mean(demo2$KSQ_SleepQualityIndex[demo2$AgeGroup == "Old"])
 sd(demo2$KSQ_SleepQualityIndex[demo2$AgeGroup == "Old"])
 
+mean(demo2$KSQ_SnoringSymptomIndex)
+sd(demo2$KSQ_SnoringSymptomIndex)
+mean(demo2$KSQ_SnoringSymptomIndex[demo2$AgeGroup == "Young"])
+sd(demo2$KSQ_SnoringSymptomIndex[demo2$AgeGroup == "Young"])
+mean(demo2$KSQ_SnoringSymptomIndex[demo2$AgeGroup == "Old"])
+sd(demo2$KSQ_SnoringSymptomIndex[demo2$AgeGroup == "Old"])
 
 # 2. Sleep measures
 # KSS
