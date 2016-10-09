@@ -3,6 +3,8 @@
 # Require packages
 require(nlme)
 require(effects)
+require(RColorBrewer)
+cols <- brewer.pal(3,"Dark2")
 
 # Read data
 # Define files
@@ -11,9 +13,9 @@ files <- files[-grep(files, pattern = "excluded")] # Remove files from participa
 files <- files[-length(files)] # Remove last, provisional due to zipped archive present in folder
 
 files <- files[-c(16, 44, 45, 115, 162)] # Remove files where both channels failed quality inspection in Acqknowledge (9009_2, 9028_2, 9029_1, 9071_1, 9096_1)
-files <- files[files != "9087_1.txt"] # Remove file where reference waves were wrong, possibly because wrong Acqknowledge template was used for recording?
+#files <- files[files != "9087_1.txt"] # Remove file where reference waves were wrong, possibly because wrong Acqknowledge template was used for recording?
 files <- files[files != "9002_2.txt"] # Remove file where reference was incomplete
-files <- files[files != "9041_1.txt"] # Remove file where reference was incomplete
+#files <- files[files != "9041_1.txt"] # Remove file where reference was incomplete
 files <- files[files != "9046_2.txt"] # Remove file where reference wave was on throughout for an unknown reason
 files <- files[files != "9025_2.txt"] # Remove file where reference wave was on throughout for an unknown reason
 
@@ -211,6 +213,7 @@ lme1c <- lme(zyg_resid ~ stimulus, data = blockdata, random = ~ 1|subject/sessio
 plot(lme1c)
 plot(effect("stimulus", lme1c))
 summary(lme1c)
+intervals(lme1c)
 
 lme2 <- lme(corr_resid ~ stimulus*condition*AgeGroup, data = blockdata, random = ~ 1|subject/session/block, na.action = na.omit)
 plot(lme2)
@@ -229,3 +232,108 @@ lme2c <- lme(corr_resid ~ stimulus, data = blockdata, random = ~ 1|subject/sessi
 plot(lme2c)
 plot(effect("stimulus", lme2c))
 summary(lme2c)
+intervals(lme2c, which = "fixed")
+
+# Plot main effects
+pdf("EMG1a.pdf", height = 5, width = 5) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.02, 0.04), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Zygomatic mimicry")
+axis(1, at = c(0.05, 0.5, 0.95), labels = c("Neutral", "Happy", "Angry"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme1d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme1d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme1d)$lower[1]*1000, effect("condition*AgeGroup", lme1d)$upper[1]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme1d)$lower[2]*1000, effect("condition*AgeGroup", lme1d)$upper[2]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme1d)$lower[3]*1000, effect("condition*AgeGroup", lme1d)$upper[3]*1000), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme1d)$lower[4]*1000, effect("condition*AgeGroup", lme1d)$upper[4]*1000), col = cols[2], lwd = 1.5)
+legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+pdf("EMG3.pdf", height = 5, width = 5) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.4, 0.2), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Corrugator mimicry")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme2d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme2d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme2d)$lower[1]*1000, effect("condition*AgeGroup", lme2d)$upper[1]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme2d)$lower[2]*1000, effect("condition*AgeGroup", lme2d)$upper[2]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3]*1000, effect("condition*AgeGroup", lme2d)$upper[3]*1000), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4]*1000, effect("condition*AgeGroup", lme2d)$upper[4]*1000), col = cols[2], lwd = 1.5)
+#legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+pdf("EMG_validation2.pdf", height = 4, width = 5) 
+plot(1, frame.plot = F, xlim = c(0, 2), ylim = c(-0.07, 0), xlab = "stimulus", ylab = "microV, residual", xaxt = "n", yaxt = "n", type = "n", main = "Zygomatic")
+axis(1, at = c(0, 1, 2), labels = c("Happy", "Neutral", "Angry"))
+axis(2, at = c(0, -0.03, -0.06))
+lines(x = c(0, 1, 2), y = effect("stimulus", lme1c)$fit[c(3, 1, 2)]*1000, pch = 16, type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("stimulus", lme1c)$lower[3]*1000, effect("stimulus", lme1c)$upper[3]*1000), lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("stimulus", lme1c)$lower[1]*1000, effect("stimulus", lme1c)$upper[1]*1000), lwd = 1.5)
+lines(x = c(2, 2), y = c(effect("stimulus", lme1c)$lower[2]*1000, effect("stimulus", lme1c)$upper[2]*1000), lwd = 1.5)
+
+plot(1, frame.plot = F, xlim = c(0, 2), ylim = c(-0.7, -0.1), xlab = "stimulus", ylab = "microV, residual", xaxt = "n", yaxt = "n", type = "n", main = "Corrugator")
+axis(1, at = c(0, 1, 2), labels = c("Happy", "Neutral", "Angry"))
+axis(2, at = c(-0.2, -0.4, -0.6))
+lines(x = c(0, 1, 2), y = effect("stimulus", lme2c)$fit[c(3, 1, 2)]*1000, pch = 16, type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("stimulus", lme2c)$lower[3]*1000, effect("stimulus", lme2c)$upper[3]*1000), lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("stimulus", lme2c)$lower[1]*1000, effect("stimulus", lme2c)$upper[1]*1000), lwd = 1.5)
+lines(x = c(2, 2), y = c(effect("stimulus", lme2c)$lower[2]*1000, effect("stimulus", lme2c)$upper[2]*1000), lwd = 1.5)
+dev.off()
+
+# Analyse again with difference scores to reduce model complexity
+# Reduce data
+agg_zyg <- aggregate(zyg_resid ~  subject + session + stimulus + condition + AgeGroup, data = blockdata[blockdata$stimulus %in% c("angry", "happy") & !is.na(blockdata$SuccessfulIntervention), ], FUN = "mean")
+data_zyg1 <- agg_zyg[agg_zyg$stimulus == "happy", ]
+data_zyg2 <- agg_zyg[agg_zyg$stimulus == "angry", ]
+data_diff_zyg <- data_zyg1
+data_diff_zyg$diff <- data_diff_zyg$zyg_resid - data_zyg2$zyg_resid
+
+agg_corr <- aggregate(corr_resid ~  subject + session + stimulus + condition + AgeGroup, data = blockdata[blockdata$stimulus %in% c("angry", "happy") & !is.na(blockdata$SuccessfulIntervention), ], FUN = "mean")
+data_corr1 <- agg_corr[agg_corr$stimulus == "happy", ]
+data_corr2 <- agg_corr[agg_corr$stimulus == "angry", ]
+data_diff_corr <- data_corr1
+data_diff_corr$diff <- data_diff_corr$corr_resid - data_corr2$corr_resid
+
+# Build models
+lme0 <- lme(diff ~ 1, data = data_diff_zyg, random = ~1|subject/session)
+summary(lme0)
+intervals(lme0, which = "fixed")
+lme0b <- lme(diff ~ 1, data = data_diff_corr, random = ~1|subject/session)
+summary(lme0b)
+intervals(lme0b, which = "fixed")
+
+lme1d <- lme(diff ~ condition * AgeGroup, data = data_diff_zyg, random = ~1|subject)
+summary(lme1d)
+intervals(lme1d, which = "fixed")
+plot(effect("condition*AgeGroup", lme1d))
+
+lme2d <- lme(diff ~ condition * AgeGroup, data = data_diff_corr, random = ~1|subject)
+summary(lme2d)
+intervals(lme2d, which = "fixed")
+plot(effect("condition*AgeGroup", lme2d))
+
+# Plot model estimates
+pdf("EMG2.pdf", height = 5, width = 5) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.03, 0.05), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Zygomatic mimicry")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme1d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme1d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme1d)$lower[1]*1000, effect("condition*AgeGroup", lme1d)$upper[1]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme1d)$lower[2]*1000, effect("condition*AgeGroup", lme1d)$upper[2]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme1d)$lower[3]*1000, effect("condition*AgeGroup", lme1d)$upper[3]*1000), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme1d)$lower[4]*1000, effect("condition*AgeGroup", lme1d)$upper[4]*1000), col = cols[2], lwd = 1.5)
+legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+pdf("EMG3.pdf", height = 5, width = 5) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.4, 0.3), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Corrugator mimicry")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme2d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme2d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme2d)$lower[1]*1000, effect("condition*AgeGroup", lme2d)$upper[1]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme2d)$lower[2]*1000, effect("condition*AgeGroup", lme2d)$upper[2]*1000), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3]*1000, effect("condition*AgeGroup", lme2d)$upper[3]*1000), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4]*1000, effect("condition*AgeGroup", lme2d)$upper[4]*1000), col = cols[2], lwd = 1.5)
+#legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
