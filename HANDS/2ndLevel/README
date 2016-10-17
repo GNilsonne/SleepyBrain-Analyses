@@ -15,3 +15,5 @@ Analyses of covariates for the purpose of sensitivity:
 - PainvsNoPain_all_sex_150824_job.m:                                  Pain vs no pain, sex (male/female) as covariate
 
 Note: analyses of covariates were based on 1st-level contrasts not used in main analyses above, see 1st-level scripts.
+Note: In the factorial designs there are some wrong names for the contrasts. Where it says "Full sleep > normal sleep" 
+it should be "Sleep restriction > normal sleep". 
