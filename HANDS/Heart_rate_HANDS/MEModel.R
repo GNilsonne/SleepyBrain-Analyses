@@ -31,6 +31,7 @@ filenames[substr(filenames, 3, 3) == "_"] <- paste(0, filenames[substr(filenames
 
 timecoursespain <- data.frame(time = 1:1401)
 timecoursesnopain <- data.frame(time = 1:1401)
+timecourses_all <- data.frame(time = 1:1401)
 painevents <- data.frame()
 nopainevents <- data.frame()
 n_na <- 0
@@ -46,6 +47,7 @@ for(i in 1:length(Files)){
     n_na2 <- n_na2 + sum(is.na(Data)) # Data that cannot be imputed at this stage because the vector begins with NA.
     timecoursespain <- cbind(timecoursespain, Data[, grepl("^Pain", names)])
     timecoursesnopain <- cbind(timecoursesnopain, Data[, grepl("^No_Pain", names)])
+    timecourses_all <- cbind(timecourses_all, rowMeans(Data, na.rm = T))
     means <- apply(Data, 2, FUN = function (x) mean(x[751:950], na.rm = T))
     painmeans <- means[grepl("^Pain", names(means))]
     nopainmeans <- means[grepl("^No_Pain", names(means))]
@@ -72,6 +74,24 @@ lines(meantimecoursepain, col = "red")
 #lines(lowess(meantimecoursenopain, f = 1/5), col = "blue", lwd = 2)
 #lines(lowess(meantimecoursepain, f = 1/5), col = "red", lwd = 2)
 legend("topleft", lty = 1, lwd = 2, col = c("blue", "red"), legend = c("No pain", "Pain"), bty = "n")
+
+# Take out time courses for pain/no pain stimuli
+sessions <- data.frame(subject = as.integer(substr(filenames, 1, 3)), session = substr(filenames, 5, 5))
+sessions <- sessions[sessions$subject %in% IncludedSubjects, ]
+sessions$rowno <- 1:nrow(sessions)
+randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
+sessions <- merge(sessions, randomisation, by.x = "subject", by.y = "Subject")
+sessions$condition <- "fullsleep"
+sessions$condition[sessions$Sl_cond == 1 & sessions$session == 1] <- "psd"
+sessions$condition[sessions$Sl_cond == 2 & sessions$session == 2] <- "psd"
+sessions$condition <- as.factor(sessions$condition)
+sessions <- sessions[order(sessions$rowno), ]
+fullsleep_index <- which(sessions$condition == "fullsleep") + 1
+psd_index <- which(sessions$condition == "psd") + 1
+timecourses_fullsleep <- timecourses_all[, fullsleep_index]
+timecourses_psd <- timecourses_all[, psd_index]
+meantimecoursefullsleep <- rowMeans(timecourses_fullsleep, na.rm = T)
+meantimecoursepsd <- rowMeans(timecourses_psd, na.rm = T)
 
 # Plot aggregate time courses
 # This is the plot that goes into the data descriptor manuscript
@@ -101,22 +121,15 @@ boxplot(value ~ stimulus, data = events)
 
 # Analyse data
 demographics <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv", sep=";", dec=",")
-
 events <- merge(events, subset(demographics, select = c(Subject, AgeGroup)), by.x = "subject", by.y = "Subject")
-
 randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
-
 events <- merge(events, randomisation, by.x = "subject", by.y = "Subject")
-
 events$condition <- "fullsleep"
 events$condition[events$Sl_cond == 1 & events$session == 1] <- "psd"
 events$condition[events$Sl_cond == 2 & events$session == 2] <- "psd"
 events$condition <- as.factor(events$condition)
-
 events$AgeGroup <- relevel(events$AgeGroup, ref = "Young")
 events$condition <- relevel(events$condition, ref = "fullsleep")
-
-eventmeans <- aggregate(x = events$value, by = list(c("subject", "session")), mean)
 
 # Build models
 # First model is without pain/no pain stimulus and sleep condition for purpose of technical validation
@@ -128,3 +141,31 @@ intervals(lme1)
 lme2 <- lme(value ~ stimulus*condition*AgeGroup, data = events, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme2)
 intervals(lme2)
+
+# Reduced models are explorative
+lme3 <- lme(value ~ stimulus*condition, data = events, random = ~ 1|subject/session, na.action = na.omit)
+summary(lme3)
+intervals(lme3)
+
+lme3b <- lme(value ~ stimulus, data = events, random = ~ 1|subject/session, na.action = na.omit)
+summary(lme3b)
+intervals(lme3b)
+
+# Make plots for publication
+pdf(file = "C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/HR/agg_timecourse2.pdf")
+plot(meantimecoursepain, type = "n", frame.plot = F, xlab = "time, s", ylab = "Heart rate, index", xaxt = "n", ylim = c(0.996, 1.006))
+polygon(x = c(400, 400, 750, 750), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
+abline(v = 950, lty = 2)
+axis(1, at = c(0, 400, 750, 950, 1400), labels = c(-4, 0, 3.5, 5.5, 10))
+lines(lowess(meantimecoursenopain, f = 2/5), col = "blue", lwd = 2)
+lines(lowess(meantimecoursepain, f = 2/5), col = "red", lwd = 2, lty = 2)
+legend("topleft", lty = c(1, 2), lwd = 2, col = c("blue", "red"), legend = c("No pain", "Pain"), bty = "n")
+
+plot(meantimecoursefullsleep, type = "n", frame.plot = F, xlab = "time, s", ylab = "Heart rate, index", xaxt = "n", ylim = c(0.996, 1.006))
+polygon(x = c(400, 400, 750, 750), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
+abline(v = 950, lty = 2)
+axis(1, at = c(0, 400, 750, 950, 1400), labels = c(-4, 0, 3.5, 5.5, 10))
+lines(lowess(meantimecoursefullsleep, f = 2/5), col = "blue", lwd = 2)
+lines(lowess(meantimecoursepsd, f = 2/5), col = "red", lwd = 2, lty = 2)
+legend("topleft", lty = c(1, 2), lwd = 2, col = c("blue", "red"), legend = c("Full sleep", "Sleep deprived"), bty = "n")
+dev.off()
