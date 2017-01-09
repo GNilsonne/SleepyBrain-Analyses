@@ -1,0 +1,167 @@
+"Pvbl_Insula_L";"Pvbl_Insula_R";"Session";"Sex";"AgeGroup";"DeprivationCondition";"Subject"
+0,36788;0,22287;1;"Male";"Young";"Not Sleep Deprived";9001
+0,90483;1,0626;2;"Male";"Young";"Sleep Deprived";9001
+-0,19518;-0,60929;1;"Male";"Old";"Not Sleep Deprived";9002
+0,004665;-0,35708;2;"Male";"Old";"Sleep Deprived";9002
+0,69851;0,27806;1;"Male";"Old";"Sleep Deprived";9003
+-1,3305;-0,64269;2;"Male";"Old";"Not Sleep Deprived";9003
+0,36957;-0,17884;1;"Female";"Old";"Sleep Deprived";9004
+-1,3215;-2,035;2;"Female";"Old";"Not Sleep Deprived";9004
+-1,239;-1,6912;1;"Male";"Old";"Not Sleep Deprived";9005
+0,63142;0,30379;2;"Male";"Old";"Sleep Deprived";9005
+-1,0231;-0,11562;1;"Male";"Young";"Not Sleep Deprived";9007
+-0,82775;-0,17252;2;"Male";"Young";"Sleep Deprived";9007
+-0,30489;-0,31467;1;"Male";"Old";"Not Sleep Deprived";9008
+0,84983;0,15365;2;"Male";"Old";"Sleep Deprived";9008
+0,20172;0,71196;1;"Female";"Old";"Sleep Deprived";9009
+-0,19601;0,077228;2;"Female";"Old";"Not Sleep Deprived";9009
+0,40893;1,2506;1;"Female";"Old";"Sleep Deprived";9011
+-1,2305;-0,54667;2;"Female";"Old";"Not Sleep Deprived";9011
+-1,1795;-1,1331;1;"Male";"Young";"Not Sleep Deprived";9012
+1,604;-0,08934;2;"Male";"Young";"Sleep Deprived";9012
+-1,3778;-0,98897;1;"Male";"Young";"Not Sleep Deprived";9013
+-0,85142;-0,062973;2;"Male";"Young";"Sleep Deprived";9013
+0,089206;-0,76041;1;"Male";"Old";"Sleep Deprived";9014
+1,22;1,5654;2;"Male";"Old";"Not Sleep Deprived";9014
+-1,149;-0,12523;1;"Male";"Young";"Sleep Deprived";9016
+-0,95343;-1,213;1;"Male";"Young";"Sleep Deprived";9017
+-0,13742;-0,0069027;2;"Male";"Young";"Not Sleep Deprived";9017
+-0,51572;-0,7118;1;"Female";"Young";"Not Sleep Deprived";9018
+-0,47633;-2,1549;2;"Female";"Young";"Sleep Deprived";9018
+-0,53138;-0,85271;1;"Female";"Young";"Sleep Deprived";9019
+0,81798;0,94823;2;"Female";"Young";"Not Sleep Deprived";9019
+-0,49321;-1,3401;1;"Female";"Old";"Sleep Deprived";9020
+-0,6996;-0,5684;2;"Female";"Old";"Not Sleep Deprived";9020
+-0,42695;-1,5249;1;"Female";"Young";"Sleep Deprived";9022
+0,57485;-0,82526;1;"Male";"Old";"Not Sleep Deprived";9023
+2,6574;2,3816;2;"Male";"Old";"Sleep Deprived";9023
+0,089212;-0,37912;1;"Female";"Old";"Not Sleep Deprived";9025
+0,64584;1,442;2;"Female";"Old";"Sleep Deprived";9025
+-0,030295;-0,82917;1;"Female";"Old";"Sleep Deprived";9026
+1,5059;1,8347;2;"Female";"Old";"Not Sleep Deprived";9026
+0,12181;0,53153;1;"Male";"Young";"Sleep Deprived";9028
+0,51246;-0,44971;2;"Male";"Young";"Not Sleep Deprived";9028
+0,69364;-0,061727;1;"Female";"Old";"Not Sleep Deprived";9029
+-0,13173;-0,72621;2;"Female";"Old";"Sleep Deprived";9029
+-0,42017;1,6171;1;"Female";"Old";"Sleep Deprived";9032
+-1,3717;-0,19654;2;"Female";"Old";"Not Sleep Deprived";9032
+-0,19337;0,041592;1;"Male";"Old";"Sleep Deprived";9033
+-1,2396;-1,1548;2;"Male";"Old";"Not Sleep Deprived";9033
+-0,61001;-1,032;1;"Female";"Young";"Sleep Deprived";9034
+-0,41198;-0,88194;2;"Female";"Young";"Not Sleep Deprived";9034
+0,10562;0,26847;1;"Male";"Young";"Not Sleep Deprived";9035
+1,1045;0,68256;2;"Male";"Young";"Sleep Deprived";9035
+-1,2986;-0,57681;1;"Male";"Old";"Not Sleep Deprived";9036
+-0,6197;-0,30219;2;"Male";"Old";"Sleep Deprived";9036
+-1,8384;-3,014;1;"Male";"Young";"Sleep Deprived";9037
+-0,054561;-0,21491;2;"Male";"Young";"Not Sleep Deprived";9037
+-0,27612;0,086115;1;"Female";"Old";"Sleep Deprived";9038
+1,6541;0,10427;2;"Female";"Old";"Not Sleep Deprived";9038
+0,57462;-0,26629;1;"Male";"Old";"Sleep Deprived";9039
+0,7778;-0,056437;2;"Male";"Old";"Not Sleep Deprived";9039
+0,16115;-0,54639;1;"Female";"Old";"Not Sleep Deprived";9040
+0,34657;0,43558;2;"Female";"Old";"Sleep Deprived";9040
+-0,14922;0,090228;1;"Female";"Young";"Not Sleep Deprived";9041
+-0,71305;-0,18543;2;"Female";"Young";"Sleep Deprived";9041
+0,036054;0,20709;1;"Female";"Young";"Sleep Deprived";9042
+-0,83455;-0,94895;2;"Female";"Young";"Not Sleep Deprived";9042
+-0,96347;-0,64999;1;"Male";"Young";"Not Sleep Deprived";9044
+-0,43469;-0,37043;1;"Female";"Old";"Sleep Deprived";9045
+0,22696;1,1629;2;"Female";"Old";"Not Sleep Deprived";9045
+0,084588;0,15177;1;"Male";"Old";"Sleep Deprived";9046
+1,107;1,6486;2;"Male";"Old";"Not Sleep Deprived";9046
+-0,71797;0,074753;1;"Female";"Old";"Not Sleep Deprived";9047
+0,40537;0,37481;2;"Female";"Old";"Sleep Deprived";9047
+-0,90302;-0,89737;1;"Male";"Old";"Not Sleep Deprived";9048
+-1,1543;-0,68876;2;"Male";"Old";"Sleep Deprived";9048
+1,3131;1,6773;1;"Female";"Old";"Sleep Deprived";9049
+0,53322;-1,5306;2;"Female";"Old";"Not Sleep Deprived";9049
+-0,028615;-0,037103;1;"Female";"Young";"Not Sleep Deprived";9050
+0,13928;-0,15214;2;"Female";"Young";"Sleep Deprived";9050
+-0,59188;0,91257;1;"Female";"Young";"Not Sleep Deprived";9053
+-0,91437;-0,32047;2;"Female";"Young";"Sleep Deprived";9053
+-2,5697;-1,3669;1;"Male";"Old";"Not Sleep Deprived";9054
+-0,67948;-0,40368;2;"Male";"Old";"Sleep Deprived";9054
+-2,3487;-1,7171;1;"Male";"Young";"Sleep Deprived";9055
+2,2026;1,5609;2;"Male";"Young";"Not Sleep Deprived";9055
+1,7897;1,4596;1;"Male";"Young";"Not Sleep Deprived";9056
+0,92441;0,58941;2;"Male";"Young";"Sleep Deprived";9056
+-0,34318;0,33336;1;"Female";"Young";"Not Sleep Deprived";9057
+-1,5244;-0,59116;2;"Female";"Young";"Sleep Deprived";9057
+0,15462;0,6207;1;"Female";"Old";"Sleep Deprived";9058
+-0,74214;-0,38702;2;"Female";"Old";"Not Sleep Deprived";9058
+0,072732;0,033087;1;"Female";"Young";"Not Sleep Deprived";9059
+-0,36494;-1,3057;2;"Female";"Young";"Sleep Deprived";9059
+0,40503;0,065032;1;"Female";"Young";"Not Sleep Deprived";9061
+-0,7988;-1,0044;2;"Female";"Young";"Sleep Deprived";9061
+0,95676;1,0621;1;"Female";"Young";"Not Sleep Deprived";9062
+-0,083112;-1,246;2;"Female";"Young";"Sleep Deprived";9062
+-0,62893;-0,17482;1;"Male";"Young";"Not Sleep Deprived";9063
+-0,46204;-0,9286;2;"Male";"Young";"Sleep Deprived";9063
+1,7502;1,2231;1;"Female";"Old";"Sleep Deprived";9064
+-1,7335;-1,7861;2;"Female";"Old";"Not Sleep Deprived";9064
+2,6617;0,94483;1;"Male";"Old";"Not Sleep Deprived";9065
+1,2411;1,4225;2;"Male";"Old";"Sleep Deprived";9065
+-0,91174;-0,26354;2;"Female";"Young";"Not Sleep Deprived";9066
+-1,9608;-1,1321;1;"Female";"Young";"Sleep Deprived";9067
+-0,43578;-0,19193;2;"Female";"Young";"Not Sleep Deprived";9067
+-1,5831;-1,6588;1;"Male";"Young";"Sleep Deprived";9068
+-0,098804;-0,85546;2;"Male";"Young";"Not Sleep Deprived";9068
+1,4489;2,0411;1;"Female";"Old";"Not Sleep Deprived";9069
+0,16776;-0,25196;2;"Female";"Old";"Sleep Deprived";9069
+-0,15888;-0,020231;1;"Female";"Young";"Not Sleep Deprived";9070
+-0,25073;-0,57974;2;"Female";"Young";"Sleep Deprived";9070
+0,92159;0,53722;1;"Female";"Young";"Sleep Deprived";9071
+-0,51097;-1,3213;2;"Female";"Young";"Not Sleep Deprived";9071
+-1,5313;-1,3502;1;"Female";"Young";"Sleep Deprived";9072
+-0,0038124;-0,39395;2;"Female";"Young";"Not Sleep Deprived";9072
+-1,7402;-1,672;1;"Male";"Young";"Sleep Deprived";9073
+-0,65713;-0,31061;2;"Male";"Young";"Not Sleep Deprived";9073
+-0,16151;-0,83768;1;"Female";"Young";"Sleep Deprived";9074
+1,2373;0,0015259;2;"Female";"Young";"Not Sleep Deprived";9074
+-2,2593;-2,4133;1;"Male";"Old";"Not Sleep Deprived";9075
+4,0231;2,2117;2;"Male";"Old";"Sleep Deprived";9075
+0,58996;0,49631;1;"Male";"Young";"Not Sleep Deprived";9076
+-1,9173;-1,7759;2;"Male";"Young";"Sleep Deprived";9076
+-0,3383;-0,32574;1;"Female";"Young";"Not Sleep Deprived";9077
+-1,5716;-0,85802;2;"Female";"Young";"Sleep Deprived";9077
+-0,043415;-0,058892;2;"Female";"Young";"Sleep Deprived";9078
+1,8667;0,75426;1;"Male";"Old";"Not Sleep Deprived";9079
+2,0039;1,1646;2;"Male";"Old";"Sleep Deprived";9079
+-3,4027;-3,2383;1;"Male";"Young";"Not Sleep Deprived";9080
+-0,3961;0,14796;2;"Male";"Young";"Sleep Deprived";9080
+-0,0079277;0,19334;1;"Male";"Young";"Not Sleep Deprived";9081
+1,2015;0,91642;2;"Male";"Young";"Sleep Deprived";9081
+0,1001;0,0412;1;"Female";"Young";"Sleep Deprived";9082
+-0,070417;-0,70982;2;"Female";"Young";"Not Sleep Deprived";9082
+0,77589;0,20958;1;"Male";"Young";"Not Sleep Deprived";9083
+-0,13688;-0,41676;2;"Male";"Young";"Sleep Deprived";9083
+0,47858;0,0078098;1;"Female";"Young";"Not Sleep Deprived";9084
+0,82359;1,0785;2;"Female";"Young";"Sleep Deprived";9084
+-0,080517;0,79965;1;"Female";"Young";"Sleep Deprived";9085
+-0,41538;-0,42645;2;"Female";"Young";"Not Sleep Deprived";9085
+1,0481;2,9722;1;"Female";"Old";"Sleep Deprived";9086
+-0,37694;0,99662;2;"Female";"Old";"Not Sleep Deprived";9086
+-0,21311;-1,1792;1;"Male";"Old";"Not Sleep Deprived";9087
+1,1972;0,65526;2;"Male";"Old";"Sleep Deprived";9087
+-0,23575;-0,16878;1;"Female";"Young";"Not Sleep Deprived";9088
+-1,0144;-2,0184;2;"Female";"Young";"Sleep Deprived";9088
+0,60529;0,74834;1;"Male";"Old";"Not Sleep Deprived";9089
+-0,092578;-0,278;2;"Male";"Old";"Sleep Deprived";9089
+-0,68449;-0,38519;1;"Male";"Young";"Sleep Deprived";9090
+-0,13223;-0,33236;2;"Male";"Young";"Not Sleep Deprived";9090
+0,51541;0,78469;1;"Male";"Young";"Sleep Deprived";9091
+0,98219;0,93766;2;"Male";"Young";"Not Sleep Deprived";9091
+-0,26313;-0,23287;1;"Male";"Young";"Sleep Deprived";9092
+0,68449;1,2742;2;"Male";"Young";"Not Sleep Deprived";9092
+-0,84905;-0,87912;1;"Male";"Old";"Not Sleep Deprived";9093
+-0,34052;-1,0252;2;"Male";"Old";"Sleep Deprived";9093
+1,8271;1,7377;1;"Female";"Old";"Sleep Deprived";9094
+-1,4542;-1,915;2;"Female";"Old";"Not Sleep Deprived";9094
+0,53564;1,7699;1;"Male";"Old";"Not Sleep Deprived";9095
+-0,91713;-0,53314;1;"Female";"Old";"Sleep Deprived";9096
+0,72728;0,082298;2;"Female";"Old";"Not Sleep Deprived";9096
+0,98088;0,2929;1;"Female";"Old";"Not Sleep Deprived";9098
+0,69598;1,375;2;"Female";"Old";"Sleep Deprived";9098
+1,4383;0,95741;1;"Male";"Young";"Not Sleep Deprived";9100
+0,044238;-0,43651;2;"Male";"Young";"Sleep Deprived";9100
