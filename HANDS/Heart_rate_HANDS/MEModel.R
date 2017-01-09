@@ -142,12 +142,13 @@ lme2 <- lme(value ~ stimulus*condition*AgeGroup, data = events, random = ~ 1|sub
 summary(lme2)
 intervals(lme2)
 setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/HANDS/Heart_rate_HANDS/")
-write.csv(summary(lme2)$tTable, file = "Reduced_model.csv")
+write.csv(summary(lme2)$tTable, file = "Full_model.csv")
 
 # Reduced models are explorative
 lme3 <- lme(value ~ stimulus*condition, data = events, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme3)
 intervals(lme3)
+write.csv(summary(lme3)$tTable, file = "Reduced_model.csv")
 
 lme3b <- lme(value ~ stimulus, data = events, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme3b)

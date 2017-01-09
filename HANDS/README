@@ -3,6 +3,7 @@ Scripts for fMRI analyses are found in the following folders:
 - 1stLevel
 - 2ndLevel
 - Extract_ROI_data
+- Analyse_ROI_data
 - MarsBar
 - PPI
 
@@ -10,3 +11,6 @@ Scripts for behavioral and other physiological outcomes are in the following fol
 - Ratings
 - Eyetracking
 - Heart_rate_HANDS
+
+Ancillary R scripts are in the following folder:
+- Utils
