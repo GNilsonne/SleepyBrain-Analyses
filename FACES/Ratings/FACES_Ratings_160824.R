@@ -153,3 +153,16 @@ lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3], effec
 lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4], effect("condition*AgeGroup", lme2d)$upper[4]), col = cols[2], lwd = 1.5)
 legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
 dev.off()
+
+
+# Write datafile with aggregated ratings by participant
+data_diff_angry2 <- data_diff_angry[data_diff_angry$condition == "fullsleep", ]
+data_diff_happy2 <- data_diff_happy[data_diff_happy$condition == "fullsleep", ]
+
+data_diff2 <- merge(data_diff_angry2[, c("subject", "diff")], data_diff_happy2[, c("subject", "diff")], by = "subject")
+names(data_diff2) <- c("id", "diff_angry", "diff_happy")
+plot(diff_happy ~ diff_angry, data = data_diff2, main = "Diff happy blocks vs angry blocks", frame.plot = F)
+lm_diff <- lm(diff_happy ~ diff_angry, data = data_diff2)
+abline(lm_diff, col = "red")
+cor.test(data_diff2$diff_angry, data_diff2$diff_happy)
+write.csv(data_diff2, "rated_anger_happiness_diff.csv", row.names = FALSE)
