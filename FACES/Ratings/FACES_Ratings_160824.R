@@ -165,4 +165,8 @@ plot(diff_happy ~ diff_angry, data = data_diff2, main = "Diff happy blocks vs an
 lm_diff <- lm(diff_happy ~ diff_angry, data = data_diff2)
 abline(lm_diff, col = "red")
 cor.test(data_diff2$diff_angry, data_diff2$diff_happy)
-write.csv(data_diff2, "rated_anger_happiness_diff.csv", row.names = FALSE)
+
+subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+data_diff3 <- merge(data_diff2, subjectlist[, c("Subject", "newid")], by.x = "id", by.y = "Subject")
+
+write.csv(data_diff3[, -1], "rated_anger_happiness_diff.csv", row.names = FALSE)
