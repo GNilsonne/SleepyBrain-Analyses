@@ -25,7 +25,7 @@ source('Utils/Multiplot.R', chdir = T)
 cPalette <- c("#E69F00","#56B4E9")
 
 # Read data
-Data_HANDSRatings <- read.csv("Data/Data_HANDS_ratings.csv", sep=";", dec=",")
+Data_HANDSRatings <- read.csv("HANDS/Ratings/Data_HANDS_ratings.csv", sep=";", dec=",")
 
 # Relevel so that young are reference 
 Data_HANDSRatings$AgeGroup <- relevel(Data_HANDSRatings$AgeGroup, ref = "Young")
@@ -428,3 +428,10 @@ lme_IRIb <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + IRI_EC 
                 data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
 anova(lme_IRIb, type = "marginal")
 intervals(lme_IRIb)
+
+
+# Find mean effect for each participant
+test <- aggregate(Rated_Unpleasantness ~ Subject + Condition, data = Data_HANDSRatings, mean)
+test$diff <- test$Rated_Unpleasantness[test$Condition == "Pain"] - test$Rated_Unpleasantness[test$Condition == "No_Pain"]
+test <- test[1:86, c(1, 4)]
+write.csv(test, "rated_unpleasantness_diff.csv", row.names = FALSE)
