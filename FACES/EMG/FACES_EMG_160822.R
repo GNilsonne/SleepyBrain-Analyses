@@ -337,3 +337,20 @@ lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3]*1000, 
 lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4]*1000, effect("condition*AgeGroup", lme2d)$upper[4]*1000), col = cols[2], lwd = 1.5)
 #legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
 dev.off()
+
+
+# Write datafile with aggregated ratings by participant
+data_diff_zyg2 <- data_diff_zyg[data_diff_zyg$condition == "fullsleep", ]
+data_diff_corr2 <- data_diff_corr[data_diff_corr$condition == "fullsleep", ]
+
+data_diff2 <- merge(data_diff_zyg2[, c("subject", "diff")], data_diff_corr2[, c("subject", "diff")], by = "subject")
+names(data_diff2) <- c("id", "diff_zyg", "diff_corr")
+plot(diff_zyg ~ diff_corr, data = data_diff2, main = "Diff happy blocks vs angry blocks", frame.plot = F)
+lm_diff <- lm(diff_zyg ~ diff_corr, data = data_diff2)
+abline(lm_diff, col = "red")
+cor.test(data_diff2$diff_corr, data_diff2$diff_zyg, method = "kendall")
+
+subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+data_diff3 <- merge(data_diff2, subjectlist[, c("Subject", "newid")], by.x = "id", by.y = "newid")
+
+write.csv(data_diff3[, -1], "EMG_diff.csv", row.names = FALSE)
