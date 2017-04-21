@@ -361,6 +361,7 @@ data_eventmeans2$condition[data_eventmeans2$session == 2 & data_eventmeans2$Sl_c
 data_eventmeans2$condition[data_eventmeans2$session == 2 & data_eventmeans2$Sl_cond == 1] <- "FullSleep"
 anyNA(data_eventmeans2)
 data_eventmeans2$condition <- relevel(as.factor(data_eventmeans2$condition), ref = "FullSleep")
+data_eventmeans2$AgeGroup <- relevel(as.factor(data_eventmeans2$AgeGroup), ref = "Young")
 
 # Find out how many responses have been rejected
 length(data_eventmeans2$event_no)
@@ -384,6 +385,18 @@ summary(lme3)
 intervals(lme3)
 plot(effect("stimulus*condition*AgeGroup", lme3))
 write.csv(summary(lme3)$tTable, file = "Full_model.csv")
+
+lme3b <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Young", ], random = ~ 1|subject)
+summary(lme3b)
+intervals(lme3b)
+plot(effect("stimulus*condition", lme3b))
+write.csv(summary(lme3b)$tTable, file = "Posthoc_young_only.csv")
+
+lme3c <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Old", ], random = ~ 1|subject)
+summary(lme3c)
+intervals(lme3c)
+plot(effect("stimulus*condition", lme3c))
+write.csv(summary(lme3c)$tTable, file = "Posthoc_old_only.csv")
 
 # Determine variability
 data_eventsd <- aggregate(mean_event ~ subject + stimulus + condition, data = data_eventmeans2, FUN = sd)

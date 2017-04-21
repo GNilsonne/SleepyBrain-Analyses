@@ -354,3 +354,10 @@ subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafil
 data_diff3 <- merge(data_diff2, subjectlist[, c("Subject", "newid")], by.x = "id", by.y = "newid")
 
 write.csv(data_diff3[, -1], "EMG_diff.csv", row.names = FALSE)
+
+# Temporary workaround to fix file written with wrong ID:s
+temp <- read.csv("EMG_diff.csv")
+subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+temp2 <- merge(temp, subjectlist[, c("Subject", "newid")])
+temp2 <- temp2[, -1]
+write.csv(temp2, "EMG_diff_2.csv", row.names = FALSE)
