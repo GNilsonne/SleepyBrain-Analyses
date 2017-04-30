@@ -25,7 +25,7 @@ source('Utils/Multiplot.R', chdir = T)
 cPalette <- c("#E69F00","#56B4E9")
 
 # Read data
-Data_HANDSRatings <- read.csv("HANDS/Ratings/Data_HANDS_ratings.csv", sep=";", dec=",")
+Data_HANDSRatings <- read.csv("Data/Data_HANDS_ratings.csv", sep=";", dec=",")
 
 # Relevel so that young are reference 
 Data_HANDSRatings$AgeGroup <- relevel(Data_HANDSRatings$AgeGroup, ref = "Young")
@@ -268,7 +268,10 @@ Lme_HANDS <- lme(Rated_Unpleasantness ~ Condition*AgeGroup*DeprivationCondition,
               data = Data_HANDSRatings_Intervention, 
               random = ~ 1|Subject, na.action = na.omit)
 
-anova(Lme_HANDS)
+anova(Lme_HANDS, type = "marginal")
+summary(Lme_HANDS)
+intervals(Lme_HANDS)
+
 
 ## Test for confounding. TestTimeType (whether participants were scheduled at ~ 5 p.m. or ~ 6.30 p.m.), sex and session 
 # (1st or 2:nd scanning) were tested for
@@ -290,14 +293,14 @@ anova(lme_HANDS, type = "marginal")
 Lme_young <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, 
                  data = subset(Data_HANDSRatings, AgeGroup == "Young"), random = ~ 1|Subject, na.action = na.omit)
 
-anova(Lme_young)
+anova(Lme_young, type = "marginal")
 summary(Lme_young)
 intervals(Lme_young)
 
 Lme_old <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, 
                  data = subset(Data_HANDSRatings, AgeGroup == "Old"), random = ~ 1|Subject, na.action = na.omit)
 
-anova(Lme_old)
+anova(Lme_old, type = "marginal")
 summary(Lme_old)
 intervals(Lme_old)
 
@@ -351,7 +354,7 @@ Lme_3 <- lme(Rated_Unpleasantness ~ AgeGroup*DeprivationCondition,
 anova(Lme_3, type = "marginal")
 intervals(Lme_3)
 summary(Lme_3)
-effect("AgeGroup*DeprivationCondition", Lme_3)
+
 
 # Add sex and session as possible confounders
 Lme_3b <- lme(Rated_Unpleasantness ~ Session + Sex + AgeGroup*DeprivationCondition, 
@@ -359,6 +362,30 @@ Lme_3b <- lme(Rated_Unpleasantness ~ Session + Sex + AgeGroup*DeprivationConditi
               random = ~ 1|Subject, na.action = na.omit)
 
 anova(Lme_3b, type = "marginal")
+
+# Pairwise comparisons
+Lme_3_old <- lme(Rated_Unpleasantness ~ DeprivationCondition, 
+             data = subset(Data_HANDSRatings_Intervention, Condition == "Pain" & AgeGroup == "Old"), 
+             random = ~ 1|Subject, na.action = na.omit)
+
+anova(Lme_3_old, type = "marginal")
+intervals(Lme_3_old)
+
+Lme_3_young <- lme(Rated_Unpleasantness ~ DeprivationCondition, 
+                 data = subset(Data_HANDSRatings_Intervention, Condition == "Pain" & AgeGroup == "Young"), 
+                 random = ~ 1|Subject, na.action = na.omit)
+
+anova(Lme_3_young, type = "marginal")
+intervals(Lme_3_young)
+
+# Unconditioned main effect of sleep restriction
+Lme_3_unc <- lme(Rated_Unpleasantness ~ DeprivationCondition + AgeGroup, 
+                   data = subset(Data_HANDSRatings_Intervention, Condition == "Pain"), 
+                   random = ~ 1|Subject, na.action = na.omit)
+
+anova(Lme_3_unc, type = "marginal")
+intervals(Lme_3_unc)
+
 
 
 # Test effect of age group on pain stimuli. Deprivation condition is 
@@ -379,40 +406,67 @@ Lme_1b <- lme(Rated_Unpleasantness ~ Session + Sex + AgeGroup*DeprivationConditi
 
 anova(Lme_1b, type = "marginal")
 
+# Unconditioned effect of age on pain
+Lme_1_pain <- lme(Rated_Unpleasantness ~ AgeGroup + DeprivationCondition, 
+             data = subset(Data_HANDSRatings, Condition == "Pain"), 
+             random = ~ 1|Subject, na.action = na.omit)
+
+anova(Lme_1_pain, type = "marginal")
+summary(Lme_1_pain)
+intervals(Lme_1_pain)
+
+# Unconditioned effect of age on no pain
+Lme_1_nopain <- lme(Rated_Unpleasantness ~ AgeGroup, 
+                  data = subset(Data_HANDSRatings, Condition == "No_Pain"), 
+                  random = ~ 1|Subject, na.action = na.omit)
+
+anova(Lme_1_nopain, type = "marginal")
+summary(Lme_1_nopain)
+intervals(Lme_1_nopain)
+
+
 
 
 # Testing the effect of sleep condition (deprivation condition) for no pain stimuli. 
 # This is only done as a control 
-Lme_4 <- lme(Rated_Unpleasantness ~ AgeGroup*DeprivationCondition, 
+Lme_4 <- lme(Rated_Unpleasantness ~ DeprivationCondition + AgeGroup, 
              data = subset(Data_HANDSRatings_Intervention, Condition == "No_Pain"), 
              random = ~ 1|Subject, na.action = na.omit)
 
 anova(Lme_4, type = "marginal")
 intervals(Lme_4)
 
-# Testing the effect of age group for no pain stimuli. 
-# This is only done as a control 
-Lme_2 <- lme(Rated_Unpleasantness ~ AgeGroup*DeprivationCondition, 
-             data = subset(Data_HANDSRatings, Condition == "No_Pain"), 
-             random = ~ 1|Subject, na.action = na.omit)
 
-anova(Lme_2, type = "marginal")
-summary(Lme_2)
-intervals(Lme_2)
 
 # Analyse variability
 Data_unique_intervention <- subset(Data_HANDSRatings_Intervention, Picture_no. == 1)
 lme_variability_pain <- lme(SD_pain ~ AgeGroup*DeprivationCondition, 
                             data = Data_unique_intervention, 
                             random = ~ 1|Subject, na.action = na.omit)
-anova(lme_variability_pain)
+anova(lme_variability_pain, type = "marginal")
 intervals(lme_variability_pain)
 
+# Unconditioned effects
+lme_variability_pain_unc <- lme(SD_pain ~ DeprivationCondition + AgeGroup, 
+                            data = Data_unique_intervention, 
+                            random = ~ 1|Subject, na.action = na.omit)
+anova(lme_variability_pain_unc, type = "marginal")
+intervals(lme_variability_pain_unc)
+
+
+# No pain
 lme_variability_nopain <- lme(SD_no_pain ~ AgeGroup*DeprivationCondition, 
                             data = Data_unique_intervention, 
                             random = ~ 1|Subject, na.action = na.omit)
 anova(lme_variability_nopain)
 intervals(lme_variability_nopain)
+
+# Unconditioned effects
+lme_variability_nopain_unc <- lme(SD_no_pain ~ AgeGroup + DeprivationCondition, 
+                              data = Data_unique_intervention, 
+                              random = ~ 1|Subject, na.action = na.omit)
+anova(lme_variability_nopain_unc)
+intervals(lme_variability_nopain_unc)
 
 
 # Test effect of self-rated empathy on ratings
@@ -422,16 +476,20 @@ anova(lme_IRI, type = "marginal")
 intervals(lme_IRI)
 summary(lme_IRI)
 
+lme_IRI_pain <- lme(Rated_Unpleasantness ~ DeprivationCondition + IRI_EC + AgeGroup, 
+               data = subset(Data_HANDSRatings, Condition == "Pain"), random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_IRI_pain, type = "marginal")
+intervals(lme_IRI_pain)
+summary(lme_IRI_pain)
+
+lme_IRI_nopain <- lme(Rated_Unpleasantness ~ DeprivationCondition + IRI_EC + AgeGroup, 
+                    data = subset(Data_HANDSRatings, Condition == "No_Pain"), random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_IRI_nopain, type = "marginal")
+intervals(lme_IRI_nopain)
+summary(lme_IRI_nopain)
 
 # Add sex and session as possible confounders
 lme_IRIb <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + IRI_EC + AgeGroup + Sex + Session), 
                 data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
 anova(lme_IRIb, type = "marginal")
 intervals(lme_IRIb)
-
-
-# Find mean effect for each participant
-test <- aggregate(Rated_Unpleasantness ~ Subject + Condition, data = Data_HANDSRatings, mean)
-test$diff <- test$Rated_Unpleasantness[test$Condition == "Pain"] - test$Rated_Unpleasantness[test$Condition == "No_Pain"]
-test <- test[1:86, c(1, 4)]
-write.csv(test, "rated_unpleasantness_diff.csv", row.names = FALSE)
