@@ -109,9 +109,11 @@ FDdatalong <- rbind(as.matrix(FDdata$S1), as.matrix(FDdata$S2), as.matrix(FDdata
 
 sessiondata <- list()
 models <- list()
+estimates_main <- list()
 estimates_sleep <- list()
 estimates_age <- list()
 estimates_sleep_age_interaction <- list()
+p_vals_main <- list()
 p_vals_sleep <- list()
 p_vals_age <- list()
 p_vals_sleep_age_interaction <- list()
@@ -119,18 +121,22 @@ p_vals_sleep_age_interaction <- list()
 for(i in 1:13){
   sessiondata[[i]] <- rep(list(list()), 13)
   models[[i]] <- rep(list(list()), 13)
+  estimates_main[[i]] <- rep(list(list()), 13)
   estimates_sleep[[i]] <- rep(list(list()), 13)
   estimates_age[[i]] <- rep(list(list()), 13)
   estimates_sleep_age_interaction[[i]] <- rep(list(list()), 13)
+  p_vals_main[[i]] <- rep(list(list()), 13)
   p_vals_sleep[[i]] <- rep(list(list()), 13)
   p_vals_age[[i]] <- rep(list(list()), 13)
   p_vals_sleep_age_interaction[[i]] <- rep(list(list()), 13)
   
   for(j in 1:13){
     if(j == i){ # Correlation of a roi to itself, not interesting
+      estimates_main[[i]][[j]] <- NA
       estimates_sleep[[i]][[j]] <- NA
       estimates_age[[i]][[j]] <- NA
       estimates_sleep_age_interaction[[i]][[j]] <- NA
+      p_vals_main[[i]][[j]] <- NA
       p_vals_sleep[[i]][[j]] <- NA
       p_vals_age[[i]][[j]] <- NA
       p_vals_sleep_age_interaction[[i]][[j]] <- NA
@@ -150,18 +156,25 @@ for(i in 1:13){
         x[i, j]
       }))
       data$condition <- c(abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary, abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary) # Randomisation condition was coded as 1 or 2, then recoded above to 0 and 1. If original code was 1, then participant had sleep deprivation at sessions 1 and 3 and full sleep at session 2 and 4. This vector now gives sleep deprivation (1) vs full sleep (0).
+      data$condition <- as.factor(data$condition)
       data$AgeGroup <- demdata$AgeGroup
       data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
       data$FD <- FDdatalong
       data$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
+    
+      # Deviation coding
+      contrasts(data$condition) <- rbind(-.5, .5)
+      contrasts(data$AgeGroup) <- rbind(-.5, .5)
       
       lme1 <- lme(z ~ condition*AgeGroup + FD, data = data, random = ~1|ID)
-    
+      
       sessiondata[[i]][[j]] <- data
       models[[i]][[j]] <- lme1
+      estimates_main[[i]][[j]] <- lme1$coefficients$fixed[1]
       estimates_sleep[[i]][[j]] <- lme1$coefficients$fixed[2]
       estimates_age[[i]][[j]] <- lme1$coefficients$fixed[3]
       estimates_sleep_age_interaction[[i]][[j]] <- lme1$coefficients$fixed[5]
+      p_vals_main[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][1]
       p_vals_sleep[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][2]
       p_vals_age[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][3]
       p_vals_sleep_age_interaction[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][5]
@@ -170,6 +183,17 @@ for(i in 1:13){
 }
 
 # Take each set of results, check p-values and plot effect estimates
+p_vals_main2 <- matrix(as.vector(unlist(p_vals_main)), nrow = 13, ncol = 13)
+p_vals_main2
+p_vals_main2[p_vals_main2 <= 0.05]
+p_vals_main3 <- c(p_vals_main2[1, 2], p_vals_main2[1:2, 3], p_vals_main2[1:3, 4], p_vals_main2[1:4, 5], p_vals_main2[1:5, 6], p_vals_main2[1:6, 7], p_vals_main2[1:7, 8], p_vals_main2[1:8, 9], p_vals_main2[1:9, 10], p_vals_main2[1:10, 11], p_vals_main2[1:11, 12], p_vals_main2[1:12, 13])
+p_vals_main4 <- p.adjust(p_vals_main3, method = "fdr")
+table(p_vals_main4)
+which(p_vals_main4 < 0.05)
+estimates_main2 <- matrix(as.vector(unlist(estimates_main)), nrow = 13, ncol = 13)
+estimates_main2
+row.names(estimates_main2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
+levelplot(estimates_main2, main = "Effect of sleep deprivation")
 
 p_vals_sleep2 <- matrix(as.vector(unlist(p_vals_sleep)), nrow = 13, ncol = 13)
 p_vals_sleep2
@@ -188,6 +212,7 @@ p_vals_age2[p_vals_age2 <= 0.05]
 p_vals_age3 <- c(p_vals_age2[1, 2], p_vals_age2[1:2, 3], p_vals_age2[1:3, 4], p_vals_age2[1:4, 5], p_vals_age2[1:5, 6], p_vals_age2[1:6, 7], p_vals_age2[1:7, 8], p_vals_age2[1:8, 9], p_vals_age2[1:9, 10], p_vals_age2[1:10, 11], p_vals_age2[1:11, 12], p_vals_age2[1:12, 13])
 p_vals_age4 <- p.adjust(p_vals_age3, method = "fdr")
 table(p_vals_age4)
+which(p_vals_age4 < 0.05)
 estimates_age2 <- matrix(as.vector(unlist(estimates_age)), nrow = 13, ncol = 13)
 estimates_age2
 row.names(estimates_age2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
@@ -204,288 +229,307 @@ estimates_sleep_age_interaction2
 row.names(estimates_sleep_age_interaction2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
 levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction")
 
-max_z <- max(c(estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
-min_z <- min(c(estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
+max_z <- max(c(estimates_main2, estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
+min_z <- min(c(estimates_main2, estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
+max_z <- 0.80 # Make even numbers
+min_z <- -0.80
 
 # Make new plots with a uniform scale
 
 levelplot(estimates_sleep2, main = "Effect of sleep deprivation", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
 levelplot(estimates_age2, main = "Effect of age group", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
 levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+
+# Make plots for publication
+
+pdf('main_corr.pdf', height = 7, width = 7)
+levelplot(estimates_main2, main = "Main effects", at = unique(c(seq(min_z, 0, length=81), seq(0, max_z, length=81))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+dev.off()
+pdf('sleep_corr.pdf', height = 7, width = 7)
+levelplot(estimates_sleep2, main = "Effect of sleep deprivation", at = unique(c(seq(min_z, 0, length=81), seq(0, max_z, length=81))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+dev.off()
+pdf('age_corr.pdf', height = 7, width = 7)
+levelplot(estimates_age2, main = "Effect of age group", at = unique(c(seq(min_z, 0, length=81), seq(0, max_z, length=81))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+dev.off()
+pdf('interaction_corr.pdf', height = 7, width = 7)
+levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction", at = unique(c(seq(min_z, 0, length=81), seq(0, max_z, length=81))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+dev.off()
 
 
 # Test differences in correlations within DMN and ACN USING ONLY S3 AND S4 for comparison with regression based approach
 # Each roi-roi correlation is tested in a loop and results are put in new objects
-
-sessiondata <- list()
-models <- list()
-estimates_sleep <- list()
-estimates_age <- list()
-estimates_sleep_age_interaction <- list()
-p_vals_sleep <- list()
-p_vals_age <- list()
-p_vals_sleep_age_interaction <- list()
-
-for(i in 1:13){
-  sessiondata[[i]] <- rep(list(list()), 13)
-  models[[i]] <- rep(list(list()), 13)
-  estimates_sleep[[i]] <- rep(list(list()), 13)
-  estimates_age[[i]] <- rep(list(list()), 13)
-  estimates_sleep_age_interaction[[i]] <- rep(list(list()), 13)
-  p_vals_sleep[[i]] <- rep(list(list()), 13)
-  p_vals_age[[i]] <- rep(list(list()), 13)
-  p_vals_sleep_age_interaction[[i]] <- rep(list(list()), 13)
-  
-  for(j in 1:13){
-    if(j == i){ # Correlation of a roi to itself, not interesting
-      estimates_sleep[[i]][[j]] <- NA
-      estimates_age[[i]][[j]] <- NA
-      estimates_sleep_age_interaction[[i]][[j]] <- NA
-      p_vals_sleep[[i]][[j]] <- NA
-      p_vals_age[[i]][[j]] <- NA
-      p_vals_sleep_age_interaction[[i]][[j]] <- NA
-    }
-    else{
-      data <- data.frame(ID = rep(1:53, 4))
-      data$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
-        x[i, j]
-      }))
-      data$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
-        x[i, j]
-      }))
-      data$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
-        x[i, j]
-      }))
-      data$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
-        x[i, j]
-      }))
-      data$condition <- c(abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary, abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary) # Randomisation condition was coded as 1 or 2, then recoded above to 0 and 1. If original code was 1, then participant had sleep deprivation at sessions 1 and 3 and full sleep at session 2 and 4. This vector now gives sleep deprivation (1) vs full sleep (0).
-      data$AgeGroup <- demdata$AgeGroup
-      data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
-      data$FD <- FDdatalong
-      data$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
-      data$session <- c(rep(1, 53), rep(2, 53), rep(3, 53), rep(4, 53))
-      
-      lme1 <- lme(z ~ condition*AgeGroup + FD, data = data[data$session >= 3, ], random = ~1|ID)
-      
-      sessiondata[[i]][[j]] <- data
-      models[[i]][[j]] <- lme1
-      estimates_sleep[[i]][[j]] <- lme1$coefficients$fixed[2]
-      estimates_age[[i]][[j]] <- lme1$coefficients$fixed[3]
-      estimates_sleep_age_interaction[[i]][[j]] <- lme1$coefficients$fixed[5]
-      p_vals_sleep[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][2]
-      p_vals_age[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][3]
-      p_vals_sleep_age_interaction[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][5]
-    }
-  }
-}
-
-# Take each set of results, check p-values and plot effect estimates
-
-p_vals_sleep2 <- matrix(as.vector(unlist(p_vals_sleep)), nrow = 13, ncol = 13)
-p_vals_sleep2
-p_vals_sleep2[p_vals_sleep2 <= 0.05]
-p_vals_sleep3 <- c(p_vals_sleep2[1, 2], p_vals_sleep2[1:2, 3], p_vals_sleep2[1:3, 4], p_vals_sleep2[1:4, 5], p_vals_sleep2[1:5, 6], p_vals_sleep2[1:6, 7], p_vals_sleep2[1:7, 8], p_vals_sleep2[1:8, 9], p_vals_sleep2[1:9, 10], p_vals_sleep2[1:10, 11], p_vals_sleep2[1:11, 12], p_vals_sleep2[1:12, 13])
-p_vals_sleep4 <- p.adjust(p_vals_sleep3, method = "fdr")
-table(p_vals_sleep4)
-estimates_sleep2 <- matrix(as.vector(unlist(estimates_sleep)), nrow = 13, ncol = 13)
-estimates_sleep2
-row.names(estimates_sleep2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
-levelplot(estimates_sleep2, main = "Effect of sleep deprivation")
-
-p_vals_age2 <- matrix(as.vector(unlist(p_vals_age)), nrow = 13, ncol = 13)
-p_vals_age2
-p_vals_age2[p_vals_age2 <= 0.05]
-p_vals_age3 <- c(p_vals_age2[1, 2], p_vals_age2[1:2, 3], p_vals_age2[1:3, 4], p_vals_age2[1:4, 5], p_vals_age2[1:5, 6], p_vals_age2[1:6, 7], p_vals_age2[1:7, 8], p_vals_age2[1:8, 9], p_vals_age2[1:9, 10], p_vals_age2[1:10, 11], p_vals_age2[1:11, 12], p_vals_age2[1:12, 13])
-p_vals_age4 <- p.adjust(p_vals_age3, method = "fdr")
-table(p_vals_age4)
-estimates_age2 <- matrix(as.vector(unlist(estimates_age)), nrow = 13, ncol = 13)
-estimates_age2
-row.names(estimates_age2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
-levelplot(estimates_age2, main = "Effect of age group")
-
-p_vals_sleep_age_interaction2 <- matrix(as.vector(unlist(p_vals_sleep_age_interaction)), nrow = 13, ncol = 13)
-p_vals_sleep_age_interaction2
-p_vals_sleep_age_interaction2[p_vals_sleep_age_interaction2 <= 0.05]
-p_vals_sleep_age_interaction3 <- c(p_vals_sleep_age_interaction2[1, 2], p_vals_sleep_age_interaction2[1:2, 3], p_vals_sleep_age_interaction2[1:3, 4], p_vals_sleep_age_interaction2[1:4, 5], p_vals_sleep_age_interaction2[1:5, 6], p_vals_sleep_age_interaction2[1:6, 7], p_vals_sleep_age_interaction2[1:7, 8], p_vals_sleep_age_interaction2[1:8, 9], p_vals_sleep_age_interaction2[1:9, 10], p_vals_sleep_age_interaction2[1:10, 11], p_vals_sleep_age_interaction2[1:11, 12], p_vals_sleep_age_interaction2[1:12, 13])
-p_vals_sleep_age_interaction4 <- p.adjust(p_vals_sleep_age_interaction3, method = "fdr")
-table(p_vals_sleep_age_interaction4)
-estimates_sleep_age_interaction2 <- matrix(as.vector(unlist(estimates_sleep_age_interaction)), nrow = 13, ncol = 13)
-estimates_sleep_age_interaction2
-row.names(estimates_sleep_age_interaction2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
-levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction")
-
-max_z <- max(c(estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
-min_z <- min(c(estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
-max_z <- 0.75
-min_z <- -0.75
+# 
+# sessiondata <- list()
+# models <- list()
+# estimates_sleep <- list()
+# estimates_age <- list()
+# estimates_sleep_age_interaction <- list()
+# p_vals_sleep <- list()
+# p_vals_age <- list()
+# p_vals_sleep_age_interaction <- list()
+# 
+# for(i in 1:13){
+#   sessiondata[[i]] <- rep(list(list()), 13)
+#   models[[i]] <- rep(list(list()), 13)
+#   estimates_sleep[[i]] <- rep(list(list()), 13)
+#   estimates_age[[i]] <- rep(list(list()), 13)
+#   estimates_sleep_age_interaction[[i]] <- rep(list(list()), 13)
+#   p_vals_sleep[[i]] <- rep(list(list()), 13)
+#   p_vals_age[[i]] <- rep(list(list()), 13)
+#   p_vals_sleep_age_interaction[[i]] <- rep(list(list()), 13)
+#   
+#   for(j in 1:13){
+#     if(j == i){ # Correlation of a roi to itself, not interesting
+#       estimates_sleep[[i]][[j]] <- NA
+#       estimates_age[[i]][[j]] <- NA
+#       estimates_sleep_age_interaction[[i]][[j]] <- NA
+#       p_vals_sleep[[i]][[j]] <- NA
+#       p_vals_age[[i]][[j]] <- NA
+#       p_vals_sleep_age_interaction[[i]][[j]] <- NA
+#     }
+#     else{
+#       data <- data.frame(ID = rep(1:53, 4))
+#       data$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
+#         x[i, j]
+#       }))
+#       data$condition <- c(abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary, abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary) # Randomisation condition was coded as 1 or 2, then recoded above to 0 and 1. If original code was 1, then participant had sleep deprivation at sessions 1 and 3 and full sleep at session 2 and 4. This vector now gives sleep deprivation (1) vs full sleep (0).
+#       data$AgeGroup <- demdata$AgeGroup
+#       data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
+#       data$FD <- FDdatalong
+#       data$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
+#       data$session <- c(rep(1, 53), rep(2, 53), rep(3, 53), rep(4, 53))
+#       
+#       lme1 <- lme(z ~ condition*AgeGroup + FD, data = data[data$session >= 3, ], random = ~1|ID)
+#       
+#       sessiondata[[i]][[j]] <- data
+#       models[[i]][[j]] <- lme1
+#       estimates_sleep[[i]][[j]] <- lme1$coefficients$fixed[2]
+#       estimates_age[[i]][[j]] <- lme1$coefficients$fixed[3]
+#       estimates_sleep_age_interaction[[i]][[j]] <- lme1$coefficients$fixed[5]
+#       p_vals_sleep[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][2]
+#       p_vals_age[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][3]
+#       p_vals_sleep_age_interaction[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][5]
+#     }
+#   }
+# }
+# 
+# # Take each set of results, check p-values and plot effect estimates
+# 
+# p_vals_sleep2 <- matrix(as.vector(unlist(p_vals_sleep)), nrow = 13, ncol = 13)
+# p_vals_sleep2
+# p_vals_sleep2[p_vals_sleep2 <= 0.05]
+# p_vals_sleep3 <- c(p_vals_sleep2[1, 2], p_vals_sleep2[1:2, 3], p_vals_sleep2[1:3, 4], p_vals_sleep2[1:4, 5], p_vals_sleep2[1:5, 6], p_vals_sleep2[1:6, 7], p_vals_sleep2[1:7, 8], p_vals_sleep2[1:8, 9], p_vals_sleep2[1:9, 10], p_vals_sleep2[1:10, 11], p_vals_sleep2[1:11, 12], p_vals_sleep2[1:12, 13])
+# p_vals_sleep4 <- p.adjust(p_vals_sleep3, method = "fdr")
+# table(p_vals_sleep4)
+# estimates_sleep2 <- matrix(as.vector(unlist(estimates_sleep)), nrow = 13, ncol = 13)
+# estimates_sleep2
+# row.names(estimates_sleep2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
+# levelplot(estimates_sleep2, main = "Effect of sleep deprivation")
+# 
+# p_vals_age2 <- matrix(as.vector(unlist(p_vals_age)), nrow = 13, ncol = 13)
+# p_vals_age2
+# p_vals_age2[p_vals_age2 <= 0.05]
+# p_vals_age3 <- c(p_vals_age2[1, 2], p_vals_age2[1:2, 3], p_vals_age2[1:3, 4], p_vals_age2[1:4, 5], p_vals_age2[1:5, 6], p_vals_age2[1:6, 7], p_vals_age2[1:7, 8], p_vals_age2[1:8, 9], p_vals_age2[1:9, 10], p_vals_age2[1:10, 11], p_vals_age2[1:11, 12], p_vals_age2[1:12, 13])
+# p_vals_age4 <- p.adjust(p_vals_age3, method = "fdr")
+# table(p_vals_age4)
+# estimates_age2 <- matrix(as.vector(unlist(estimates_age)), nrow = 13, ncol = 13)
+# estimates_age2
+# row.names(estimates_age2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
+# levelplot(estimates_age2, main = "Effect of age group")
+# 
+# p_vals_sleep_age_interaction2 <- matrix(as.vector(unlist(p_vals_sleep_age_interaction)), nrow = 13, ncol = 13)
+# p_vals_sleep_age_interaction2
+# p_vals_sleep_age_interaction2[p_vals_sleep_age_interaction2 <= 0.05]
+# p_vals_sleep_age_interaction3 <- c(p_vals_sleep_age_interaction2[1, 2], p_vals_sleep_age_interaction2[1:2, 3], p_vals_sleep_age_interaction2[1:3, 4], p_vals_sleep_age_interaction2[1:4, 5], p_vals_sleep_age_interaction2[1:5, 6], p_vals_sleep_age_interaction2[1:6, 7], p_vals_sleep_age_interaction2[1:7, 8], p_vals_sleep_age_interaction2[1:8, 9], p_vals_sleep_age_interaction2[1:9, 10], p_vals_sleep_age_interaction2[1:10, 11], p_vals_sleep_age_interaction2[1:11, 12], p_vals_sleep_age_interaction2[1:12, 13])
+# p_vals_sleep_age_interaction4 <- p.adjust(p_vals_sleep_age_interaction3, method = "fdr")
+# table(p_vals_sleep_age_interaction4)
+# estimates_sleep_age_interaction2 <- matrix(as.vector(unlist(estimates_sleep_age_interaction)), nrow = 13, ncol = 13)
+# estimates_sleep_age_interaction2
+# row.names(estimates_sleep_age_interaction2) <- c("LIPL", "RIPL", "LLTC", "RLTC", "PCC", "dMPFC", "vMPFC", "L_Insula", "R_Insula", "LIPS", "RIPS", "LTPJ", "RTPJ")
+# levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction")
+# 
+# max_z <- max(c(estimates_main2, estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
+# min_z <- min(c(estimates_main2, estimates_sleep2, estimates_age2, estimates_sleep_age_interaction2), na.rm = T)
+# max_z <- 0.75
+# min_z <- -0.75
 
 # Make new plots with a uniform scale
 
-jpeg('sleep_corr.jpg', height = 600, width = 600)
-levelplot(estimates_sleep2, main = "Effect of sleep deprivation", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
-dev.off()
-jpeg('age_corr.jpg', height = 600, width = 600)
-levelplot(estimates_age2, main = "Effect of age group", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
-dev.off()
-jpeg('interaction_corr.jpg', height = 600, width = 600)
-levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
-dev.off()
+# jpeg('main_corr.jpg', height = 600, width = 600)
+# levelplot(estimates_main2, main = "Main effects", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+# dev.off()
+# jpeg('sleep_corr.jpg', height = 600, width = 600)
+# levelplot(estimates_sleep2, main = "Effect of sleep deprivation", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+# dev.off()
+# jpeg('age_corr.jpg', height = 600, width = 600)
+# levelplot(estimates_age2, main = "Effect of age group", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+# dev.off()
+# jpeg('interaction_corr.jpg', height = 600, width = 600)
+# levelplot(estimates_sleep_age_interaction2, main = "Sleep deprivation - age group interaction", at = unique(c(seq(min_z, 0, length=50), seq(0, max_z, length=50))), col.regions = colorRampPalette(c("red", "white", "blue"))(1e3))
+# dev.off()
 
 ########################
 
 # Test differences in correlations between insula and cingulum
 # Put data in a new list, by roi-roi correlation so they each can be tested
-
-ins_sessiondata <- list()
-ins_models <- list()
-ins_estimates_sleep <- list()
-ins_estimates_age <- list()
-ins_estimates_sleep_age_interaction <- list()
-ins_p_vals_sleep <- list()
-ins_p_vals_age <- list()
-ins_p_vals_sleep_age_interaction <- list()
-
-for(i in 25:27){
-  ins_sessiondata[[i]] <- rep(list(list()), 3)
-  ins_models[[i]] <- rep(list(list()), 3)
-  ins_estimates_sleep[[i]] <- rep(list(list()), 3)
-  ins_estimates_age[[i]] <- rep(list(list()), 3)
-  ins_estimates_sleep_age_interaction[[i]] <- rep(list(list()), 3)
-  ins_p_vals_sleep[[i]] <- rep(list(list()), 3)
-  ins_p_vals_age[[i]] <- rep(list(list()), 3)
-  ins_p_vals_sleep_age_interaction[[i]] <- rep(list(list()), 3)
-  for(j in 25:27){
-    if(j == i){ # Correlation of a roi to itself, not interesting
-      ins_estimates_sleep[[i]][[j]] <- NA
-      ins_estimates_age[[i]][[j]] <- NA
-      ins_estimates_sleep_age_interaction[[i]][[j]] <- NA
-      ins_p_vals_sleep[[i]][[j]] <- NA
-      ins_p_vals_age[[i]][[j]] <- NA
-      ins_p_vals_sleep_age_interaction[[i]][[j]] <- NA
-    }
-    else{
-      data <- data.frame(ID = rep(1:53, 4))
-      data$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
-        x[i, j]
-      }))
-      data$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
-        x[i, j]
-      }))
-      data$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
-        x[i, j]
-      }))
-      data$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
-        x[i, j]
-      }))
-      data$deprivation <- c(rep(0, 106), rep(1, 106))
-      data$deprivation <- as.factor(data$deprivation)
-      data$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
-      data <- merge(data, demdata[, c("ID", "AgeGroup")], by = "ID")
-      
-      data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
-      data$FD <- FDdatalong
-      
-      lme1 <- lme(z ~ deprivation*AgeGroup + run + FD, data = data, random = ~1|ID)
-      
-      ins_sessiondata[[i]][[j]] <- data
-      ins_models[[i]][[j]] <- lme1
-      ins_estimates_sleep[[i]][[j]] <- lme1$coefficients$fixed[2]
-      ins_estimates_age[[i]][[j]] <- lme1$coefficients$fixed[3]
-      ins_estimates_sleep_age_interaction[[i]][[j]] <- lme1$coefficients$fixed[4]
-      ins_p_vals_sleep[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][2]
-      ins_p_vals_age[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][3]
-      ins_p_vals_sleep_age_interaction[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][4]
-    }
-  }
-}
-
-ins_p_vals2 <- matrix(as.vector(unlist(ins_p_vals)), nrow = 3, ncol = 3)
-ins_p_vals2
-ins_p_vals2[ins_p_vals2 <= 0.05]
-ins_p_vals3 <- c(ins_p_vals2[1, 2], ins_p_vals2[1:2, 3])
-ins_p_vals4 <- p.adjust(ins_p_vals3, method = "fdr")
-
-ins_estimates2 <- matrix(as.vector(unlist(ins_estimates_sleep)), nrow = 3, ncol = 3)
-ins_estimates2
-
-row.names(ins_estimates2) <- c("L_Ant_Insula", "R_Ant_Insula", "MidCing")
-levelplot(ins_estimates2)
-
-# Alternative approach without loop
-data_insulaL <- data.frame(ID = rep(1:53, 4))
-data_insulaL$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
-  x[25, 27]
-}))
-data_insulaL$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
-  x[25, 27]
-}))
-data_insulaL$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
-  x[25, 27]
-}))
-data_insulaL$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
-  x[25, 27]
-}))
-data_insulaL$deprivation <- c(rep(0, 106), rep(1, 106))
-data_insulaL$deprivation <- as.factor(data_insulaL$deprivation)
-data_insulaL$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
-data_insulaL <- merge(data_insulaL, demdata[, c("ID", "AgeGroup", "SicknessQ_Total_reduced")], by = "ID")
-data_insulaL$AgeGroup <- relevel(data_insulaL$AgeGroup, ref = "Young")
-data_insulaL$FD <- FDdatalong
-
-lme_insulaL <- lme(z ~ deprivation*AgeGroup + run + FD, data = data_insulaL, random = ~1|ID)
-summary(lme_insulaL)
-intervals(lme_insulaL)
-plot(effect("deprivation*AgeGroup", lme_insulaL))
-
-plot(z ~ SicknessQ_Total_reduced, data = data_insulaL)
-lme_insulaL_SQa <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaL[data_insulaL$deprivation == 0, ], random = ~1|ID)
-summary(lme_insulaL_SQa)
-intervals(lme_insulaL_SQa)
-plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaL_SQa))
-lme_insulaL_SQb <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaL[data_insulaL$deprivation == 1, ], random = ~1|ID)
-summary(lme_insulaL_SQb)
-intervals(lme_insulaL_SQb)
-plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaL_SQb))
-
-data_insulaR <- data.frame(ID = rep(1:53, 4))
-data_insulaR$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
-  x[26, 27]
-}))
-data_insulaR$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
-  x[26, 27]
-}))
-data_insulaR$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
-  x[26, 27]
-}))
-data_insulaR$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
-  x[26, 27]
-}))
-data_insulaR$deprivation <- c(rep(0, 106), rep(1, 106))
-data_insulaR$deprivation <- as.factor(data_insulaR$deprivation)
-data_insulaR$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
-data_insulaR <- merge(data_insulaR, demdata[, c("ID", "AgeGroup", "SicknessQ_Total_reduced")], by = "ID")
-data_insulaR$AgeGroup <- relevel(data_insulaR$AgeGroup, ref = "Young")
-data_insulaR$FD <- FDdatalong
-
-lme_insulaR <- lme(z ~ deprivation*AgeGroup + run + FD, data = data_insulaR, random = ~1|ID)
-summary(lme_insulaR)
-intervals(lme_insulaR)
-plot(effect("deprivation*AgeGroup", lme_insulaR))
-
-plot(z ~ SicknessQ_Total_reduced, data = data_insulaR)
-lme_insulaR_SQa <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaR[data_insulaR$deprivation == 0, ], random = ~1|ID)
-summary(lme_insulaR_SQa)
-intervals(lme_insulaR_SQa)
-plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaR_SQa))
-lme_insulaR_SQb <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaR[data_insulaR$deprivation == 1, ], random = ~1|ID)
-summary(lme_insulaR_SQb)
-intervals(lme_insulaR_SQb)
-plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaR_SQb))
+# 
+# ins_sessiondata <- list()
+# ins_models <- list()
+# ins_estimates_sleep <- list()
+# ins_estimates_age <- list()
+# ins_estimates_sleep_age_interaction <- list()
+# ins_p_vals_sleep <- list()
+# ins_p_vals_age <- list()
+# ins_p_vals_sleep_age_interaction <- list()
+# 
+# for(i in 25:27){
+#   ins_sessiondata[[i]] <- rep(list(list()), 3)
+#   ins_models[[i]] <- rep(list(list()), 3)
+#   ins_estimates_sleep[[i]] <- rep(list(list()), 3)
+#   ins_estimates_age[[i]] <- rep(list(list()), 3)
+#   ins_estimates_sleep_age_interaction[[i]] <- rep(list(list()), 3)
+#   ins_p_vals_sleep[[i]] <- rep(list(list()), 3)
+#   ins_p_vals_age[[i]] <- rep(list(list()), 3)
+#   ins_p_vals_sleep_age_interaction[[i]] <- rep(list(list()), 3)
+#   for(j in 25:27){
+#     if(j == i){ # Correlation of a roi to itself, not interesting
+#       ins_estimates_sleep[[i]][[j]] <- NA
+#       ins_estimates_age[[i]][[j]] <- NA
+#       ins_estimates_sleep_age_interaction[[i]][[j]] <- NA
+#       ins_p_vals_sleep[[i]][[j]] <- NA
+#       ins_p_vals_age[[i]][[j]] <- NA
+#       ins_p_vals_sleep_age_interaction[[i]][[j]] <- NA
+#     }
+#     else{
+#       data <- data.frame(ID = rep(1:53, 4))
+#       data$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
+#         x[i, j]
+#       }))
+#       data$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
+#         x[i, j]
+#       }))
+#       data$deprivation <- c(rep(0, 106), rep(1, 106))
+#       data$deprivation <- as.factor(data$deprivation)
+#       data$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
+#       data <- merge(data, demdata[, c("ID", "AgeGroup")], by = "ID")
+#       
+#       data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
+#       data$FD <- FDdatalong
+#       
+#       lme1 <- lme(z ~ deprivation*AgeGroup + run + FD, data = data, random = ~1|ID)
+#       
+#       ins_sessiondata[[i]][[j]] <- data
+#       ins_models[[i]][[j]] <- lme1
+#       ins_estimates_sleep[[i]][[j]] <- lme1$coefficients$fixed[2]
+#       ins_estimates_age[[i]][[j]] <- lme1$coefficients$fixed[3]
+#       ins_estimates_sleep_age_interaction[[i]][[j]] <- lme1$coefficients$fixed[4]
+#       ins_p_vals_sleep[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][2]
+#       ins_p_vals_age[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][3]
+#       ins_p_vals_sleep_age_interaction[[i]][[j]] <- summary(lme1)$tTable[,"p-value"][4]
+#     }
+#   }
+# }
+# 
+# ins_p_vals2 <- matrix(as.vector(unlist(ins_p_vals)), nrow = 3, ncol = 3)
+# ins_p_vals2
+# ins_p_vals2[ins_p_vals2 <= 0.05]
+# ins_p_vals3 <- c(ins_p_vals2[1, 2], ins_p_vals2[1:2, 3])
+# ins_p_vals4 <- p.adjust(ins_p_vals3, method = "fdr")
+# 
+# ins_estimates2 <- matrix(as.vector(unlist(ins_estimates_sleep)), nrow = 3, ncol = 3)
+# ins_estimates2
+# 
+# row.names(ins_estimates2) <- c("L_Ant_Insula", "R_Ant_Insula", "MidCing")
+# levelplot(ins_estimates2)
+# 
+# # Alternative approach without loop
+# data_insulaL <- data.frame(ID = rep(1:53, 4))
+# data_insulaL$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
+#   x[25, 27]
+# }))
+# data_insulaL$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
+#   x[25, 27]
+# }))
+# data_insulaL$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
+#   x[25, 27]
+# }))
+# data_insulaL$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
+#   x[25, 27]
+# }))
+# data_insulaL$deprivation <- c(rep(0, 106), rep(1, 106))
+# data_insulaL$deprivation <- as.factor(data_insulaL$deprivation)
+# data_insulaL$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
+# data_insulaL <- merge(data_insulaL, demdata[, c("ID", "AgeGroup", "SicknessQ_Total_reduced")], by = "ID")
+# data_insulaL$AgeGroup <- relevel(data_insulaL$AgeGroup, ref = "Young")
+# data_insulaL$FD <- FDdatalong
+# 
+# lme_insulaL <- lme(z ~ deprivation*AgeGroup + run + FD, data = data_insulaL, random = ~1|ID)
+# summary(lme_insulaL)
+# intervals(lme_insulaL)
+# plot(effect("deprivation*AgeGroup", lme_insulaL))
+# 
+# plot(z ~ SicknessQ_Total_reduced, data = data_insulaL)
+# lme_insulaL_SQa <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaL[data_insulaL$deprivation == 0, ], random = ~1|ID)
+# summary(lme_insulaL_SQa)
+# intervals(lme_insulaL_SQa)
+# plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaL_SQa))
+# lme_insulaL_SQb <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaL[data_insulaL$deprivation == 1, ], random = ~1|ID)
+# summary(lme_insulaL_SQb)
+# intervals(lme_insulaL_SQb)
+# plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaL_SQb))
+# 
+# data_insulaR <- data.frame(ID = rep(1:53, 4))
+# data_insulaR$z[1:53] <- unlist(lapply(corrs_S1, function(x) {
+#   x[26, 27]
+# }))
+# data_insulaR$z[54:106] <- unlist(lapply(corrs_S2, function(x) {
+#   x[26, 27]
+# }))
+# data_insulaR$z[107:159] <- unlist(lapply(corrs_S3, function(x) {
+#   x[26, 27]
+# }))
+# data_insulaR$z[160:212] <- unlist(lapply(corrs_S4, function(x) {
+#   x[26, 27]
+# }))
+# data_insulaR$deprivation <- c(rep(0, 106), rep(1, 106))
+# data_insulaR$deprivation <- as.factor(data_insulaR$deprivation)
+# data_insulaR$run <- c(rep(0, 53), rep(1, 53), rep(0, 53), rep(1, 53))
+# data_insulaR <- merge(data_insulaR, demdata[, c("ID", "AgeGroup", "SicknessQ_Total_reduced")], by = "ID")
+# data_insulaR$AgeGroup <- relevel(data_insulaR$AgeGroup, ref = "Young")
+# data_insulaR$FD <- FDdatalong
+# 
+# lme_insulaR <- lme(z ~ deprivation*AgeGroup + run + FD, data = data_insulaR, random = ~1|ID)
+# summary(lme_insulaR)
+# intervals(lme_insulaR)
+# plot(effect("deprivation*AgeGroup", lme_insulaR))
+# 
+# plot(z ~ SicknessQ_Total_reduced, data = data_insulaR)
+# lme_insulaR_SQa <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaR[data_insulaR$deprivation == 0, ], random = ~1|ID)
+# summary(lme_insulaR_SQa)
+# intervals(lme_insulaR_SQa)
+# plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaR_SQa))
+# lme_insulaR_SQb <- lme(z ~ SicknessQ_Total_reduced*AgeGroup + run + FD, data = data_insulaR[data_insulaR$deprivation == 1, ], random = ~1|ID)
+# summary(lme_insulaR_SQb)
+# intervals(lme_insulaR_SQb)
+# plot(effect("SicknessQ_Total_reduced*AgeGroup", lme_insulaR_SQb))
 
 
 # Investigate PSG parameters and other putative covariates
-
 sleepdata <- read.delim("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/sb_wide__6_Jun_2016.txt")
 sleepdata <- sleepdata[sleepdata$id %in% subjects$subject, ]
 sleepdata_nsd <- sleepdata[, 1:1995]
@@ -587,6 +631,7 @@ for(i in 1:13){ # Loop over rois
           x[i, j]
         }))
         data$condition <- c(abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary, abs(demdata$Sl_cond_binary - 1), demdata$Sl_cond_binary) # Randomisation condition was coded as 1 or 2, then recoded above to 0 and 1. If original code was 1, then participant had sleep deprivation at sessions 1 and 3 and full sleep at session 2 and 4. This vector now gives sleep deprivation (1) vs full sleep (0).
+        data$condition <- as.factor(data$condition)
         data$AgeGroup <- demdata$AgeGroup
         data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
         data$FD <- FDdatalong
@@ -597,6 +642,10 @@ for(i in 1:13){ # Loop over rois
         #datawithcovs <- merge(datawithcovs, KSS) #TODO
         datawithcovs <- merge(datawithcovs, sleepdata2[, c("id", "condition", "tst__00_nsd", "rp___00_nsd", "n1p__00_nsd", "n2p__00_nsd", "n3p__00_nsd", "fstst00_nsd", "delta_t_l_n3_p25_m_use_nsd", "fw___00_nsd", "eff__00_nsd", "waso_00_nsd")], by.x = c("subject", "condition"), by.y = c("id", "condition"), all = T) #TODO
         datawithcovs <- merge(datawithcovs, kssdata, by = c("subject", "session"))
+        
+        # Deviation coding
+        contrasts(data$condition) <- rbind(-.5, .5)
+        contrasts(data$AgeGroup) <- rbind(-.5, .5)
         
         modelterms <- paste("z ~ condition*AgeGroup*", covs[k], "+ FD", sep = "")
         lme1 <- lme(as.formula(modelterms), data = datawithcovs, random = ~1|ID, na.action = na.omit)
