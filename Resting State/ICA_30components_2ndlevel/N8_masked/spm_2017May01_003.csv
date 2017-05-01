@@ -1,0 +1,4 @@
+set,set,cluster,cluster,cluster,cluster,peak,peak,peak,peak,peak,,,
+p,c,p(FWE-corr),p(FDR-corr),equivk,p(unc),p(FWE-corr),p(FDR-corr),T,equivZ,p(unc),x,y,z {mm},
+0.000,2,0.000,0.146,8,0.012,0.000,0.054,  5.73, 5.51,0.000,-54,-51,39,
+,,0.000,0.150,6,0.026,0.000,0.221,  5.26, 5.09,0.000,-45, 33,12,
