@@ -5,6 +5,7 @@ require(xtable)
 require(nlme)
 require(effects)
 require(RColorBrewer)
+require(raster) # for cv function
 cols <- brewer.pal(n = 3, name = "Dark2")
 
 # Read files
@@ -51,7 +52,8 @@ data_glob <- data.frame(
   session = c(rep(1, 53), rep(2, 53), rep(3, 53), rep(4, 53)),
   globalsignal = c(unlist(lapply(covs_S1, mean)), unlist(lapply(covs_S2, mean)), unlist(lapply(covs_S3, mean)), unlist(lapply(covs_S4, mean))),
   globalsignal_rms = c(unlist(lapply(covs_S1, fun_rms)), unlist(lapply(covs_S2, fun_rms)), unlist(lapply(covs_S3, fun_rms)), unlist(lapply(covs_S4, fun_rms))),
-  globalsignal_sd = c(unlist(lapply(covs_S1, sd)), unlist(lapply(covs_S2, sd)), unlist(lapply(covs_S3, sd)), unlist(lapply(covs_S4, sd)))
+  globalsignal_sd = c(unlist(lapply(covs_S1, sd)), unlist(lapply(covs_S2, sd)), unlist(lapply(covs_S3, sd)), unlist(lapply(covs_S4, sd))),
+  globalsignal_cv = c(unlist(lapply(covs_S1, cv)), unlist(lapply(covs_S2, cv)), unlist(lapply(covs_S3, cv)), unlist(lapply(covs_S4, cv)))
 )
 
 hist(data_glob$globalsignal)
@@ -131,8 +133,10 @@ data_glob <- merge(data_glob, sleepdata2, by.x = c("subject", "condition"), by.y
 
 # Change reference levels for modelling
 data_glob$AgeGroup <- relevel(data_glob$AgeGroup, ref = "Young")
+contrasts(data_glob$AgeGroup) <- rbind(-.5, .5) # Deviation coding
 data_glob$condition <- as.factor(data_glob$condition)
 data_glob$condition <- relevel(data_glob$condition, ref = "fullsleep")
+contrasts(data_glob$condition) <- rbind(-.5, .5)
 
 data_glob$run <- "first"
 data_glob$run[data_glob$session == 3 | data_glob$session == 4] <- "second"
@@ -143,7 +147,7 @@ data_glob$run <- relevel(data_glob$run, ref = "first")
 
 # Main analyses
 
-# Full model, global signal amplitude
+# Full model, global signal variability
 lm1 <- lme(globalsignal_logsd ~ condition * AgeGroup + FD, data = data_glob, random = ~1|ID)
 summary(lm1)
 intervals(lm1)
@@ -788,38 +792,38 @@ plot(effect("condition*fstst00_nsd", lm22))
 plot(effect("AgeGroup*fstst00_nsd", lm22))
 
 # Delta power, absolute
-lm23 <- lme(globalsignal ~ delta_t_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
+lm23 <- lme(globalsignal ~ delta_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
 summary(lm23)
 intervals(lm23)
-plot(effect("delta_t_l_n3_p25_m_use_nsd*AgeGroup", lm23))
+plot(effect("delta_l_n3_p25_m_use_nsd*AgeGroup", lm23))
 
-lm24 <- lme(globalsignal ~ delta_t_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
+lm24 <- lme(globalsignal ~ delta_l_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
 summary(lm24)
 intervals(lm24)
-plot(effect("delta_t_l_n3_p25_m_use_nsd*AgeGroup", lm24))
+plot(effect("delta_l_n3_p25_m_use_nsd*AgeGroup", lm24))
 
-lm25 <- lme(globalsignal ~ (condition + AgeGroup) * delta_t_l_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
+lm25 <- lme(globalsignal ~ (condition + AgeGroup) * delta_l_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
 summary(lm25)
 intervals(lm25)
-plot(effect("condition*delta_t_l_n3_p25_m_use_nsd", lm25))
-plot(effect("AgeGroup*delta_t_l_n3_p25_m_use_nsd", lm25))
+plot(effect("condition*delta_l_n3_p25_m_use_nsd", lm25))
+plot(effect("AgeGroup*delta_l_n3_p25_m_use_nsd", lm25))
 
 # Delta power, relative
-lm23b <- lme(globalsignal ~ delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
+lm23b <- lme(globalsignal ~ delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
 summary(lm23b)
 intervals(lm23b)
-#plot(effect("delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd*AgeGroup", lm23b))
+#plot(effect("delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd*AgeGroup", lm23b))
 
-lm24b <- lme(globalsignal ~ delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
+lm24b <- lme(globalsignal ~ delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "sleepdeprived"), random = ~1|ID, na.action = na.omit)
 summary(lm24b)
 intervals(lm24b)
-#plot(effect("delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd*AgeGroup", lm24b))
+#plot(effect("delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd*AgeGroup", lm24b))
 
-lm25c <- lme(globalsignal ~ (condition + AgeGroup) * delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
-summary(lm25c)
-intervals(lm25c)
-#plot(effect("condition*delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd", lm25c))
-#plot(effect("AgeGroup*delta_t_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd", lm25c))
+lm25b <- lme(globalsignal ~ (condition + AgeGroup) * delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd + FD, data = subset(data_glob), random = ~1|ID, na.action = na.omit)
+summary(lm25b)
+intervals(lm25b)
+#plot(effect("condition*delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd", lm25c))
+#plot(effect("AgeGroup*delta_l_n3_p25_m_use_nsd/totpow_n3_p25_m_use_nsd", lm25c))
 
 # Number of awakenings
 lm26 <- lme(globalsignal ~ fw___00_nsd * AgeGroup + FD, data = subset(data_glob, data_glob$condition == "fullsleep"), random = ~1|ID, na.action = na.omit)
@@ -1299,3 +1303,27 @@ abline(v = 0, col = "gray")
 segments(x0 = data_sd2$lower, x1 = data_sd2$upper, y0 = 1:112, y1 = 1:112)
 axis(2, at = 1:112, labels = data_sd2$name, tick = F, cex.axis = 0.3, las = 1)
 
+#######################
+
+# Analysis of cv instead of sd
+
+# Full model, global signal amplitude
+lm_cv1 <- lme(globalsignal_cv ~ condition * AgeGroup + FD, data = data_glob, random = ~1|ID)
+summary(lm_cv1)
+intervals(lm_cv1)
+plot(effect("condition*AgeGroup", lm_cv1))
+
+pdf("GS_CV.pdf", height = 6, width = 6) 
+par(mar = c(4, 5, 1, 2))
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0.2, 0.6), xlab = "", ylab = "Global signal variability (CV)", xaxt = "n", type = "n")
+axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lm_cv1)$fit[1:2], pch = 16, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lm_cv1)$fit[3:4], pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lm_cv1)$lower[1], effect("condition*AgeGroup", lm_cv1)$upper[1]), col = cols[3], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lm_cv1)$lower[2], effect("condition*AgeGroup", lm_cv1)$upper[2]), col = cols[3], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lm_cv1)$lower[3], effect("condition*AgeGroup", lm_cv1)$upper[3]), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lm_cv1)$lower[4], effect("condition*AgeGroup", lm_cv1)$upper[4]), col = cols[2], lwd = 1.5)
+legend("topleft", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+dev.off()
+
+#######################
