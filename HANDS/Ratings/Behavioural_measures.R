@@ -30,6 +30,16 @@ Data_HANDSRatings <- read.csv("Data/Data_HANDS_ratings.csv", sep=";", dec=",")
 # Relevel so that young are reference 
 Data_HANDSRatings$AgeGroup <- relevel(Data_HANDSRatings$AgeGroup, ref = "Young")
 
+# Put in dummy variables for group and sleep condition, sot that main effect represent 
+# mean effect across groups etc
+
+contrasts(Data_HANDSRatings$AgeGroup) <- rbind(-.5, .5)
+colnames(contrasts(Data_HANDSRatings$AgeGroup)) <- levels(Data_HANDSRatings$AgeGroup)[2]
+
+contrasts(Data_HANDSRatings$DeprivationCondition) <- rbind(-.5, .5)
+colnames(contrasts(Data_HANDSRatings$AgeGroup)) <- levels(Data_HANDSRatings$AgeGroup)[2]
+
+
 # Make data frame with only subjects that can be included for intervention effects
 Data_HANDSRatings_Intervention <- subset(Data_HANDSRatings, HANDSRatings_Intervention == TRUE)
 
@@ -264,6 +274,7 @@ dev.off()
 # Main analyses
 
 # Overall model
+
 Lme_HANDS <- lme(Rated_Unpleasantness ~ Condition*AgeGroup*DeprivationCondition, 
               data = Data_HANDSRatings_Intervention, 
               random = ~ 1|Subject, na.action = na.omit)
@@ -378,14 +389,6 @@ Lme_3_young <- lme(Rated_Unpleasantness ~ DeprivationCondition,
 anova(Lme_3_young, type = "marginal")
 intervals(Lme_3_young)
 
-# Unconditioned main effect of sleep restriction
-Lme_3_unc <- lme(Rated_Unpleasantness ~ DeprivationCondition + AgeGroup, 
-                   data = subset(Data_HANDSRatings_Intervention, Condition == "Pain"), 
-                   random = ~ 1|Subject, na.action = na.omit)
-
-anova(Lme_3_unc, type = "marginal")
-intervals(Lme_3_unc)
-
 
 
 # Test effect of age group on pain stimuli. Deprivation condition is 
@@ -406,30 +409,13 @@ Lme_1b <- lme(Rated_Unpleasantness ~ Session + Sex + AgeGroup*DeprivationConditi
 
 anova(Lme_1b, type = "marginal")
 
-# Unconditioned effect of age on pain
-Lme_1_pain <- lme(Rated_Unpleasantness ~ AgeGroup + DeprivationCondition, 
-             data = subset(Data_HANDSRatings, Condition == "Pain"), 
-             random = ~ 1|Subject, na.action = na.omit)
-
-anova(Lme_1_pain, type = "marginal")
-summary(Lme_1_pain)
-intervals(Lme_1_pain)
-
-# Unconditioned effect of age on no pain
-Lme_1_nopain <- lme(Rated_Unpleasantness ~ AgeGroup, 
-                  data = subset(Data_HANDSRatings, Condition == "No_Pain"), 
-                  random = ~ 1|Subject, na.action = na.omit)
-
-anova(Lme_1_nopain, type = "marginal")
-summary(Lme_1_nopain)
-intervals(Lme_1_nopain)
 
 
 
 
-# Testing the effect of sleep condition (deprivation condition) for no pain stimuli. 
+# Testing the effect of sleep condition (deprivation condition) and age for no pain stimuli. 
 # This is only done as a control 
-Lme_4 <- lme(Rated_Unpleasantness ~ DeprivationCondition + AgeGroup, 
+Lme_4 <- lme(Rated_Unpleasantness ~ DeprivationCondition*AgeGroup, 
              data = subset(Data_HANDSRatings_Intervention, Condition == "No_Pain"), 
              random = ~ 1|Subject, na.action = na.omit)
 
@@ -446,13 +432,6 @@ lme_variability_pain <- lme(SD_pain ~ AgeGroup*DeprivationCondition,
 anova(lme_variability_pain, type = "marginal")
 intervals(lme_variability_pain)
 
-# Unconditioned effects
-lme_variability_pain_unc <- lme(SD_pain ~ DeprivationCondition + AgeGroup, 
-                            data = Data_unique_intervention, 
-                            random = ~ 1|Subject, na.action = na.omit)
-anova(lme_variability_pain_unc, type = "marginal")
-intervals(lme_variability_pain_unc)
-
 
 # No pain
 lme_variability_nopain <- lme(SD_no_pain ~ AgeGroup*DeprivationCondition, 
@@ -460,13 +439,6 @@ lme_variability_nopain <- lme(SD_no_pain ~ AgeGroup*DeprivationCondition,
                             random = ~ 1|Subject, na.action = na.omit)
 anova(lme_variability_nopain)
 intervals(lme_variability_nopain)
-
-# Unconditioned effects
-lme_variability_nopain_unc <- lme(SD_no_pain ~ AgeGroup + DeprivationCondition, 
-                              data = Data_unique_intervention, 
-                              random = ~ 1|Subject, na.action = na.omit)
-anova(lme_variability_nopain_unc)
-intervals(lme_variability_nopain_unc)
 
 
 # Test effect of self-rated empathy on ratings
