@@ -367,6 +367,12 @@ data_eventmeans2$AgeGroup <- relevel(as.factor(data_eventmeans2$AgeGroup), ref =
 length(data_eventmeans2$event_no)
 length(data_eventmeans2$event_no)/(166*40)
 
+# Contrast coding
+contrasts(data_eventmeans2$AgeGroup) <- rbind(-.5, .5)
+colnames(contrasts(data_eventmeans2$AgeGroup)) <- levels(data_eventmeans2$AgeGroup)[2]
+contrasts(data_eventmeans2$condition) <- rbind(-.5, .5)
+colnames(contrasts(data_eventmeans2$condition)) <- levels(data_eventmeans2$condition)[2]
+
 # Build models
 # First model is without pain/no pain stimulus and sleep condition for purpose of technical validation
 lme1 <- lme(mean_event ~ 1, data = data_eventmeans2, random = ~ 1|subject/session, na.action = na.omit)
@@ -375,28 +381,32 @@ intervals(lme1)
 
 lme2 <- lme(mean_event ~ stimulus*condition, data = data_eventmeans2, random = ~ 1|subject)
 summary(lme2)
-intervals(lme2)
+intervals_lme2 <- intervals(lme2)
 plot(effect("stimulus*condition", lme2))
 setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/HANDS/Eyetracking/")
 write.csv(summary(lme2)$tTable, file = "Reduced_model.csv")
+write.csv(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
 
 lme3 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject)
 summary(lme3)
-intervals(lme3)
+intervals_lme3 <- intervals(lme3)
 plot(effect("stimulus*condition*AgeGroup", lme3))
 write.csv(summary(lme3)$tTable, file = "Full_model.csv")
+write.csv(intervals_lme3$fixed, file = "Full_model_intervals.csv")
 
 lme3b <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Young", ], random = ~ 1|subject)
 summary(lme3b)
-intervals(lme3b)
+intervals_lme3b <- intervals(lme3b)
 plot(effect("stimulus*condition", lme3b))
 write.csv(summary(lme3b)$tTable, file = "Posthoc_young_only.csv")
+write.csv(intervals_lme3b$fixed, file = "Posthoc_young_only_intervals.csv")
 
 lme3c <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Old", ], random = ~ 1|subject)
 summary(lme3c)
-intervals(lme3c)
+intervals_lme3c <- intervals(lme3c)
 plot(effect("stimulus*condition", lme3c))
 write.csv(summary(lme3c)$tTable, file = "Posthoc_old_only.csv")
+write.csv(intervals_lme3b$fixed, file = "Posthoc_old_only_intervals.csv")
 
 # Determine variability
 data_eventsd <- aggregate(mean_event ~ subject + stimulus + condition, data = data_eventmeans2, FUN = sd)
