@@ -1,0 +1,4527 @@
+Starting Analysis 
+
+ 
+------------------------------------------------------------------------------------
+GETTING DATA REDUCTION PARAMETERS----------------------
+------------------------------------------------------------------------------------
+ Reduction step 1 starts with 212 groups and gets reduced to 212 groups
+    -New Group #1: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #2: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #3: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #4: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #5: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #6: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #7: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #8: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #9: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #10: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #11: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #12: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #13: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #14: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #15: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #16: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #17: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #18: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #19: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #20: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #21: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #22: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #23: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #24: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #25: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #26: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #27: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #28: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #29: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #30: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #31: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #32: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #33: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #34: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #35: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #36: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #37: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #38: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #39: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #40: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #41: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #42: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #43: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #44: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #45: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #46: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #47: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #48: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #49: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #50: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #51: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #52: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #53: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #54: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #55: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #56: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #57: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #58: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #59: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #60: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #61: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #62: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #63: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #64: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #65: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #66: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #67: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #68: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #69: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #70: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #71: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #72: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #73: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #74: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #75: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #76: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #77: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #78: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #79: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #80: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #81: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #82: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #83: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #84: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #85: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #86: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #87: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #88: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #89: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #90: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #91: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #92: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #93: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #94: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #95: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #96: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #97: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #98: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #99: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #100: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #101: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #102: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #103: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #104: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #105: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #106: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #107: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #108: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #109: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #110: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #111: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #112: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #113: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #114: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #115: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #116: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #117: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #118: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #119: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #120: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #121: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #122: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #123: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #124: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #125: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #126: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #127: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #128: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #129: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #130: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #131: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #132: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #133: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #134: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #135: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #136: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #137: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #138: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #139: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #140: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #141: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #142: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #143: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #144: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #145: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #146: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #147: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #148: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #149: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #150: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #151: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #152: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #153: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #154: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #155: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #156: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #157: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #158: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #159: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #160: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #161: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #162: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #163: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #164: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #165: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #166: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #167: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #168: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #169: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #170: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #171: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #172: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #173: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #174: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #175: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #176: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #177: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #178: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #179: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #180: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #181: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #182: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #183: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #184: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #185: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #186: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #187: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #188: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #189: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #190: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #191: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #192: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #193: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #194: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #195: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #196: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #197: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #198: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #199: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #200: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #201: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #202: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #203: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #204: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #205: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #206: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #207: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #208: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #209: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #210: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #211: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+    -New Group #212: 1 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 163 BOLD timepoints
+     The new group will have a total of 163 stacked BOLD timepoints
+     This group will then be reduced to 40 principal components
+ Reduction step 2 starts with 212 groups and gets reduced to 1 groups
+    -New Group #1: 212 groups will be concatenated to form the new group.
+     Each of the to be concatenated groups is made up of 40 principal components
+     The new group will have a total of 8480 stacked principal components
+     This group will then be reduced to 30 principal components
+------------------------------------------------------------------------------------
+END GETTING DATA REDUCTION PARAMETERS----------------------
+------------------------------------------------------------------------------------
+ 
+Checking to make sure parameters are correct...
+  Checking mask 
+  Checking principal component parameters
+Done with parameter error check 
+ 
+------------------------------------------------------------------------------------
+STARTING DATA REDUCTION (PRINCIPAL COMPONENTS ANALYSIS)
+------------------------------------------------------------------------------------
+--Extracting principal components for data reduction( time #1 )
+
+PCA type selected is Standard
+
+
+PCA options are: 
+pca_opts.stack_data = yes
+pca_opts.storage = full
+pca_opts.precision = double
+pca_opts.eig_solver = selective
+
+
+--Doing pca on Subject #1 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.4713% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #1 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.4928% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #1 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.7161% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #1 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.8246% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #2 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.2967% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #2 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.3874% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #2 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.9841% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #2 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.8244% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #3 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.0743% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #3 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.8419% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #3 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.734% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #3 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.6274% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #4 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.217% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #4 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.6592% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #4 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+79.9183% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #4 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.3436% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #5 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.8385% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #5 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.0094% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #5 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.372% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #5 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.6053% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #6 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.3806% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #6 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.6169% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #6 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.7037% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #6 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.7007% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #7 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+100% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #7 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+95.5491% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #7 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.8813% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #7 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9993% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #8 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.0462% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #8 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.515% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #8 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9777% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #8 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+95.0929% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #9 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.3389% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #9 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.296% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #9 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.8536% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #9 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.954% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #10 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.5101% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #10 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.343% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #10 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.9089% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #10 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.5208% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #11 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.3361% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #11 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+78.2091% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #11 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.5527% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #11 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+78.6798% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #12 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.9997% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #12 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.5203% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #12 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.5355% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #12 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.0757% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #13 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+79.9943% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #13 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.498% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #13 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+80.4931% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #13 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+80.8013% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #14 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.9508% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #14 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.2155% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #14 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9323% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #14 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.041% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #15 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.5773% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #15 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.1013% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #15 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+96.9952% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #15 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.5007% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #16 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.6366% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #16 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.0872% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #16 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.2528% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #16 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.8346% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #17 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+79.7553% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #17 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.3299% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #17 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.0158% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #17 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.46% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #18 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.1539% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #18 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.5398% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #18 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.0731% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #18 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.2301% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #19 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.8771% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #19 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+79.3672% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #19 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.2135% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #19 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.9141% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #20 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.3947% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #20 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.2909% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #20 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.478% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #20 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.2909% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #21 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+80.9141% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #21 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.4475% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #21 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.1297% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #21 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.1922% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #22 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.8339% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #22 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.1534% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #22 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.8351% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #22 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.6935% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #23 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.2446% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #23 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.2589% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #23 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.0849% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #23 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.7915% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #24 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.8998% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #24 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.5203% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #24 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.2744% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #24 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+98.6156% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #25 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.8755% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #25 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.5205% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #25 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.8642% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #25 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.7042% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #26 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.3286% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #26 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.4761% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #26 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.8663% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #26 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.9187% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #27 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.6091% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #27 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.3068% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #27 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.8627% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #27 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.1495% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #28 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.7602% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #28 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.9691% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #28 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.6332% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #28 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.9466% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #29 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.3389% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #29 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.8637% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #29 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.1988% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #29 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+97.8891% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #30 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.9444% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #30 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.2287% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #30 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.4683% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #30 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.4116% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #31 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.7482% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #31 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.8024% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #31 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.6957% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #31 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+97.9437% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #32 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+80.6618% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #32 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+97.9267% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #32 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.8573% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #32 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.1304% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #33 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.907% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #33 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.9317% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #33 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.8137% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #33 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.7892% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #34 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+80.3626% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #34 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.1439% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #34 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.7571% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #34 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.5939% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #35 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.4918% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #35 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.6734% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #35 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+95.0999% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #35 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9973% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #36 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.4409% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #36 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.8757% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #36 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.2933% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #36 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.413% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #37 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.2277% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #37 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.8% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #37 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.945% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #37 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+82.592% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #38 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.6311% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #38 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.4509% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #38 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.8548% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #38 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.9908% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #39 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.7718% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #39 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.4606% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #39 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.2485% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #39 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.8021% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #40 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.5115% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #40 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.5198% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #40 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.0186% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #40 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9771% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #41 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.5678% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #41 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+83.5913% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #41 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.3154% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #41 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.8455% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #42 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.2826% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #42 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.981% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #42 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.7284% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #42 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.6296% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #43 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.4607% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #43 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.5542% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #43 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.6885% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #43 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+84.6732% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #44 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.6583% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #44 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+85.0347% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #44 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9595% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #44 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.9319% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #45 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.0486% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #45 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.8459% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #45 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+92.3614% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #45 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.5334% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #46 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.3781% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #46 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.6651% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #46 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.4195% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #46 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+97.5913% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #47 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+97.1397% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #47 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.5684% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #47 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9485% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #47 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.8854% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #48 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.835% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #48 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.2675% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #48 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.0051% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #48 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+95.6285% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #49 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9501% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #49 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.2309% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #49 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.9827% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #49 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.8246% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #50 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.3432% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #50 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+86.2794% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #50 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.4287% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #50 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.2475% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #51 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+81.3687% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #51 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.181% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #51 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+87.5847% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #51 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+94.6459% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #52 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+93.1197% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #52 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.1194% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #52 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+91.6327% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #52 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+90.3263% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #53 Session #1
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+89.2296% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #53 Session #2
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+88.6196% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #53 Session #3
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+98.5759% of (non-zero) eigenvalues retained.
+Whitening...
+
+--Doing pca on Subject #53 Session #4
+Removing mean per time point ...
+Covariance matrix size is 163 ^2
+Calculating eigendecomposition
+Sorting eigenvalues
+Selecting Desired Eigenvalues
+99.9923% of (non-zero) eigenvalues retained.
+Whitening...
+Done with data reduction( time # 1)
+ 
+--Extracting principal components for data reduction( time #2 )
+
+PCA type selected is Expectation maximization
+
+
+PCA options are: 
+pca_opts.stack_data = yes
+pca_opts.precision = single
+pca_opts.tolerance = 0.0001
+pca_opts.max_iter = 1000
+
+--Doing pca reduction #2 on group #1
+
+Using Expectation Maximization to do PCA
+Step No: 5 Norm of residual error: 0.338778
+Step No: 10 Norm of residual error: 0.071314
+Step No: 15 Norm of residual error: 0.039049
+Step No: 20 Norm of residual error: 0.022210
+Step No: 25 Norm of residual error: 0.014133
+Step No: 30 Norm of residual error: 0.010056
+Step No: 35 Norm of residual error: 0.007624
+Step No: 40 Norm of residual error: 0.005936
+Step No: 45 Norm of residual error: 0.004667
+Step No: 50 Norm of residual error: 0.003681
+Step No: 55 Norm of residual error: 0.002907
+Step No: 60 Norm of residual error: 0.002298
+Step No: 65 Norm of residual error: 0.001817
+Step No: 70 Norm of residual error: 0.001437
+Step No: 75 Norm of residual error: 0.001138
+Step No: 80 Norm of residual error: 0.000901
+Step No: 85 Norm of residual error: 0.000714
+Step No: 90 Norm of residual error: 0.000566
+Step No: 95 Norm of residual error: 0.000449
+Step No: 100 Norm of residual error: 0.000356
+Step No: 105 Norm of residual error: 0.000283
+Step No: 110 Norm of residual error: 0.000225
+Step No: 115 Norm of residual error: 0.000179
+Step No: 120 Norm of residual error: 0.000142
+Step No: 125 Norm of residual error: 0.000114
+
+No of iterations required to converge is 128
+Done
+
+
+
+Done extracting principal components for data reduction( time #2 )
+
+Done with data reduction( time # 2)
+ 
+------------------------------------------------------------------------------------
+ENDING DATA REDUCTION (PRINCIPAL COMPONENTS ANALYSIS)
+------------------------------------------------------------------------------------
+ 
+---------------------------------------------------------------------
+STARTING GROUP ICA STEP 
+---------------------------------------------------------------------
+
+Number of times ICA will run is 1
+
+Run 1 / 1
+
+
+Input data size [30,70831] = 30 channels, 70831 frames.
+Finding 30 ICA components using logistic ICA.
+Initial learning rate will be 0.0044102, block size 153.
+Learning rate will be multiplied by 0.9 whenever angledelta >= 60 deg.
+Training will end when wchange < 1e-06 or after 512 steps.
+Online bias adjustment will be used.
+Removing mean of each channel ...
+Not removing mean of each channel!!!
+Final training data range: -9.01904 to 17.5094
+Computing the sphering matrix...
+Starting weights are the identity matrix ...
+Sphering the data ...
+Beginning ICA training ...
+Lowering learning rate to 0.00396918 and starting again.
+Lowering learning rate to 0.00357226 and starting again.
+Lowering learning rate to 0.00321504 and starting again.
+Lowering learning rate to 0.00289353 and starting again.
+Lowering learning rate to 0.00260418 and starting again.
+Lowering learning rate to 0.00234376 and starting again.
+Lowering learning rate to 0.00210938 and starting again.
+Lowering learning rate to 0.00189845 and starting again.
+Lowering learning rate to 0.0017086 and starting again.
+Lowering learning rate to 0.00153774 and starting again.
+Lowering learning rate to 0.00138397 and starting again.
+Lowering learning rate to 0.00124557 and starting again.
+Lowering learning rate to 0.00112101 and starting again.
+step 1 - lrate 0.001121, wchange 47.467415
+step 2 - lrate 0.001121, wchange 8.989727
+step 3 - lrate 0.001121, wchange 27.082453, angledelta 97.5 deg
+step 4 - lrate 0.001009, wchange 13.049070, angledelta 111.1 deg
+step 5 - lrate 0.000908, wchange 6.415346, angledelta 104.2 deg
+step 6 - lrate 0.000817, wchange 8.588682, angledelta 107.3 deg
+step 7 - lrate 0.000735, wchange 5.639241, angledelta 114.9 deg
+step 8 - lrate 0.000662, wchange 5.231647, angledelta 120.6 deg
+step 9 - lrate 0.000596, wchange 4.215837, angledelta 137.5 deg
+step 10 - lrate 0.000536, wchange 1.632055, angledelta 121.8 deg
+step 11 - lrate 0.000483, wchange 1.739883, angledelta 109.7 deg
+step 12 - lrate 0.000434, wchange 1.247100, angledelta 121.2 deg
+step 13 - lrate 0.000391, wchange 0.853064, angledelta 119.9 deg
+step 14 - lrate 0.000352, wchange 1.054285, angledelta 122.7 deg
+step 15 - lrate 0.000317, wchange 0.692830, angledelta 117.4 deg
+step 16 - lrate 0.000285, wchange 0.780602, angledelta 128.7 deg
+step 17 - lrate 0.000256, wchange 0.727566, angledelta 125.0 deg
+step 18 - lrate 0.000231, wchange 0.524011, angledelta 121.4 deg
+step 19 - lrate 0.000208, wchange 0.559651, angledelta 121.6 deg
+step 20 - lrate 0.000187, wchange 0.590527, angledelta 120.2 deg
+step 21 - lrate 0.000168, wchange 0.391309, angledelta 120.2 deg
+step 22 - lrate 0.000151, wchange 0.338967, angledelta 123.6 deg
+step 23 - lrate 0.000136, wchange 0.377183, angledelta 125.5 deg
+step 24 - lrate 0.000123, wchange 0.407253, angledelta 129.3 deg
+step 25 - lrate 0.000110, wchange 0.188048, angledelta 120.2 deg
+step 26 - lrate 0.000099, wchange 0.220426, angledelta 126.6 deg
+step 27 - lrate 0.000089, wchange 0.261528, angledelta 128.7 deg
+step 28 - lrate 0.000080, wchange 0.181911, angledelta 132.5 deg
+step 29 - lrate 0.000072, wchange 0.106676, angledelta 110.1 deg
+step 30 - lrate 0.000065, wchange 0.258420, angledelta 104.1 deg
+step 31 - lrate 0.000059, wchange 0.218482, angledelta 141.6 deg
+step 32 - lrate 0.000053, wchange 0.073121, angledelta 116.3 deg
+step 33 - lrate 0.000048, wchange 0.058024, angledelta 106.8 deg
+step 34 - lrate 0.000043, wchange 0.075104, angledelta 120.9 deg
+step 35 - lrate 0.000038, wchange 0.078118, angledelta 130.9 deg
+step 36 - lrate 0.000035, wchange 0.034260, angledelta 112.6 deg
+step 37 - lrate 0.000031, wchange 0.046905, angledelta 113.9 deg
+step 38 - lrate 0.000028, wchange 0.031640, angledelta 112.4 deg
+step 39 - lrate 0.000025, wchange 0.023984, angledelta 118.0 deg
+step 40 - lrate 0.000023, wchange 0.024978, angledelta 108.8 deg
+step 41 - lrate 0.000020, wchange 0.021308, angledelta 118.3 deg
+step 42 - lrate 0.000018, wchange 0.014200, angledelta 116.7 deg
+step 43 - lrate 0.000017, wchange 0.011895, angledelta 115.4 deg
+step 44 - lrate 0.000015, wchange 0.006630, angledelta 108.0 deg
+step 45 - lrate 0.000013, wchange 0.008703, angledelta 110.6 deg
+step 46 - lrate 0.000012, wchange 0.011186, angledelta 98.3 deg
+step 47 - lrate 0.000011, wchange 0.009802, angledelta 129.3 deg
+step 48 - lrate 0.000010, wchange 0.003790, angledelta 89.4 deg
+step 49 - lrate 0.000009, wchange 0.003890, angledelta 121.2 deg
+step 50 - lrate 0.000008, wchange 0.002666, angledelta 126.8 deg
+step 51 - lrate 0.000007, wchange 0.003312, angledelta 124.4 deg
+step 52 - lrate 0.000006, wchange 0.001219, angledelta 104.5 deg
+step 53 - lrate 0.000006, wchange 0.001245, angledelta 102.5 deg
+step 54 - lrate 0.000005, wchange 0.000631, angledelta 111.9 deg
+step 55 - lrate 0.000005, wchange 0.000736, angledelta 111.6 deg
+step 56 - lrate 0.000004, wchange 0.001532, angledelta 112.9 deg
+step 57 - lrate 0.000004, wchange 0.001208, angledelta 144.4 deg
+step 58 - lrate 0.000003, wchange 0.000403, angledelta 111.1 deg
+step 59 - lrate 0.000003, wchange 0.001287, angledelta 141.1 deg
+step 60 - lrate 0.000003, wchange 0.000227, angledelta 106.5 deg
+step 61 - lrate 0.000002, wchange 0.000370, angledelta 85.4 deg
+step 62 - lrate 0.000002, wchange 0.000072, angledelta 85.1 deg
+step 63 - lrate 0.000002, wchange 0.000135, angledelta 110.1 deg
+step 64 - lrate 0.000002, wchange 0.000044, angledelta 98.0 deg
+step 65 - lrate 0.000002, wchange 0.000056, angledelta 113.5 deg
+step 66 - lrate 0.000001, wchange 0.000044, angledelta 115.8 deg
+step 67 - lrate 0.000001, wchange 0.000023, angledelta 96.3 deg
+step 68 - lrate 0.000001, wchange 0.000007, angledelta 108.3 deg
+step 69 - lrate 0.000001, wchange 0.000006, angledelta 92.4 deg
+step 70 - lrate 0.000001, wchange 0.000004, angledelta 69.8 deg
+step 71 - lrate 0.000001, wchange 0.000007, angledelta 61.2 deg
+step 72 - lrate 0.000001, wchange 0.000003, angledelta 109.0 deg
+step 73 - lrate 0.000001, wchange 0.000004, angledelta 98.1 deg
+step 74 - lrate 0.000001, wchange 0.000002, angledelta 62.7 deg
+step 75 - lrate 0.000001, wchange 0.000003, angledelta 117.2 deg
+step 76 - lrate 0.000001, wchange 0.000002, angledelta 135.9 deg
+step 77 - lrate 0.000000, wchange 0.000001, angledelta 138.0 deg
+step 78 - lrate 0.000000, wchange 0.000000, angledelta 64.7 deg
+Sorting components in descending order of mean projected variance ...
+Components not ordered by variance.
+
+Using skewness of the distribution to determine the sign of the components ...
+Changing sign of component 1
+Changing sign of component 2
+Changing sign of component 5
+Changing sign of component 7
+Changing sign of component 9
+Changing sign of component 11
+Changing sign of component 12
+Changing sign of component 13
+Changing sign of component 14
+Changing sign of component 19
+Changing sign of component 21
+Changing sign of component 24
+Changing sign of component 25
+Changing sign of component 27
+Changing sign of component 29
+Changing sign of component 30
+---------------------------------------------------------------------
+DONE CALCULATING GROUP ICA
+---------------------------------------------------------------------
+ 
+---------------------------------------------------------------------
+STARTING BACK RECONSTRUCTION STEP
+---------------------------------------------------------------------
+
+Using Spatial-temporal Regression Back Reconstruction Approach ...
+
+Back reconstructing  set 1
+Removing mean per time point ...
+-done back reconstructing  set 1
+-saving back reconstructed ica data for set 1 -> 170221_ica_br1.mat
+Back reconstructing  set 2
+Removing mean per time point ...
+-done back reconstructing  set 2
+-saving back reconstructed ica data for set 2 -> 170221_ica_br2.mat
+Back reconstructing  set 3
+Removing mean per time point ...
+-done back reconstructing  set 3
+-saving back reconstructed ica data for set 3 -> 170221_ica_br3.mat
+Back reconstructing  set 4
+Removing mean per time point ...
+-done back reconstructing  set 4
+-saving back reconstructed ica data for set 4 -> 170221_ica_br4.mat
+Back reconstructing  set 5
+Removing mean per time point ...
+-done back reconstructing  set 5
+-saving back reconstructed ica data for set 5 -> 170221_ica_br5.mat
+Back reconstructing  set 6
+Removing mean per time point ...
+-done back reconstructing  set 6
+-saving back reconstructed ica data for set 6 -> 170221_ica_br6.mat
+Back reconstructing  set 7
+Removing mean per time point ...
+-done back reconstructing  set 7
+-saving back reconstructed ica data for set 7 -> 170221_ica_br7.mat
+Back reconstructing  set 8
+Removing mean per time point ...
+-done back reconstructing  set 8
+-saving back reconstructed ica data for set 8 -> 170221_ica_br8.mat
+Back reconstructing  set 9
+Removing mean per time point ...
+-done back reconstructing  set 9
+-saving back reconstructed ica data for set 9 -> 170221_ica_br9.mat
+Back reconstructing  set 10
+Removing mean per time point ...
+-done back reconstructing  set 10
+-saving back reconstructed ica data for set 10 -> 170221_ica_br10.mat
+Back reconstructing  set 11
+Removing mean per time point ...
+-done back reconstructing  set 11
+-saving back reconstructed ica data for set 11 -> 170221_ica_br11.mat
+Back reconstructing  set 12
+Removing mean per time point ...
+-done back reconstructing  set 12
+-saving back reconstructed ica data for set 12 -> 170221_ica_br12.mat
+Back reconstructing  set 13
+Removing mean per time point ...
+-done back reconstructing  set 13
+-saving back reconstructed ica data for set 13 -> 170221_ica_br13.mat
+Back reconstructing  set 14
+Removing mean per time point ...
+-done back reconstructing  set 14
+-saving back reconstructed ica data for set 14 -> 170221_ica_br14.mat
+Back reconstructing  set 15
+Removing mean per time point ...
+-done back reconstructing  set 15
+-saving back reconstructed ica data for set 15 -> 170221_ica_br15.mat
+Back reconstructing  set 16
+Removing mean per time point ...
+-done back reconstructing  set 16
+-saving back reconstructed ica data for set 16 -> 170221_ica_br16.mat
+Back reconstructing  set 17
+Removing mean per time point ...
+-done back reconstructing  set 17
+-saving back reconstructed ica data for set 17 -> 170221_ica_br17.mat
+Back reconstructing  set 18
+Removing mean per time point ...
+-done back reconstructing  set 18
+-saving back reconstructed ica data for set 18 -> 170221_ica_br18.mat
+Back reconstructing  set 19
+Removing mean per time point ...
+-done back reconstructing  set 19
+-saving back reconstructed ica data for set 19 -> 170221_ica_br19.mat
+Back reconstructing  set 20
+Removing mean per time point ...
+-done back reconstructing  set 20
+-saving back reconstructed ica data for set 20 -> 170221_ica_br20.mat
+Back reconstructing  set 21
+Removing mean per time point ...
+-done back reconstructing  set 21
+-saving back reconstructed ica data for set 21 -> 170221_ica_br21.mat
+Back reconstructing  set 22
+Removing mean per time point ...
+-done back reconstructing  set 22
+-saving back reconstructed ica data for set 22 -> 170221_ica_br22.mat
+Back reconstructing  set 23
+Removing mean per time point ...
+-done back reconstructing  set 23
+-saving back reconstructed ica data for set 23 -> 170221_ica_br23.mat
+Back reconstructing  set 24
+Removing mean per time point ...
+-done back reconstructing  set 24
+-saving back reconstructed ica data for set 24 -> 170221_ica_br24.mat
+Back reconstructing  set 25
+Removing mean per time point ...
+-done back reconstructing  set 25
+-saving back reconstructed ica data for set 25 -> 170221_ica_br25.mat
+Back reconstructing  set 26
+Removing mean per time point ...
+-done back reconstructing  set 26
+-saving back reconstructed ica data for set 26 -> 170221_ica_br26.mat
+Back reconstructing  set 27
+Removing mean per time point ...
+-done back reconstructing  set 27
+-saving back reconstructed ica data for set 27 -> 170221_ica_br27.mat
+Back reconstructing  set 28
+Removing mean per time point ...
+-done back reconstructing  set 28
+-saving back reconstructed ica data for set 28 -> 170221_ica_br28.mat
+Back reconstructing  set 29
+Removing mean per time point ...
+-done back reconstructing  set 29
+-saving back reconstructed ica data for set 29 -> 170221_ica_br29.mat
+Back reconstructing  set 30
+Removing mean per time point ...
+-done back reconstructing  set 30
+-saving back reconstructed ica data for set 30 -> 170221_ica_br30.mat
+Back reconstructing  set 31
+Removing mean per time point ...
+-done back reconstructing  set 31
+-saving back reconstructed ica data for set 31 -> 170221_ica_br31.mat
+Back reconstructing  set 32
+Removing mean per time point ...
+-done back reconstructing  set 32
+-saving back reconstructed ica data for set 32 -> 170221_ica_br32.mat
+Back reconstructing  set 33
+Removing mean per time point ...
+-done back reconstructing  set 33
+-saving back reconstructed ica data for set 33 -> 170221_ica_br33.mat
+Back reconstructing  set 34
+Removing mean per time point ...
+-done back reconstructing  set 34
+-saving back reconstructed ica data for set 34 -> 170221_ica_br34.mat
+Back reconstructing  set 35
+Removing mean per time point ...
+-done back reconstructing  set 35
+-saving back reconstructed ica data for set 35 -> 170221_ica_br35.mat
+Back reconstructing  set 36
+Removing mean per time point ...
+-done back reconstructing  set 36
+-saving back reconstructed ica data for set 36 -> 170221_ica_br36.mat
+Back reconstructing  set 37
+Removing mean per time point ...
+-done back reconstructing  set 37
+-saving back reconstructed ica data for set 37 -> 170221_ica_br37.mat
+Back reconstructing  set 38
+Removing mean per time point ...
+-done back reconstructing  set 38
+-saving back reconstructed ica data for set 38 -> 170221_ica_br38.mat
+Back reconstructing  set 39
+Removing mean per time point ...
+-done back reconstructing  set 39
+-saving back reconstructed ica data for set 39 -> 170221_ica_br39.mat
+Back reconstructing  set 40
+Removing mean per time point ...
+-done back reconstructing  set 40
+-saving back reconstructed ica data for set 40 -> 170221_ica_br40.mat
+Back reconstructing  set 41
+Removing mean per time point ...
+-done back reconstructing  set 41
+-saving back reconstructed ica data for set 41 -> 170221_ica_br41.mat
+Back reconstructing  set 42
+Removing mean per time point ...
+-done back reconstructing  set 42
+-saving back reconstructed ica data for set 42 -> 170221_ica_br42.mat
+Back reconstructing  set 43
+Removing mean per time point ...
+-done back reconstructing  set 43
+-saving back reconstructed ica data for set 43 -> 170221_ica_br43.mat
+Back reconstructing  set 44
+Removing mean per time point ...
+-done back reconstructing  set 44
+-saving back reconstructed ica data for set 44 -> 170221_ica_br44.mat
+Back reconstructing  set 45
+Removing mean per time point ...
+-done back reconstructing  set 45
+-saving back reconstructed ica data for set 45 -> 170221_ica_br45.mat
+Back reconstructing  set 46
+Removing mean per time point ...
+-done back reconstructing  set 46
+-saving back reconstructed ica data for set 46 -> 170221_ica_br46.mat
+Back reconstructing  set 47
+Removing mean per time point ...
+-done back reconstructing  set 47
+-saving back reconstructed ica data for set 47 -> 170221_ica_br47.mat
+Back reconstructing  set 48
+Removing mean per time point ...
+-done back reconstructing  set 48
+-saving back reconstructed ica data for set 48 -> 170221_ica_br48.mat
+Back reconstructing  set 49
+Removing mean per time point ...
+-done back reconstructing  set 49
+-saving back reconstructed ica data for set 49 -> 170221_ica_br49.mat
+Back reconstructing  set 50
+Removing mean per time point ...
+-done back reconstructing  set 50
+-saving back reconstructed ica data for set 50 -> 170221_ica_br50.mat
+Back reconstructing  set 51
+Removing mean per time point ...
+-done back reconstructing  set 51
+-saving back reconstructed ica data for set 51 -> 170221_ica_br51.mat
+Back reconstructing  set 52
+Removing mean per time point ...
+-done back reconstructing  set 52
+-saving back reconstructed ica data for set 52 -> 170221_ica_br52.mat
+Back reconstructing  set 53
+Removing mean per time point ...
+-done back reconstructing  set 53
+-saving back reconstructed ica data for set 53 -> 170221_ica_br53.mat
+Back reconstructing  set 54
+Removing mean per time point ...
+-done back reconstructing  set 54
+-saving back reconstructed ica data for set 54 -> 170221_ica_br54.mat
+Back reconstructing  set 55
+Removing mean per time point ...
+-done back reconstructing  set 55
+-saving back reconstructed ica data for set 55 -> 170221_ica_br55.mat
+Back reconstructing  set 56
+Removing mean per time point ...
+-done back reconstructing  set 56
+-saving back reconstructed ica data for set 56 -> 170221_ica_br56.mat
+Back reconstructing  set 57
+Removing mean per time point ...
+-done back reconstructing  set 57
+-saving back reconstructed ica data for set 57 -> 170221_ica_br57.mat
+Back reconstructing  set 58
+Removing mean per time point ...
+-done back reconstructing  set 58
+-saving back reconstructed ica data for set 58 -> 170221_ica_br58.mat
+Back reconstructing  set 59
+Removing mean per time point ...
+-done back reconstructing  set 59
+-saving back reconstructed ica data for set 59 -> 170221_ica_br59.mat
+Back reconstructing  set 60
+Removing mean per time point ...
+-done back reconstructing  set 60
+-saving back reconstructed ica data for set 60 -> 170221_ica_br60.mat
+Back reconstructing  set 61
+Removing mean per time point ...
+-done back reconstructing  set 61
+-saving back reconstructed ica data for set 61 -> 170221_ica_br61.mat
+Back reconstructing  set 62
+Removing mean per time point ...
+-done back reconstructing  set 62
+-saving back reconstructed ica data for set 62 -> 170221_ica_br62.mat
+Back reconstructing  set 63
+Removing mean per time point ...
+-done back reconstructing  set 63
+-saving back reconstructed ica data for set 63 -> 170221_ica_br63.mat
+Back reconstructing  set 64
+Removing mean per time point ...
+-done back reconstructing  set 64
+-saving back reconstructed ica data for set 64 -> 170221_ica_br64.mat
+Back reconstructing  set 65
+Removing mean per time point ...
+-done back reconstructing  set 65
+-saving back reconstructed ica data for set 65 -> 170221_ica_br65.mat
+Back reconstructing  set 66
+Removing mean per time point ...
+-done back reconstructing  set 66
+-saving back reconstructed ica data for set 66 -> 170221_ica_br66.mat
+Back reconstructing  set 67
+Removing mean per time point ...
+-done back reconstructing  set 67
+-saving back reconstructed ica data for set 67 -> 170221_ica_br67.mat
+Back reconstructing  set 68
+Removing mean per time point ...
+-done back reconstructing  set 68
+-saving back reconstructed ica data for set 68 -> 170221_ica_br68.mat
+Back reconstructing  set 69
+Removing mean per time point ...
+-done back reconstructing  set 69
+-saving back reconstructed ica data for set 69 -> 170221_ica_br69.mat
+Back reconstructing  set 70
+Removing mean per time point ...
+-done back reconstructing  set 70
+-saving back reconstructed ica data for set 70 -> 170221_ica_br70.mat
+Back reconstructing  set 71
+Removing mean per time point ...
+-done back reconstructing  set 71
+-saving back reconstructed ica data for set 71 -> 170221_ica_br71.mat
+Back reconstructing  set 72
+Removing mean per time point ...
+-done back reconstructing  set 72
+-saving back reconstructed ica data for set 72 -> 170221_ica_br72.mat
+Back reconstructing  set 73
+Removing mean per time point ...
+-done back reconstructing  set 73
+-saving back reconstructed ica data for set 73 -> 170221_ica_br73.mat
+Back reconstructing  set 74
+Removing mean per time point ...
+-done back reconstructing  set 74
+-saving back reconstructed ica data for set 74 -> 170221_ica_br74.mat
+Back reconstructing  set 75
+Removing mean per time point ...
+-done back reconstructing  set 75
+-saving back reconstructed ica data for set 75 -> 170221_ica_br75.mat
+Back reconstructing  set 76
+Removing mean per time point ...
+-done back reconstructing  set 76
+-saving back reconstructed ica data for set 76 -> 170221_ica_br76.mat
+Back reconstructing  set 77
+Removing mean per time point ...
+-done back reconstructing  set 77
+-saving back reconstructed ica data for set 77 -> 170221_ica_br77.mat
+Back reconstructing  set 78
+Removing mean per time point ...
+-done back reconstructing  set 78
+-saving back reconstructed ica data for set 78 -> 170221_ica_br78.mat
+Back reconstructing  set 79
+Removing mean per time point ...
+-done back reconstructing  set 79
+-saving back reconstructed ica data for set 79 -> 170221_ica_br79.mat
+Back reconstructing  set 80
+Removing mean per time point ...
+-done back reconstructing  set 80
+-saving back reconstructed ica data for set 80 -> 170221_ica_br80.mat
+Back reconstructing  set 81
+Removing mean per time point ...
+-done back reconstructing  set 81
+-saving back reconstructed ica data for set 81 -> 170221_ica_br81.mat
+Back reconstructing  set 82
+Removing mean per time point ...
+-done back reconstructing  set 82
+-saving back reconstructed ica data for set 82 -> 170221_ica_br82.mat
+Back reconstructing  set 83
+Removing mean per time point ...
+-done back reconstructing  set 83
+-saving back reconstructed ica data for set 83 -> 170221_ica_br83.mat
+Back reconstructing  set 84
+Removing mean per time point ...
+-done back reconstructing  set 84
+-saving back reconstructed ica data for set 84 -> 170221_ica_br84.mat
+Back reconstructing  set 85
+Removing mean per time point ...
+-done back reconstructing  set 85
+-saving back reconstructed ica data for set 85 -> 170221_ica_br85.mat
+Back reconstructing  set 86
+Removing mean per time point ...
+-done back reconstructing  set 86
+-saving back reconstructed ica data for set 86 -> 170221_ica_br86.mat
+Back reconstructing  set 87
+Removing mean per time point ...
+-done back reconstructing  set 87
+-saving back reconstructed ica data for set 87 -> 170221_ica_br87.mat
+Back reconstructing  set 88
+Removing mean per time point ...
+-done back reconstructing  set 88
+-saving back reconstructed ica data for set 88 -> 170221_ica_br88.mat
+Back reconstructing  set 89
+Removing mean per time point ...
+-done back reconstructing  set 89
+-saving back reconstructed ica data for set 89 -> 170221_ica_br89.mat
+Back reconstructing  set 90
+Removing mean per time point ...
+-done back reconstructing  set 90
+-saving back reconstructed ica data for set 90 -> 170221_ica_br90.mat
+Back reconstructing  set 91
+Removing mean per time point ...
+-done back reconstructing  set 91
+-saving back reconstructed ica data for set 91 -> 170221_ica_br91.mat
+Back reconstructing  set 92
+Removing mean per time point ...
+-done back reconstructing  set 92
+-saving back reconstructed ica data for set 92 -> 170221_ica_br92.mat
+Back reconstructing  set 93
+Removing mean per time point ...
+-done back reconstructing  set 93
+-saving back reconstructed ica data for set 93 -> 170221_ica_br93.mat
+Back reconstructing  set 94
+Removing mean per time point ...
+-done back reconstructing  set 94
+-saving back reconstructed ica data for set 94 -> 170221_ica_br94.mat
+Back reconstructing  set 95
+Removing mean per time point ...
+-done back reconstructing  set 95
+-saving back reconstructed ica data for set 95 -> 170221_ica_br95.mat
+Back reconstructing  set 96
+Removing mean per time point ...
+-done back reconstructing  set 96
+-saving back reconstructed ica data for set 96 -> 170221_ica_br96.mat
+Back reconstructing  set 97
+Removing mean per time point ...
+-done back reconstructing  set 97
+-saving back reconstructed ica data for set 97 -> 170221_ica_br97.mat
+Back reconstructing  set 98
+Removing mean per time point ...
+-done back reconstructing  set 98
+-saving back reconstructed ica data for set 98 -> 170221_ica_br98.mat
+Back reconstructing  set 99
+Removing mean per time point ...
+-done back reconstructing  set 99
+-saving back reconstructed ica data for set 99 -> 170221_ica_br99.mat
+Back reconstructing  set 100
+Removing mean per time point ...
+-done back reconstructing  set 100
+-saving back reconstructed ica data for set 100 -> 170221_ica_br100.mat
+Back reconstructing  set 101
+Removing mean per time point ...
+-done back reconstructing  set 101
+-saving back reconstructed ica data for set 101 -> 170221_ica_br101.mat
+Back reconstructing  set 102
+Removing mean per time point ...
+-done back reconstructing  set 102
+-saving back reconstructed ica data for set 102 -> 170221_ica_br102.mat
+Back reconstructing  set 103
+Removing mean per time point ...
+-done back reconstructing  set 103
+-saving back reconstructed ica data for set 103 -> 170221_ica_br103.mat
+Back reconstructing  set 104
+Removing mean per time point ...
+-done back reconstructing  set 104
+-saving back reconstructed ica data for set 104 -> 170221_ica_br104.mat
+Back reconstructing  set 105
+Removing mean per time point ...
+-done back reconstructing  set 105
+-saving back reconstructed ica data for set 105 -> 170221_ica_br105.mat
+Back reconstructing  set 106
+Removing mean per time point ...
+-done back reconstructing  set 106
+-saving back reconstructed ica data for set 106 -> 170221_ica_br106.mat
+Back reconstructing  set 107
+Removing mean per time point ...
+-done back reconstructing  set 107
+-saving back reconstructed ica data for set 107 -> 170221_ica_br107.mat
+Back reconstructing  set 108
+Removing mean per time point ...
+-done back reconstructing  set 108
+-saving back reconstructed ica data for set 108 -> 170221_ica_br108.mat
+Back reconstructing  set 109
+Removing mean per time point ...
+-done back reconstructing  set 109
+-saving back reconstructed ica data for set 109 -> 170221_ica_br109.mat
+Back reconstructing  set 110
+Removing mean per time point ...
+-done back reconstructing  set 110
+-saving back reconstructed ica data for set 110 -> 170221_ica_br110.mat
+Back reconstructing  set 111
+Removing mean per time point ...
+-done back reconstructing  set 111
+-saving back reconstructed ica data for set 111 -> 170221_ica_br111.mat
+Back reconstructing  set 112
+Removing mean per time point ...
+-done back reconstructing  set 112
+-saving back reconstructed ica data for set 112 -> 170221_ica_br112.mat
+Back reconstructing  set 113
+Removing mean per time point ...
+-done back reconstructing  set 113
+-saving back reconstructed ica data for set 113 -> 170221_ica_br113.mat
+Back reconstructing  set 114
+Removing mean per time point ...
+-done back reconstructing  set 114
+-saving back reconstructed ica data for set 114 -> 170221_ica_br114.mat
+Back reconstructing  set 115
+Removing mean per time point ...
+-done back reconstructing  set 115
+-saving back reconstructed ica data for set 115 -> 170221_ica_br115.mat
+Back reconstructing  set 116
+Removing mean per time point ...
+-done back reconstructing  set 116
+-saving back reconstructed ica data for set 116 -> 170221_ica_br116.mat
+Back reconstructing  set 117
+Removing mean per time point ...
+-done back reconstructing  set 117
+-saving back reconstructed ica data for set 117 -> 170221_ica_br117.mat
+Back reconstructing  set 118
+Removing mean per time point ...
+-done back reconstructing  set 118
+-saving back reconstructed ica data for set 118 -> 170221_ica_br118.mat
+Back reconstructing  set 119
+Removing mean per time point ...
+-done back reconstructing  set 119
+-saving back reconstructed ica data for set 119 -> 170221_ica_br119.mat
+Back reconstructing  set 120
+Removing mean per time point ...
+-done back reconstructing  set 120
+-saving back reconstructed ica data for set 120 -> 170221_ica_br120.mat
+Back reconstructing  set 121
+Removing mean per time point ...
+-done back reconstructing  set 121
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+-saving back reconstructed ica data for set 121 -> 170221_ica_br121.mat
+Back reconstructing  set 122
+Removing mean per time point ...
+-done back reconstructing  set 122
+-saving back reconstructed ica data for set 122 -> 170221_ica_br122.mat
+Back reconstructing  set 123
+Removing mean per time point ...
+-done back reconstructing  set 123
+-saving back reconstructed ica data for set 123 -> 170221_ica_br123.mat
+Back reconstructing  set 124
+Removing mean per time point ...
+-done back reconstructing  set 124
+-saving back reconstructed ica data for set 124 -> 170221_ica_br124.mat
+Back reconstructing  set 125
+Removing mean per time point ...
+-done back reconstructing  set 125
+-saving back reconstructed ica data for set 125 -> 170221_ica_br125.mat
+Back reconstructing  set 126
+Removing mean per time point ...
+-done back reconstructing  set 126
+-saving back reconstructed ica data for set 126 -> 170221_ica_br126.mat
+Back reconstructing  set 127
+Removing mean per time point ...
+-done back reconstructing  set 127
+-saving back reconstructed ica data for set 127 -> 170221_ica_br127.mat
+Back reconstructing  set 128
+Removing mean per time point ...
+-done back reconstructing  set 128
+-saving back reconstructed ica data for set 128 -> 170221_ica_br128.mat
+Back reconstructing  set 129
+Removing mean per time point ...
+-done back reconstructing  set 129
+-saving back reconstructed ica data for set 129 -> 170221_ica_br129.mat
+Back reconstructing  set 130
+Removing mean per time point ...
+-done back reconstructing  set 130
+-saving back reconstructed ica data for set 130 -> 170221_ica_br130.mat
+Back reconstructing  set 131
+Removing mean per time point ...
+-done back reconstructing  set 131
+-saving back reconstructed ica data for set 131 -> 170221_ica_br131.mat
+Back reconstructing  set 132
+Removing mean per time point ...
+-done back reconstructing  set 132
+-saving back reconstructed ica data for set 132 -> 170221_ica_br132.mat
+Back reconstructing  set 133
+Removing mean per time point ...
+-done back reconstructing  set 133
+-saving back reconstructed ica data for set 133 -> 170221_ica_br133.mat
+Back reconstructing  set 134
+Removing mean per time point ...
+-done back reconstructing  set 134
+-saving back reconstructed ica data for set 134 -> 170221_ica_br134.mat
+Back reconstructing  set 135
+Removing mean per time point ...
+-done back reconstructing  set 135
+-saving back reconstructed ica data for set 135 -> 170221_ica_br135.mat
+Back reconstructing  set 136
+Removing mean per time point ...
+-done back reconstructing  set 136
+-saving back reconstructed ica data for set 136 -> 170221_ica_br136.mat
+Back reconstructing  set 137
+Removing mean per time point ...
+-done back reconstructing  set 137
+-saving back reconstructed ica data for set 137 -> 170221_ica_br137.mat
+Back reconstructing  set 138
+Removing mean per time point ...
+-done back reconstructing  set 138
+-saving back reconstructed ica data for set 138 -> 170221_ica_br138.mat
+Back reconstructing  set 139
+Removing mean per time point ...
+-done back reconstructing  set 139
+-saving back reconstructed ica data for set 139 -> 170221_ica_br139.mat
+Back reconstructing  set 140
+Removing mean per time point ...
+-done back reconstructing  set 140
+-saving back reconstructed ica data for set 140 -> 170221_ica_br140.mat
+Back reconstructing  set 141
+Removing mean per time point ...
+-done back reconstructing  set 141
+-saving back reconstructed ica data for set 141 -> 170221_ica_br141.mat
+Back reconstructing  set 142
+Removing mean per time point ...
+-done back reconstructing  set 142
+-saving back reconstructed ica data for set 142 -> 170221_ica_br142.mat
+Back reconstructing  set 143
+Removing mean per time point ...
+-done back reconstructing  set 143
+-saving back reconstructed ica data for set 143 -> 170221_ica_br143.mat
+Back reconstructing  set 144
+Removing mean per time point ...
+-done back reconstructing  set 144
+-saving back reconstructed ica data for set 144 -> 170221_ica_br144.mat
+Back reconstructing  set 145
+Removing mean per time point ...
+-done back reconstructing  set 145
+-saving back reconstructed ica data for set 145 -> 170221_ica_br145.mat
+Back reconstructing  set 146
+Removing mean per time point ...
+-done back reconstructing  set 146
+-saving back reconstructed ica data for set 146 -> 170221_ica_br146.mat
+Back reconstructing  set 147
+Removing mean per time point ...
+-done back reconstructing  set 147
+-saving back reconstructed ica data for set 147 -> 170221_ica_br147.mat
+Back reconstructing  set 148
+Removing mean per time point ...
+-done back reconstructing  set 148
+-saving back reconstructed ica data for set 148 -> 170221_ica_br148.mat
+Back reconstructing  set 149
+Removing mean per time point ...
+-done back reconstructing  set 149
+-saving back reconstructed ica data for set 149 -> 170221_ica_br149.mat
+Back reconstructing  set 150
+Removing mean per time point ...
+-done back reconstructing  set 150
+-saving back reconstructed ica data for set 150 -> 170221_ica_br150.mat
+Back reconstructing  set 151
+Removing mean per time point ...
+-done back reconstructing  set 151
+-saving back reconstructed ica data for set 151 -> 170221_ica_br151.mat
+Back reconstructing  set 152
+Removing mean per time point ...
+-done back reconstructing  set 152
+-saving back reconstructed ica data for set 152 -> 170221_ica_br152.mat
+Back reconstructing  set 153
+Removing mean per time point ...
+-done back reconstructing  set 153
+-saving back reconstructed ica data for set 153 -> 170221_ica_br153.mat
+Back reconstructing  set 154
+Removing mean per time point ...
+-done back reconstructing  set 154
+-saving back reconstructed ica data for set 154 -> 170221_ica_br154.mat
+Back reconstructing  set 155
+Removing mean per time point ...
+-done back reconstructing  set 155
+-saving back reconstructed ica data for set 155 -> 170221_ica_br155.mat
+Back reconstructing  set 156
+Removing mean per time point ...
+-done back reconstructing  set 156
+-saving back reconstructed ica data for set 156 -> 170221_ica_br156.mat
+Back reconstructing  set 157
+Removing mean per time point ...
+-done back reconstructing  set 157
+-saving back reconstructed ica data for set 157 -> 170221_ica_br157.mat
+Back reconstructing  set 158
+Removing mean per time point ...
+-done back reconstructing  set 158
+-saving back reconstructed ica data for set 158 -> 170221_ica_br158.mat
+Back reconstructing  set 159
+Removing mean per time point ...
+-done back reconstructing  set 159
+-saving back reconstructed ica data for set 159 -> 170221_ica_br159.mat
+Back reconstructing  set 160
+Removing mean per time point ...
+-done back reconstructing  set 160
+-saving back reconstructed ica data for set 160 -> 170221_ica_br160.mat
+Back reconstructing  set 161
+Removing mean per time point ...
+-done back reconstructing  set 161
+-saving back reconstructed ica data for set 161 -> 170221_ica_br161.mat
+Back reconstructing  set 162
+Removing mean per time point ...
+-done back reconstructing  set 162
+-saving back reconstructed ica data for set 162 -> 170221_ica_br162.mat
+Back reconstructing  set 163
+Removing mean per time point ...
+-done back reconstructing  set 163
+-saving back reconstructed ica data for set 163 -> 170221_ica_br163.mat
+Back reconstructing  set 164
+Removing mean per time point ...
+-done back reconstructing  set 164
+-saving back reconstructed ica data for set 164 -> 170221_ica_br164.mat
+Back reconstructing  set 165
+Removing mean per time point ...
+-done back reconstructing  set 165
+-saving back reconstructed ica data for set 165 -> 170221_ica_br165.mat
+Back reconstructing  set 166
+Removing mean per time point ...
+-done back reconstructing  set 166
+-saving back reconstructed ica data for set 166 -> 170221_ica_br166.mat
+Back reconstructing  set 167
+Removing mean per time point ...
+-done back reconstructing  set 167
+-saving back reconstructed ica data for set 167 -> 170221_ica_br167.mat
+Back reconstructing  set 168
+Removing mean per time point ...
+-done back reconstructing  set 168
+-saving back reconstructed ica data for set 168 -> 170221_ica_br168.mat
+Back reconstructing  set 169
+Removing mean per time point ...
+-done back reconstructing  set 169
+-saving back reconstructed ica data for set 169 -> 170221_ica_br169.mat
+Back reconstructing  set 170
+Removing mean per time point ...
+-done back reconstructing  set 170
+-saving back reconstructed ica data for set 170 -> 170221_ica_br170.mat
+Back reconstructing  set 171
+Removing mean per time point ...
+-done back reconstructing  set 171
+-saving back reconstructed ica data for set 171 -> 170221_ica_br171.mat
+Back reconstructing  set 172
+Removing mean per time point ...
+-done back reconstructing  set 172
+-saving back reconstructed ica data for set 172 -> 170221_ica_br172.mat
+Back reconstructing  set 173
+Removing mean per time point ...
+-done back reconstructing  set 173
+-saving back reconstructed ica data for set 173 -> 170221_ica_br173.mat
+Back reconstructing  set 174
+Removing mean per time point ...
+-done back reconstructing  set 174
+-saving back reconstructed ica data for set 174 -> 170221_ica_br174.mat
+Back reconstructing  set 175
+Removing mean per time point ...
+-done back reconstructing  set 175
+-saving back reconstructed ica data for set 175 -> 170221_ica_br175.mat
+Back reconstructing  set 176
+Removing mean per time point ...
+-done back reconstructing  set 176
+-saving back reconstructed ica data for set 176 -> 170221_ica_br176.mat
+Back reconstructing  set 177
+Removing mean per time point ...
+-done back reconstructing  set 177
+-saving back reconstructed ica data for set 177 -> 170221_ica_br177.mat
+Back reconstructing  set 178
+Removing mean per time point ...
+-done back reconstructing  set 178
+-saving back reconstructed ica data for set 178 -> 170221_ica_br178.mat
+Back reconstructing  set 179
+Removing mean per time point ...
+-done back reconstructing  set 179
+-saving back reconstructed ica data for set 179 -> 170221_ica_br179.mat
+Back reconstructing  set 180
+Removing mean per time point ...
+-done back reconstructing  set 180
+-saving back reconstructed ica data for set 180 -> 170221_ica_br180.mat
+Back reconstructing  set 181
+Removing mean per time point ...
+-done back reconstructing  set 181
+-saving back reconstructed ica data for set 181 -> 170221_ica_br181.mat
+Back reconstructing  set 182
+Removing mean per time point ...
+-done back reconstructing  set 182
+-saving back reconstructed ica data for set 182 -> 170221_ica_br182.mat
+Back reconstructing  set 183
+Removing mean per time point ...
+-done back reconstructing  set 183
+-saving back reconstructed ica data for set 183 -> 170221_ica_br183.mat
+Back reconstructing  set 184
+Removing mean per time point ...
+-done back reconstructing  set 184
+-saving back reconstructed ica data for set 184 -> 170221_ica_br184.mat
+Back reconstructing  set 185
+Removing mean per time point ...
+-done back reconstructing  set 185
+-saving back reconstructed ica data for set 185 -> 170221_ica_br185.mat
+Back reconstructing  set 186
+Removing mean per time point ...
+-done back reconstructing  set 186
+-saving back reconstructed ica data for set 186 -> 170221_ica_br186.mat
+Back reconstructing  set 187
+Removing mean per time point ...
+-done back reconstructing  set 187
+-saving back reconstructed ica data for set 187 -> 170221_ica_br187.mat
+Back reconstructing  set 188
+Removing mean per time point ...
+-done back reconstructing  set 188
+-saving back reconstructed ica data for set 188 -> 170221_ica_br188.mat
+Back reconstructing  set 189
+Removing mean per time point ...
+-done back reconstructing  set 189
+-saving back reconstructed ica data for set 189 -> 170221_ica_br189.mat
+Back reconstructing  set 190
+Removing mean per time point ...
+-done back reconstructing  set 190
+-saving back reconstructed ica data for set 190 -> 170221_ica_br190.mat
+Back reconstructing  set 191
+Removing mean per time point ...
+-done back reconstructing  set 191
+-saving back reconstructed ica data for set 191 -> 170221_ica_br191.mat
+Back reconstructing  set 192
+Removing mean per time point ...
+-done back reconstructing  set 192
+-saving back reconstructed ica data for set 192 -> 170221_ica_br192.mat
+Back reconstructing  set 193
+Removing mean per time point ...
+-done back reconstructing  set 193
+-saving back reconstructed ica data for set 193 -> 170221_ica_br193.mat
+Back reconstructing  set 194
+Removing mean per time point ...
+-done back reconstructing  set 194
+-saving back reconstructed ica data for set 194 -> 170221_ica_br194.mat
+Back reconstructing  set 195
+Removing mean per time point ...
+-done back reconstructing  set 195
+-saving back reconstructed ica data for set 195 -> 170221_ica_br195.mat
+Back reconstructing  set 196
+Removing mean per time point ...
+-done back reconstructing  set 196
+-saving back reconstructed ica data for set 196 -> 170221_ica_br196.mat
+Back reconstructing  set 197
+Removing mean per time point ...
+-done back reconstructing  set 197
+-saving back reconstructed ica data for set 197 -> 170221_ica_br197.mat
+Back reconstructing  set 198
+Removing mean per time point ...
+-done back reconstructing  set 198
+-saving back reconstructed ica data for set 198 -> 170221_ica_br198.mat
+Back reconstructing  set 199
+Removing mean per time point ...
+-done back reconstructing  set 199
+-saving back reconstructed ica data for set 199 -> 170221_ica_br199.mat
+Back reconstructing  set 200
+Removing mean per time point ...
+-done back reconstructing  set 200
+-saving back reconstructed ica data for set 200 -> 170221_ica_br200.mat
+Back reconstructing  set 201
+Removing mean per time point ...
+-done back reconstructing  set 201
+-saving back reconstructed ica data for set 201 -> 170221_ica_br201.mat
+Back reconstructing  set 202
+Removing mean per time point ...
+-done back reconstructing  set 202
+-saving back reconstructed ica data for set 202 -> 170221_ica_br202.mat
+Back reconstructing  set 203
+Removing mean per time point ...
+-done back reconstructing  set 203
+-saving back reconstructed ica data for set 203 -> 170221_ica_br203.mat
+Back reconstructing  set 204
+Removing mean per time point ...
+-done back reconstructing  set 204
+-saving back reconstructed ica data for set 204 -> 170221_ica_br204.mat
+Back reconstructing  set 205
+Removing mean per time point ...
+-done back reconstructing  set 205
+-saving back reconstructed ica data for set 205 -> 170221_ica_br205.mat
+Back reconstructing  set 206
+Removing mean per time point ...
+-done back reconstructing  set 206
+-saving back reconstructed ica data for set 206 -> 170221_ica_br206.mat
+Back reconstructing  set 207
+Removing mean per time point ...
+-done back reconstructing  set 207
+-saving back reconstructed ica data for set 207 -> 170221_ica_br207.mat
+Back reconstructing  set 208
+Removing mean per time point ...
+-done back reconstructing  set 208
+-saving back reconstructed ica data for set 208 -> 170221_ica_br208.mat
+Back reconstructing  set 209
+Removing mean per time point ...
+-done back reconstructing  set 209
+-saving back reconstructed ica data for set 209 -> 170221_ica_br209.mat
+Back reconstructing  set 210
+Removing mean per time point ...
+-done back reconstructing  set 210
+-saving back reconstructed ica data for set 210 -> 170221_ica_br210.mat
+Back reconstructing  set 211
+Removing mean per time point ...
+-done back reconstructing  set 211
+-saving back reconstructed ica data for set 211 -> 170221_ica_br211.mat
+Back reconstructing  set 212
+Removing mean per time point ...
+-done back reconstructing  set 212
+-saving back reconstructed ica data for set 212 -> 170221_ica_br212.mat
+---------------------------------------------------------------------
+DONE WITH BACK RECONSTRUCTION STEP
+---------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------
+STARTING TO SCALE COMPONENT SETS
+---------------------------------------------------------------------
+Computing offset using the mean component maps which will be subtracted to the subject component maps ...
+Done
+--Subject 1 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 1 session 1 in nifti format and as matlab file
+--Subject 1 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 1 session 2 in nifti format and as matlab file
+--Subject 1 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 1 session 3 in nifti format and as matlab file
+--Subject 1 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 1 session 4 in nifti format and as matlab file
+--Subject 2 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 2 session 1 in nifti format and as matlab file
+--Subject 2 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 2 session 2 in nifti format and as matlab file
+--Subject 2 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 2 session 3 in nifti format and as matlab file
+--Subject 2 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 2 session 4 in nifti format and as matlab file
+--Subject 3 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 3 session 1 in nifti format and as matlab file
+--Subject 3 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 3 session 2 in nifti format and as matlab file
+--Subject 3 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 3 session 3 in nifti format and as matlab file
+--Subject 3 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 3 session 4 in nifti format and as matlab file
+--Subject 4 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 4 session 1 in nifti format and as matlab file
+--Subject 4 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 4 session 2 in nifti format and as matlab file
+--Subject 4 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 4 session 3 in nifti format and as matlab file
+--Subject 4 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 4 session 4 in nifti format and as matlab file
+--Subject 5 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 5 session 1 in nifti format and as matlab file
+--Subject 5 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 5 session 2 in nifti format and as matlab file
+--Subject 5 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 5 session 3 in nifti format and as matlab file
+--Subject 5 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 5 session 4 in nifti format and as matlab file
+--Subject 6 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 6 session 1 in nifti format and as matlab file
+--Subject 6 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 6 session 2 in nifti format and as matlab file
+--Subject 6 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 6 session 3 in nifti format and as matlab file
+--Subject 6 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 6 session 4 in nifti format and as matlab file
+--Subject 7 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 7 session 1 in nifti format and as matlab file
+--Subject 7 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 7 session 2 in nifti format and as matlab file
+--Subject 7 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 7 session 3 in nifti format and as matlab file
+--Subject 7 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 7 session 4 in nifti format and as matlab file
+--Subject 8 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 8 session 1 in nifti format and as matlab file
+--Subject 8 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 8 session 2 in nifti format and as matlab file
+--Subject 8 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 8 session 3 in nifti format and as matlab file
+--Subject 8 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 8 session 4 in nifti format and as matlab file
+--Subject 9 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 9 session 1 in nifti format and as matlab file
+--Subject 9 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 9 session 2 in nifti format and as matlab file
+--Subject 9 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 9 session 3 in nifti format and as matlab file
+--Subject 9 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 9 session 4 in nifti format and as matlab file
+--Subject 10 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 10 session 1 in nifti format and as matlab file
+--Subject 10 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 10 session 2 in nifti format and as matlab file
+--Subject 10 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 10 session 3 in nifti format and as matlab file
+--Subject 10 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 10 session 4 in nifti format and as matlab file
+--Subject 11 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 11 session 1 in nifti format and as matlab file
+--Subject 11 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 11 session 2 in nifti format and as matlab file
+--Subject 11 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 11 session 3 in nifti format and as matlab file
+--Subject 11 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 11 session 4 in nifti format and as matlab file
+--Subject 12 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 12 session 1 in nifti format and as matlab file
+--Subject 12 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 12 session 2 in nifti format and as matlab file
+--Subject 12 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 12 session 3 in nifti format and as matlab file
+--Subject 12 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 12 session 4 in nifti format and as matlab file
+--Subject 13 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 13 session 1 in nifti format and as matlab file
+--Subject 13 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 13 session 2 in nifti format and as matlab file
+--Subject 13 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 13 session 3 in nifti format and as matlab file
+--Subject 13 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 13 session 4 in nifti format and as matlab file
+--Subject 14 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 14 session 1 in nifti format and as matlab file
+--Subject 14 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 14 session 2 in nifti format and as matlab file
+--Subject 14 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 14 session 3 in nifti format and as matlab file
+--Subject 14 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 14 session 4 in nifti format and as matlab file
+--Subject 15 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 15 session 1 in nifti format and as matlab file
+--Subject 15 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 15 session 2 in nifti format and as matlab file
+--Subject 15 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 15 session 3 in nifti format and as matlab file
+--Subject 15 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 15 session 4 in nifti format and as matlab file
+--Subject 16 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 16 session 1 in nifti format and as matlab file
+--Subject 16 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 16 session 2 in nifti format and as matlab file
+--Subject 16 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 16 session 3 in nifti format and as matlab file
+--Subject 16 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 16 session 4 in nifti format and as matlab file
+--Subject 17 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 17 session 1 in nifti format and as matlab file
+--Subject 17 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 17 session 2 in nifti format and as matlab file
+--Subject 17 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 17 session 3 in nifti format and as matlab file
+--Subject 17 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 17 session 4 in nifti format and as matlab file
+--Subject 18 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 18 session 1 in nifti format and as matlab file
+--Subject 18 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 18 session 2 in nifti format and as matlab file
+--Subject 18 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 18 session 3 in nifti format and as matlab file
+--Subject 18 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 18 session 4 in nifti format and as matlab file
+--Subject 19 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 19 session 1 in nifti format and as matlab file
+--Subject 19 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 19 session 2 in nifti format and as matlab file
+--Subject 19 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 19 session 3 in nifti format and as matlab file
+--Subject 19 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 19 session 4 in nifti format and as matlab file
+--Subject 20 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 20 session 1 in nifti format and as matlab file
+--Subject 20 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 20 session 2 in nifti format and as matlab file
+--Subject 20 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 20 session 3 in nifti format and as matlab file
+--Subject 20 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 20 session 4 in nifti format and as matlab file
+--Subject 21 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 21 session 1 in nifti format and as matlab file
+--Subject 21 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 21 session 2 in nifti format and as matlab file
+--Subject 21 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 21 session 3 in nifti format and as matlab file
+--Subject 21 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 21 session 4 in nifti format and as matlab file
+--Subject 22 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 22 session 1 in nifti format and as matlab file
+--Subject 22 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 22 session 2 in nifti format and as matlab file
+--Subject 22 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 22 session 3 in nifti format and as matlab file
+--Subject 22 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 22 session 4 in nifti format and as matlab file
+--Subject 23 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 23 session 1 in nifti format and as matlab file
+--Subject 23 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 23 session 2 in nifti format and as matlab file
+--Subject 23 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 23 session 3 in nifti format and as matlab file
+--Subject 23 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 23 session 4 in nifti format and as matlab file
+--Subject 24 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 24 session 1 in nifti format and as matlab file
+--Subject 24 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 24 session 2 in nifti format and as matlab file
+--Subject 24 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 24 session 3 in nifti format and as matlab file
+--Subject 24 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 24 session 4 in nifti format and as matlab file
+--Subject 25 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 25 session 1 in nifti format and as matlab file
+--Subject 25 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 25 session 2 in nifti format and as matlab file
+--Subject 25 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 25 session 3 in nifti format and as matlab file
+--Subject 25 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 25 session 4 in nifti format and as matlab file
+--Subject 26 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 26 session 1 in nifti format and as matlab file
+--Subject 26 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 26 session 2 in nifti format and as matlab file
+--Subject 26 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 26 session 3 in nifti format and as matlab file
+--Subject 26 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 26 session 4 in nifti format and as matlab file
+--Subject 27 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 27 session 1 in nifti format and as matlab file
+--Subject 27 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 27 session 2 in nifti format and as matlab file
+--Subject 27 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 27 session 3 in nifti format and as matlab file
+--Subject 27 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 27 session 4 in nifti format and as matlab file
+--Subject 28 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 28 session 1 in nifti format and as matlab file
+--Subject 28 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 28 session 2 in nifti format and as matlab file
+--Subject 28 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 28 session 3 in nifti format and as matlab file
+--Subject 28 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 28 session 4 in nifti format and as matlab file
+--Subject 29 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 29 session 1 in nifti format and as matlab file
+--Subject 29 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 29 session 2 in nifti format and as matlab file
+--Subject 29 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 29 session 3 in nifti format and as matlab file
+--Subject 29 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 29 session 4 in nifti format and as matlab file
+--Subject 30 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 30 session 1 in nifti format and as matlab file
+--Subject 30 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 30 session 2 in nifti format and as matlab file
+--Subject 30 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 30 session 3 in nifti format and as matlab file
+--Subject 30 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 30 session 4 in nifti format and as matlab file
+--Subject 31 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 31 session 1 in nifti format and as matlab file
+--Subject 31 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 31 session 2 in nifti format and as matlab file
+--Subject 31 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 31 session 3 in nifti format and as matlab file
+--Subject 31 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 31 session 4 in nifti format and as matlab file
+--Subject 32 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 32 session 1 in nifti format and as matlab file
+--Subject 32 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 32 session 2 in nifti format and as matlab file
+--Subject 32 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 32 session 3 in nifti format and as matlab file
+--Subject 32 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 32 session 4 in nifti format and as matlab file
+--Subject 33 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 33 session 1 in nifti format and as matlab file
+--Subject 33 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 33 session 2 in nifti format and as matlab file
+--Subject 33 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 33 session 3 in nifti format and as matlab file
+--Subject 33 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 33 session 4 in nifti format and as matlab file
+--Subject 34 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 34 session 1 in nifti format and as matlab file
+--Subject 34 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 34 session 2 in nifti format and as matlab file
+--Subject 34 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 34 session 3 in nifti format and as matlab file
+--Subject 34 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 34 session 4 in nifti format and as matlab file
+--Subject 35 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 35 session 1 in nifti format and as matlab file
+--Subject 35 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 35 session 2 in nifti format and as matlab file
+--Subject 35 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 35 session 3 in nifti format and as matlab file
+--Subject 35 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 35 session 4 in nifti format and as matlab file
+--Subject 36 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 36 session 1 in nifti format and as matlab file
+--Subject 36 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 36 session 2 in nifti format and as matlab file
+--Subject 36 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 36 session 3 in nifti format and as matlab file
+--Subject 36 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 36 session 4 in nifti format and as matlab file
+--Subject 37 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 37 session 1 in nifti format and as matlab file
+--Subject 37 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 37 session 2 in nifti format and as matlab file
+--Subject 37 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 37 session 3 in nifti format and as matlab file
+--Subject 37 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 37 session 4 in nifti format and as matlab file
+--Subject 38 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 38 session 1 in nifti format and as matlab file
+--Subject 38 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 38 session 2 in nifti format and as matlab file
+--Subject 38 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 38 session 3 in nifti format and as matlab file
+--Subject 38 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 38 session 4 in nifti format and as matlab file
+--Subject 39 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 39 session 1 in nifti format and as matlab file
+--Subject 39 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 39 session 2 in nifti format and as matlab file
+--Subject 39 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 39 session 3 in nifti format and as matlab file
+--Subject 39 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 39 session 4 in nifti format and as matlab file
+--Subject 40 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 40 session 1 in nifti format and as matlab file
+--Subject 40 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 40 session 2 in nifti format and as matlab file
+--Subject 40 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 40 session 3 in nifti format and as matlab file
+--Subject 40 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 40 session 4 in nifti format and as matlab file
+--Subject 41 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 41 session 1 in nifti format and as matlab file
+--Subject 41 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 41 session 2 in nifti format and as matlab file
+--Subject 41 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 41 session 3 in nifti format and as matlab file
+--Subject 41 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 41 session 4 in nifti format and as matlab file
+--Subject 42 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 42 session 1 in nifti format and as matlab file
+--Subject 42 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 42 session 2 in nifti format and as matlab file
+--Subject 42 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 42 session 3 in nifti format and as matlab file
+--Subject 42 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 42 session 4 in nifti format and as matlab file
+--Subject 43 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 43 session 1 in nifti format and as matlab file
+--Subject 43 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 43 session 2 in nifti format and as matlab file
+--Subject 43 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 43 session 3 in nifti format and as matlab file
+--Subject 43 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 43 session 4 in nifti format and as matlab file
+--Subject 44 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 44 session 1 in nifti format and as matlab file
+--Subject 44 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 44 session 2 in nifti format and as matlab file
+--Subject 44 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 44 session 3 in nifti format and as matlab file
+--Subject 44 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 44 session 4 in nifti format and as matlab file
+--Subject 45 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 45 session 1 in nifti format and as matlab file
+--Subject 45 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 45 session 2 in nifti format and as matlab file
+--Subject 45 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 45 session 3 in nifti format and as matlab file
+--Subject 45 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 45 session 4 in nifti format and as matlab file
+--Subject 46 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 46 session 1 in nifti format and as matlab file
+--Subject 46 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 46 session 2 in nifti format and as matlab file
+--Subject 46 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 46 session 3 in nifti format and as matlab file
+--Subject 46 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 46 session 4 in nifti format and as matlab file
+--Subject 47 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 47 session 1 in nifti format and as matlab file
+--Subject 47 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 47 session 2 in nifti format and as matlab file
+--Subject 47 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 47 session 3 in nifti format and as matlab file
+--Subject 47 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 47 session 4 in nifti format and as matlab file
+--Subject 48 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 48 session 1 in nifti format and as matlab file
+--Subject 48 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 48 session 2 in nifti format and as matlab file
+--Subject 48 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 48 session 3 in nifti format and as matlab file
+--Subject 48 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 48 session 4 in nifti format and as matlab file
+--Subject 49 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 49 session 1 in nifti format and as matlab file
+--Subject 49 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 49 session 2 in nifti format and as matlab file
+--Subject 49 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 49 session 3 in nifti format and as matlab file
+--Subject 49 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 49 session 4 in nifti format and as matlab file
+--Subject 50 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 50 session 1 in nifti format and as matlab file
+--Subject 50 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 50 session 2 in nifti format and as matlab file
+--Subject 50 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 50 session 3 in nifti format and as matlab file
+--Subject 50 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 50 session 4 in nifti format and as matlab file
+--Subject 51 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 51 session 1 in nifti format and as matlab file
+--Subject 51 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 51 session 2 in nifti format and as matlab file
+--Subject 51 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 51 session 3 in nifti format and as matlab file
+--Subject 51 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 51 session 4 in nifti format and as matlab file
+--Subject 52 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 52 session 1 in nifti format and as matlab file
+--Subject 52 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 52 session 2 in nifti format and as matlab file
+--Subject 52 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 52 session 3 in nifti format and as matlab file
+--Subject 52 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 52 session 4 in nifti format and as matlab file
+--Subject 53 Session 1's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 53 session 1 in nifti format and as matlab file
+--Subject 53 Session 2's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 53 session 2 in nifti format and as matlab file
+--Subject 53 Session 3's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 53 session 3 in nifti format and as matlab file
+--Subject 53 Session 4's Component Set
+Converting components to z-scores
+...saving scaled ica data for subject 53 session 4 in nifti format and as matlab file
+---------------------------------------------------------------------
+DONE SCALING COMPONENTS
+---------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------
+STARTING GROUP STATS STEP
+---------------------------------------------------------------------
+--calculating mean ica component and timecourse
+done calculating mean for session 1
+done calculating mean for session 2
+done calculating mean for session 3
+done calculating mean for session 4
+done calculating mean for different sessions
+--calculating variance and standard deviation of components
+done calculating variance and standard deviation
+--calculating tmaps
+done calculating tmaps
+...saving group stats data...
+Comparing mean image with the aggregate ...
+Value shows how much the mean component is close w.r.t aggregate component
+The comparison value is found to be 0.99435
+
+Computing spectra of all subjects and sessions components ...
+Computing FNC correlations ...
+Timecourses will be despiked ...
+Timecourses will be filtered using HF cutoff of 0.15 Hz ...
+
+Done
+
+File /data/stress/Resting_State/GIFT_170221/170221_postprocess_results.mat contains spectra and FNC correlations
+1. spectra_tc_all - Timecourses spectra. spectra_tc_all variable is of dimensions subjects x sessions x spectral length x components
+2. fnc_corrs_all - FNC correlations transformed to fisher z-scores. fnc_corrs_all variable is of dimensions subjects x sessions x components x components
+---------------------------------------------------------------------
+ENDING GROUP STATS STEP
+---------------------------------------------------------------------
+ 
+Time taken to run the analysis is 2575.1783 seconds
+
+All the analysis information is stored in the file /data/stress/Resting_State/GIFT_170221/170221_results.log
+Finished with Analysis
+
