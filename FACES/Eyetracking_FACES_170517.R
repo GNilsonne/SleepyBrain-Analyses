@@ -13,24 +13,23 @@ randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafi
 setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 ViewpointFilesFaces <- list.files(pattern = "FACES")
 
-#ViewpointFilesFaces <- ViewpointFilesFaces[-c(14, 20, 59, 63, 64, 65, 67, 69)] # Remove unreadable logfiles
-
+# Some files were corrupted. In the HANDS experiment, I went through the files and manually deleted the corrupted lines.
+# Here, I am trying a different approach by coercing to numeric, which gives NA for character strings that are not numbers,
+# and then deleting those lines where there are NA:s
 ViewpointDataFaces <- data.frame()
 for (i in 1:length(ViewpointFilesFaces)){
   nlines <- length(readLines(ViewpointFilesFaces[i])) # To enable skipping reading of final line, which is often incomplete
   temp <- read.table(ViewpointFilesFaces[i], skip = 28, nrows = nlines - 29, fill = T) # Skip header lines as well as last line
+  temp <- data.frame(apply(temp, 2, as.numeric)) # Using apply function to coerce to numeric
   if(length(temp) > 11){ # Sometimes logfiles have things that cause an additional column to appear. This removes it.
     temp <- temp[, c(1:11)]
   }
+  temp <- temp[complete.cases(temp),] # Remove rows with NA:s
   temp <- temp[, c(2, 7, 8)] # Keep only time + height + width
-  #temp <- data.frame(as.numeric(temp))
   temp$File <- ViewpointFilesFaces[i]
   ViewpointDataFaces <- rbind(ViewpointDataFaces, temp)
 }
 names(ViewpointDataFaces) <- c("time_s", "width", "height", "filename")
-ViewpointDataFaces$time_s <- as.numeric(ViewpointDataFaces$time_s)
-ViewpointDataFaces$width <- as.numeric(ViewpointDataFaces$width)
-ViewpointDataFaces$height <- as.numeric(ViewpointDataFaces$height)
 
 # Extract subject
 ViewpointDataFaces$Subject <- as.integer(substr(ViewpointDataFaces$filename, 1, 3))
@@ -51,16 +50,15 @@ ViewpointDataFaces <- ViewpointDataFaces[ViewpointDataFaces$Subject %in% as.inte
 
 # Plot data to se that all subjects have registrations of approximatly the same length  
 plot(ViewpointDataFaces$time_s, type="l", xlab = "Row", ylab = "Time (s)")
-# There is a single anomalous value which will be cut out later anyway
 
 IncludedSubjectsViewpointFaces <- unique(ViewpointDataFaces$Subject)
 length(unique(ViewpointDataFaces$Subject))
 #write.csv2(ViewpointDataHands, file = "../Eyetracking_HANDS/EyeDataHands_86subjects.csv", row.names=FALSE)
 #write.csv2(IncludedSubjectsViewpointHands, file = "../Eyetracking_HANDS/IncludedSubjectsEyeHands_86subjects.csv", row.names=FALSE)
 
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles")
 
 # Get onset times for stimuli 
+setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles")
 OnsetTimesForAll <- list()
 AllOnsetFiles <- list.files("Presentation_logfiles/", pattern = "FACES_sce.log", recursive = T)
 AllStimulusFiles <- list.files("Presentation_logfiles/", pattern = "FACES_log.txt", recursive = T)
@@ -71,10 +69,7 @@ getSubjectFromFileName <- function (filename) {
 }
 
 AllOnsetFiles = AllOnsetFiles[unlist(lapply(AllOnsetFiles, getSubjectFromFileName)) %in% IncludedSubjectsViewpointFaces]
-AllStimulusFiles = AllStimulusFiles[unlist(lapply(AllStimulusFiles, getSubjectFromFileName)) %in% IncludedSubjectsViewpointFaces]
-
-
-# CONTINUE HERE
+# AllStimulusFiles = AllStimulusFiles[unlist(lapply(AllStimulusFiles, getSubjectFromFileName)) %in% IncludedSubjectsViewpointFaces]
 
 # Find onset times
 for(i in 1:length(AllOnsetFiles)){
@@ -85,27 +80,28 @@ for(i in 1:length(AllOnsetFiles)){
   OnsetTime$File <- AllOnsetFiles[i]
   OnsetTime$Subject <- as.integer(substr(OnsetTime$File, 1, 3)) 
   OnsetTime$Date <- as.integer(substr(OnsetTime$File, 5, 10))
-  OnsetTime <- subset(OnsetTime, V2 == "Pic2")
+  #OnsetTime <- subset(OnsetTime, V2 == "Pic2")
   OnsetTime$V4 <- (as.numeric(as.character(OnsetTime$V4))-time_init)/10000
-  if(i == 92){
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-  }
-  if(i == 113){
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-    OnsetTime <- rbind(OnsetTime, rep(NA, 5))
-  }
-  StimulusType <- read.delim(paste("Presentation_logfiles/", AllStimulusFiles[i], sep = ""))
-  OnsetTimeAndStimulus <- cbind(OnsetTime, StimulusType) 
-  OnsetTimeAndStimulus <- OnsetTimeAndStimulus[ , c("V4", "Condition", "Rated_Unpleasantness", "Subject", "Date")]
-  if(!is.na(OnsetTime$Subject[1]) && OnsetTime$Subject[1] %in% as.integer(IncludedSubjects) ){
-    OnsetTimesForAll[[length(OnsetTimesForAll)+1]] <- OnsetTimeAndStimulus
-  }
+  # if(i == 92){
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  # }
+  # if(i == 113){
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  #   OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+  # }
+  # StimulusType <- read.delim(paste("Presentation_logfiles/", AllStimulusFiles[i], sep = ""))
+  # OnsetTimeAndStimulus <- cbind(OnsetTime, StimulusType) 
+  # OnsetTimeAndStimulus <- OnsetTimeAndStimulus[ , c("V4", "Condition", "Rated_Unpleasantness", "Subject", "Date")]
+   if(!is.na(OnsetTime$Subject[1]) && OnsetTime$Subject[1] %in% as.integer(IncludedSubjects) ){
+     OnsetTimesForAll[[length(OnsetTimesForAll)+1]] <- OnsetTime
+   }
 }
 
-Vpfiles_df <- data.frame(filenames = ViewpointFilesHands, subject = substr(ViewpointFilesHands, 1, 3), date = substr(ViewpointFilesHands, 5, 10))
+# Define session numbers
+Vpfiles_df <- data.frame(filenames = ViewpointFilesFaces, subject = substr(ViewpointFilesFaces, 1, 3), date = substr(ViewpointFilesFaces, 5, 10))
 Vpfiles_df$subject <- as.integer(as.character(Vpfiles_df$subject))
 Vpfiles_df$date <- as.integer(as.character(Vpfiles_df$date))
 
@@ -120,7 +116,6 @@ for (i in unique(Vpfiles_df$subject)){
 
 # Manually enter session numbers for subjects with only one included session
 Vpfiles_df$session[Vpfiles_df$subject == 73] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 75] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 86] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 104] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 115] <- 2
@@ -132,14 +127,14 @@ Vpfiles_df$session[Vpfiles_df$subject == 299] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 324] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 496] <- 1
 
-Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointHands, ]
+Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointFaces, ]
 
 # Cut out data for all included files
 setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 data_out <- NULL
 onsets <- vector()
 indices <- 1:length(OnsetTimesForAll)
-indices <- indices[c(-20, -28, -35, -36, -54, -67, -69, -71, -92, -97, -103, -113, -114, -121, -124, -125, -131, -150, -154)] # Do not read when file is nonexistent or cannot be processed
+#indices <- indices[c(-20, -28, -35, -36, -54, -67, -69, -71, -92, -97, -103, -113, -114, -121, -124, -125, -131, -150, -154)] # Do not read when file is nonexistent or cannot be processed
 for(i in indices){
   temp <- OnsetTimesForAll[[i]]
   subject <- temp$Subject[1]
@@ -150,31 +145,37 @@ for(i in indices){
   nlines <- length(readLines(thisVpfile)) # To enable skipping reading of final line, which is often incomplete
   data <- read.table(thisVpfile, skip = 28, nrows = nlines - 29) # Skip header lines as well as last line
   
-  data$V7full <- data$V7
-  data$V8full <- data$V8
+  data <- data.frame(apply(data, 2, as.numeric)) # Using apply function to coerce to numeric
+  if(length(data) > 11){ # Sometimes logfiles have things that cause an additional column to appear. This removes it.
+    data <- data[, c(1:11)]
+  }
+  data <- data[complete.cases(data),] # Remove rows with NA:s
+  data <- data[, c(2, 7, 8)] # Keep only time + height + width
+  names(data) <- c("time", "width", "height")
   
-  data$diff_width <- c(diff(data$V7)/diff(data$V2), NA)
-  data$diff_height <- c(diff(data$V8)/diff(data$V2), NA)
+  data$width_full <- data$width
+  data$height_full <- data$height
+  
+  data$diff_width <- c(diff(data$width)/diff(data$time), NA)
+  data$diff_height <- c(diff(data$height)/diff(data$time), NA)
   
   indexforrejection <- (data$diff_width < - 3) | (data$diff_width > 3) | (data$diff_height < - 3) | (data$diff_height > 3)
   neighbouringindices <- unique(which(indexforrejection), which(indexforrejection)-1, which(indexforrejection)+1)
   indexforrejection[neighbouringindices] <- TRUE
   
-  data$V7[indexforrejection] <- NA
-  data$V8[indexforrejection] <- NA
+  data$width[indexforrejection] <- NA
+  data$height[indexforrejection] <- NA
   
-  data$V7[data$V7 < 0.1] <- NA
-  data$V8[data$V8 < 0.1] <- NA
-  data$V7[data$V7 > 0.3] <- NA
-  data$V8[data$V8 > 0.3] <- NA
-  width_lo001 <- loess(data$V7 ~ data$V2, span = 0.01)
-  height_lo001 <- loess(data$V8 ~ data$V2, span = 0.01)
-  data$width_lo001 <- predict(width_lo001, data$V2)
-  data$height_lo001 <- predict(height_lo001, data$V2)
+  data$width[data$width < 0.1] <- NA
+  data$height[data$height < 0.1] <- NA
+  data$width[data$width > 0.3] <- NA
+  data$height[data$height > 0.3] <- NA
+  width_lo001 <- loess(data$width ~ data$time, span = 0.01)
+  height_lo001 <- loess(data$height ~ data$time, span = 0.01)
+  data$width_lo001 <- predict(width_lo001, data$time)
+  data$height_lo001 <- predict(height_lo001, data$time)
   
-  # Cut pieces of data that start 4 seconds before onset of every stimulus and end 10 seconds after
-  # 4 seconds is chosen because that was the shortest possible duration of the jittered fixation cross
-  # 10 seconds extends into the rating event and we are unlikely to be interested in anything going on later than that
+  # Cut pieces of data that start at onset of every stimulus and ends 1 second after
   
   for(j in 1:length(temp$V4)){
     thisonset <- temp$V4[j]
