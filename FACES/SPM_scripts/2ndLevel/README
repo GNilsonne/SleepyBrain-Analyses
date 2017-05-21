@@ -1,7 +1,7 @@
 This folder contains scripts to generate event onset files and perform 1st level analyses. In the "Preprocessing" subfolder, there is a master file ("run_analyses.m") that calls these scripts. Scripts were written by dr Colin Hawco.
 The scripts are:
 - sleep_group_test.m:       One-sample t-tests for 1st-level contrasts, separately for each condition (sleep deprived and not sleep deprived)
-- sleep_group_sesstest.m:   Paired t-test for differeces between sleep deprived and full sleep conditions. 
+- sleep_group_sesstest.m:   Paired t-test for differences between sleep deprived and full sleep conditions. 
 - sleep_group_agetest.m:    Independent-samples t-test for younger vs older participants, separately for each condition
 - sleep_group_Ftest.m:      Flexible factorial F-test for group by condition analysis
 - sleep_rois_mpfc.m:        Extracts data from mPFC ROI for PPI analysis (ROI can be found on NeuroVault: http://neurovault.org/collections/RLWUZRQN)
