@@ -175,10 +175,13 @@ sd(demo2$KSQ_SnoringSymptomIndex[demo2$AgeGroup == "Old"])
 # KSS
 # Read files
 kss <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/150715_KSSData.csv")
-kss <- kss[kss$Subject %in% IncludedSubjects, ]
+subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+subjectlist_in <- subjectlist[subjectlist$newid %in% IncludedSubjects, 1]
+kss <- kss[kss$Subject %in% subjectlist_in, ]
 kss$kss_jitt <- jitter(kss$KSS_Rating)
 
 # Make plots
+pdf("kss1.pdf")
 plot(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Not Sleep Deprived" & kss$RatingNo %in% c(2, 6, 7, 8,9), ], frame.plot = F, pch = 3, xlim = c(0, 120), ylim = c(1, 9), xlab = "Time (min)", ylab = "KSS rating", yaxt = "n", main = "Full sleep")
 points(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Not Sleep Deprived" & !kss$RatingNo %in% c(2, 6, 7, 8,9), ], col = "gray", pch = 3)
 axis(2, at = c(1:9))
@@ -186,7 +189,9 @@ mod <- lm(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Not 
 newdat <- data.frame(TimeInScanner = c(0:120))
 lines(predict(mod, newdat), col = "blue", lwd = 2)
 with(kss[kss$DeprivationCondition == "Not Sleep Deprived", ], lines(lowess(TimeInScanner, kss_jitt), col="blue", lwd = 2, lty = 2))
+dev.off()
 
+pdf("kss2.pdf")
 plot(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Sleep Deprived" & kss$RatingNo %in% c(2, 6, 7, 8,9), ], frame.plot = F, pch = 3, xlim = c(0, 120), ylim = c(1, 9), xlab = "Time (min)", ylab = "KSS rating", yaxt = "n", main = "Sleep deprived")
 points(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Sleep Deprived" & !kss$RatingNo %in% c(2, 6, 7, 8,9), ], col = "gray", pch = 3)
 axis(2, at = c(1:9))
@@ -194,6 +199,7 @@ mod <- lm(kss_jitt ~ TimeInScanner, data = kss[kss$DeprivationCondition == "Slee
 newdat <- data.frame(TimeInScanner = c(0:120))
 lines(predict(mod, newdat), col = "red", lwd = 2)
 with(kss[kss$DeprivationCondition == "Sleep Deprived", ], lines(lowess(TimeInScanner, kss_jitt), col="red", lwd = 2, lty = 2)) # lowess line (x,y)
+dev.off()
 
 # Analyse effects
 kss$TimeInScannerH <- kss$TimeInScanner/60
