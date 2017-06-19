@@ -65,10 +65,29 @@ KSSData$DeprivationCondition <- VecDeprived
 
 # Amygdala
 setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses")
-L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
-R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
-L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
-R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
+amyg_L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
+amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
+amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
+amyg_R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
+
+corr_amyg_fullsleep <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
+corr_amyg_sleepdeprived <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
+for(i in 2:length(amyg_L_fullsleep)){
+  plot(amyg_L_fullsleep[, i] ~ amyg_R_fullsleep[, i])
+  test1 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
+  corr_amyg_fullsleep[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test1$estimate, 2), round(test1$conf.int[1], 2), round(test1$conf.int[2], 2))
+  
+  plot(amyg_L_fullsleep[, i] ~ amyg_R_fullsleep[, i])
+  test2 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
+  corr_amyg_sleepdeprived[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test2$estimate, 2), round(test2$conf.int[1], 2), round(test2$conf.int[2], 2))
+}
+
+plot(amyg_L_fullsleep$X.HA.AN.NE. ~ amyg_R_fullsleep$X.HA.AN.NE.)
+cor.test(amyg_L_fullsleep$X.HA.AN.NE., amyg_R_fullsleep$X.HA.AN.NE.)
+plot(amyg_L_sleepdeprived$X.HA.AN.NE. ~ amyg_R_sleepdeprived$X.HA.AN.NE.)
+cor.test(amyg_L_sleepdeprived$X.HA.AN.NE., amyg_R_sleepdeprived$X.HA.AN.NE.)
+
+amyg_joint <- 
 
 boxplot(L_fullsleep$X.HA.AN.NE., L_sleepdeprived$X.HA.AN.NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "All faces")
 t.test(L_fullsleep$X.HA.AN.NE., L_sleepdeprived$X.HA.AN.NE., paired = T)
@@ -153,3 +172,8 @@ plot(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS, frame.plot = F, xlab 
 mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS)
 abline(mod, col = "red")
 summary(mod)
+
+
+# Mixed-level modelling
+lm_amyg1 <- 
+  
