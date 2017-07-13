@@ -465,3 +465,33 @@ lme_IRIb <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + IRI_EC 
                 data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
 anova(lme_IRIb, type = "marginal")
 intervals(lme_IRIb)
+
+
+# Add analyses of PPI-R, Coldheartedness
+Data_PPIR <- read.csv("Data/Data_PPIR", sep=";", dec=",")
+Data_HANDSRatings <- merge(Data_HANDSRatings, Data_PPIR, all.x = T)
+
+# Test effect of self-rated psychopathy on ratings
+lme_PPIR <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + C + AgeGroup), 
+               data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_PPIR, type = "marginal")
+intervals(lme_PPIR)
+summary(lme_PPIR)
+
+lme_PPIR_pain <- lme(Rated_Unpleasantness ~ DeprivationCondition + C + AgeGroup, 
+                    data = subset(Data_HANDSRatings, Condition == "Pain"), random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_PPIR_pain, type = "marginal")
+intervals(lme_PPIR_pain)
+summary(lme_PPIR_pain)
+
+lme_PPIR_nopain <- lme(Rated_Unpleasantness ~ DeprivationCondition + C + AgeGroup, 
+                      data = subset(Data_HANDSRatings, Condition == "No_Pain"), random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_PPIR_nopain, type = "marginal")
+intervals(lme_PPIR_nopain)
+summary(lme_PPIR_nopain)
+
+# Add sex and session as possible confounders
+lme_IRIb <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + IRI_EC + AgeGroup + Sex + Session), 
+                data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
+anova(lme_IRIb, type = "marginal")
+intervals(lme_IRIb)
