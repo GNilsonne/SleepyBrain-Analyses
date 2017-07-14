@@ -22,7 +22,9 @@ for(i in 1:length(unique(Data_rp$Subject))){
         50*(abs(rp[k-1,11])-abs(rp[k,11]))
     }
     rp$FD <- FD$V1
+    rp$time <- 1:length(rp$FD)
     rp$meanFD <- mean(FD$V1, na.rm = T)
+    rp$max <- max(FD$V1, na.rm = T)
     Data_subject <- rbind(Data_subject, rp)
   }
   Data_FD <- rbind(Data_FD, Data_subject)
@@ -31,9 +33,10 @@ for(i in 1:length(unique(Data_rp$Subject))){
 Data_unique <- Data_FD[is.na(Data_FD$FD), ]
 Data_unique$AgeSleep <- as.factor(paste(Data_unique$AgeGroup, ":",  Data_unique$DeprivationCondition, sep = ""))
 
-boxplot(meanFD ~ AgeSleep, data = Data_unique, lwd = 2, ylab = 'Mean framewise displacement', 
+boxplot(meanFD ~ AgeSleep, data = Data_unique, lwd = 2, ylab = 'Mean framewise displacement (mm)', 
         names = c("Old\nNormal sleep", "Old\nSleep restriction", 
-                  "Young\nNormal sleep", "Young\nSleep restriction"), cex.axis = 0.5)
+                  "Young\nNormal sleep", "Young\nSleep restriction"), 
+        cex.axis = 0.5, outline = F)
 stripchart(meanFD ~ AgeSleep, vertical = TRUE, data = Data_unique, 
            method = "jitter", add = TRUE, pch = 20, col = 'blue')
 
@@ -43,3 +46,12 @@ Lme <- lme(meanFD ~ DeprivationCondition*AgeGroup,
 anova(Lme)
 summary(Lme)
 intervals(Lme)
+
+boxplot(max ~ AgeSleep, data = Data_unique, lwd = 2, ylab = 'Maximum framewise displacement (mm)', 
+        names = c("Old\nNormal sleep", "Old\nSleep restriction", 
+                  "Young\nNormal sleep", "Young\nSleep restriction"), 
+        cex.axis = 0.5, outline = F)
+stripchart(max ~ AgeSleep, vertical = TRUE, data = Data_unique, 
+           method = "jitter", add = TRUE, pch = 20, col = 'blue')
+
+
