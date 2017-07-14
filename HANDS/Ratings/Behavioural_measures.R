@@ -495,3 +495,52 @@ lme_IRIb <- lme(Rated_Unpleasantness ~ Condition*(DeprivationCondition + IRI_EC 
                 data = Data_HANDSRatings, random = ~ 1|Subject, na.action = na.exclude)
 anova(lme_IRIb, type = "marginal")
 intervals(lme_IRIb)
+
+
+
+# Calculate Cohens'f for effect of deprivation condition
+require(lme4)
+# Create the full model
+lmer_full <- lmer(Rated_Unpleasantness ~ Condition*AgeGroup*DeprivationCondition + (1|Subject), 
+                  data = Data_HANDSRatings_Intervention)
+lmer_var_full <- as.data.frame(VarCorr(lmer_full), comp="Variance")
+Vab <- lmer_var_full$vcov[2]
+
+# Create reduced model (without DeprivationCondition)
+lmer_reduced <- lmer(Rated_Unpleasantness ~ Condition*AgeGroup + (1|Subject), 
+                     data = Data_HANDSRatings_Intervention)
+lmer_var_reduced <- as.data.frame(VarCorr(lmer_reduced), comp="Variance")
+Va <- lmer_var_reduced$vcov[2]
+
+# Create model with only random effects
+lmer_null <- lmer(Rated_Unpleasantness ~ (1|Subject), data = Data_HANDSRatings_Intervention)
+lmer_var_null <- as.data.frame(VarCorr(lmer_null), comp="Variance")
+Vnull <- lmer_var_null$vcov[2]
+
+R2ab <- (Vnull - Vab)/Vnull
+R2a <- (Vnull - Va)/Vnull
+
+f2 <- (R2ab - R2a)/(1-R2ab)
+
+# Calculate Cohens'f for effect of age
+# Create the full model
+lmer_full <- lmer(Rated_Unpleasantness ~ Condition*AgeGroup*DeprivationCondition + (1|Subject), 
+                  data = Data_HANDSRatings)
+lmer_var_full <- as.data.frame(VarCorr(lmer_full), comp="Variance")
+Vab <- lmer_var_full$vcov[2]
+
+# Create reduced model (without AgeGroup)
+lmer_reduced <- lmer(Rated_Unpleasantness ~ Condition*DeprivationCondition + (1|Subject), 
+                     data = Data_HANDSRatings)
+lmer_var_reduced <- as.data.frame(VarCorr(lmer_reduced), comp="Variance")
+Va <- lmer_var_reduced$vcov[2]
+
+# Create model with only random effects
+lmer_null <- lmer(Rated_Unpleasantness ~ (1|Subject), data = Data_HANDSRatings)
+lmer_var_null <- as.data.frame(VarCorr(lmer_null), comp="Variance")
+Vnull <- lmer_var_null$vcov[2]
+
+R2ab <- (Vnull - Vab)/Vnull
+R2a <- (Vnull - Va)/Vnull
+
+f2 <- (R2ab - R2a)/(1-R2ab)
