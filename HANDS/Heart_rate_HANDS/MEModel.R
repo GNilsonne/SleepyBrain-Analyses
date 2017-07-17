@@ -5,6 +5,8 @@
 # Require packages
 require(nlme)
 require(reshape2)
+require(RColorBrewer)
+cols <- brewer.pal(n = 5, name = "Dark2")
 
 # Define function for imputation of time series
 locf.sfear = function(x) { 
@@ -20,10 +22,11 @@ locf.sfear = function(x) {
 
 # Analyse data
 # Read files, normalise data, impute consored values, generate new data file with summary measures for each event
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/HR/PgDataHandsStimulusCorrected151219")
+setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/HR/PgDataHandsStimulusCorrected151219")
 Files <- list.files()
+Files <- Files[Files != "Reduced_model.csv"] # Do not read output written by this script
 
-IncludedSubjects <- read.table("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_140818.csv", sep=";", header=T)
+IncludedSubjects <- read.table("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Subjects_140818.csv", sep=";", header=T)
 IncludedSubjects <- as.integer(IncludedSubjects$CanBeIncludedForInterventionEffects)
 
 filenames <- Files
@@ -79,7 +82,7 @@ legend("topleft", lty = 1, lwd = 2, col = c("blue", "red"), legend = c("No pain"
 sessions <- data.frame(subject = as.integer(substr(filenames, 1, 3)), session = substr(filenames, 5, 5))
 sessions <- sessions[sessions$subject %in% IncludedSubjects, ]
 sessions$rowno <- 1:nrow(sessions)
-randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
+randomisation <- read.csv("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
 sessions <- merge(sessions, randomisation, by.x = "subject", by.y = "Subject")
 sessions$condition <- "fullsleep"
 sessions$condition[sessions$Sl_cond == 1 & sessions$session == 1] <- "psd"
@@ -120,9 +123,9 @@ events <- rbind(painevents, nopainevents)
 boxplot(value ~ stimulus, data = events)
 
 # Analyse data
-demographics <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv", sep=";", dec=",")
+demographics <- read.csv("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv", sep=";", dec=",")
 events <- merge(events, subset(demographics, select = c(Subject, AgeGroup)), by.x = "subject", by.y = "Subject")
-randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
+randomisation <- read.csv("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
 events <- merge(events, randomisation, by.x = "subject", by.y = "Subject")
 events$condition <- "fullsleep"
 events$condition[events$Sl_cond == 1 & events$session == 1] <- "psd"
@@ -138,6 +141,8 @@ summary(lme1)
 intervals(lme1)
 
 # Second model is for purpose of hypothesis testing
+events$stimulus <- as.factor(events$stimulus)
+events$stimulus <- relevel(events$stimulus, ref = "nopain")
 lme2 <- lme(value ~ stimulus*condition*AgeGroup, data = events, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme2)
 intervals(lme2)
@@ -171,4 +176,31 @@ axis(1, at = c(0, 400, 750, 950, 1400), labels = c(-4, 0, 3.5, 5.5, 10))
 lines(lowess(meantimecoursefullsleep, f = 2/5), col = "blue", lwd = 2)
 lines(lowess(meantimecoursepsd, f = 2/5), col = "red", lwd = 2, lty = 2)
 legend("topleft", lty = c(1, 2), lwd = 2, col = c("blue", "red"), legend = c("Full sleep", "Sleep deprived"), bty = "n")
+dev.off()
+
+# Make additional figure for publication
+eff <- effect("stimulus*condition*AgeGroup", lme2)
+
+pdf(file = "effects_heartrate.pdf", height = 5, width = 8) 
+par(mar = c(4, 5, 1, 2))
+par(mfrow=c(1, 2)) 
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0.985, 1.015), xlab = "", ylab = "Heart rate, mean index", xaxt = "n", type = "n", main = "Young")
+axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
+lines(x = c(0, 0.9), y = eff$fit[c(1, 2)], pch = 16, col = cols[1], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = eff$fit[c(3, 4)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(eff$lower[1], eff$upper[1]), col = cols[1], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(eff$lower[2], eff$upper[2]), col = cols[1], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(eff$lower[3], eff$upper[3]), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(eff$lower[4], eff$upper[4]), col = cols[2], lwd = 1.5)
+legend("topleft", lty = 1, lwd = 1.5, pch = 16, col = cols[1:2], legend = c("Full sleep", "Sleep deprived"), bty = "n")
+
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0.985, 1.015), xlab = "", ylab = "", xaxt = "n", type = "n", main = "Older")
+axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
+lines(x = c(0, 0.9), y = eff$fit[c(5, 6)], pch = 16, col = cols[1], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = eff$fit[c(7, 8)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(eff$lower[5], eff$upper[5]), col = cols[1], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(eff$lower[6], eff$upper[6]), col = cols[1], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(eff$lower[7], eff$upper[7]), col = cols[2], lwd = 1.5)
+lines(x = c(1, 1), y = c(eff$lower[8], eff$upper[8]), col = cols[2], lwd = 1.5)
+
 dev.off()
