@@ -4,12 +4,14 @@
 # Require packages
 require(nlme)
 require(effects)
+require(RColorBrewer)
+cols <- brewer.pal(n = 5, name = "Dark2")
 
 # Import files
-demographics <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv", sep=";", dec=",")
-randomisation <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
+demographics <- read.csv("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv", sep=";", dec=",")
+randomisation <- read.csv("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
 
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
+setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 ViewpointFilesHands <- list.files(pattern = "HANDS")
 
 ViewpointDataHands <- data.frame()
@@ -46,7 +48,7 @@ length(unique(ViewpointDataHands$Subject))
 #write.csv2(ViewpointDataHands, file = "../Eyetracking_HANDS/EyeDataHands_86subjects.csv", row.names=FALSE)
 #write.csv2(IncludedSubjectsViewpointHands, file = "../Eyetracking_HANDS/IncludedSubjectsEyeHands_86subjects.csv", row.names=FALSE)
 
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles")
+setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles")
 
 # Get onset times for stimuli 
 OnsetTimesForAll <- list()
@@ -120,7 +122,7 @@ Vpfiles_df$session[Vpfiles_df$subject == 496] <- 1
 Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointHands, ]
 
 # Cut out data for all included files
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
+setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 data_out <- NULL
 onsets <- vector()
 indices <- 1:length(OnsetTimesForAll)
@@ -175,7 +177,7 @@ for(i in indices){
       flag <- "REJECTED"
     }
     
-    #pdf(file = paste("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Eyetracking_QC/Eyetracking_HANDS_QC_", i, "_", j, ".pdf", sep = ""))
+    #pdf(file = paste("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking_QC/Eyetracking_HANDS_QC_", i, "_", j, ".pdf", sep = ""))
     #plot(data$V7full[cutout_start:cutout_end], type = "l", frame.plot = F, xaxt = "n", main = paste("Width, subject", subject, "session", session, "event", j, flag), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm", col = "gray")
     #axis(1, at = c(0, 240, 840), labels = c(-4, 0, 10))
     #lines(data$V7[cutout_start:cutout_end])
@@ -224,7 +226,7 @@ plot(diameter ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt 
 axis(1, at = c(0, 40, 140), labels = c(-4, 0, 10))
 
 # This is the plot that goes into the data descriptor manuscript
-pdf(file = "C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse.pdf")
+pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse.pdf")
 plot(diameter ~ index, data = dataout_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", main = "", ylim = c(0.16, 0.19), xlab = "Time, s", ylab = "Diameter, cm")
 abline(v = 95, lty = 2)
 polygon(x = c(40, 40, 75, 75), y = c(1, 0, 0, 1), col = "gray", border = "gray")
@@ -390,7 +392,9 @@ write.csv(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
 lme3 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject)
 summary(lme3)
 intervals_lme3 <- intervals(lme3)
-plot(effect("stimulus*condition*AgeGroup", lme3))
+pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/eyetracking_fullmodel.pdf")
+dev.off()
+plot(effect("stimulus*condition*AgeGroup", lme3), main = "", ylab = "Mean pupil diameter change")
 write.csv(summary(lme3)$tTable, file = "Full_model.csv")
 write.csv(intervals_lme3$fixed, file = "Full_model_intervals.csv")
 
@@ -480,7 +484,7 @@ data_delta_sleepdeprived_agg_agg$delta_diameter_mm <- data_delta_sleepdeprived_a
 data_delta_fullsleep_agg_agg$delta_diameter_mm <- data_delta_fullsleep_agg_agg$delta_diameter*10
 
 
-pdf(file = "C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse3.pdf")
+pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse3.pdf")
 plot(delta_diameter_mm ~ index, data = data_delta_pain_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", ylim = c(-0.25, 0.05), main = "", xlab = "Time, s", ylab = "Diameter change, mm")
 abline(v = 95, lty = 2)
 polygon(x = c(40, 40, 75, 75), y = c(1, -1, -1, 1), col = "gray", border = "gray")
@@ -498,4 +502,31 @@ axis(2, at = c(-0.25, -0.15, -0.05, 0.05))
 lines(delta_diameter_mm ~ index, data = data_delta_fullsleep_agg_agg, col = "blue", lwd = 2)
 lines(delta_diameter_mm ~ index, data = data_delta_sleepdeprived_agg_agg, col = "red", lty = 2, lwd = 2)
 legend("bottomright", lty = c(1, 2), col = c("blue", "red"), legend = c("Full Sleep", "Sleep Deprived"), lwd = 2)
+dev.off()
+
+# Make additional figure for publication
+eff <- effect("stimulus*condition*AgeGroup", lme3)
+
+pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/effects_eyetracking.pdf", height = 5, width = 8) 
+par(mar = c(4, 5, 1, 2))
+par(mfrow=c(1, 2)) 
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.02, 0), xlab = "", ylab = "Pupil diameter change", xaxt = "n", type = "n", main = "Young")
+axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
+lines(x = c(0, 0.9), y = eff$fit[c(1, 2)], pch = 16, col = cols[4], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = eff$fit[c(3, 4)], pch = 16, col = cols[5], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(eff$lower[1], eff$upper[1]), col = cols[4], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(eff$lower[2], eff$upper[2]), col = cols[4], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(eff$lower[3], eff$upper[3]), col = cols[5], lwd = 1.5)
+lines(x = c(1, 1), y = c(eff$lower[4], eff$upper[4]), col = cols[5], lwd = 1.5)
+legend("topleft", lty = 1, lwd = 1.5, pch = 16, col = cols[4:5], legend = c("Full sleep", "Sleep deprived"), bty = "n")
+
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.02, 0), xlab = "", ylab = "", xaxt = "n", type = "n", main = "Older")
+axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
+lines(x = c(0, 0.9), y = eff$fit[c(5, 6)], pch = 16, col = cols[4], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = eff$fit[c(7, 8)], pch = 16, col = cols[5], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(eff$lower[5], eff$upper[5]), col = cols[4], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(eff$lower[6], eff$upper[6]), col = cols[4], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(eff$lower[7], eff$upper[7]), col = cols[5], lwd = 1.5)
+lines(x = c(1, 1), y = c(eff$lower[8], eff$upper[8]), col = cols[5], lwd = 1.5)
+
 dev.off()
