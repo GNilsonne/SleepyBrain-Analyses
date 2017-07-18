@@ -151,8 +151,6 @@ summary_age_intervention$group
 summary_pain <- subset(summary_age_intervention, Condition == "Pain")
 summary_nopain <- subset(summary_age_intervention, Condition == "No_Pain")
 
-cPalette <- c("#d7191c","#2ca25f")
-
 
 # Make plot with age and sleep effects for "pain" stimuli. 
 P1 <- ggplot(summary_pain, aes(x=DeprivationCondition, y=Rated_Unpleasantness)) + 
