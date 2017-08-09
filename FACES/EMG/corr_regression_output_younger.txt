@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata[blockdata$AgeGroup == "Young", ] 
+        AIC       BIC   logLik
+  -11619.62 -11571.01 5819.809
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 0.0004032811
+
+ Formula: ~1 | session %in% subject
+        (Intercept)
+StdDev: 0.001435866
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 0.0004263015 0.0003433049
+
+Fixed effects: corr_resid ~ stimulus * condition 
+                             Value    Std.Error  DF   t-value p-value
+(Intercept)          -0.0003114036 0.0001744118 636 -1.785450  0.0747
+stimulus1             0.0000210287 0.0000180938 636  1.162208  0.2456
+stimulus2            -0.0000233566 0.0000180938 636 -1.290863  0.1972
+condition1           -0.0005701324 0.0003259253  37 -1.749273  0.0885
+stimulus1:condition1  0.0000408756 0.0000361875 636  1.129550  0.2591
+stimulus2:condition1 -0.0000724261 0.0000361875 636 -2.001410  0.0458
+ Correlation: 
+                     (Intr) stmls1 stmls2 cndtn1 stm1:1
+stimulus1            0.0                               
+stimulus2            0.0    0.5                        
+condition1           0.0    0.0    0.0                 
+stimulus1:condition1 0.0    0.0    0.0    0.0          
+stimulus2:condition1 0.0    0.0    0.0    0.0    0.5   
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-1.269817e+01 -4.970464e-02 -7.179892e-04  3.748285e-02  5.837644e+00 
+
+Number of Observations: 960
+Number of Groups: 
+                        subject            session %in% subject 
+                             42                              80 
+block %in% session %in% subject 
+                            320 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                             lower          est.         upper
+(Intercept)          -6.538961e-04 -3.114036e-04  3.108899e-05
+stimulus1            -1.450201e-05  2.102871e-05  5.655944e-05
+stimulus2            -5.888728e-05 -2.335656e-05  1.217417e-05
+condition1           -1.230520e-03 -5.701324e-04  9.025496e-05
+stimulus1:condition1 -3.018583e-05  4.087562e-05  1.119371e-04
+stimulus2:condition1 -1.434875e-04 -7.242605e-05 -1.364598e-06
+attr(,"label")
+[1] "Fixed effects:"

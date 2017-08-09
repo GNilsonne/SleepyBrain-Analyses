@@ -1,0 +1,86 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata 
+        AIC      BIC   logLik
+  -18640.28 -18553.8 9336.139
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 0.0002407354
+
+ Formula: ~1 | session %in% subject
+        (Intercept)
+StdDev: 0.001310827
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 0.0006299595 0.0005582086
+
+Fixed effects: corr_resid ~ stimulus * condition * AgeGroup 
+                                       Value    Std.Error   DF   t-value p-value
+(Intercept)                    -0.0004085992 0.0001205927 1096 -3.388257  0.0007
+stimulus1                       0.0000257451 0.0000226982 1096  1.134237  0.2569
+stimulus2                      -0.0000226100 0.0000226982 1096 -0.996116  0.3194
+condition1                     -0.0000005430 0.0002345213   62 -0.002315  0.9982
+AgeGroup1                      -0.0001962761 0.0002411855   72 -0.813797  0.4184
+stimulus1:condition1            0.0000535759 0.0000453963 1096  1.180181  0.2382
+stimulus2:condition1            0.0000318322 0.0000453963 1096  0.701206  0.4833
+stimulus1:AgeGroup1             0.0000094327 0.0000453963 1096  0.207786  0.8354
+stimulus2:AgeGroup1             0.0000014931 0.0000453963 1096  0.032891  0.9738
+condition1:AgeGroup1            0.0011431056 0.0004690425   62  2.437104  0.0177
+stimulus1:condition1:AgeGroup1  0.0000254005 0.0000907926 1096  0.279764  0.7797
+stimulus2:condition1:AgeGroup1  0.0002085164 0.0000907926 1096  2.296622  0.0218
+ Correlation: 
+                               (Intr) stmls1 stmls2 cndtn1 AgGrp1 stm1:1 stm2:1 s1:AG1
+stimulus1                       0.000                                                 
+stimulus2                       0.000  0.500                                          
+condition1                     -0.020  0.000  0.000                                   
+AgeGroup1                       0.159  0.000  0.000 -0.020                            
+stimulus1:condition1            0.000 -0.020 -0.010  0.000  0.000                     
+stimulus2:condition1            0.000 -0.010 -0.020  0.000  0.000  0.500              
+stimulus1:AgeGroup1             0.000  0.160  0.080  0.000  0.000 -0.020 -0.010       
+stimulus2:AgeGroup1             0.000  0.080  0.160  0.000  0.000 -0.010 -0.020  0.500
+condition1:AgeGroup1           -0.020  0.000  0.000  0.161 -0.020  0.000  0.000  0.000
+stimulus1:condition1:AgeGroup1  0.000 -0.020 -0.010  0.000  0.000  0.160  0.080 -0.020
+stimulus2:condition1:AgeGroup1  0.000 -0.010 -0.020  0.000  0.000  0.080  0.160 -0.010
+                               s2:AG1 c1:AG1 s1:1:A
+stimulus1                                          
+stimulus2                                          
+condition1                                         
+AgeGroup1                                          
+stimulus1:condition1                               
+stimulus2:condition1                               
+stimulus1:AgeGroup1                                
+stimulus2:AgeGroup1                                
+condition1:AgeGroup1            0.000              
+stimulus1:condition1:AgeGroup1 -0.010  0.000       
+stimulus2:condition1:AgeGroup1 -0.020  0.000  0.500
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-10.599750069  -0.064687053  -0.001602183   0.087931112   9.245086346 
+
+Number of Observations: 1656
+Number of Groups: 
+                        subject            session %in% subject 
+                             74                             138 
+block %in% session %in% subject 
+                            552 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                                       lower          est.         upper
+(Intercept)                    -6.452179e-04 -4.085992e-04 -1.719804e-04
+stimulus1                      -1.879168e-05  2.574508e-05  7.028184e-05
+stimulus2                      -6.714676e-05 -2.261000e-05  2.192676e-05
+condition1                     -4.693443e-04 -5.429771e-07  4.682583e-04
+AgeGroup1                      -6.770706e-04 -1.962761e-04  2.845183e-04
+stimulus1:condition1           -3.549765e-05  5.357587e-05  1.426494e-04
+stimulus2:condition1           -5.724137e-05  3.183215e-05  1.209057e-04
+stimulus1:AgeGroup1            -7.964078e-05  9.432736e-06  9.850626e-05
+stimulus2:AgeGroup1            -8.758041e-05  1.493113e-06  9.056663e-05
+condition1:AgeGroup1            2.055030e-04  1.143106e-03  2.080708e-03
+stimulus1:condition1:AgeGroup1 -1.527465e-04  2.540050e-05  2.035475e-04
+stimulus2:condition1:AgeGroup1  3.036937e-05  2.085164e-04  3.866634e-04
+attr(,"label")
+[1] "Fixed effects:"
