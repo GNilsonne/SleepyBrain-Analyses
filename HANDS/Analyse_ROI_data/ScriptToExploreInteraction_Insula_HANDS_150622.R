@@ -38,6 +38,7 @@ P1 <- ggplot(pio, aes(x=DeprivationCondition, y=Pvbl_Insula_L)) +
   
 
 
+
 pio2 <- summarySEwithin(Data, measurevar="Pvbl_Insula_R", withinvars="DeprivationCondition", 
                        betweenvars="AgeGroup", idvar="Subject", na.rm=FALSE, conf.interval=.95)
 
@@ -66,5 +67,57 @@ P2 <- ggplot(pio2, aes(x=DeprivationCondition, y=Pvbl_Insula_R)) +
   )
 
 
-multiplot(P1, P2, cols=2)
 
+# Plot 
+Data$DeprivationCondition_n[Data$DeprivationCondition == "Not Sleep Deprived"] <- 1
+Data$DeprivationCondition_n[Data$DeprivationCondition == "Sleep Deprived"] <- 2
+
+Data$scat_adj[Data$AgeGroup == "Old"] <- -0.20
+Data$scat_adj[Data$AgeGroup == "Young"] <- 0.20
+
+P1 <- ggplot(Data, aes(x=DeprivationCondition, y=Pvbl_Insula_L, fill = AgeGroup)) +
+  geom_point(data = pio, aes(colour = factor(AgeGroup)), position=position_dodge(.9),
+             size=5)+
+  ylim(-4,3)+
+  geom_errorbar(data = pio, aes(ymin=Pvbl_Insula_L-ci, ymax=Pvbl_Insula_L+ci, colour = factor(AgeGroup)),
+                size=0.6,    # Thinner lines
+                width=.2,
+                position=position_dodge(.9))+
+  geom_jitter(aes(DeprivationCondition_n + scat_adj, Pvbl_Insula_L),
+              position=position_jitter(width=0.1,height=0),
+              alpha=0.4,
+              size=1,
+              show.legend = F) +
+  scale_colour_manual(name = 'AgeGroup', 
+                      values =c('Old'="#56B4E9",'Young'="#E69F00"), labels = c('Old','Young'))+
+  xlab("Sleep condition") +
+  ylab("Mean contrast value [pain > baseline], left Insula")+
+  scale_x_discrete(label = c("Normal sleep", "Sleep restriction"))+
+  theme(legend.justification=c(1,1), legend.position="none")
+
+
+P2 <- ggplot(Data, aes(x=DeprivationCondition, y=Pvbl_Insula_R, fill = AgeGroup)) +
+  geom_point(data = pio2, aes(colour = AgeGroup), position=position_dodge(.9),
+             size=5,
+             show.legend = T)+
+  ylim(-4,3)+
+  geom_errorbar(data = pio2, aes(ymin=Pvbl_Insula_R-ci, ymax=Pvbl_Insula_R+ci, colour = AgeGroup),
+                size=0.6,    # Thinner lines
+                width=.2,
+                position=position_dodge(.9),
+                show.legend = F)+
+  geom_jitter(aes(DeprivationCondition_n + scat_adj, Pvbl_Insula_R),
+              position=position_jitter(width=0.1,height=0),
+              alpha=0.4,
+              size=1,
+              show.legend = F) +
+  labs(fill = "Age group") +
+  scale_colour_manual(name="Age group", 
+                      values = c('Old'="#56B4E9",'Young'="#E69F00"), 
+                      labels = c('Old','Young'))+
+  xlab("Sleep condition") +
+  ylab("Mean contrast value [pain > baseline], rightt Insula")+
+  scale_x_discrete(label = c("Normal sleep", "Sleep restriction"))+
+  theme(legend.justification=c(1,1), legend.position=c(1, 1))
+
+multiplot(P1, P2, cols=2)
