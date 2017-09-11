@@ -3,7 +3,8 @@
 # Script reviewed by Gustav Nilsonne, 151202
 
 # Make sure to be in SleepyBrain_HANDS.Rproj so that current working directory is where this script is stored 
-
+# Change the following line when working on a different computer
+setwd("C:/Users/gusta/OneDrive/Dokument/Git Sleepy Brain/SleepyBrain-Analyses/HANDS")
 
 ##############################################################
 # Technical stuff and data organizing
@@ -25,7 +26,7 @@ source('Utils/Multiplot.R', chdir = T)
 cPalette <- c("#E69F00","#56B4E9")
 
 # Read data
-Data_HANDSRatings <- read.csv("Data/Data_HANDS_ratings.csv", sep=";", dec=",")
+Data_HANDSRatings <- read.csv("Ratings/Data_HANDS_ratings.csv", sep=";", dec=",")
 
 # Relevel so that young are reference 
 Data_HANDSRatings$AgeGroup <- relevel(Data_HANDSRatings$AgeGroup, ref = "Young")
@@ -542,3 +543,87 @@ R2ab <- (Vnull - Vab)/Vnull
 R2a <- (Vnull - Va)/Vnull
 
 f2 <- (R2ab - R2a)/(1-R2ab)
+
+
+
+# Calculate power based on the young group
+# Strategy is to resample with replacement from the existing dataset, while varying the numbers of participants and observations,
+# and then calculate observed power for a mixed model.
+
+# Require packages
+require(nlmeU) # to get power for lme objects
+require(RColorBrewer) # to get nice colors in plots
+cols <- brewer.pal(4, "Dark2") 
+
+# Make dataset containing only the young participants and only the variables needed for simulation
+data_pwr <- Data_HANDSRatings_Intervention[Data_HANDSRatings_Intervention$AgeGroup == "Young", c("Condition", "Rated_Unpleasantness", "DeprivationCondition", "Subject")]
+
+# Test model specification on the full dataset
+Lme_pwr <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, 
+                 data = data_pwr, 
+                 random = ~ 1|Subject, na.action = na.omit)
+Pwr(Lme_pwr) # Observed power
+
+# Set parameters for simulation (change as may be desired)
+n_sub <- c(20, 60, 100) # numbers of subjects
+n_rep <- c(20, 40, 60) # numbers of repeated measures within subjects
+n_sim <- 1000 # number of iterations for each combination
+
+# Initialize
+pwr_out <- data.frame(matrix(ncol = 10, nrow = length(n_sub)*length(n_rep)*n_sim)) # initialize data frame for outputs for better speed
+counter <- 1 # to say which line in pwr_out to write to 
+pb <- winProgressBar(title = "progress bar", min = 0, max = n_sim, width = 200) # initialize progress bar in separate window
+
+# Run simulations
+for (i in 1:n_sim){ # loop over iterations
+  for (j in n_sub){ # loop over subject numbers
+    new_subs <- sample(unique(data_pwr$Subject), size = j, replace = T) # sample subjects
+    for (k in n_rep){ # loop over repeated measures numbers
+      sim_data <- data.frame(matrix(ncol = 5, nrow = length(new_subs)*k)) # initialize data frame for new sample
+      for (l in 1:length(new_subs)){ # loop over subjects in sample
+        temp_data <- data_pwr[data_pwr$Subject == new_subs[l], ] # extract data for the selected participant
+        temp_data$sub <- l # make new subject identifier (since subjects are drawn with replacement)
+        sim_data[(((l-1)*k)+1):(l*k), ] <- temp_data[sample(nrow(temp_data), size = k, replace = T), ] # sample repeated measures; write to data frame
+      }
+      names(sim_data) <- c(names(data_pwr), "sub")
+      try(Lme_it <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, # run model
+                        data = sim_data, random = ~ 1|sub, na.action = na.omit,
+                        control = lmeControl(opt='optim')))
+      pwr_it <- Pwr(Lme_it) # get observed power from model
+      pwr_it2 <- data.frame(sim = i, n_sub = j, n_rep = k, pwr_cond = pwr_it$Power[2], pwr_depr = pwr_it$Power[3], pwr_int = pwr_it$Power[4], F_cond = pwr_it$`F-value`[2], F_depr = pwr_it$`F-value`[3], F_int = pwr_it$`F-value`[4], n_groups = Lme_it$dims$ngrps[1]) # put results in data frame row
+      pwr_out[counter, ] <- pwr_it2 # write row to output object
+      counter <- counter + 1 # increase counter
+    }
+  }
+  Sys.sleep(0.1) # progress bar
+  setWinProgressBar(pb, i, title = paste(round(i/n_sim*100, 0), "% done")) # progress bar
+}
+close(pb) # close progress bar window
+
+# Calculate mean power for each combination of sample sizes
+names(pwr_out) <- c("sim", "n_sub", "n_rep", "pwr_cond", "pwr_depr", "pwr_int", "F_cond", "F_depr", "F_int", "n_groups")
+pwr_agg <- aggregate(cbind(pwr_cond, pwr_depr, pwr_int) ~ n_sub + n_rep, data = pwr_out, FUN = "mean")
+
+# Plot power for the different effects
+plot(pwr_cond ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_sub[1], n_sub[length(n_sub)]), ylim = c(0, 1), xlab = "n participants", ylab = "power", main = "Pain vs no pain")
+for(i in 1:length(unique(pwr_agg$n_rep))){
+  lines(pwr_cond ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
+}
+#legend("bottomright", legend = c("nrep = 10", "nrep = 20"), col = cols, lwd = 2)
+
+plot(pwr_depr ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_sub[1], n_sub[length(n_sub)]), ylim = c(0, 1), xlab = "n participants", ylab = "power", main = "Sleep deprived vs full sleep")
+for(i in 1:length(unique(pwr_agg$n_rep))){
+  lines(pwr_depr ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
+}
+legend("topleft", legend = c("nrep = 20", "nrep = 40", "nrep = 60"), col = cols, lwd = 2)
+
+plot(pwr_int ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_sub[1], n_sub[length(n_sub)]), ylim = c(0, 1), xlab = "n participants", ylab = "power", main = "Interaction")
+for(i in 1:length(unique(pwr_agg$n_rep))){
+  lines(pwr_int ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
+}
+#legend("bottomright", legend = c("nrep = 10", "nrep = 20"), col = cols, lwd = 2)
+
+# Calculate mean effect sizes for the different conditions
+F_agg <- aggregate(cbind(F_cond, F_depr, F_int) ~ n_sub + n_rep, data = pwr_out, FUN = "mean")
+F_agg
+
