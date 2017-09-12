@@ -562,12 +562,13 @@ data_pwr <- Data_HANDSRatings_Intervention[Data_HANDSRatings_Intervention$AgeGro
 Lme_pwr <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, 
                  data = data_pwr, 
                  random = ~ 1|Subject, na.action = na.omit)
+summary(Lme_pwr)
 Pwr(Lme_pwr) # Observed power
 
 # Set parameters for simulation (change as may be desired)
 n_sub <- c(20, 60, 100) # numbers of subjects
-n_rep <- c(20, 40, 60) # numbers of repeated measures within subjects
-n_sim <- 1000 # number of iterations for each combination
+n_rep <- c(60, 80, 100) # numbers of repeated measures within subjects. NB: Must be a multiple of 4 in order for conditions to balance.
+n_sim <- 1000 # number of iterations for each combination. 
 
 # Initialize
 pwr_out <- data.frame(matrix(ncol = 10, nrow = length(n_sub)*length(n_rep)*n_sim)) # initialize data frame for outputs for better speed
@@ -583,7 +584,18 @@ for (i in 1:n_sim){ # loop over iterations
       for (l in 1:length(new_subs)){ # loop over subjects in sample
         temp_data <- data_pwr[data_pwr$Subject == new_subs[l], ] # extract data for the selected participant
         temp_data$sub <- l # make new subject identifier (since subjects are drawn with replacement)
-        sim_data[(((l-1)*k)+1):(l*k), ] <- temp_data[sample(nrow(temp_data), size = k, replace = T), ] # sample repeated measures; write to data frame
+        # Split into four to balance over conditions
+        temp_data1 <- temp_data[temp_data$Condition == "No_Pain" & temp_data$DeprivationCondition == "NormalSleep", ]
+        temp_data2 <- temp_data[temp_data$Condition == "Pain" & temp_data$DeprivationCondition == "NormalSleep", ]
+        temp_data3 <- temp_data[temp_data$Condition == "No_Pain" & temp_data$DeprivationCondition == "SleepRestriction", ]
+        temp_data4 <- temp_data[temp_data$Condition == "Pain" & temp_data$DeprivationCondition == "SleepRestriction", ]
+        resampled_data <- rbind(
+          temp_data1[sample(nrow(temp_data1), size = k/4, replace = T), ],
+          temp_data2[sample(nrow(temp_data2), size = k/4, replace = T), ],
+          temp_data3[sample(nrow(temp_data3), size = k/4, replace = T), ],
+          temp_data4[sample(nrow(temp_data4), size = k/4, replace = T), ]
+        )
+        sim_data[(((l-1)*k)+1):(l*k), ] <-  resampled_data # sample repeated measures; write to data frame
       }
       names(sim_data) <- c(names(data_pwr), "sub")
       try(Lme_it <- lme(Rated_Unpleasantness ~ Condition*DeprivationCondition, # run model
@@ -609,19 +621,19 @@ plot(pwr_cond ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_su
 for(i in 1:length(unique(pwr_agg$n_rep))){
   lines(pwr_cond ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
 }
-#legend("bottomright", legend = c("nrep = 10", "nrep = 20"), col = cols, lwd = 2)
+legend("bottomleft", legend = c("nrep = 60", "nrep = 80", "nrep = 100"), col = cols, lwd = 2)
 
 plot(pwr_depr ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_sub[1], n_sub[length(n_sub)]), ylim = c(0, 1), xlab = "n participants", ylab = "power", main = "Sleep deprived vs full sleep")
 for(i in 1:length(unique(pwr_agg$n_rep))){
   lines(pwr_depr ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
 }
-legend("topleft", legend = c("nrep = 20", "nrep = 40", "nrep = 60"), col = cols, lwd = 2)
+legend("topleft", legend = c("nrep = 60", "nrep = 80", "nrep = 100"), col = cols, lwd = 2)
 
 plot(pwr_int ~ n_sub, data = pwr_agg, frame.plot = F, type = "n", xlim = c(n_sub[1], n_sub[length(n_sub)]), ylim = c(0, 1), xlab = "n participants", ylab = "power", main = "Interaction")
 for(i in 1:length(unique(pwr_agg$n_rep))){
   lines(pwr_int ~ n_sub, type = "b", data = pwr_agg[pwr_agg$n_rep == unique(pwr_agg$n_rep)[i], ], lwd = 2, col = cols[i])
 }
-#legend("bottomright", legend = c("nrep = 10", "nrep = 20"), col = cols, lwd = 2)
+legend("topleft", legend = c("nrep = 60", "nrep = 80", "nrep = 100"), col = cols, lwd = 2)
 
 # Calculate mean effect sizes for the different conditions
 F_agg <- aggregate(cbind(F_cond, F_depr, F_int) ~ n_sub + n_rep, data = pwr_out, FUN = "mean")
