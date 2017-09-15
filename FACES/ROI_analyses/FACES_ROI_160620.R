@@ -4,6 +4,9 @@
 # ROI estimates have been generated using SPM for different contrasts
 # This script aims to investigate effects of sleep deprivation, age group, and other covariates
 
+
+# Require packages, define functions, and read data ---------------------------------------------------------------
+
 # Require packages
 require(chron)
 require(nlme)
@@ -11,25 +14,42 @@ require(effects)
 require(RColorBrewer)
 cols <- brewer.pal(3, "Dark2")
 
+# Define functions
+# Function to extract estimates for models without covariates and put them in a table
+fun_extractvalues1 <- function(x){ # For main models
+  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
+  tTable <- summary(x)$tTable
+  results <- data.frame(intercept_estimate_CI = paste(round(tTable[1, 1], 3), " [", round(interv[1, 1], 3), ", ", round(interv[1, 3], 3), "]", sep = ""), intercept_p = round(tTable[1, 5], 3),
+                        intercept_deprivation_CI = paste(round(tTable[2, 1], 3), " [", round(interv[2, 1], 3), ", ", round(interv[2, 3], 3), "]", sep = ""), deprivation_p = round(tTable[2, 5], 3),
+                        intercept_older_CI = paste(round(tTable[3, 1], 3), " [", round(interv[3, 1], 3), ", ", round(interv[3, 3], 3), "]", sep = ""), older_p = round(tTable[3, 5], 3),
+                        intercept_interaction_CI = paste(round(tTable[4, 1], 3), " [", round(interv[4, 1], 3), ", ", round(interv[4, 3], 3), "]", sep = ""), interaction_p = round(tTable[4, 5], 3))
+  return(results)
+}
+# Same for models with covariates
+fun_extractvalues2 <- function(x){ # For models with covariates
+  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
+  tTable <- summary(x)$tTable
+  results <- data.frame(estimate_CI = paste(round(tTable[1, 1], 3), " [", round(interv[1, 1], 3), ", ", round(interv[1, 3], 3), "]", sep = ""), p = round(tTable[1, 5], 3))
+  return(results)
+}
+
 # Read data
 # Read demographic data 
-demdata <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
+demdata <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
 
 # Amygdala and FFA data
 setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses")
-
 amyg_L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
 amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
 amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
 amyg_R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
-
 FFA_L_fullsleep <- read.csv("FFA_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
 FFA_R_fullsleep <- read.csv("FFA_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
 FFA_L_sleepdeprived <- read.csv("FFA_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
 FFA_R_sleepdeprived <- read.csv("FFA_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
 
 # KSS data
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles")
+setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles")
 KSSFiles <- list.files(pattern = "^KSS", recursive = TRUE)
 KSSFiles <- KSSFiles[-grep(".log", KSSFiles, fixed=T)]
 KSSFiles <- KSSFiles[grep("brief3", KSSFiles, fixed=T)]
@@ -43,12 +63,9 @@ for (i in 1:length(KSSFiles)){
 }
 KSSData$Subject <- as.integer(substr(KSSData$File, 1, 3))
 
-Subjects <- read.table("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";", header=T)
-
+Subjects <- read.table("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";", header=T)
 KSSData <- merge(KSSData, Subjects[, c("Subject", "newid")])
-
-RandomisationList <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv")
-
+RandomisationList <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv")
 KSSData$Date <- paste(paste(20, substr(KSSData$File, 5, 6), sep = ""), substr(KSSData$File, 7, 8), substr(KSSData$File, 9, 10), sep = "-")
 KSSData$Date <- as.Date(as.character(KSSData$Date, "%Y%m%d"))
 KSSData$Session <- NA
@@ -91,17 +108,9 @@ KSSData$Session <- VecSession
 KSSData$DeprivationCondition <- VecDeprived
 
 
-<<<<<<< HEAD
-# Amygdala
-setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses")
-amyg_L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
-amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
-amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
-amyg_R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
+# Analyse amygdata data ---------------------------------------------------
 
-=======
 # Analyse amygdala correlations between right and left side, see if average is justified (it was)
->>>>>>> dbd8ee9c0519f5e01aba03e56bc08b7a63bc4e31
 corr_amyg_fullsleep <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
 corr_amyg_sleepdeprived <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
 for(i in 2:length(amyg_L_fullsleep)){
@@ -109,7 +118,6 @@ for(i in 2:length(amyg_L_fullsleep)){
   test1 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
   corr_amyg_fullsleep[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test1$estimate, 2), round(test1$conf.int[1], 2), round(test1$conf.int[2], 2))
   
-<<<<<<< HEAD
   plot(amyg_L_fullsleep[, i] ~ amyg_R_fullsleep[, i])
   test2 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
   corr_amyg_sleepdeprived[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test2$estimate, 2), round(test2$conf.int[1], 2), round(test2$conf.int[2], 2))
@@ -120,23 +128,16 @@ cor.test(amyg_L_fullsleep$X.HA.AN.NE., amyg_R_fullsleep$X.HA.AN.NE.)
 plot(amyg_L_sleepdeprived$X.HA.AN.NE. ~ amyg_R_sleepdeprived$X.HA.AN.NE.)
 cor.test(amyg_L_sleepdeprived$X.HA.AN.NE., amyg_R_sleepdeprived$X.HA.AN.NE.)
 
-amyg_joint <- 
-=======
-  plot(amyg_L_sleepdeprived[, i] ~ amyg_R_sleepdeprived[, i])
-  test2 <- cor.test(amyg_L_sleepdeprived[, i], amyg_R_sleepdeprived[, i])
-  corr_amyg_sleepdeprived[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test2$estimate, 2), round(test2$conf.int[1], 2), round(test2$conf.int[2], 2))
-}
-
 # Merge data between conditions and average over right and left
 amyg_joint_fullsleep <- amyg_L_fullsleep
-for(i in 2:length(amyg_joint_fullsleep)){
-  amyg_joint_fullsleep[, i] <- (amyg_L_fullsleep[, i] + amyg_R_fullsleep[, i])
+for(i in 2:length(amyg_joint_fullsleep)){ # Loop over columns
+  amyg_joint_fullsleep[, i] <- (amyg_L_fullsleep[, i] + amyg_R_fullsleep[, i])/2 #Calculate mean
 }
 amyg_joint_fullsleep$condition <- "fullsleep"
 
 amyg_joint_sleepdeprived <- amyg_L_sleepdeprived
 for(i in 2:length(amyg_joint_sleepdeprived)){
-  amyg_joint_sleepdeprived[, i] <- (amyg_L_sleepdeprived[, i] + amyg_R_sleepdeprived[, i])
+  amyg_joint_sleepdeprived[, i] <- (amyg_L_sleepdeprived[, i] + amyg_R_sleepdeprived[, i])/2
 }
 amyg_joint_sleepdeprived$condition <- "sleepdeprived"
   
@@ -178,17 +179,6 @@ for(i in 1:length(dependent_vars)){
 }
 
 # Write results to a table
-# Define function that extracts the estimates in question
-fun_extractvalues1 <- function(x){ # For main models
-  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
-  tTable <- summary(x)$tTable
-  results <- data.frame(intercept_estimate_CI = paste(round(tTable[1, 1], 3), "[", round(interv[1, 1], 3), ", ", round(interv[1, 3], 3), "]", sep = ""), intercept_p = round(tTable[1, 5], 3),
-                        intercept_deprivation_CI = paste(round(tTable[2, 1], 3), "[", round(interv[2, 1], 3), ", ", round(interv[2, 3], 3), "]", sep = ""), deprivation_p = round(tTable[2, 5], 3),
-                        intercept_older_CI = paste(round(tTable[3, 1], 3), "[", round(interv[3, 1], 3), ", ", round(interv[3, 3], 3), "]", sep = ""), older_p = round(tTable[3, 5], 3),
-                        intercept_interaction_CI = paste(round(tTable[4, 1], 3), "[", round(interv[4, 1], 3), ", ", round(interv[4, 3], 3), "]", sep = ""), interaction_p = round(tTable[4, 5], 3))
-  return(results)
-}
-
 for(i in 1:length(dependent_vars)){
   if (i == 1){
     lme_results_amyg_nocovariates <- fun_extractvalues1(lme_nocovariates_list[[i]])
@@ -200,13 +190,6 @@ for(i in 1:length(dependent_vars)){
 rownames(lme_results_amyg_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
 # Note: Effects of sleep deprivation on Angry vs neutral should be one-sided p on account of directional hypothesis
 write.csv(lme_results_amyg_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_nocovariates.csv")
-
-fun_extractvalues2 <- function(x){ # For models with covariates
-  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
-  tTable <- summary(x)$tTable
-  results <- data.frame(estimate_CI = paste(round(tTable[1, 1], 3), " [", round(interv[1, 1], 3), ", ", round(interv[1, 3], 3), "]", sep = ""), p = round(tTable[1, 5], 3))
-  return(results)
-}
 
 for(i in 1:length(lme_covariates_list)){
   if (i == 1){
@@ -258,10 +241,9 @@ summary(lm3)
 
 
 
+# Analyse FFA data --------------------------------------------------------
 
-# FFA
-
-# Analyse amygdala correlations between right and left side, see if average is justified (it was)
+# Analyse FFA correlations between right and left side, see if average is justified (it was not)
 corr_FFA_fullsleep <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
 corr_FFA_sleepdeprived <- data.frame(condition = character(), variable = character(), estimate = double(), confint_lower = double(), confint_upper = double(), stringsAsFactors=FALSE)
 for(i in 2:length(FFA_L_fullsleep)){
@@ -274,104 +256,84 @@ for(i in 2:length(FFA_L_fullsleep)){
   corr_FFA_sleepdeprived[i-1, ] <- c("fullsleep", names(FFA_L_fullsleep)[i], round(test2$estimate, 2), round(test2$conf.int[1], 2), round(test2$conf.int[2], 2))
 }
 
-# Merge data between conditions and average over right and left
-amyg_joint_fullsleep <- amyg_L_fullsleep
-for(i in 2:length(amyg_joint_fullsleep)){
-  amyg_joint_fullsleep[, i] <- (amyg_L_fullsleep[, i] + amyg_R_fullsleep[, i])
-}
-amyg_joint_fullsleep$condition <- "fullsleep"
+# Merge data between conditions
+FFA_L_fullsleep$condition <- "fullsleep"
+FFA_L_sleepdeprived$condition <- "sleepdeprived"
+FFA_R_fullsleep$condition <- "fullsleep"
+FFA_R_sleepdeprived$condition <- "sleepdeprived"
 
-amyg_joint_sleepdeprived <- amyg_L_sleepdeprived
-for(i in 2:length(amyg_joint_sleepdeprived)){
-  amyg_joint_sleepdeprived[, i] <- (amyg_L_sleepdeprived[, i] + amyg_R_sleepdeprived[, i])
-}
-amyg_joint_sleepdeprived$condition <- "sleepdeprived"
-
-amyg_joint <- rbind(amyg_joint_fullsleep, amyg_joint_sleepdeprived)  
-amyg_joint <- merge(amyg_joint, demdata, by.x = "ID", by.y = "id")
+FFA_L <- rbind(FFA_L_fullsleep, FFA_L_sleepdeprived) 
+FFA_L <- merge(FFA_L, demdata, by.x = "ID", by.y = "id")
+FFA_R <- rbind(FFA_R_fullsleep, FFA_R_sleepdeprived) 
+FFA_R <- merge(FFA_R, demdata, by.x = "ID", by.y = "id")
 
 # Set reference levels and contrast coding
-amyg_joint$condition <- as.factor(amyg_joint$condition)
-amyg_joint$AgeGroup <- relevel(amyg_joint$AgeGroup, ref = "Young")
-contrasts(amyg_joint$condition) <- rbind(-.5, .5)
-colnames(contrasts(amyg_joint$condition)) <- levels(amyg_joint$condition)[2]
-contrasts(amyg_joint$AgeGroup) <- rbind(-.5, .5)
-colnames(contrasts(amyg_joint$AgeGroup)) <- levels(amyg_joint$AgeGroup)[2]
->>>>>>> dbd8ee9c0519f5e01aba03e56bc08b7a63bc4e31
+FFA_L$condition <- as.factor(FFA_L$condition)
+FFA_L$AgeGroup <- relevel(FFA_L$AgeGroup, ref = "Young")
+contrasts(FFA_L$condition) <- rbind(-.5, .5)
+colnames(contrasts(FFA_L$condition)) <- levels(FFA_L$condition)[2]
+contrasts(FFA_L$AgeGroup) <- rbind(-.5, .5)
+colnames(contrasts(FFA_L$AgeGroup)) <- levels(FFA_L$AgeGroup)[2]
 
+FFA_R$condition <- as.factor(FFA_R$condition)
+FFA_R$AgeGroup <- relevel(FFA_R$AgeGroup, ref = "Young")
+contrasts(FFA_R$condition) <- rbind(-.5, .5)
+colnames(contrasts(FFA_R$condition)) <- levels(FFA_R$condition)[2]
+contrasts(FFA_R$AgeGroup) <- rbind(-.5, .5)
+colnames(contrasts(FFA_R$AgeGroup)) <- levels(FFA_R$AgeGroup)[2]
 
+# Perform analyses
+# First FFA left side
 
+# Analyse effects of sleep deprivation, age group, and covariates
+dependent_vars <- names(FFA_L)[2:9]
+covariates <- c("IRI_EC", "PSS14", "PPIR_C" )
+# Hypothesis list includes also "SES ratings", but I cannot now match this to an existing variable
 
-L_fullsleep_KSS <- merge(L_fullsleep, KSSData[KSSData$DeprivationCondition == "Not Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = L_fullsleep_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = L_fullsleep_KSS)
-abline(mod, col = "red")
-summary(mod)
+# Add also the following, one way or another:
+#total sleep time (TST), slow wave sleep (SWS), REM sleep time, and linearly predicted by prefrontal (Fp1 + Fp2) gamma (30-40 Hz) in REM sleep.
+#rated happiness/angriness, EMG responses, heart rate responses, pupil responses, and KSS ratings.
 
-L_sleepdeprived_KSS <- merge(L_sleepdeprived, KSSData[KSSData$DeprivationCondition == "Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = L_sleepdeprived_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = L_sleepdeprived_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-R_fullsleep_KSS <- merge(R_fullsleep, KSSData[KSSData$DeprivationCondition == "Not Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = R_fullsleep_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = R_fullsleep_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-R_sleepdeprived_KSS <- merge(R_sleepdeprived, KSSData[KSSData$DeprivationCondition == "Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-# FFA
-
-
-boxplot(L_fullsleep$X.HA.AN.NE., L_sleepdeprived$X.HA.AN.NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "All faces")
-t.test(L_fullsleep$X.HA.AN.NE., L_sleepdeprived$X.HA.AN.NE., paired = T)
-boxplot(R_fullsleep$X.HA.AN.NE., R_sleepdeprived$X.HA.AN.NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "All faces")
-t.test(R_fullsleep$X.HA.AN.NE., R_sleepdeprived$X.HA.AN.NE., paired = T)
-
-boxplot(L_fullsleep$X.HA_NE., L_sleepdeprived$X.HA_NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "Happy vs neutral")
-t.test(L_fullsleep$X.HA_NE., L_sleepdeprived$X.HA_NE., paired = T)
-boxplot(R_fullsleep$X.HA_NE., R_sleepdeprived$X.HA_NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "Happy vs neutral")
-t.test(R_fullsleep$X.HA_NE., R_sleepdeprived$X.HA_NE., paired = T)
-
-boxplot(L_fullsleep$X.AN_NE., L_sleepdeprived$X.AN_NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "Angry vs neutral")
-t.test(L_fullsleep$X.AN_NE., L_sleepdeprived$X.AN_NE., paired = T)
-boxplot(R_fullsleep$X.AN_NE., R_sleepdeprived$X.AN_NE., frame.plot = F, names = c("full sleep", "sleep deprived"), main = "Angry vs neutral")
-t.test(R_fullsleep$X.AN_NE., R_sleepdeprived$X.AN_NE., paired = T)
-
-L_fullsleep_KSS <- merge(L_fullsleep, KSSData[KSSData$DeprivationCondition == "Not Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = L_fullsleep_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = L_fullsleep_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-L_sleepdeprived_KSS <- merge(L_sleepdeprived, KSSData[KSSData$DeprivationCondition == "Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = L_sleepdeprived_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = L_sleepdeprived_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-R_fullsleep_KSS <- merge(R_fullsleep, KSSData[KSSData$DeprivationCondition == "Not Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = R_fullsleep_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = R_fullsleep_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-R_sleepdeprived_KSS <- merge(R_sleepdeprived, KSSData[KSSData$DeprivationCondition == "Sleep Deprived", ], by.x = "ID", by.y = "newid")
-plot(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS, frame.plot = F, xlab = "KSS", ylab = "Estimate")
-mod <- lm(X.HA.AN.NE. ~ KSS_Rating, data = R_sleepdeprived_KSS)
-abline(mod, col = "red")
-summary(mod)
-
-<<<<<<< HEAD
-
-# Mixed-level modelling
-lm_amyg1 <- 
-=======
->>>>>>> dbd8ee9c0519f5e01aba03e56bc08b7a63bc4e31
+lme_nocovariates_list <- list()
+lme_covariates_list <- list()
+for(i in 1:length(dependent_vars)){
+  # Main analyses without covariates
+  fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup"))
+  this_lm_nocovariate <- lme(fml, data = FFA_L, random = ~ 1|ID, na.action = na.omit)
+  lme_nocovariates_list[[i]] <- this_lm_nocovariate
   
+  # Additional analyses with covariates (prespecified)
+  for(j in 1:length(covariates)){
+    thisindex <- (i-1)*length(covariates) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates[j])))
+    this_lm_covariate <- lme(fml, data = FFA_L, random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_list[[thisindex]] <- this_lm_covariate
+  }
+}
+
+# Write results to a table
+for(i in 1:length(dependent_vars)){
+  if (i == 1){
+    lme_results_FFA_L_nocovariates <- fun_extractvalues1(lme_nocovariates_list[[i]])
+  } else {
+    lme_results_FFA_L_nocovariates <- rbind(lme_results_FFA_L_nocovariates, fun_extractvalues1(lme_nocovariates_list[[i]]))
+  }
+}
+
+rownames(lme_results_FFA_L_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
+# CHECK? Effects of sleep deprivation on Angry vs neutral should be one-sided p on account of directional hypothesis
+write.csv(lme_results_FFA_L_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_nocovariates.csv")
+
+for(i in 1:length(lme_covariates_list)){
+  if (i == 1){
+    lme_results_FFA_L_covariates <- fun_extractvalues2(lme_covariates_list[[i]])
+  } else {
+    lme_results_FFA_L_covariates <- rbind(lme_results_FFA_L_covariates, fun_extractvalues2(lme_covariates_list[[i]]))
+  }
+}
+
+lme_results_FFA_L_covariates$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_L_covariates$estimate_CI)/8)
+lme_results_FFA_L_covariates$covariate <- covariates
+lme_results_FFA_L_covariates <- reshape(lme_results_FFA_L_covariates, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+write.csv(lme_results_FFA_L_covariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_covariates.csv", row.names = F)
+
