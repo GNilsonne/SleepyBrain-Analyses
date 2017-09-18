@@ -106,6 +106,19 @@ for (i in unique(KSSData$Subject)){
 }
 KSSData$Session <- VecSession
 KSSData$DeprivationCondition <- VecDeprived
+KSSData$condition <- "fullsleep" # Rename for consistency with code below
+KSSData$condition[KSSData$DeprivationCondition == "Sleep Deprived"] <- "sleepdeprived"
+
+# PSG data
+psg_data <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/PSGdata_160507_pseudonymized.csv") # Manually scored data
+siesta_data <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/SIESTAdata_160516_pseudonymized.csv") # Automatically scored data
+siesta_data_fullsleep <- siesta_data[, c("id", "tst__00_nsd", "r____00_nsd", "rp___00_nsd", "n3___00_nsd", "n3p__00_nsd")]
+names(siesta_data_fullsleep) <- c("id", "tst", "rem", "rem_p", "n3", "n3_p")
+siesta_data_sleepdeprived <- siesta_data[, c("id", "tst__00_sd", "r____00_nsd", "rp___00_nsd", "n3___00_sd", "n3p__00_sd")]
+names(siesta_data_sleepdeprived) <- c("id", "tst", "rem", "rem_p", "n3", "n3_p")
+siesta_data_fullsleep$condition <- "fullsleep"
+siesta_data_sleepdeprived$condition <- "sleepdeprived"
+siesta_data_long <- rbind(siesta_data_fullsleep, siesta_data_sleepdeprived)
 
 
 # Analyse amygdata data ---------------------------------------------------
@@ -141,8 +154,12 @@ for(i in 2:length(amyg_joint_sleepdeprived)){
 }
 amyg_joint_sleepdeprived$condition <- "sleepdeprived"
   
-amyg_joint <- rbind(amyg_joint_fullsleep, amyg_joint_sleepdeprived)  
-amyg_joint <- merge(amyg_joint, demdata, by.x = "ID", by.y = "id")
+amyg_joint <- rbind(amyg_joint_fullsleep, amyg_joint_sleepdeprived) 
+
+# Merge in other data
+amyg_joint <- merge(amyg_joint, demdata[, c("id", "AgeGroup", "IRI_EC", "PSS14", "PPIR_C", "ESS", "ECS")], by.x = "ID", by.y = "id")
+amyg_joint <- merge(amyg_joint, KSSData[, c("newid", "KSS_Rating", "condition")], by.x = c("ID", "condition"), by.y = c("newid", "condition"), all.x = T)
+amyg_joint <- merge(amyg_joint, siesta_data_long, by.x = c("ID", "condition"), by.y = c("id", "condition") )
 
 # Set reference levels and contrast coding
 amyg_joint$condition <- as.factor(amyg_joint$condition)
@@ -152,29 +169,48 @@ colnames(contrasts(amyg_joint$condition)) <- levels(amyg_joint$condition)[2]
 contrasts(amyg_joint$AgeGroup) <- rbind(-.5, .5)
 colnames(contrasts(amyg_joint$AgeGroup)) <- levels(amyg_joint$AgeGroup)[2]
 
+# Define covariates
+dependent_vars <- names(amyg_joint)[3:10]
+covariates_across <- c("IRI_EC", "PSS14", "PPIR_C", "ESS", "ECS") # Trait measures in participants, wchich should be investigated across conditions
+# Hypothesis list includes "SES ratings", which I think should be "ESS ratings"
+# ECS ratings were added post hoc
+
+covariates_within <- c("KSS_Rating", "tst", "rem", "rem_p", "n3", "n3_p") # TODO: check variable selection
+# TODO: Add also the following: rated happiness/angriness, EMG responses, heart rate responses, pupil responses
+# Prefrontal (Fp1 + Fp2) gamma (30-40 Hz) in REM sleep was also specified but this variable does not exist
+
+
 # Analyse effects of sleep deprivation, age group, and covariates
-dependent_vars <- names(amyg_joint)[2:9]
-covariates <- c("IRI_EC", "PSS14", "PPIR_C" )
-# Hypothesis list includes also "SES ratings", but I cannot now match this to an existing variable
-
-# Add also the following, one way or another:
-#total sleep time (TST), slow wave sleep (SWS), REM sleep time, and linearly predicted by prefrontal (Fp1 + Fp2) gamma (30-40 Hz) in REM sleep.
-#rated happiness/angriness, EMG responses, heart rate responses, pupil responses, and KSS ratings.
-
+# Initialise output objects
 lme_nocovariates_list <- list()
-lme_covariates_list <- list()
+lme_covariates_across_list <- list()
+lme_covariates_within_fullsleep_list <- list()
+lme_covariates_within_sleepdeprived_list <- list()
+# Loop over dependent variables (SPM contrasts)
 for(i in 1:length(dependent_vars)){
   # Main analyses without covariates
   fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup"))
   this_lm_nocovariate <- lme(fml, data = amyg_joint, random = ~ 1|ID, na.action = na.omit)
   lme_nocovariates_list[[i]] <- this_lm_nocovariate
   
-  # Additional analyses with covariates (prespecified)
-  for(j in 1:length(covariates)){
-    thisindex <- (i-1)*length(covariates) + j
-    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates[j])))
+  # Loop over covariates across conditions
+  for(j in 1:length(covariates_across)){
+    thisindex <- (i-1)*length(covariates_across) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates_across[j])))
     this_lm_covariate <- lme(fml, data = amyg_joint, random = ~ 1|ID, na.action = na.omit)
-    lme_covariates_list[[thisindex]] <- this_lm_covariate
+    lme_covariates_across_list[[thisindex]] <- this_lm_covariate
+  }
+
+  # Loop over covariates within conditions
+  for(j in 1:length(covariates_within)){
+    thisindex2 <- (i-1)*length(covariates_within) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate <- lme(fml, data = amyg_joint[amyg_joint$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
+    
+    fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate2 <- lme(fml2, data = amyg_joint[amyg_joint$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
   }
 }
 
@@ -191,18 +227,18 @@ rownames(lme_results_amyg_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral
 # Note: Effects of sleep deprivation on Angry vs neutral should be one-sided p on account of directional hypothesis
 write.csv(lme_results_amyg_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_nocovariates.csv")
 
-for(i in 1:length(lme_covariates_list)){
+for(i in 1:length(lme_covariates_across_list)){
   if (i == 1){
-    lme_results_amyg_covariates <- fun_extractvalues2(lme_covariates_list[[i]])
+    lme_results_amyg_covariates_across <- fun_extractvalues2(lme_covariates_across_list[[i]])
   } else {
-    lme_results_amyg_covariates <- rbind(lme_results_amyg_covariates, fun_extractvalues2(lme_covariates_list[[i]]))
+    lme_results_amyg_covariates_across <- rbind(lme_results_amyg_covariates_across, fun_extractvalues2(lme_covariates_across_list[[i]]))
   }
 }
 
-lme_results_amyg_covariates$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_amyg_covariates$estimate_CI)/8)
-lme_results_amyg_covariates$covariate <- covariates
-lme_results_amyg_covariates <- reshape(lme_results_amyg_covariates, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
-write.csv(lme_results_amyg_covariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates.csv", row.names = F)
+lme_results_amyg_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_amyg_covariates_across$estimate_CI)/8)
+lme_results_amyg_covariates_across$covariate <- covariates
+lme_results_amyg_covariates_across <- reshape(lme_results_amyg_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+write.csv(lme_results_amyg_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates_across.csv", row.names = F)
 
 # TODO: Plot results
 # This snippet is pasted from elsewhere and requires considerable adaptation
@@ -238,7 +274,6 @@ segments(x0 = 1, x1 = 2, y0 = intervals(lm2)$fixed[1, 2], y1 = intervals(lm2)$fi
 
 lm3 <- lme(X.HA_NE. ~ condition, data = amyg_joint, random =  ~1|ID, na.action = na.omit)
 summary(lm3)
-
 
 
 # Analyse FFA data --------------------------------------------------------
