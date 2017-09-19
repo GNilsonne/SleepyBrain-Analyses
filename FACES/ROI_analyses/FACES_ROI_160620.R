@@ -224,8 +224,8 @@ for(i in 1:length(dependent_vars)){
 }
 
 rownames(lme_results_amyg_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
-# Note: Effects of sleep deprivation on Angry vs neutral should be one-sided p on account of directional hypothesis
 write.csv(lme_results_amyg_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_nocovariates.csv")
+# p-values for prespecified directional analyses should be changed manually to one-sided
 
 for(i in 1:length(lme_covariates_across_list)){
   if (i == 1){
@@ -240,40 +240,40 @@ lme_results_amyg_covariates_across$covariate <- covariates
 lme_results_amyg_covariates_across <- reshape(lme_results_amyg_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
 write.csv(lme_results_amyg_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates_across.csv", row.names = F)
 
-# TODO: Plot results
-# This snippet is pasted from elsewhere and requires considerable adaptation
-pdf("ROI1.pdf", height = 5, width = 5) 
-par(mar = c(4, 5, 1, 2))
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.4, 0.2), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Corrugator mimicry")
-axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
-lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme2d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
-lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme2d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
-lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme2d)$lower[1]*1000, effect("condition*AgeGroup", lme2d)$upper[1]*1000), col = cols[3], lwd = 1.5)
-lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme2d)$lower[2]*1000, effect("condition*AgeGroup", lme2d)$upper[2]*1000), col = cols[3], lwd = 1.5)
-lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3]*1000, effect("condition*AgeGroup", lme2d)$upper[3]*1000), col = cols[2], lwd = 1.5)
-lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4]*1000, effect("condition*AgeGroup", lme2d)$upper[4]*1000), col = cols[2], lwd = 1.5)
-#legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
-dev.off()
-
-# This bit works if models with the these names are created again or accessed from list objects
-with(amyg_joint, {
-interaction.plot(condition, ID, X.HA.AN.NE., legend = F, frame.plot = F, lty = 1, col = "gray", ylab = "Beta estimate", main = "All faces vs baseline")
-})
-segments(x0 = 1, x1 = 1, y0 = intervals(lm1)$fixed[1, 1], y1 = intervals(lm1)$fixed[1, 3], lwd = 2)
-segments(x0 = 2, x1 = 2, y0 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 1], y1 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 3], lwd = 2)
-segments(x0 = 1, x1 = 2, y0 = intervals(lm1)$fixed[1, 2], y1 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 2], lwd = 2)
-
-lm2 <- lme(X.AN_NE. ~ condition * AgeGroup, data = amyg_joint, random =  ~1|ID, na.action = na.omit)
-summary(lm2)
-with(amyg_joint, {
-  interaction.plot(condition, ID, X.AN_NE., legend = F, frame.plot = F, lty = 1, col = "gray", ylab = "Beta estimate", main = "Happy vs neutral")
-})
-segments(x0 = 1, x1 = 1, y0 = intervals(lm2)$fixed[1, 1], y1 = intervals(lm2)$fixed[1, 3], lwd = 2)
-segments(x0 = 2, x1 = 2, y0 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 1], y1 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 3], lwd = 2)
-segments(x0 = 1, x1 = 2, y0 = intervals(lm2)$fixed[1, 2], y1 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 2], lwd = 2)
-
-lm3 <- lme(X.HA_NE. ~ condition, data = amyg_joint, random =  ~1|ID, na.action = na.omit)
-summary(lm3)
+# # TODO: Plot results
+# # This snippet is pasted from elsewhere and requires considerable adaptation
+# pdf("ROI1.pdf", height = 5, width = 5) 
+# par(mar = c(4, 5, 1, 2))
+# plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.4, 0.2), xlab = "", ylab = "microV, mean residual difference", xaxt = "n", type = "n", main = "Corrugator mimicry")
+# axis(1, at = c(0.05, 0.95), labels = c("Full sleep", "Sleep deprived"))
+# lines(x = c(0, 0.9), y = effect("condition*AgeGroup", lme2d)$fit[1:2]*1000, pch = 16, col = cols[3], type = "b", lwd = 1.5)
+# lines(x = c(0.1, 1), y = effect("condition*AgeGroup", lme2d)$fit[3:4]*1000, pch = 16, col = cols[2], type = "b", lwd = 1.5)
+# lines(x = c(0, 0), y = c(effect("condition*AgeGroup", lme2d)$lower[1]*1000, effect("condition*AgeGroup", lme2d)$upper[1]*1000), col = cols[3], lwd = 1.5)
+# lines(x = c(0.9, 0.9), y = c(effect("condition*AgeGroup", lme2d)$lower[2]*1000, effect("condition*AgeGroup", lme2d)$upper[2]*1000), col = cols[3], lwd = 1.5)
+# lines(x = c(0.1, 0.1), y = c(effect("condition*AgeGroup", lme2d)$lower[3]*1000, effect("condition*AgeGroup", lme2d)$upper[3]*1000), col = cols[2], lwd = 1.5)
+# lines(x = c(1, 1), y = c(effect("condition*AgeGroup", lme2d)$lower[4]*1000, effect("condition*AgeGroup", lme2d)$upper[4]*1000), col = cols[2], lwd = 1.5)
+# #legend("top", lty = 1, lwd = 1.5, pch = 16, col = cols[3:2], legend = c("Younger", "Older"), bty = "n")
+# dev.off()
+# 
+# # This bit works if models with the these names are created again or accessed from list objects
+# with(amyg_joint, {
+# interaction.plot(condition, ID, X.HA.AN.NE., legend = F, frame.plot = F, lty = 1, col = "gray", ylab = "Beta estimate", main = "All faces vs baseline")
+# })
+# segments(x0 = 1, x1 = 1, y0 = intervals(lm1)$fixed[1, 1], y1 = intervals(lm1)$fixed[1, 3], lwd = 2)
+# segments(x0 = 2, x1 = 2, y0 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 1], y1 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 3], lwd = 2)
+# segments(x0 = 1, x1 = 2, y0 = intervals(lm1)$fixed[1, 2], y1 = intervals(lm1)$fixed[1, 2] + intervals(lm1)$fixed[2, 2], lwd = 2)
+# 
+# lm2 <- lme(X.AN_NE. ~ condition * AgeGroup, data = amyg_joint, random =  ~1|ID, na.action = na.omit)
+# summary(lm2)
+# with(amyg_joint, {
+#   interaction.plot(condition, ID, X.AN_NE., legend = F, frame.plot = F, lty = 1, col = "gray", ylab = "Beta estimate", main = "Happy vs neutral")
+# })
+# segments(x0 = 1, x1 = 1, y0 = intervals(lm2)$fixed[1, 1], y1 = intervals(lm2)$fixed[1, 3], lwd = 2)
+# segments(x0 = 2, x1 = 2, y0 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 1], y1 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 3], lwd = 2)
+# segments(x0 = 1, x1 = 2, y0 = intervals(lm2)$fixed[1, 2], y1 = intervals(lm2)$fixed[1, 2] + intervals(lm2)$fixed[2, 2], lwd = 2)
+# 
+# lm3 <- lme(X.HA_NE. ~ condition, data = amyg_joint, random =  ~1|ID, na.action = na.omit)
+# summary(lm3)
 
 
 # Analyse FFA data --------------------------------------------------------
@@ -296,11 +296,16 @@ FFA_L_fullsleep$condition <- "fullsleep"
 FFA_L_sleepdeprived$condition <- "sleepdeprived"
 FFA_R_fullsleep$condition <- "fullsleep"
 FFA_R_sleepdeprived$condition <- "sleepdeprived"
-
 FFA_L <- rbind(FFA_L_fullsleep, FFA_L_sleepdeprived) 
-FFA_L <- merge(FFA_L, demdata, by.x = "ID", by.y = "id")
 FFA_R <- rbind(FFA_R_fullsleep, FFA_R_sleepdeprived) 
-FFA_R <- merge(FFA_R, demdata, by.x = "ID", by.y = "id")
+
+# Merge in other data
+FFA_L <- merge(FFA_L, demdata[, c("id", "AgeGroup", "IRI_EC", "PSS14", "PPIR_C", "ESS", "ECS")], by.x = "ID", by.y = "id")
+FFA_L <- merge(FFA_L, KSSData[, c("newid", "KSS_Rating", "condition")], by.x = c("ID", "condition"), by.y = c("newid", "condition"), all.x = T)
+FFA_L <- merge(FFA_L, siesta_data_long, by.x = c("ID", "condition"), by.y = c("id", "condition") )
+FFA_R <- merge(FFA_R, demdata[, c("id", "AgeGroup", "IRI_EC", "PSS14", "PPIR_C", "ESS", "ECS")], by.x = "ID", by.y = "id")
+FFA_R <- merge(FFA_R, KSSData[, c("newid", "KSS_Rating", "condition")], by.x = c("ID", "condition"), by.y = c("newid", "condition"), all.x = T)
+FFA_R <- merge(FFA_R, siesta_data_long, by.x = c("ID", "condition"), by.y = c("id", "condition") )
 
 # Set reference levels and contrast coding
 FFA_L$condition <- as.factor(FFA_L$condition)
@@ -321,28 +326,37 @@ colnames(contrasts(FFA_R$AgeGroup)) <- levels(FFA_R$AgeGroup)[2]
 # First FFA left side
 
 # Analyse effects of sleep deprivation, age group, and covariates
-dependent_vars <- names(FFA_L)[2:9]
-covariates <- c("IRI_EC", "PSS14", "PPIR_C" )
-# Hypothesis list includes also "SES ratings", but I cannot now match this to an existing variable
-
-# Add also the following, one way or another:
-#total sleep time (TST), slow wave sleep (SWS), REM sleep time, and linearly predicted by prefrontal (Fp1 + Fp2) gamma (30-40 Hz) in REM sleep.
-#rated happiness/angriness, EMG responses, heart rate responses, pupil responses, and KSS ratings.
-
+# Names of covariates and dependent variables are specified under amygdala analyses above
+# Initialise output objects
 lme_nocovariates_list <- list()
-lme_covariates_list <- list()
+lme_covariates_across_list <- list()
+lme_covariates_within_fullsleep_list <- list()
+lme_covariates_within_sleepdeprived_list <- list()
+# Loop over dependent variables (SPM contrasts)
 for(i in 1:length(dependent_vars)){
   # Main analyses without covariates
   fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup"))
   this_lm_nocovariate <- lme(fml, data = FFA_L, random = ~ 1|ID, na.action = na.omit)
   lme_nocovariates_list[[i]] <- this_lm_nocovariate
   
-  # Additional analyses with covariates (prespecified)
-  for(j in 1:length(covariates)){
-    thisindex <- (i-1)*length(covariates) + j
-    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates[j])))
+  # Loop over covariates across conditions
+  for(j in 1:length(covariates_across)){
+    thisindex <- (i-1)*length(covariates_across) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates_across[j])))
     this_lm_covariate <- lme(fml, data = FFA_L, random = ~ 1|ID, na.action = na.omit)
-    lme_covariates_list[[thisindex]] <- this_lm_covariate
+    lme_covariates_across_list[[thisindex]] <- this_lm_covariate
+  }
+  
+  # Loop over covariates within conditions
+  for(j in 1:length(covariates_within)){
+    thisindex2 <- (i-1)*length(covariates_within) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate <- lme(fml, data = FFA_L[FFA_L$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
+    
+    fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate2 <- lme(fml2, data = FFA_L[FFA_L$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
   }
 }
 
@@ -356,19 +370,83 @@ for(i in 1:length(dependent_vars)){
 }
 
 rownames(lme_results_FFA_L_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
-# CHECK? Effects of sleep deprivation on Angry vs neutral should be one-sided p on account of directional hypothesis
 write.csv(lme_results_FFA_L_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_nocovariates.csv")
+# p-values for prespecified directional analyses should be changed manually to one-sided
 
-for(i in 1:length(lme_covariates_list)){
+for(i in 1:length(lme_covariates_across_list)){
   if (i == 1){
-    lme_results_FFA_L_covariates <- fun_extractvalues2(lme_covariates_list[[i]])
+    lme_results_FFA_L_covariates_across <- fun_extractvalues2(lme_covariates_across_list[[i]])
   } else {
-    lme_results_FFA_L_covariates <- rbind(lme_results_FFA_L_covariates, fun_extractvalues2(lme_covariates_list[[i]]))
+    lme_results_FFA_L_covariates_across <- rbind(lme_results_FFA_L_covariates_across, fun_extractvalues2(lme_covariates_across_list[[i]]))
   }
 }
 
-lme_results_FFA_L_covariates$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_L_covariates$estimate_CI)/8)
-lme_results_FFA_L_covariates$covariate <- covariates
-lme_results_FFA_L_covariates <- reshape(lme_results_FFA_L_covariates, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
-write.csv(lme_results_FFA_L_covariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_covariates.csv", row.names = F)
+lme_results_FFA_L_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_L_covariates_across$estimate_CI)/8)
+lme_results_FFA_L_covariates_across$covariate <- covariates
+lme_results_FFA_L_covariates_across <- reshape(lme_results_FFA_L_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+write.csv(lme_results_FFA_L_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_covariates_across.csv", row.names = F)
+
+
+# Then FFA right side
+
+# Analyse effects of sleep deprivation, age group, and covariates
+# Names of covariates and dependent variables are specified under amygdala analyses above
+# Initialise output objects
+lme_nocovariates_list <- list()
+lme_covariates_across_list <- list()
+lme_covariates_within_fullsleep_list <- list()
+lme_covariates_within_sleepdeprived_list <- list()
+# Loop over dependent variables (SPM contrasts)
+for(i in 1:length(dependent_vars)){
+  # Main analyses without covariates
+  fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup"))
+  this_lm_nocovariate <- lme(fml, data = FFA_R, random = ~ 1|ID, na.action = na.omit)
+  lme_nocovariates_list[[i]] <- this_lm_nocovariate
+  
+  # Loop over covariates across conditions
+  for(j in 1:length(covariates_across)){
+    thisindex <- (i-1)*length(covariates_across) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates_across[j])))
+    this_lm_covariate <- lme(fml, data = FFA_R, random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_across_list[[thisindex]] <- this_lm_covariate
+  }
+  
+  # Loop over covariates within conditions
+  for(j in 1:length(covariates_within)){
+    thisindex2 <- (i-1)*length(covariates_within) + j
+    fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate <- lme(fml, data = FFA_R[FFA_R$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
+    
+    fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate2 <- lme(fml2, data = FFA_R[FFA_R$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
+    lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
+  }
+}
+
+# Write results to a table
+for(i in 1:length(dependent_vars)){
+  if (i == 1){
+    lme_results_FFA_R_nocovariates <- fun_extractvalues1(lme_nocovariates_list[[i]])
+  } else {
+    lme_results_FFA_R_nocovariates <- rbind(lme_results_FFA_R_nocovariates, fun_extractvalues1(lme_nocovariates_list[[i]]))
+  }
+}
+
+rownames(lme_results_FFA_R_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
+write.csv(lme_results_FFA_R_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_nocovariates.csv")
+# p-values for prespecified directional analyses should be changed manually to one-sided
+
+for(i in 1:length(lme_covariates_across_list)){
+  if (i == 1){
+    lme_results_FFA_R_covariates_across <- fun_extractvalues2(lme_covariates_across_list[[i]])
+  } else {
+    lme_results_FFA_R_covariates_across <- rbind(lme_results_FFA_R_covariates_across, fun_extractvalues2(lme_covariates_across_list[[i]]))
+  }
+}
+
+lme_results_FFA_R_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_R_covariates_across$estimate_CI)/8)
+lme_results_FFA_R_covariates_across$covariate <- covariates
+lme_results_FFA_R_covariates_across <- reshape(lme_results_FFA_R_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+write.csv(lme_results_FFA_R_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_covariates_across.csv", row.names = F)
 
