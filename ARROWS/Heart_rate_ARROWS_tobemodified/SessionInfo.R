@@ -1,18 +1,19 @@
-# Script to process pulse gating data from HANDS experiment
+# Script to process pulse gating data from ARROWS experiment
 # By Sandra Tamm
 # Modified by Gustav Nilsonne 2015-12-19
+# Adapted for the ARROWS experiment 2018-06-26
 
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles")
+setwd("~/Box Sync/Sleepy Brain/Datafiles")
 
 # Import pulse gating data
-PgDataHands <- read.csv("HR/PgDataHands_86subjects.csv", sep=";")
+PgDataARROWS <- read.csv("HR/PgDataARROWS.csv", sep=";")
 
 # Import randomisationlist 
 RandomisationList <- read.csv("RandomisationList_140804.csv", sep=";")
 RandomisationList$PSD <- RandomisationList$Sl_cond
 
 # Temporary object to match condition and pulse data
-ReducedData <- PgDataHands[!duplicated(PgDataHands$File), ]
+ReducedData <- PgDataARROWS[!duplicated(PgDataARROWS$File), ]
 
 # Make subject's first file session 1 and second session 2
 LengthOf <- length(ReducedData$Subject)-1
@@ -27,6 +28,8 @@ for(i in 1:length(ReducedData$Session)){
     ReducedData$Session[i] <- 1
   }
 }
+
+## Need to remove data with txt-extention and check names of files
 
 # Find out sleep condition from randomisationlist and session
 SessionCondition <- data.frame()
@@ -51,11 +54,11 @@ for(i in 1:length(ReducedData$Session)){
 SessionConditionEtc <- SessionCondition[ ,c(3:4, 6:7)]
 
 # Check that all subjects seem to be there
-plot(PgDataHands$Subject)
+plot(PgDataARROWS$Subject)
 
 # Combine pulse data with session info
-PgDataHands <- merge(PgDataHands, SessionConditionEtc, by = c("Subject", "Date"))
-PgDataHands <- PgDataHands[with(PgDataHands, order(Subject, Session, V1)),]
+PgDataARROWS <- merge(PgDataARROWS, SessionConditionEtc, by = c("Subject", "Date"))
+PgDataARROWS <- PgDataARROWS[with(PgDataARROWS, order(Subject, Session, V1)),]
 
 # Write file
-write.csv2(PgDataHands, file = "HR/PgDataHandsSessionInfo_86subjects.csv", row.names=FALSE)
+write.csv2(PgDataARROWS, file = "HR/PgDataARROWSSessionInfo.csv", row.names=FALSE)
