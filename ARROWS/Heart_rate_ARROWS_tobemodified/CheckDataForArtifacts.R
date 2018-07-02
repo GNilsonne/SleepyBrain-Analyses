@@ -1,4 +1,7 @@
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/HR/PgDataHandsStimulus")
+setwd("~/Box Sync/Sleepy Brain/Datafiles/HR/PgDataARROWSStimulus")
+
+
+### Befoer this we need to check the onset times
 
 ReadSubjectAndSessionData <- function(Subject, Session) {
   filename = paste(Subject, "_", Session, ".csv", sep = "")
@@ -8,8 +11,9 @@ ReadSubjectAndSessionData <- function(Subject, Session) {
 
 PlotDataForSubjectAndSession <- function(Subject, Session, Data){
   plot(Data[ ,1], type = "l", ylim = c(0, 200), ylab = "Pulse", xlab = "Time (ms)", main = paste("Subject:", Subject, "Session", Session), frame.plot = F)
-  polygon(x = c(400, 400, 750, 750), y = c(200, 0, 0, 200), density = NULL, border = NULL, col = "gray", lty = 0)
-  abline(v = c(950), lty = 2)
+  polygon(x = c(400, 400, 600, 600), y = c(200, 0, 0, 200), density = NULL, border = NULL, col = "gray", lty = 0)
+  polygon(x = c(600, 600, 1100, 1100), y = c(200, 0, 0, 200), density = NULL, border = NULL, col = "light blue", lty = 0)
+  abline(v = c(1300), lty = 2)
   abline(h = 40, col = "red")
   abline(h = 100, col = "red")
   for(i in 2:length(Data)){
