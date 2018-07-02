@@ -1,50 +1,51 @@
 # Script to process pulse gating data from HANDS experiment
 # By Sandra Tamm
 # Modified by Gustav Nilsonne 2015-12-19
+# Adapted for the ARROWS experiment 2018-06-25
 
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles")
+setwd("~/Box Sync/Sleepy Brain/Datafiles")
 
 # Import pulse gating data
-PgDataHands <- read.csv("HR/PgDataHandsSessionInfo_86subjects.csv", sep=";")
+PgDataARROWS <- read.csv("HR/PgDataARROWSSessionInfo.csv", sep=";")
 
 #Generate a column for time between two pulse registrations
-PgDataHands$DeltaTimePulse <- PgDataHands$V1
-PgDataHands$DeltaTimePulse <- (c(PgDataHands$V1, 0)-c(0, PgDataHands$V1))[1:length(PgDataHands$Subject)]
+PgDataARROWS$DeltaTimePulse <- PgDataARROWS$V1
+PgDataARROWS$DeltaTimePulse <- (c(PgDataARROWS$V1, 0)-c(0, PgDataARROWS$V1))[1:length(PgDataARROWS$Subject)]
 
 # Check registrations
-plot(PgDataHands$DeltaTimePulse)
+plot(PgDataARROWS$DeltaTimePulse)
 
-# Clean up false values (<0) and check again
-PgDataHands$DeltaTimePulse[PgDataHands$DeltaTimePulse<0] <- NA 
-plot(PgDataHands$DeltaTimePulse ~ PgDataHands$Subject)
+# Clean up false values (<0) and check again. ### Why??
+PgDataARROWS$DeltaTimePulse[PgDataARROWS$DeltaTimePulse<0] <- NA 
+plot(PgDataARROWS$DeltaTimePulse ~ PgDataARROWS$Subject)
 
 # Generate a column for subjects' heart rate
-PgDataHands$HR <- 6000/PgDataHands$DeltaTimePulse
+PgDataARROWS$HR <- 6000/PgDataARROWS$DeltaTimePulse
 
 # Remove first value for first subject (not a full registration) and check data
-PgDataHands$HR[1] <- NA
-plot(PgDataHands$HR ~ PgDataHands$Subject)
-hist(PgDataHands$HR)
+PgDataARROWS$HR[1] <- NA
+plot(PgDataARROWS$HR ~ PgDataARROWS$Subject)
+hist(PgDataARROWS$HR)
 
 # Remove non-physiological values. This should probably be done somehow else
 # Comment by GN 151219: These cutoffs are reasonable on a first pass
-PgDataHands$HR[PgDataHands$HR<40] <- NA
-PgDataHands$HR[PgDataHands$HR>200] <- NA
+PgDataARROWS$HR[PgDataARROWS$HR<40] <- NA
+PgDataARROWS$HR[PgDataARROWS$HR>200] <- NA
 
-plot(PgDataHands$HR ~ PgDataHands$Subject)
-hist(PgDataHands$HR)
+plot(PgDataARROWS$HR ~ PgDataARROWS$Subject)
+hist(PgDataARROWS$HR)
 
 # Make list with time factor
-LatestPulseTime = max(PgDataHands$V1)
-PgDataHandsTime <- matrix(1:LatestPulseTime)
+LatestPulseTime = max(PgDataARROWS$V1)
+PgDataARROWSTime <- matrix(1:LatestPulseTime)
 Iteration = 1
-for (i in unique(PgDataHands$Subject)) {
-  for (j in unique(PgDataHands$Session[PgDataHands$Subject == i])) {
+for (i in unique(PgDataARROWS$Subject)) {
+  for (j in unique(PgDataARROWS$Session[PgDataARROWS$Subject == i])) {
     # Create a column for Subject i with Session j
     CurrentSessionColumn <- matrix(1:LatestPulseTime)
     
-    CurrentSessionPulses <- subset(PgDataHands$HR, PgDataHands$Subject == i & PgDataHands$Session == j)
-    CurrentSessionPulseRegistrations <- subset(PgDataHands$V1, PgDataHands$Subject == i & PgDataHands$Session == j)
+    CurrentSessionPulses <- subset(PgDataARROWS$HR, PgDataARROWS$Subject == i & PgDataARROWS$Session == j)
+    CurrentSessionPulseRegistrations <- subset(PgDataARROWS$V1, PgDataARROWS$Subject == i & PgDataARROWS$Session == j)
     
     # Clean up pulse up to first registration. Set NA for times before first registration
     for (k in 1:CurrentSessionPulseRegistrations[1]) {
@@ -70,20 +71,20 @@ for (i in unique(PgDataHands$Subject)) {
     }
     
     # Add this column to the big matrix
-    PgDataHandsTime <- cbind(PgDataHandsTime, CurrentSessionColumn)
+    PgDataARROWSTime <- cbind(PgDataARROWSTime, CurrentSessionColumn)
   }
 }
 
 # Make a list of subjects to name the columns
 ListOfSubjects <- vector()
 ListOfSubjects <- cbind("Time", ListOfSubjects)
-for (Subject in unique(PgDataHands$Subject)) {
-  for (Session in unique(PgDataHands$Session[PgDataHands$Subject == Subject])) {
+for (Subject in unique(PgDataARROWS$Subject)) {
+  for (Session in unique(PgDataARROWS$Session[PgDataARROWS$Subject == Subject])) {
     NameOfSubjectAndSession <- paste(Subject, ":", Session)
     ListOfSubjects <- cbind(ListOfSubjects, NameOfSubjectAndSession )
   }
 }
 
-colnames(PgDataHandsTime) <- ListOfSubjects
+colnames(PgDataARROWSTime) <- ListOfSubjects
 
-write.csv2(PgDataHandsTime, file = "HR/PgDataHandsTime_86subjects.csv", row.names=FALSE)
+write.csv2(PgDataARROWSTime, file = "HR/PgDataARROWSTime.csv", row.names=FALSE)
