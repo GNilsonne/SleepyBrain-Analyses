@@ -21,9 +21,9 @@ getSubjectFromFileName <- function (filename) {
 AllOnsetFiles = AllOnsetFiles[unlist(lapply(AllOnsetFiles, getSubjectFromFileName)) %in% IncludedSubjects]
 AllStimulusFiles = AllStimulusFiles[unlist(lapply(AllStimulusFiles, getSubjectFromFileName)) %in% IncludedSubjects]
 
-## Needs to be checked with Presentation script/onset times in fMRI analysis
 
-#Check what is wrong with subject 190 and 426!!
+
+# Subject 190 and 426 have fewer registrations (onset times) than expected. NA.s added, below
 
 
 # Find onset times
@@ -36,13 +36,28 @@ for(i in 1:length(AllOnsetFiles)){
   OnsetTime$Date <- as.integer(substr(OnsetTime$File, 5, 10))
   OnsetTime <- subset(OnsetTime, V2 == "Pic")
   OnsetTime$V4 <- as.numeric(as.character(OnsetTime$V4))/10000
+  if(i == 60){ # Ugly hack (credit to GN) to handle sessions with fewer than 60 events recorded
+    for(i in 1:44){
+      OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+    }
+  }
+  if(i == 137){ 
+    for(i in 1:18){
+      OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+    }
+  }
   StimulusType <- read.delim(paste("Presentation_logfiles/", AllStimulusFiles[i], sep = ""))
   OnsetTimeAndStimulus <- cbind(OnsetTime, StimulusType) 
   OnsetTimeAndStimulus <- OnsetTimeAndStimulus[ , c("V4", "StimulusType", "RatedSuccessOfRegulation", "Subject", "Date")]
+  OnsetTimeAndStimulus$StimulusType[OnsetTimeAndStimulus$StimulusType == 1] <- "MaintainNegative"
+  OnsetTimeAndStimulus$StimulusType[OnsetTimeAndStimulus$StimulusType == 2] <- "UpregulateNegative"
+  OnsetTimeAndStimulus$StimulusType[OnsetTimeAndStimulus$StimulusType == 3] <- "DownregulateNegative"
+  OnsetTimeAndStimulus$StimulusType[OnsetTimeAndStimulus$StimulusType == 4] <- "MaintainNeutral"
   if(!is.na(OnsetTime$Subject[1]) && OnsetTime$Subject[1] %in% as.integer(IncludedSubjects) ){
     OnsetTimesForAll[[length(OnsetTimesForAll)+1]] <- OnsetTimeAndStimulus
   }
 }
+
 
 # Add session to onset time matrix
 FunGetSubject <- function(x){return(x$Subject[1])}
@@ -68,10 +83,10 @@ PgDataARROWSTime <- read.csv("HR/PgDataARROWSTime.csv", sep=";")
 PgDataARROWSTime[ , 1] <- as.numeric(PgDataARROWSTime[ , 1])/100
 
 
-####### Change?? for ARROWS
-# Cut pieces of data that start 6 seconds before onset of every stimulus (4 s before arrow) and end 16 seconds after
+
+# Cut pieces of data that start 6 seconds before onset of every stimulus (4 s before arrow) and 16 seconds after
 # 4 seconds is chosen because that was the shortest possible duration of the jittered fixation cross
-# 10 seconds extends into the rating event and we are unlikely to be interested in anything going on later than that
+# 16 seconds extends into the rating event and we are unlikely to be interested in anything going on later than that
 CutFun <- function(x){
   if(is.na(x)){ # Added by GN so ugly hack (see above) will continue to work
     return(rep(NA, 1401))
@@ -90,13 +105,19 @@ CutFun <- function(x){
   }
 }
 
+
+### 426, session 2 does not work. This session is not included in analyses since the recording is very short?
 # Loop over subjects and sessions, cut out data for events and write to file
 for(i in 1:length(OnsetTimesForAll)){
-  Subject <- OnsetTimesForAll[[i]]$Subject[1]
-  Session <- OnsetTimesForAll[[i]]$Session[1]
-  SuperList <- sapply(OnsetTimesForAll[[i]]$V4, CutFun)
-  if(length(SuperList[[1]]) != 0){
-    colnames(SuperList) <- OnsetTimesForAll[[i]]$Condition
-    write.csv2(SuperList, file = paste("HR/PgDataARROWSStimulus/", Subject, "_", Session, ".csv", sep=""), row.names=FALSE)
+  if(i == 137){
+  }else{
+    Subject <- OnsetTimesForAll[[i]]$Subject[1]
+    Session <- OnsetTimesForAll[[i]]$Session[1]
+    SuperList <- sapply(OnsetTimesForAll[[i]]$V4, CutFun)
+    if(length(SuperList[[1]]) != 0){
+      colnames(SuperList) <- OnsetTimesForAll[[i]]$StimulusType
+      write.csv2(SuperList, file = paste("HR/PgDataARROWSStimulus/", Subject, "_", Session, ".csv", sep=""), row.names=FALSE)
+    }
   }
 }
+  

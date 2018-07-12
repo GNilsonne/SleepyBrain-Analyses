@@ -1,54 +1,89 @@
-setwd("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/HR/PgDataHandsStimulusCorrected")
+setwd("~/Box Sync/Sleepy Brain/Datafiles/HR/PgDataARROWSStimulusCorrected180703")
 
 Files <- list.files()
 
-AllNormalisedMeanPain <- data.frame()
+AllNormalisedMeanMaintainNeutral <- data.frame()
 for(i in 1:length(Files)){
-  Data <- read.csv(Files[i], sep=";", dec=",")
-  Pain <- Data[ , grepl("^Pain", names(Data))]
-  BaselinePain <- colMeans(Pain[1:500, ], na.rm = T)
-  Pain <- Pain[501:1201, ]
-  NoPain <- Data[ , grepl("^No_Pain", names(Data))]
-  NoPain <- NoPain[501:1201, ]
-  BaselineNoPain <- colMeans(NoPain[1:500, ], na.rm = T)
-  NormalisedPain <- Pain/BaselinePain
-  NormalisedNoPain <- NoPain/BaselineNoPain
-  NormalisedPain$Mean <- rowMeans(NormalisedPain)
-  NormalisedNoPain$Mean <- rowMeans(NormalisedNoPain)
+  Data <- read.table(Files[i], sep=",", dec=",", header = T)
+  Data <- data.frame(apply(Data, 2, as.numeric))
+  MaintainNeutral <- Data[ , grepl("^MaintainNeutral", names(Data))]
+  BaselineMaintainNeutral <- colMeans(MaintainNeutral[1:400, ], na.rm = T)
+  MaintainNeutral <- MaintainNeutral[401:2201, ]
+  NormalisedMaintainNeutral <- MaintainNeutral/BaselineMaintainNeutral
+  NormalisedMaintainNeutral$Mean <- rowMeans(NormalisedMaintainNeutral)
   if(i == 1){
-    plot(NormalisedPain$Mean, type = "l", ylim = c(0.5, 1.5))
-    AllNormalisedMeanPain <- NormalisedPain$Mean
+    plot(NormalisedMaintainNeutral$Mean, type = "l", ylim = c(0.5, 1.5))
+    AllNormalisedMeanMaintainNeutral <- NormalisedMaintainNeutral$Mean
   }else{
-    lines(NormalisedPain$Mean)
-    AllNormalisedMeanPain <- cbind(AllNormalisedMeanPain, NormalisedPain$Mean)
+    lines(NormalisedMaintainNeutral$Mean)
+    AllNormalisedMeanMaintainNeutral <- cbind(AllNormalisedMeanMaintainNeutral, NormalisedMaintainNeutral$Mean)
   }
 }
-AllNormalisedMeanPain$Mean <- rowMeans(AllNormalisedMeanPain, na.rm=T)
-lines(AllNormalisedMeanPain$Mean, col= "red")
+AllNormalisedMeanMaintainNeutral$Mean <- rowMeans(AllNormalisedMeanMaintainNeutral, na.rm=T)
+lines(AllNormalisedMeanMaintainNeutral$Mean, col= "red")
 
-
-# No pain
-AllNormalisedMeanNoPain <- data.frame()
+AllNormalisedMeanMaintainNegative <- data.frame()
 for(i in 1:length(Files)){
-  Data <- read.csv(Files[i], sep=";", dec=",")
-  NoPain <- Data[ , grepl("^No_Pain", names(Data))]
-  NoPain$Mean <- rowMeans(NoPain, na.rm = T)
-  NoPain <- NoPain[501:1201, ]
-  BaselineNoPain <- colMeans(NoPain[1:500, ], na.rm = T)
-  NormalisedNoPain <- NoPain/BaselineNoPain
-  NormalisedNoPain$Mean <- rowMeans(NormalisedNoPain)
+  Data <- read.table(Files[i], sep=",", dec=",", header = T)
+  Data <- data.frame(apply(Data, 2, as.numeric))
+  MaintainNegative <- Data[ , grepl("^MaintainNegative", names(Data))]
+  BaselineMaintainNegative <- colMeans(MaintainNegative[1:400, ], na.rm = T)
+  MaintainNegative <- MaintainNegative[401:2201, ]
+  NormalisedMaintainNegative <- MaintainNegative/BaselineMaintainNegative
+  NormalisedMaintainNegative$Mean <- rowMeans(NormalisedMaintainNegative)
   if(i == 1){
-    plot(NormalisedNoPain$Mean, type = "l", ylim = c(0.5, 1.5))
-    AllNormalisedMeanNoPain <- NormalisedNoPain$Mean
+    plot(NormalisedMaintainNegative$Mean, type = "l", ylim = c(0.5, 1.5))
+    AllNormalisedMeanMaintainNegative <- NormalisedMaintainNegative$Mean
   }else{
-    lines(NormalisedNoPain$Mean)
-    AllNormalisedMeanNoPain <- cbind(AllNormalisedMeanNoPain, NormalisedNoPain$Mean)
+    lines(NormalisedMaintainNegative$Mean)
+    AllNormalisedMeanMaintainNegative <- cbind(AllNormalisedMeanMaintainNegative, NormalisedMaintainNegative$Mean)
   }
 }
-AllNormalisedMeanNoPain$Mean <- rowMeans(AllNormalisedMeanNoPain, na.rm=T)
-lines(AllNormalisedMeanNoPain$Mean, col= "red")
+AllNormalisedMeanMaintainNegative$Mean <- rowMeans(AllNormalisedMeanMaintainNegative, na.rm=T)
+lines(AllNormalisedMeanMaintainNegative$Mean, col= "red")
+
+AllNormalisedMeanDownregulateNegative <- data.frame()
+for(i in 1:length(Files)){
+  Data <- read.table(Files[i], sep=",", dec=",", header = T)
+  Data <- data.frame(apply(Data, 2, as.numeric))
+  DownregulateNegative <- Data[ , grepl("^DownregulateNegative", names(Data))]
+  BaselineDownregulateNegative <- colMeans(DownregulateNegative[1:400, ], na.rm = T)
+  DownregulateNegative <- DownregulateNegative[401:2201, ]
+  NormalisedDownregulateNegative <- DownregulateNegative/BaselineDownregulateNegative
+  NormalisedDownregulateNegative$Mean <- rowMeans(NormalisedDownregulateNegative)
+  if(i == 1){
+    plot(NormalisedDownregulateNegative$Mean, type = "l", ylim = c(0.5, 1.5))
+    AllNormalisedMeanDownregulateNegative <- NormalisedDownregulateNegative$Mean
+  }else{
+    lines(NormalisedDownregulateNegative$Mean)
+    AllNormalisedMeanDownregulateNegative <- cbind(AllNormalisedMeanDownregulateNegative, NormalisedDownregulateNegative$Mean)
+  }
+}
+AllNormalisedMeanDownregulateNegative$Mean <- rowMeans(AllNormalisedMeanDownregulateNegative, na.rm=T)
+lines(AllNormalisedMeanDownregulateNegative$Mean, col= "red")
+
+AllNormalisedMeanUpregulateNegative <- data.frame()
+for(i in 1:length(Files)){
+  Data <- read.table(Files[i], sep=",", dec=",", header = T)
+  Data <- data.frame(apply(Data, 2, as.numeric))
+  UpregulateNegative <- Data[ , grepl("^UpregulateNegative", names(Data))]
+  BaselineUpregulateNegative <- colMeans(UpregulateNegative[1:400, ], na.rm = T)
+  UpregulateNegative <- UpregulateNegative[401:2201, ]
+  NormalisedUpregulateNegative <- UpregulateNegative/BaselineUpregulateNegative
+  NormalisedUpregulateNegative$Mean <- rowMeans(NormalisedUpregulateNegative)
+  if(i == 1){
+    plot(NormalisedUpregulateNegative$Mean, type = "l", ylim = c(0.5, 1.5))
+    AllNormalisedMeanUpregulateNegative <- NormalisedUpregulateNegative$Mean
+  }else{
+    lines(NormalisedUpregulateNegative$Mean)
+    AllNormalisedMeanUpregulateNegative <- cbind(AllNormalisedMeanUpregulateNegative, NormalisedUpregulateNegative$Mean)
+  }
+}
+AllNormalisedMeanUpregulateNegative$Mean <- rowMeans(AllNormalisedMeanUpregulateNegative, na.rm=T)
+lines(AllNormalisedMeanUpregulateNegative$Mean, col= "red")
 
 
-
-plot(AllNormalisedMeanPain$Mean, col= "red", type = "l")
-lines(AllNormalisedMeanNoPain$Mean, col= "blue")
+plot(AllNormalisedMeanMaintainNeutral$Mean, col= "red", type = "l")
+lines(AllNormalisedMeanMaintainNegative$Mean, col= "blue")
+lines(AllNormalisedMeanDownregulateNegative$Mean, col= "green")
+lines(AllNormalisedMeanUpregulateNegative$Mean, col= "violet")

@@ -29,7 +29,6 @@ for(i in 1:length(ReducedData$Session)){
   }
 }
 
-## Need to remove data with txt-extention and check names of files
 
 # Find out sleep condition from randomisationlist and session
 SessionCondition <- data.frame()

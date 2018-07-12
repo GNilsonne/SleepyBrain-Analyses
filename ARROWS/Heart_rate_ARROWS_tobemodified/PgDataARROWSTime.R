@@ -15,7 +15,7 @@ PgDataARROWS$DeltaTimePulse <- (c(PgDataARROWS$V1, 0)-c(0, PgDataARROWS$V1))[1:l
 # Check registrations
 plot(PgDataARROWS$DeltaTimePulse)
 
-# Clean up false values (<0) and check again. ### Why??
+# Clean up false values (<0) and check again. 
 PgDataARROWS$DeltaTimePulse[PgDataARROWS$DeltaTimePulse<0] <- NA 
 plot(PgDataARROWS$DeltaTimePulse ~ PgDataARROWS$Subject)
 

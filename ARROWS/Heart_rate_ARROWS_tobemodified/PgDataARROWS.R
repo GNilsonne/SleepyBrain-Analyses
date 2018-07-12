@@ -32,7 +32,7 @@ PgDataARROWS <- PgDataARROWS[PgDataARROWS$Subject %in% as.integer(IncludedSubjec
 # Plot data to se that all subjects have registrations of approximatly the same length  
 plot(PgDataARROWS[ ,1], type="l", xlab = "Row", ylab = "Time (centiseconds)")
 
-# Check later that the correct participants are here!
+
 IncludedSubjectsPgARROWS <- unique(PgDataARROWS$Subject)
 
 write.csv2(PgDataARROWS, file = "../HR/PgDataARROWS.csv", row.names=FALSE)
