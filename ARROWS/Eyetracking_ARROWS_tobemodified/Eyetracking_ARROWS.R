@@ -403,15 +403,15 @@ summary(lme2)
 intervals_lme2 <- intervals(lme2)
 plot(effect("stimulus*condition", lme2))
 setwd("~/Box Sync/Sleepy Brain/Datafiles/Eyetracking_ARROWS/")
-write.csv(summary(lme2)$tTable, file = "Reduced_model.csv")
-write.csv(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
+write.csv2(summary(lme2)$tTable, file = "Reduced_model.csv")
+write.csv2(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
 
 lme3 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject,
             na.action = na.omit)
 summary(lme3)
 intervals_lme3 <- intervals(lme3)
 plot(effect("stimulus*condition*AgeGroup", lme3), main = "", ylab = "Mean pupil diameter change")
-write.csv(summary(lme3)$tTable, file = "Full_model.csv")
-write.csv(intervals_lme3$fixed, file = "Full_model_intervals.csv")
+write.csv2(summary(lme3)$tTable, file = "Full_model.csv")
+write.csv2(intervals_lme3$fixed, file = "Full_model_intervals.csv")
 
 
