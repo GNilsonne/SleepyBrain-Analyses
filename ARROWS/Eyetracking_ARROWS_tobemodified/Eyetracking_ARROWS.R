@@ -16,84 +16,11 @@ setwd("~/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 ViewpointFilesARROWS <- list.files(pattern = "ARROWS")
 
 
-# ViewpointDataARROWS <- data.frame()
-# for (i in 1:length(ViewpointFilesARROWS)){
-#   nlines <- length(readLines(ViewpointFilesARROWS[i])) # To enable skipping reading of final line, which is often incomplete
-#   temp <- read.table(ViewpointFilesARROWS[i], skip = 28, nrows = nlines - 29, fill = T) # Skip header lines as well as last line
-#   temp <- data.frame(apply(temp, 2, as.numeric)) # Using apply function to coerce to numeric
-#   if(length(temp) > 11){ # Sometimes logfiles have things that cause an additional column to appear. This removes it.
-#     temp <- temp[, c(1:11)]
-#   }
-#   temp <- temp[complete.cases(temp),] # Remove rows with NA:s
-#   temp <- temp[, c(2, 7, 8)] # Keep only time + height + width
-#   temp$File <- ViewpointFilesARROWS[i]
-#   ViewpointDataARROWS <- rbind(ViewpointDataARROWS, temp)
-# }
-# names(ViewpointDataARROWS) <- c("time_s", "width", "height", "filename")
-# 
-
-
-
-
-# # Remove very corrupt file. Might be fixed
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '165_131127_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '191_131203_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '194_131202_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '197_131128_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '202_131203_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '210_131205_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '222_131211_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '227_131219_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '229_131205_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '245_131219_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '267_131218_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '299_131218_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '306_131209_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '313_131217_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '324_131202_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '352_140120_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '354_140109_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '356_140304_eyedata_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '376_140128_ARROWS.txt']
-# ViewpointFilesARROWS <- ViewpointFilesARROWS[ViewpointFilesARROWS != '457_140402_eyedata_ARROWS.txt']
-# 
-
-
-# Extract subject
-# ViewpointDataARROWS$Subject <- as.integer(substr(ViewpointDataARROWS$filename, 1, 3))
-
-# Extract date
-# ViewpointDataARROWS$Date <- as.Date(as.character(substr(ViewpointDataARROWS$filename, 5, 10)), "%y%m%d")
-
 # List included subjects
-# Change?
 IncludedSubjects <- read.table("../SubjectsForARROWS.csv", sep=";", header=T)
 IncludedSubjects <- as.integer(IncludedSubjects$AnyARROWSRatings) 
 IncludedSubjectsViewpointARROWS <- IncludedSubjects
 
-# May need to be used later to exclude additional subjects
-
-#Check what is wrong with subject 190 and 426!!
-
-#IncludedSubjects <-IncludedSubjects[IncludedSubjects != 190]
-
-#IncludedSubjects <-IncludedSubjects[IncludedSubjects != 426]
-
-# # Retain only subjects in list
-#ViewpointDataARROWS <- ViewpointDataARROWS[ViewpointDataARROWS$Subject %in% as.integer(IncludedSubjects), ]
-
-# Plot data to se that all subjects have registrations of approximatly the same length
-#plot(ViewpointDataARROWS$time_s)
-
-#IncludedSubjectsViewpointARROWS <- unique(ViewpointDataARROWS$Subject)
-#length(unique(ViewpointDataARROWS$Subject))
-
-# Needs to be fixed
-#IncludedSubjectsViewpointARROWS <- IncludedSubjects
-
-# 
-# write.csv2(ViewpointDataARROWS, file = "../Eyetracking_ARROWS/EyeDataARROWS.csv", row.names=FALSE)
-# write.csv2(IncludedSubjectsViewpointARROWS, file = "../Eyetracking_ARROWS/IncludedSubjectsEyeHandsARROWS.csv", row.names=FALSE)
 
 setwd("~/Box Sync/Sleepy Brain/Datafiles")
 
