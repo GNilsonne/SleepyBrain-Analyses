@@ -7,6 +7,7 @@
 require(nlme)
 require(reshape2)
 require(RColorBrewer)
+require(readxl)
 cols <- brewer.pal(n = 5, name = "Dark2")
 
 # Define function for imputation of time series
@@ -153,6 +154,9 @@ events$stimulus <- relevel(events$stimulus, ref = "MaintainNeutral")
 lme2 <- lme(value ~ stimulus*condition*AgeGroup, data = events, random = ~ 1|subject/session, na.action = na.omit)
 summary(lme2)
 intervals(lme2)
+setwd("/Users/santam/Box Sync/Sleepy Brain/Datafiles/HR")
+write.csv2(summary(lme2)$tTable, file = "Full_model.csv")
+write.csv2(intervals(lme2)$fixed, file = "Full_model_intervals.csv")
 
 
 # Model without maintain neutral
