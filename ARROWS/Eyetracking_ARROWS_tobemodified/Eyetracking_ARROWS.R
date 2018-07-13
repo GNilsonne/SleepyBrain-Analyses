@@ -67,9 +67,9 @@ ViewpointFilesARROWS <- list.files(pattern = "ARROWS")
 
 # List included subjects
 # Change?
-IncludedSubjects <- read.table("../Subjects_140818.csv", sep=";", header=T)
-#IncludedSubjects <- as.integer(IncludedSubjects$CanBeIncludedForInterventionEffects)
-IncludedSubjects <- as.integer(IncludedSubjects$CompletedScanning) # This is for the purpose of quality review.
+IncludedSubjects <- read.table("../SubjectsForARROWS.csv", sep=";", header=T)
+IncludedSubjects <- as.integer(IncludedSubjects$AnyARROWSRatings) 
+IncludedSubjectsViewpointARROWS <- IncludedSubjects
 
 # May need to be used later to exclude additional subjects
 
@@ -89,7 +89,7 @@ IncludedSubjects <- as.integer(IncludedSubjects$CompletedScanning) # This is for
 #length(unique(ViewpointDataARROWS$Subject))
 
 # Needs to be fixed
-IncludedSubjectsViewpointARROWS <- IncludedSubjects
+#IncludedSubjectsViewpointARROWS <- IncludedSubjects
 
 # 
 # write.csv2(ViewpointDataARROWS, file = "../Eyetracking_ARROWS/EyeDataARROWS.csv", row.names=FALSE)
@@ -121,11 +121,11 @@ for(i in 1:length(AllOnsetFiles)){
   OnsetTime <- subset(OnsetTime, V2 == "Pic")
   OnsetTime$V4 <- as.numeric(as.character(OnsetTime$V4))/10000
   if(i == 62){ # Ugly hack (credit to GN) to handle sessions with fewer than 60 events recorded
-    for(i in 1:44){
-      OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+     for(i in 1:44){
+       OnsetTime <- rbind(OnsetTime, rep(NA, 5))
+     }
     }
-  }
-  if(i == 139){ 
+  if(i == 132){
     for(i in 1:18){
       OnsetTime <- rbind(OnsetTime, rep(NA, 5))
     }
@@ -163,7 +163,6 @@ Vpfiles_df$session[Vpfiles_df$subject == 104] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 115] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 135] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 160] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 165] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 263] <- 1
 Vpfiles_df$session[Vpfiles_df$subject == 299] <- 2
 Vpfiles_df$session[Vpfiles_df$subject == 324] <- 1
@@ -177,9 +176,12 @@ Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointARROWS
 setwd("~/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 data_out <- NULL
 onsets <- vector()
-indices <- 140:length(OnsetTimesForAll)
-# Now it does not work for 68, 96, 112 and 124
-indices <- indices[c(-27, -34, -35, -62, -102, -123, -130, -139, -157)] # Do not read when file is nonexistent or cannot be processed
+indices <- 1:length(OnsetTimesForAll)
+# Subject 197_131128 removed, since height and width have the same value all the way
+# Subject 276_140127 removed, to many values excluded
+# Subject 352_140120 removed, to many values excluded
+# Subject 376_140128 removed, to many values excluded
+indices <- indices[c(-27, -34, -35, -62, -68, -95, -101, -111, -120, -121, -125, -132)] # Do not read when file is nonexistent or cannot be processed
 for(i in indices){
   temp <- OnsetTimesForAll[[i]]
   subject <- temp$Subject[1]
@@ -191,6 +193,7 @@ for(i in indices){
   data <- read.table(thisVpfile, skip = 28, nrows = nlines - 29) # Skip header lines as well as last line
   
   data <- data.frame(apply(data, 2, as.numeric)) # Using apply function to coerce to numeric
+  data <- data[complete.cases(data),] # Remove cases with NA
   if(length(data) > 11){ # Sometimes logfiles have things that cause an additional column to appear. This removes it.
     data <- data[, c(1:11)]
   }
@@ -281,19 +284,20 @@ dataout_agg_agg <- aggregate(cbind(height, width) ~ index, data = dataout_agg, F
 dataout_agg_agg$diameter <- (dataout_agg_agg$width + dataout_agg_agg$height)/2
 
 # Plot aggregate results
-plot(width ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Width"), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm")
-axis(1, at = c(0, 40, 140), labels = c(-4, 0, 10))
-plot(height ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Height"), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm")
-axis(1, at = c(0, 40, 140), labels = c(-4, 0, 10))
-plot(diameter ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Diameter"), ylim = c(0.1, 0.3), xlab = "Time, s", ylab = "Diameter, cm")
-axis(1, at = c(0, 40, 140), labels = c(-4, 0, 10))
+plot(width ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Width"), ylim = c(0.15, 0.2), xlab = "", ylab = "Diameter, cm")
+axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
+plot(height ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Height"), ylim = c(0.15, 0.2), xlab = "", ylab = "Diameter, cm")
+axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
+plot(diameter ~ index, data = dataout_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Diameter"), ylim = c(0.16, 0.19), xlab = "", ylab = "Diameter, cm")
+axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
 
-# This is the plot that goes into the data descriptor manuscript
+
 #pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse.pdf")
-plot(diameter ~ index, data = dataout_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", main = "", ylim = c(0.16, 0.19), xlab = "Time, s", ylab = "Diameter, cm")
-abline(v = 95, lty = 2)
-polygon(x = c(40, 40, 75, 75), y = c(1, 0, 0, 1), col = "gray", border = "gray")
-axis(1, at = c(0, 40, 75, 95, 140), labels = c(-4, 0, 3.5, 5.5, 10))
+plot(diameter ~ index, data = dataout_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", main = "", ylim = c(0.16, 0.19), xlab = "", ylab = "Diameter, cm")
+polygon(x = c(40, 40, 60, 60), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
+polygon(x = c(60, 60, 110, 110), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFCCCC", lty = 0)
+abline(v = 130, lty = 2)
+axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
 axis(2, at = c(0.16, 0.17, 0.18, 0.19))
 lines(diameter ~ index, data = dataout_agg_agg)
 #dev.off()
@@ -327,6 +331,10 @@ plot(diameter ~ index, data = dataout_MaintainNeutral_agg, type = "l", frame.plo
      main = paste("Pupil diameter"), ylim = c(0.17, 0.19), xlab = "Time", ylab = "Pupil diameter, cm", col = "#46237A",
      lwd = 2)
 axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
+polygon(x = c(40, 40, 60, 60), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
+polygon(x = c(60, 60, 110, 110), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFCCCC", lty = 0)
+abline(v = 130, lty = 2)
+lines(diameter ~ index, data = dataout_MaintainNeutral_agg, col = "#46237A", lwd = 2)
 lines(diameter ~ index, data = dataout_MaintainNegative_agg, col = "#256EFF", lwd = 2)
 lines(diameter ~ index, data = dataout_DownregulateNegative_agg, col = "#3DDC97", lwd = 2)
 lines(diameter ~ index, data = dataout_UpregulateNegative_agg, col = "#FF495C", lwd = 2)
@@ -365,8 +373,14 @@ plot(diameter ~ index, data = dataout_agg_fullsleep, type = "l", frame.plot = F,
      main = paste("Pupil diameter"), ylim = c(0.15, 0.19), 
      xlab = "Time", ylab = "Diameter, cm", col = "blue", lwd = 2)
 axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
+polygon(x = c(40, 40, 60, 60), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
+polygon(x = c(60, 60, 110, 110), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFCCCC", lty = 0)
+abline(v = 130, lty = 2)
+lines(diameter ~ index, data = dataout_agg_fullsleep, col = "blue", lwd = 2)
 lines(diameter ~ index, data = dataout_agg_sleepdeprived, col = "red", lwd = 2)
 legend("topleft", lty = 1, legend = c("Full sleep", "Sleep deprived"), col = c("blue", "red"), bty = "n", lwd = 2)
+
+
 
 # Index data by mean diameter during anticipation for each response
 while(anyNA(data_out$height)){ # Impute missing values by last known value
@@ -391,7 +405,11 @@ for (i in unique(data_out$subject)){
   }
 }
 
-# Check plot. Does not work?
+# Removesubject 436 that only has 1 observation 
+data_delta <- subset(data_delta, subject != "436")
+data_delta <- subset(data_delta, subject != "446")
+                              
+# Check plot. Does not work for 436?
 data_delta_agg <- NULL
 for (i in unique(data_delta$subject)){
   cutout4 <- data_delta[data_delta$subject == i, ]
@@ -402,6 +420,7 @@ for (i in unique(data_delta$subject)){
     data_delta_agg <- rbind(data_delta_agg, cutout4_agg)
   }
 }
+
 data_delta_agg_agg <- aggregate(delta_diameter ~ index, data = data_delta_agg, FUN = "mean")
 plot(delta_diameter ~ index, data = data_delta_agg_agg, type = "l", frame.plot = F, xaxt = "n", main = paste("Diameter"), xlab = "Time", ylab = "Delta diameter, cm")
 axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
@@ -428,7 +447,7 @@ data_eventmeans2 <- merge(data_eventmeans2, randomisation[, c("Subject", "Sl_con
 data_eventmeans2$session <- NA
 data_eventmeans2$session[data_eventmeans2$date == data_eventmeans2$DateSession1] <- 1
 data_eventmeans2$session[data_eventmeans2$date == data_eventmeans2$DateSession2] <- 2
-anyNA(data_eventmeans2) # Should evaluate to FALSE
+anyNA(data_eventmeans2) # Should evaluate to FALSE. Does not
 data_eventmeans2$condition <- NA
 data_eventmeans2$condition[data_eventmeans2$session == 1 & data_eventmeans2$Sl_cond == 1] <- "SleepDeprived"
 data_eventmeans2$condition[data_eventmeans2$session == 1 & data_eventmeans2$Sl_cond == 2] <- "FullSleep"
@@ -438,9 +457,7 @@ anyNA(data_eventmeans2)
 data_eventmeans2$condition <- relevel(as.factor(data_eventmeans2$condition), ref = "FullSleep")
 data_eventmeans2$AgeGroup <- relevel(as.factor(data_eventmeans2$AgeGroup), ref = "Young")
 
-# Find out how many responses have been rejected
-length(data_eventmeans2$event_no)
-length(data_eventmeans2$event_no)/(220*60) # Correct? 
+
 
 # Contrast coding
 contrasts(data_eventmeans2$AgeGroup) <- rbind(-.5, .5)
@@ -458,154 +475,16 @@ lme2 <- lme(mean_event ~ stimulus*condition, data = data_eventmeans2, random = ~
 summary(lme2)
 intervals_lme2 <- intervals(lme2)
 plot(effect("stimulus*condition", lme2))
-#setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/HANDS/Eyetracking/")
-#write.csv(summary(lme2)$tTable, file = "Reduced_model.csv")
-#write.csv(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
+setwd("~/Box Sync/Sleepy Brain/Datafiles/Eyetracking_ARROWS/")
+write.csv(summary(lme2)$tTable, file = "Reduced_model.csv")
+write.csv(intervals_lme2$fixed, file = "Reduced_model_intervals.csv")
 
 lme3 <- lme(mean_postevent ~ stimulus*condition*AgeGroup, data = data_eventmeans2, random = ~ 1|subject,
             na.action = na.omit)
 summary(lme3)
 intervals_lme3 <- intervals(lme3)
-#pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/eyetracking_fullmodel.pdf")
-#dev.off()
 plot(effect("stimulus*condition*AgeGroup", lme3), main = "", ylab = "Mean pupil diameter change")
-#write.csv(summary(lme3)$tTable, file = "Full_model.csv")
-#write.csv(intervals_lme3$fixed, file = "Full_model_intervals.csv")
-
-lme3b <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Young", ], random = ~ 1|subject, na.action = na.omit)
-summary(lme3b)
-intervals_lme3b <- intervals(lme3b)
-plot(effect("stimulus*condition", lme3b))
-#write.csv(summary(lme3b)$tTable, file = "Posthoc_young_only.csv")
-#write.csv(intervals_lme3b$fixed, file = "Posthoc_young_only_intervals.csv")
-
-lme3c <- lme(mean_postevent ~ stimulus*condition, data = data_eventmeans2[data_eventmeans2$AgeGroup == "Old", ], random = ~ 1|subject, na.action = na.omit)
-summary(lme3c)
-intervals_lme3c <- intervals(lme3c)
-plot(effect("stimulus*condition", lme3c))
-#write.csv(summary(lme3c)$tTable, file = "Posthoc_old_only.csv")
-#write.csv(intervals_lme3b$fixed, file = "Posthoc_old_only_intervals.csv")
-
-# Determine variability
-data_eventsd <- aggregate(mean_event ~ subject + stimulus + condition, data = data_eventmeans2, FUN = sd)
-lme4 <- lme(mean_event ~ stimulus*condition, data = data_eventsd, random = ~1|subject, na.action = na.omit)
-summary(lme4)
+write.csv(summary(lme3)$tTable, file = "Full_model.csv")
+write.csv(intervals_lme3$fixed, file = "Full_model_intervals.csv")
 
 
-
-##################### Until here I have checked
-
-
-# Make plots for publication
-data_delta_pain_agg <- NULL
-data_delta_nopain_agg <- NULL
-for (i in unique(data_delta$subject)){
-  cutout6 <- data_delta[data_delta$subject == i & data_delta$stimulus == "Pain", ]
-  cutout6_agg <- aggregate(delta_diameter ~ index, data = cutout6, FUN = "mean")
-  if(exists("data_delta_pain_agg") == FALSE){
-    data_delta_pain_agg <- cutout6_agg
-  } else {
-    data_delta_pain_agg <- rbind(data_delta_pain_agg, cutout6_agg)
-  }
-  cutout7 <- data_delta[data_delta$subject == i & data_delta$stimulus == "No_Pain", ]
-  cutout7_agg <- aggregate(delta_diameter ~ index, data = cutout7, FUN = "mean")
-  if(exists("data_delta_nopain_agg") == FALSE){
-    data_delta_nopain_agg <- cutout7_agg
-  } else {
-    data_delta_nopain_agg <- rbind(data_delta_nopain_agg, cutout7_agg)
-  }
-}
-data_delta_pain_agg_agg <- aggregate(delta_diameter ~ index, data = data_delta_pain_agg, FUN = "mean")
-data_delta_nopain_agg_agg <- aggregate(delta_diameter ~ index, data = data_delta_nopain_agg, FUN = "mean")
-data_delta_pain_agg_agg$delta_diameter_mm <- data_delta_pain_agg_agg$delta_diameter*10
-data_delta_nopain_agg_agg$delta_diameter_mm <- data_delta_nopain_agg_agg$delta_diameter*10
-
-data_delta <- merge(data_delta, demographics[, c("Subject", "DateSession1", "DateSession2")], by.x = "subject", by.y = "Subject")
-data_delta <- merge(data_delta, randomisation[, c("Subject", "Sl_cond")], by.x = "subject", by.y = "Subject")
-data_delta$session <- NA
-data_delta$session[data_delta$date == data_delta$DateSession1] <- 1
-data_delta$session[data_delta$date == data_delta$DateSession2] <- 2
-anyNA(data_delta) # Should evaluate to FALSE
-data_delta$condition <- NA
-data_delta$condition[data_delta$session == 1 & data_delta$Sl_cond == 1] <- "SleepDeprived"
-data_delta$condition[data_delta$session == 1 & data_delta$Sl_cond == 2] <- "FullSleep"
-data_delta$condition[data_delta$session == 2 & data_delta$Sl_cond == 2] <- "SleepDeprived"
-data_delta$condition[data_delta$session == 2 & data_delta$Sl_cond == 1] <- "FullSleep"
-anyNA(data_delta)
-data_delta$condition <- as.factor(data_delta$condition)
-
-data_delta_fullsleep_agg <- NULL
-data_delta_sleepdeprived_agg <- NULL
-for (i in unique(data_delta$subject)){
-  if(any(data_delta[data_delta$subject == i, ]$condition == "FullSleep")){
-    cutout8 <- data_delta[data_delta$subject == i & data_delta$condition == "FullSleep", ]
-    cutout8_agg <- aggregate(delta_diameter ~ index, data = cutout8, FUN = "mean")
-    if(exists("data_delta_fullsleep_agg") == FALSE){
-      data_delta_fullsleep_agg <- cutout8_agg
-    } else {
-      data_delta_fullsleep_agg <- rbind(data_delta_fullsleep_agg, cutout8_agg)
-    }
-  }
-  if(any(data_delta[data_delta$subject == i, ]$condition == "SleepDeprived")){
-    cutout9 <- data_delta[data_delta$subject == i & data_delta$condition == "SleepDeprived", ]
-    cutout9_agg <- aggregate(delta_diameter ~ index, data = cutout9, FUN = "mean")    
-    if(exists("data_delta_sleepdeprived_agg") == FALSE){
-      data_delta_sleepdeprived_agg <- cutout9_agg
-    } else {
-      data_delta_sleepdeprived_agg <- rbind(data_delta_sleepdeprived_agg, cutout9_agg)
-    }
-  }
-}
-
-data_delta_sleepdeprived_agg_agg <- aggregate(delta_diameter ~ index, data = data_delta_sleepdeprived_agg, FUN = "mean")
-data_delta_fullsleep_agg_agg <- aggregate(delta_diameter ~ index, data = data_delta_fullsleep_agg, FUN = "mean")
-data_delta_sleepdeprived_agg_agg$delta_diameter_mm <- data_delta_sleepdeprived_agg_agg$delta_diameter*10
-data_delta_fullsleep_agg_agg$delta_diameter_mm <- data_delta_fullsleep_agg_agg$delta_diameter*10
-
-
-pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/agg_timecourse3.pdf")
-plot(delta_diameter_mm ~ index, data = data_delta_pain_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", ylim = c(-0.25, 0.05), main = "", xlab = "Time, s", ylab = "Diameter change, mm")
-abline(v = 95, lty = 2)
-polygon(x = c(40, 40, 75, 75), y = c(1, -1, -1, 1), col = "gray", border = "gray")
-axis(1, at = c(0, 40, 75, 95, 140), labels = c(-4, 0, 3.5, 5.5, 10))
-axis(2, at = c(-0.25, -0.15, -0.05, 0.05))
-lines(delta_diameter_mm ~ index, data = data_delta_nopain_agg_agg, col = "blue", lwd = 2)
-lines(delta_diameter_mm ~ index, data = data_delta_pain_agg_agg, col = "red", lty = 2, lwd = 2)
-legend("bottomright", lty = c(1, 2), col = c("blue", "red"), legend = c("No pain", "Pain"), lwd = 2)
-
-plot(delta_diameter_mm ~ index, data = data_delta_fullsleep_agg_agg, type = "n", frame.plot = F, xaxt = "n", yaxt = "n", ylim = c(-0.25, 0.05), main = "", xlab = "Time, s", ylab = "Diameter change, mm")
-abline(v = 95, lty = 2)
-polygon(x = c(40, 40, 75, 75), y = c(1, -1, -1, 1), col = "gray", border = "gray")
-axis(1, at = c(0, 40, 75, 95, 140), labels = c(-4, 0, 3.5, 5.5, 10))
-axis(2, at = c(-0.25, -0.15, -0.05, 0.05))
-lines(delta_diameter_mm ~ index, data = data_delta_fullsleep_agg_agg, col = "blue", lwd = 2)
-lines(delta_diameter_mm ~ index, data = data_delta_sleepdeprived_agg_agg, col = "red", lty = 2, lwd = 2)
-legend("bottomright", lty = c(1, 2), col = c("blue", "red"), legend = c("Full Sleep", "Sleep Deprived"), lwd = 2)
-dev.off()
-
-# Make additional figure for publication
-eff <- effect("stimulus*condition*AgeGroup", lme3)
-
-pdf(file = "C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Eyetracking/effects_eyetracking.pdf", height = 5, width = 8) 
-par(mar = c(4, 5, 1, 2))
-par(mfrow=c(1, 2)) 
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.02, 0), xlab = "", ylab = "Pupil diameter change", xaxt = "n", type = "n", main = "Young")
-axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
-lines(x = c(0, 0.9), y = eff$fit[c(1, 2)], pch = 16, col = cols[1], type = "b", lwd = 1.5)
-lines(x = c(0.1, 1), y = eff$fit[c(3, 4)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
-lines(x = c(0, 0), y = c(eff$lower[1], eff$upper[1]), col = cols[1], lwd = 1.5)
-lines(x = c(0.9, 0.9), y = c(eff$lower[2], eff$upper[2]), col = cols[1], lwd = 1.5)
-lines(x = c(0.1, 0.1), y = c(eff$lower[3], eff$upper[3]), col = cols[2], lwd = 1.5)
-lines(x = c(1, 1), y = c(eff$lower[4], eff$upper[4]), col = cols[2], lwd = 1.5)
-legend("topleft", lty = 1, lwd = 1.5, pch = 16, col = cols[1:2], legend = c("Full sleep", "Sleep deprived"), bty = "n")
-
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(-0.02, 0), xlab = "", ylab = "", xaxt = "n", type = "n", main = "Older")
-axis(1, at = c(0.05, 0.95), labels = c("No pain", "Pain"))
-lines(x = c(0, 0.9), y = eff$fit[c(5, 6)], pch = 16, col = cols[1], type = "b", lwd = 1.5)
-lines(x = c(0.1, 1), y = eff$fit[c(7, 8)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
-lines(x = c(0, 0), y = c(eff$lower[5], eff$upper[5]), col = cols[1], lwd = 1.5)
-lines(x = c(0.9, 0.9), y = c(eff$lower[6], eff$upper[6]), col = cols[1], lwd = 1.5)
-lines(x = c(0.1, 0.1), y = c(eff$lower[7], eff$upper[7]), col = cols[2], lwd = 1.5)
-lines(x = c(1, 1), y = c(eff$lower[8], eff$upper[8]), col = cols[2], lwd = 1.5)
-
-dev.off()
