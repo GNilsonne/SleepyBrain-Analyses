@@ -255,11 +255,11 @@ dataout_UpregulateNegative_agg$diameter <- (dataout_UpregulateNegative_agg$width
 
 
 plot(diameter ~ index, data = dataout_MaintainNeutral_agg, type = "l", frame.plot = F, xaxt = "n", 
-     main = paste("Pupil diameter"), ylim = c(0.17, 0.19), xlab = "Time", ylab = "Pupil diameter, cm", col = "#46237A",
+     ylim = c(0.17, 0.19), xlab = "", ylab = "Pupil diameter, cm", col = "#46237A",
      lwd = 2)
 axis(1, at = c(0, 40, 60, 110, 130, 220), labels = c("", "Arrow", "Picture", "Blank", "Rating", ""))
-polygon(x = c(40, 40, 60, 60), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "gray", lty = 0)
-polygon(x = c(60, 60, 110, 110), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFCCCC", lty = 0)
+polygon(x = c(40, 40, 60, 60), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#EEEEEE", lty = 0)
+polygon(x = c(60, 60, 110, 110), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFEEEE", lty = 0)
 abline(v = 130, lty = 2)
 lines(diameter ~ index, data = dataout_MaintainNeutral_agg, col = "#46237A", lwd = 2)
 lines(diameter ~ index, data = dataout_MaintainNegative_agg, col = "#256EFF", lwd = 2)

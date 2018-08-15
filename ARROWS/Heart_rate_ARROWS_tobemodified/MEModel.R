@@ -168,7 +168,7 @@ summary(lme2)
 intervals(lme2)
 
 # Plot time courses for event
-plot(meantimecourseUpregulateNegative, type = "n", frame.plot = F, xlab = "time", ylab = "Heart rate, index", xaxt = "n", ylim = c(0.97,1.02))
+plot(meantimecourseUpregulateNegative, type = "n", frame.plot = F, xlab = "", ylab = "Heart rate, index", xaxt = "n", ylim = c(0.97,1.02))
 polygon(x = c(400, 400, 600, 600), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#EEEEEE", lty = 0)
 polygon(x = c(600, 600, 1100, 1100), y = c(2, 0, 0, 2), density = NULL, border = NULL, col = "#FFEEEE", lty = 0)
 abline(v = 1300, lty = 2)
