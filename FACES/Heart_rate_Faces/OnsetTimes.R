@@ -40,6 +40,7 @@ for(i in 1:length(AllOnsetFiles)){
   OnsetTime$temp2 <- ifelse(OnsetTime$temp == OnsetTime$V2, 1, 2)
   OnsetTime <- subset(OnsetTime, OnsetTime$temp2 == 2)
   OnsetTime <- OnsetTime[ , 1:5]
+  #OnsetTime$BlockType <- OnsetTime$V2
   if(!is.na(OnsetTime$Subject[1]) && OnsetTime$Subject[1] %in% as.integer(IncludedSubjects) ){
      OnsetTimesForAll[[length(OnsetTimesForAll)+1]] <- OnsetTime
   }
@@ -73,19 +74,23 @@ PgDataFACESTime[ , 1] <- as.numeric(PgDataFACESTime[ , 1])/100
 
 # Cut pieces of data that start 2 seconds before every block and 2 seconds after each block (24 s in total)
 CutFun <- function(x){
-  if(is.na(x)){ # Added by GN so ugly hack (see above) will continue to work
-    return(rep(NA, 1401))
-  } else {
     ThisOnset <- round(x, 2)
     FirstRow <- (ThisOnset-2)*100
-    LastRow <- (ThisOnset+24)*100
+    LastRow <- (ThisOnset+22)*100
 
     colname = paste("X", Subject, "...", Session, sep="")
     colindex = which(names(PgDataFACESTime) == colname)
     CutBit <- PgDataFACESTime[FirstRow:LastRow, colindex] 
     return(CutBit)
-  }
 }
+
+ThisOnset <- round(OnsetTimesForAll[[i]]$V4, 2)
+FirstRow <- (ThisOnset-2)*100
+LastRow <- (ThisOnset+22)*100
+
+colname = paste("X", Subject, "...", Session, sep="")
+colindex = which(names(PgDataFACESTime) == colname)
+CutBit <- PgDataFACESTime[FirstRow:LastRow, colindex] 
 
 # Check for FACES
 ### 426, session 2 does not work. This session is not included in analyses since the recording is very short?
@@ -97,7 +102,7 @@ for(i in 1:length(OnsetTimesForAll)){
     Session <- OnsetTimesForAll[[i]]$Session[1]
     SuperList <- sapply(OnsetTimesForAll[[i]]$V4, CutFun)
     if(length(SuperList[[1]]) != 0){
-      colnames(SuperList) <- OnsetTimesForAll[[i]]$StimulusType
+      colnames(SuperList) <- OnsetTimesForAll[[i]]$V2
       write.csv2(SuperList, file = paste("HR/PgDataFACESStimulus/", Subject, "_", Session, ".csv", sep=""), row.names=FALSE)
   }
 }

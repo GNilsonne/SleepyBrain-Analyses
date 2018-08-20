@@ -1,6 +1,6 @@
 # Script to analyse effects of sleep deprivation on heart rate in HANDS experiment
 # GN 151217
-# Adapted for ARROWS 180704
+# Adapted for FACES 180820
 
 # Initialise
 # Require packages
@@ -24,25 +24,26 @@ locf.sfear = function(x) {
 
 # Analyse data
 # Read files, normalise data, impute consored values, generate new data file with summary measures for each event
-setwd("~/Box Sync/Sleepy Brain/Datafiles/HR/PgDataARROWSStimulusCorrected180703/")
+setwd("~/Box Sync/Sleepy Brain/Datafiles/HR/PgDataFACESStimulusCorrected180820/")
 Files <- list.files()
 Files <- Files[Files != "Reduced_model.csv"] # Do not read output written by this script
 
-IncludedSubjects <-  read_excel("~/Box Sync/Sleepy Brain/Datafiles/SubjectsForARROWS.xlsx")
-IncludedSubjects <- as.integer(IncludedSubjects$ARROWSRatings_Intervention)
+IncludedSubjects <-  read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+# Check wth Gustav later
+IncludedSubjects <- as.integer(IncludedSubjects$CanBeIncludedForInterventionEffectsWithMRI)
 
 filenames <- Files
 filenames[substr(filenames, 3, 3) == "_"] <- paste(0, filenames[substr(filenames, 3, 3) == "_"], sep = "")
 
-timecoursesMaintainNeutral <- data.frame(time = 1:2201)
-timecoursesMaintainNegative <- data.frame(time = 1:2201)
-timecoursesDownregulateNegative <- data.frame(time = 1:2201)
-timecoursesUpregulateNegative <- data.frame(time = 1:2201)
-timecourses_all <- data.frame(time = 1:2201)
-MaintainNeutralevents <- data.frame()
-MaintainNegativeevents <- data.frame()
-DownregulateNegativeevents <- data.frame()
-UpregulateNegativeevents <- data.frame()
+# Start here and think of what should acually be done
+
+timecoursesNeutral <- data.frame(time = 1:2401)
+timecoursesHappy <- data.frame(time = 1:2401)
+timecoursesAngry <- data.frame(time = 1:2401)
+timecourses_all <- data.frame(time = 1:2401)
+NeutralBlocks <- data.frame()
+HappyBlocks <- data.frame()
+AngryBlocks <- data.frame()
 n_na <- 0
 n_na2 <- 0
 for(i in 1:length(Files)){
@@ -50,24 +51,21 @@ for(i in 1:length(Files)){
   if(subject %in% IncludedSubjects){ # Skip or modify as needed to change sample
     Data <- read.csv(Files[i])
     names <- names(Data)
-    Data <- apply(Data, 2, FUN = function (x) x/mean(x[1:400], na.rm = T))
+    #Data <- apply(Data, 2, FUN = function (x) x/mean(x[1:400], na.rm = T))
     n_na <- n_na + sum(is.na(Data))
     Data <- apply(Data, 2, locf.sfear)
     n_na2 <- n_na2 + sum(is.na(Data)) # Data that cannot be imputed at this stage because the vector begins with NA.
-    timecoursesMaintainNeutral <- cbind(timecoursesMaintainNeutral, Data[, grepl("^MaintainNeutral", names)])
-    timecoursesMaintainNegative <- cbind(timecoursesMaintainNegative, Data[, grepl("^MaintainNegative", names)])
-    timecoursesDownregulateNegative <- cbind(timecoursesDownregulateNegative, Data[, grepl("^DownregulateNegative", names)])
-    timecoursesUpregulateNegative <- cbind(timecoursesUpregulateNegative, Data[, grepl("^UpregulateNegative", names)])
+    timecoursesNeutral <- cbind(timecoursesNeutral, Data[, grepl("^neutral", names)])
+    timecoursesHappy <- cbind(timecoursesHappy, Data[, grepl("^happy", names)])
+    timecoursesAngry <- cbind(timecoursesAngry, Data[, grepl("^angry", names)])
     timecourses_all <- cbind(timecourses_all, rowMeans(Data, na.rm = T))
-    means <- apply(Data, 2, FUN = function (x) mean(x[601:1100], na.rm = T))
-    MaintainNeutralmeans <- means[grepl("^MaintainNeutral", names(means))]
-    MaintainNegativemeans <- means[grepl("^MaintainNegative", names(means))]
-    DownregulateNegativemeans <- means[grepl("^DownregulateNegative", names(means))]
-    UpregulateNegativemeans <- means[grepl("^UpregulateNegative", names(means))]
-    MaintainNeutralevents <- rbind(MaintainNeutralevents, MaintainNeutralmeans)
-    MaintainNegativeevents <- rbind(MaintainNegativeevents, MaintainNegativemeans)
-    DownregulateNegativeevents <- rbind(DownregulateNegativeevents, DownregulateNegativemeans)
-    UpregulateNegativeevents <- rbind(UpregulateNegativeevents, UpregulateNegativemeans)
+    means <- apply(Data, 2, FUN = function (x) mean(x[201:2201], na.rm = T))
+    Neutralmeans <- means[grepl("^neutral", names(means))]
+    Happymeans <- means[grepl("^happy", names(means))]
+    Angrymeans <- means[grepl("^angry", names(means))]
+    NeutralBlocks <- rbind(NeutralBlocks, Neutralmeans)
+    HappyBlocks <- rbind(HappyBlocks, Happymeans)
+    AngryBlocks <- rbind(AngryBlocks, Angrymeans)
   }
 }
 
