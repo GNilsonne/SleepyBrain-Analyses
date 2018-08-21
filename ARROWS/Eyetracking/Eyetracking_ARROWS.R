@@ -1,6 +1,6 @@
 # Script to analyse eye-tracking in the HANDS experiment
 # Gustav Nilsonne 2016-06-01
-# Adapted for ARROWS 180630
+# Adapted for ARROWS by Sandra 180630
 
 # Require packages
 require(nlme)
@@ -84,18 +84,19 @@ for (i in unique(Vpfiles_df$subject)){
 
 # Manually enter session numbers for subjects with only one included session. 
 
+# For the purpose of anonymity the subjects numbers are removed from the open repository
 
-Vpfiles_df$session[Vpfiles_df$subject == 86] <- 2
-Vpfiles_df$session[Vpfiles_df$subject == 104] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 115] <- 2
-Vpfiles_df$session[Vpfiles_df$subject == 135] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 160] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 263] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 299] <- 2
-Vpfiles_df$session[Vpfiles_df$subject == 324] <- 1
-Vpfiles_df$session[Vpfiles_df$subject == 389] <- 2
-Vpfiles_df$session[Vpfiles_df$subject == 460] <- 2
-Vpfiles_df$session[Vpfiles_df$subject == 496] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 2
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 2
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 2
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 2
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 2
+Vpfiles_df$session[Vpfiles_df$subject == X] <- 1
 
 Vpfiles_df <- Vpfiles_df[Vpfiles_df$subject %in% IncludedSubjectsViewpointARROWS, ]
 
@@ -104,10 +105,11 @@ setwd("~/Box Sync/Sleepy Brain/Datafiles/Viewpoint_files_corrected")
 data_out <- NULL
 onsets <- vector()
 indices <- 1:length(OnsetTimesForAll)
-# Subject 197_131128 removed, since height and width have the same value all the way
-# Subject 276_140127 removed, to many values excluded
-# Subject 352_140120 removed, to many values excluded
-# Subject 376_140128 removed, to many values excluded
+# Subject numbers removed from open repo
+# Subject X removed, since height and width have the same value all the way. 
+# Subject X removed, to many values excluded
+# Subject X removed, to many values excluded
+# Subject X removed, to many values excluded
 indices <- indices[c(-27, -34, -35, -62, -68, -95, -101, -111, -120, -121, -125, -132)] # Do not read when file is nonexistent or cannot be processed
 for(i in indices){
   temp <- OnsetTimesForAll[[i]]

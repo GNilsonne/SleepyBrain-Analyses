@@ -11,10 +11,9 @@ setwd("~/Box Sync/Sleepy Brain/Datafiles/HR/PgDataARROWSStimulus")
 files <- list.files()
 length(files)
 
-excluded <- c("137_2.csv", "15_1.csv", "227_1.csv", "227_2.csv", "286_1.csv", "313_2.csv",
-              "315_1.csv", "315_2.csv", "356_2.csv", "357_1.csv", "358_2.csv", "376_1.csv", "376_2.csv",
-              "410_1.csv", "410_2.csv", "425_2.csv", "451_1.csv", "472_1.csv", "79_2.csv") # Based on inspection of plots from script "CheckDataForArtifacts.R" by ST and GN
-# after separate check and consensus discussion 2018-07-02
+excluded <- c("") # Based on inspection of plots from script "CheckDataForArtifacts.R" by ST and GN
+# after separate check and consensus discussion 2018-07-02. 
+# For the purpose of anonymity this list is removed from the open repository
 
 fun_correctdata <- function(x){
   data <- read.csv2(x)
