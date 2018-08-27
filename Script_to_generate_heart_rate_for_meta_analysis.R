@@ -22,13 +22,14 @@ plot(PgDataHands$DeltaTimePulse ~ PgDataHands$Subject)
 PgDataHands$HR <- 6000/PgDataHands$DeltaTimePulse
 
 PgDataHands <- subset(PgDataHands, DeprivationCondition == "NotSleepDeprived")
-PgDataHands <- PgDataHands[ ,c(1:3, 5, 7:8)]
+PgDataHands <- PgDataHands[ ,c(1, 3, 7:8)]
 
 
 subjectlist <- read.csv("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";")
 Data <- merge(PgDataHands, subjectlist[, c("Subject", "newid")])
 Data <- subset(Data, select = -c(Subject))
-names(Data)[6] <- "Subject"
+names(Data)[2] <- "IBI"
+names(Data)[4] <- "Subject"
 Data <- Data[order(Data$Subject), ]
 write.csv2(Data, "~/Desktop/Pulse_empathy.csv", row.names = F)
 
@@ -56,12 +57,13 @@ plot(PgDataFACES$DeltaTimePulse ~ PgDataFACES$Subject)
 PgDataFACES$HR <- 6000/PgDataFACES$DeltaTimePulse
 
 PgDataFACES <- subset(PgDataFACES, DeprivationCondition == "NotSleepDeprived")
-PgDataFACES <- PgDataFACES[ ,c(1:3, 5, 7:8)]
+PgDataFACES <- PgDataFACES[ ,c(1, 3, 7:8)]
 
 
 Data <- merge(PgDataFACES, subjectlist[, c("Subject", "newid")])
 Data <- subset(Data, select = -c(Subject))
-names(Data)[6] <- "Subject"
+names(Data)[2] <- "IBI"
+names(Data)[4] <- "Subject"
 Data <- Data[order(Data$Subject), ]
 write.csv2(Data, "~/Desktop/Pulse_mimicry.csv", row.names = F)
 
@@ -87,11 +89,12 @@ plot(PgDataARROWS$DeltaTimePulse ~ PgDataARROWS$Subject)
 PgDataARROWS$HR <- 6000/PgDataARROWS$DeltaTimePulse
 
 PgDataARROWS <- subset(PgDataARROWS, DeprivationCondition == "NotSleepDeprived")
-PgDataARROWS <- PgDataARROWS[ ,c(1:3, 5, 7:8)]
+PgDataARROWS <- PgDataARROWS[ ,c(1, 3, 7:8)]
 
 
 Data <- merge(PgDataARROWS, subjectlist[, c("Subject", "newid")])
 Data <- subset(Data, select = -c(Subject))
-names(Data)[6] <- "Subject"
+names(Data)[2] <- "IBI"
+names(Data)[4] <- "Subject"
 Data <- Data[order(Data$Subject), ]
 write.csv2(Data, "~/Desktop/Pulse_reappraisal.csv", row.names = F)
