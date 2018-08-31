@@ -1,11 +1,13 @@
 
 # Inclusion of participants
-# 8 participants misunderstood/did not follow instructions at session 1. 
-# Of those 4 participants did not either follow the instructions at session 2. 
+# 8 participants (299, 354, 364, 379, 383, 411, 427, 466) misunderstood/did not follow instructions at session 1. 
+# Of those 4 participants (354, 379, 411, 427) did not either follow the instructions at session 2. 
 # All together 12 sessions will be removed from all analyses. This applies for both behavioural and imaging outcomes. 
+# 466, session 2 is already removed
 
-# For additionally 7 participants it was unclear whether they really understood 
-# the instructions completely at session 1. For 5 of those the same was true at session 2. 
+# For additionally 7 participants (104, 286, 352, 357, 425, 460, 472) it was unclear whether they really understood 
+# the instructions completely at session 1. For 5 of those (104, 286, 425, 460, 472) the same was true at session 2. 
+# Therefore all analyses will be performed also removing those participants (in all 13 sessions). 
 # In descriptives plots these 8 participants are still there.
 # 
 # For intervention effects this will mean: TODO
@@ -21,7 +23,7 @@ require(nlme)
 require(ggplot2)
 require(doBy)
 require(multcomp)
-require(reshape)
+require(reshape2)
 require(gridExtra)
 require(effects)
 require(Gmisc)
@@ -349,7 +351,7 @@ legend("topright", col = c(col3, col4), pch = c(1, 16), legend = c("Normal sleep
 
 # Demographic data
 Demographic <- Data_ARROWSRatings[!duplicated(Data_ARROWSRatings$Subject),]
-Data_unique <- Data_ARROWSRatings[!duplicated(Data_ARROWSRatings[c(64,1)]),]
+Data_unique <- Data_ARROWSRatings[!duplicated(Data_ARROWSRatings[c(60,1)]),]
 
 Count_data <- summary(Demographic$AgeGroup)
 Age_data <- getDescriptionStatsBy(Demographic$Age, Demographic$AgeGroup, html=TRUE, 
@@ -376,14 +378,6 @@ SWS_fullsleep <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition 
                                        subset(Data_unique, DeprivationCondition == "Not Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
 SWS_sleeprestriction <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition == "Sleep Deprived")$n3___00_sd, 
                                               subset(Data_unique, DeprivationCondition == "Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
-PANAS_pos_fullsleep <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition == "Not Sleep Deprived")$PANAS_Positive, 
-                                       subset(Data_unique, DeprivationCondition == "Not Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
-PANAS_pos_sleeprestriction <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition == "Sleep Deprived")$PANAS_Positive, 
-                                              subset(Data_unique, DeprivationCondition == "Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
-PANAS_neg_fullsleep <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition == "Not Sleep Deprived")$PANAS_Negative, 
-                                             subset(Data_unique, DeprivationCondition == "Not Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
-PANAS_neg_sleeprestriction <- getDescriptionStatsBy(subset(Data_unique, DeprivationCondition == "Sleep Deprived")$PANAS_Negative, 
-                                                    subset(Data_unique, DeprivationCondition == "Sleep Deprived")$AgeGroup, useNA = c("no"), html=TRUE)
 
 
 # Function to show htmlTable in viewer.
@@ -399,9 +393,7 @@ viewHtmlTable(htmlTable(
                    ISI_data, KSS_fullsleep, KSS_sleeprestriction,
                    TST_fullsleep, TST_sleeprestriction,
                    REM_fullsleep, REM_sleeprestriction,
-                   SWS_fullsleep, SWS_sleeprestriction,
-                   PANAS_pos_fullsleep, PANAS_pos_sleeprestriction,
-                   PANAS_neg_fullsleep, PANAS_neg_sleeprestriction
+                   SWS_fullsleep, SWS_sleeprestriction
                    ),
   caption  = paste("Table 1. Continuous values are reported as",
                    "means with standard deviations, unless otherwise indicated). Categorical data",
@@ -414,22 +406,19 @@ viewHtmlTable(htmlTable(
              "Karolinska Sleepiness Scale, sleep restriction", "Total sleep time (min), full sleep",
              "Total sleep time (min), sleep restriction", "REM sleep (min), full sleep",
              "REM sleep (min), sleep restriction", "Slow wave sleep (min), full sleep",
-             "Slow wave sleep, min (sleep restriction)", "PANAS (positive), full sleep", "PANAS (positive), sleep restriction",
-             "PANAS (negative), full sleep", "PANAS (negative), sleep restriction"),
+             "Slow wave sleep, min (sleep restriction)",
   rgroup   = c("Sample", 
                "Demographics",
                "Education",
                "HADS",
-               "Sleep",
-               "PANAS"),
+               "Sleep"),
   n.rgroup = c(1,
                3,
                NROW(Edu_data),
                2,
-               9,
-               4),
+               9),
   ctable   = TRUE)
-)
+))
 
 # Plot PANAS
 # Needs to be checked
