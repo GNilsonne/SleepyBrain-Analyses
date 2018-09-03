@@ -30,7 +30,7 @@ Files <- Files[Files != "Reduced_model.csv"] # Do not read output written by thi
 
 IncludedSubjects <-  read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 # Check wth Gustav later
-IncludedSubjects <- as.integer(IncludedSubjects$CanBeIncludedForInterventionEffectsWithMRI)
+IncludedSubjects <- as.integer(IncludedSubjects$SuccessfulIntervention)
 
 filenames <- Files
 filenames[substr(filenames, 3, 3) == "_"] <- paste(0, filenames[substr(filenames, 3, 3) == "_"], sep = "")
