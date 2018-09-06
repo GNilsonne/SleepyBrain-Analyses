@@ -1,17 +1,15 @@
 
 # Inclusion of participants
-# 8 participants (299, 354, 364, 379, 383, 411, 427, 466) misunderstood/did not follow instructions at session 1. 
-# Of those 4 participants (354, 379, 411, 427) did not either follow the instructions at session 2. 
+# 8 participants misunderstood/did not follow instructions at session 1. 
+# Of those 4 participants did not either follow the instructions at session 2. 
 # All together 12 sessions will be removed from all analyses. This applies for both behavioural and imaging outcomes. 
-# 466, session 2 is already removed
+# Dubject X, session 2 is already removed
 
-# For additionally 7 participants (104, 286, 352, 357, 425, 460, 472) it was unclear whether they really understood 
-# the instructions completely at session 1. For 5 of those (104, 286, 425, 460, 472) the same was true at session 2. 
+# For additionally 7 participants it was unclear whether they really understood 
+# the instructions completely at session 1. For 5 of those the same was true at session 2. 
 # Therefore all analyses will be performed also removing those participants (in all 13 sessions). 
 # In descriptives plots these 8 participants are still there.
 # 
-# For intervention effects this will mean: TODO
-
 
 # Script to analyse behavior in the ARROWS experiment
 # Sandra Tamm, 150929
@@ -420,17 +418,5 @@ viewHtmlTable(htmlTable(
   ctable   = TRUE)
 ))
 
-# Plot PANAS
-# Needs to be checked
-
-Lme_All_PANAS_pos <- lme(PANAS_Positive ~ DeprivationCondition*AgeGroup, random = ~ 1|Subject,
-                              data = Data_unique)
-anova(Lme_All_PANAS_pos, type = "marginal")
-intervals(Lme_All_PANAS_pos)
-
-Lme_All_PANAS_neg <- lme(PANAS_Negative ~ DeprivationCondition*AgeGroup, random = ~ 1|Subject,
-                         data = Data_unique)
-anova(Lme_All_PANAS_neg, type = "marginal")
-intervals(Lme_All_PANAS_neg)
 
 
