@@ -1,0 +1,13 @@
+;Value;Std.Error;DF;t-value;p-value
+(Intercept);0.1835;0.0044;534;41.4388;0.0000
+stimulusangry;0.0061;0.0018;534;3.3080;0.0010
+stimulushappy;0.0061;0.0019;534;3.2729;0.0011
+conditionSleepDeprived;-0.0036;0.0089;46;-0.4118;0.6824
+AgeGroupOld;0.0089;0.0089;46;1.0066;0.3194
+stimulusangry:conditionSleepDeprived;0.0007;0.0037;534;0.1793;0.8578
+stimulushappy:conditionSleepDeprived;0.0032;0.0037;534;0.8516;0.3948
+stimulusangry:AgeGroupOld;-0.0068;0.0037;534;-1.8435;0.0658
+stimulushappy:AgeGroupOld;-0.0100;0.0037;534;-2.6996;0.0072
+conditionSleepDeprived:AgeGroupOld;-0.0173;0.0177;46;-0.9749;0.3347
+stimulusangry:conditionSleepDeprived:AgeGroupOld;-0.0070;0.0074;534;-0.9430;0.3461
+stimulushappy:conditionSleepDeprived:AgeGroupOld;-0.0016;0.0074;534;-0.2204;0.8256
