@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2 
+        AIC       BIC   logLik
+  -21232.51 -21180.34 10626.25
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 2.798434e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0001745709
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 9.185181e-05 6.237101e-05
+
+Fixed effects: zyg_resid ~ stimulus * PPIR_C 
+                         Value    Std.Error  DF    t-value p-value
+(Intercept)      -1.219687e-04 1.000639e-04 908 -1.2189074  0.2232
+stimulus1        -1.504411e-05 1.621810e-05 908 -0.9276123  0.3539
+stimulus2         1.654600e-06 1.621810e-05 908  0.1020219  0.9188
+PPIR_C            2.596610e-06 3.018700e-06  60  0.8601732  0.3931
+stimulus1:PPIR_C  4.613100e-07 4.892600e-07 908  0.9428730  0.3460
+stimulus2:PPIR_C  1.018900e-07 4.892600e-07 908  0.2082420  0.8351
+ Correlation: 
+                 (Intr) stmls1 stmls2 PPIR_C s1:PPI
+stimulus1         0.000                            
+stimulus2         0.000  0.500                     
+PPIR_C           -0.985  0.000  0.000              
+stimulus1:PPIR_C  0.000 -0.985 -0.493  0.000       
+stimulus2:PPIR_C  0.000 -0.493 -0.985  0.000  0.500
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-12.111481585  -0.174950086  -0.009277124   0.138209953  17.639525041 
+
+Number of Observations: 1368
+Number of Groups: 
+                        subject            session %in% subject 
+                             62                             114 
+block %in% session %in% subject 
+                            456 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                         lower          est.        upper
+(Intercept)      -3.183521e-04 -1.219687e-04 7.441481e-05
+stimulus1        -4.687343e-05 -1.504411e-05 1.678521e-05
+stimulus2        -3.017472e-05  1.654602e-06 3.348392e-05
+PPIR_C           -3.441697e-06  2.596607e-06 8.634911e-06
+stimulus1:PPIR_C -4.989053e-07  4.613132e-07 1.421532e-06
+stimulus2:PPIR_C -8.583334e-07  1.018852e-07 1.062104e-06
+attr(,"label")
+[1] "Fixed effects:"

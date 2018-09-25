@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2_angryratings 
+        AIC       BIC   logLik
+  -23174.15 -23121.14 11597.08
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 2.945704e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0001670078
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 9.020143e-05 6.076864e-05
+
+Fixed effects: zyg_resid ~ stimulus * Rating 
+                        Value    Std.Error  DF    t-value p-value
+(Intercept)      -3.31243e-05 1.674088e-05 988 -1.9786472  0.0481
+stimulus1        -1.20005e-06 3.487473e-06 988 -0.3441025  0.7308
+stimulus2         5.25125e-06 3.487473e-06 988  1.5057455  0.1325
+Rating           -1.04220e-07 2.738040e-07 371 -0.3806247  0.7037
+stimulus1:Rating  2.54100e-08 1.068060e-07 988  0.2379325  0.8120
+stimulus2:Rating -3.70000e-09 1.068060e-07 988 -0.0346033  0.9724
+ Correlation: 
+                 (Intr) stmls1 stmls2 Rating stm1:R
+stimulus1         0.000                            
+stimulus2         0.000  0.500                     
+Rating           -0.361  0.000  0.000              
+stimulus1:Rating  0.000 -0.675 -0.338  0.000       
+stimulus2:Rating  0.000 -0.338 -0.675  0.000  0.500
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-12.421500052  -0.180279472  -0.009080609   0.134272671  18.086623997 
+
+Number of Observations: 1488
+Number of Groups: 
+                        subject            session %in% subject 
+                             67                             124 
+block %in% session %in% subject 
+                            496 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                         lower          est.         upper
+(Intercept)      -6.597608e-05 -3.312430e-05 -2.725292e-07
+stimulus1        -8.043754e-06 -1.200048e-06  5.643658e-06
+stimulus2        -1.592459e-06  5.251247e-06  1.209495e-05
+Rating           -6.426189e-07 -1.042166e-07  4.341858e-07
+stimulus1:Rating -1.841794e-07  2.541252e-08  2.350045e-07
+stimulus2:Rating -2.132878e-07 -3.695823e-09  2.058961e-07
+attr(,"label")
+[1] "Fixed effects:"

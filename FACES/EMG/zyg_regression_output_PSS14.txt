@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2 
+        AIC       BIC   logLik
+  -23185.18 -23132.17 11602.59
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 2.138836e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0001667347
+
+ Formula: ~1 | block %in% session %in% subject
+        (Intercept)     Residual
+StdDev: 9.00955e-05 6.075761e-05
+
+Fixed effects: zyg_resid ~ stimulus * PSS14 
+                        Value    Std.Error  DF    t-value p-value
+(Intercept)     -8.432172e-05 4.542967e-05 988 -1.8560934  0.0637
+stimulus1        3.779000e-06 7.495150e-06 988  0.5041924  0.6142
+stimulus2        5.980460e-06 7.495150e-06 988  0.7979102  0.4251
+PSS14            2.710580e-06 2.365310e-06  65  1.1459741  0.2560
+stimulus1:PSS14 -2.449400e-07 3.902400e-07 988 -0.6276686  0.5304
+stimulus2:PSS14 -4.494000e-08 3.902400e-07 988 -0.1151548  0.9083
+ Correlation: 
+                (Intr) stmls1 stmls2 PSS14  s1:PSS
+stimulus1        0.000                            
+stimulus2        0.000  0.500                     
+PSS14           -0.939  0.000  0.000              
+stimulus1:PSS14  0.000 -0.939 -0.470  0.000       
+stimulus2:PSS14  0.000 -0.470 -0.939  0.000  0.500
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-12.4306994  -0.1820521  -0.0100372   0.1367745  18.0954130 
+
+Number of Observations: 1488
+Number of Groups: 
+                        subject            session %in% subject 
+                             67                             124 
+block %in% session %in% subject 
+                            496 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                        lower          est.        upper
+(Intercept)     -1.734715e-04 -8.432172e-05 4.828017e-06
+stimulus1       -1.092925e-05  3.778999e-06 1.848725e-05
+stimulus2       -8.727789e-06  5.980459e-06 2.068871e-05
+PSS14           -2.013267e-06  2.710584e-06 7.434435e-06
+stimulus1:PSS14 -1.010729e-06 -2.449398e-07 5.208498e-07
+stimulus2:PSS14 -8.107274e-07 -4.493774e-08 7.208519e-07
+attr(,"label")
+[1] "Fixed effects:"

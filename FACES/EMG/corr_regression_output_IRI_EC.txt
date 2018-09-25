@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2 
+        AIC       BIC   logLik
+  -15250.99 -15199.85 7635.496
+
+Random effects:
+ Formula: ~1 | subject
+        (Intercept)
+StdDev: 3.75555e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0004785754
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 0.0003721895 0.0003478923
+
+Fixed effects: corr_resid ~ stimulus * IRI_EC 
+                         Value    Std.Error  DF    t-value p-value
+(Intercept)       0.0003176366 0.0004012873 820  0.7915441  0.4289
+stimulus1         0.0001027977 0.0001257811 820  0.8172745  0.4140
+stimulus2         0.0001319820 0.0001257811 820  1.0492985  0.2943
+IRI_EC           -0.0001078478 0.0001009963  62 -1.0678394  0.2897
+stimulus1:IRI_EC -0.0000205186 0.0000316567 820 -0.6481598  0.5171
+stimulus2:IRI_EC -0.0000335348 0.0000316567 820 -1.0593285  0.2898
+ Correlation: 
+                 (Intr) stmls1 stmls2 IRI_EC s1:IRI
+stimulus1         0.000                            
+stimulus2         0.000  0.500                     
+IRI_EC           -0.992  0.000  0.000              
+stimulus1:IRI_EC  0.000 -0.992 -0.496  0.000       
+stimulus2:IRI_EC  0.000 -0.496 -0.992  0.000  0.500
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-10.401940937  -0.053054510   0.008458749   0.060453098  14.706781088 
+
+Number of Observations: 1236
+Number of Groups: 
+                        subject            session %in% subject 
+                             64                             103 
+block %in% session %in% subject 
+                            412 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                         lower          est.        upper
+(Intercept)      -4.700346e-04  3.176366e-04 1.105308e-03
+stimulus1        -1.440932e-04  1.027977e-04 3.496886e-04
+stimulus2        -1.149089e-04  1.319820e-04 3.788729e-04
+IRI_EC           -3.097366e-04 -1.078478e-04 9.404092e-05
+stimulus1:IRI_EC -8.265631e-05 -2.051860e-05 4.161911e-05
+stimulus2:IRI_EC -9.567256e-05 -3.353485e-05 2.860287e-05
+attr(,"label")
+[1] "Fixed effects:"
