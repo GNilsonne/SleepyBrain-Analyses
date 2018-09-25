@@ -1,56 +1,56 @@
 Linear mixed-effects model fit by REML
- Data: blockdata[blockdata$AgeGroup == "Young", ] 
-        AIC       BIC   logLik
-  -11619.62 -11571.01 5819.809
+ Data: blockdata2[blockdata2$AgeGroup == "Young", ] 
+       AIC       BIC   logLik
+  -10016.1 -9969.581 5018.048
 
 Random effects:
  Formula: ~1 | subject
          (Intercept)
-StdDev: 0.0004032811
+StdDev: 7.600302e-05
 
  Formula: ~1 | session %in% subject
-        (Intercept)
-StdDev: 0.001435866
+         (Intercept)
+StdDev: 0.0005014143
 
  Formula: ~1 | block %in% session %in% subject
          (Intercept)     Residual
-StdDev: 0.0004263015 0.0003433049
+StdDev: 0.0004738691 0.0002138547
 
 Fixed effects: corr_resid ~ stimulus * condition 
-                             Value    Std.Error  DF   t-value p-value
-(Intercept)          -0.0003114036 0.0001744118 636 -1.785450  0.0747
-stimulus1             0.0000210287 0.0000180938 636  1.162208  0.2456
-stimulus2            -0.0000233566 0.0000180938 636 -1.290863  0.1972
-condition1           -0.0005701324 0.0003259253  37 -1.749273  0.0885
-stimulus1:condition1  0.0000408756 0.0000361875 636  1.129550  0.2591
-stimulus2:condition1 -0.0000724261 0.0000361875 636 -2.001410  0.0458
+                             Value    Std.Error  DF    t-value p-value
+(Intercept)          -1.108023e-04 7.048993e-05 516 -1.5718881  0.1166
+stimulus1             8.180870e-06 1.251754e-05 516  0.6535526  0.5137
+stimulus2            -1.361522e-05 1.251754e-05 516 -1.0876917  0.2772
+condition1           -1.975762e-04 1.387068e-04  28 -1.4244157  0.1654
+stimulus1:condition1  1.178890e-05 2.503507e-05 516  0.4708954  0.6379
+stimulus2:condition1 -3.290562e-05 2.503507e-05 516 -1.3143808  0.1893
  Correlation: 
                      (Intr) stmls1 stmls2 cndtn1 stm1:1
-stimulus1            0.0                               
-stimulus2            0.0    0.5                        
-condition1           0.0    0.0    0.0                 
-stimulus1:condition1 0.0    0.0    0.0    0.0          
-stimulus2:condition1 0.0    0.0    0.0    0.0    0.5   
+stimulus1            0.000                             
+stimulus2            0.000  0.500                      
+condition1           0.046  0.000  0.000               
+stimulus1:condition1 0.000  0.046  0.023  0.000        
+stimulus2:condition1 0.000  0.023  0.046  0.000  0.500 
 
 Standardized Within-Group Residuals:
           Min            Q1           Med            Q3           Max 
--1.269817e+01 -4.970464e-02 -7.179892e-04  3.748285e-02  5.837644e+00 
+-14.420556686  -0.054386462  -0.006447027   0.032915441  10.119188453 
 
-Number of Observations: 960
+Number of Observations: 780
 Number of Groups: 
                         subject            session %in% subject 
-                             42                              80 
+                             36                              65 
 block %in% session %in% subject 
-                            320 
+                            260 
 Approximate 95% confidence intervals
 
  Fixed effects:
-                             lower          est.         upper
-(Intercept)          -6.538961e-04 -3.114036e-04  3.108899e-05
-stimulus1            -1.450201e-05  2.102871e-05  5.655944e-05
-stimulus2            -5.888728e-05 -2.335656e-05  1.217417e-05
-condition1           -1.230520e-03 -5.701324e-04  9.025496e-05
-stimulus1:condition1 -3.018583e-05  4.087562e-05  1.119371e-04
-stimulus2:condition1 -1.434875e-04 -7.242605e-05 -1.364598e-06
+                             lower          est.        upper
+(Intercept)          -2.492848e-04 -1.108023e-04 2.768026e-05
+stimulus1            -1.641073e-05  8.180869e-06 3.277247e-05
+stimulus2            -3.820682e-05 -1.361522e-05 1.097638e-05
+condition1           -4.817042e-04 -1.975762e-04 8.655187e-05
+stimulus1:condition1 -3.739431e-05  1.178890e-05 6.097211e-05
+stimulus2:condition1 -8.208883e-05 -3.290562e-05 1.627758e-05
 attr(,"label")
 [1] "Fixed effects:"
