@@ -35,10 +35,10 @@ fun_extractvalues2 <- function(x){ # For models with covariates
 
 # Read data
 # Read demographic data 
-demdata <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
+demdata <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
 
 # Amygdala and FFA data
-setwd("~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses")
+setwd("~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses")
 amyg_L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
 amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
 amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
@@ -49,7 +49,7 @@ FFA_L_sleepdeprived <- read.csv("FFA_ROI_betas_L_sleepdeprived.csv", sep=";", de
 FFA_R_sleepdeprived <- read.csv("FFA_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
 
 # KSS data
-setwd("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles")
+setwd("~/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles")
 KSSFiles <- list.files(pattern = "^KSS", recursive = TRUE)
 KSSFiles <- KSSFiles[-grep(".log", KSSFiles, fixed=T)]
 KSSFiles <- KSSFiles[grep("brief3", KSSFiles, fixed=T)]
@@ -63,9 +63,9 @@ for (i in 1:length(KSSFiles)){
 }
 KSSData$Subject <- as.integer(substr(KSSData$File, 1, 3))
 
-Subjects <- read.table("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";", header=T)
+Subjects <- read.table("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";", header=T)
 KSSData <- merge(KSSData, Subjects[, c("Subject", "newid")])
-RandomisationList <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv")
+RandomisationList <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv")
 KSSData$Date <- paste(paste(20, substr(KSSData$File, 5, 6), sep = ""), substr(KSSData$File, 7, 8), substr(KSSData$File, 9, 10), sep = "-")
 KSSData$Date <- as.Date(as.character(KSSData$Date, "%Y%m%d"))
 KSSData$Session <- NA
@@ -109,9 +109,11 @@ KSSData$DeprivationCondition <- VecDeprived
 KSSData$condition <- "fullsleep" # Rename for consistency with code below
 KSSData$condition[KSSData$DeprivationCondition == "Sleep Deprived"] <- "sleepdeprived"
 
+write.csv2(KSSData, file = "~/Box Sync/Sleepy Brain/Datafiles/KSS_FACES.csv")
+
 # PSG data
-psg_data <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/PSGdata_160507_pseudonymized.csv") # Manually scored data
-siesta_data <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/SIESTAdata_160516_pseudonymized.csv") # Automatically scored data
+psg_data <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/PSGdata_160507_pseudonymized.csv") # Manually scored data
+siesta_data <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/SIESTAdata_160516_pseudonymized.csv") # Automatically scored data
 siesta_data_fullsleep <- siesta_data[, c("id", "tst__00_nsd", "r____00_nsd", "rp___00_nsd", "n3___00_nsd", "n3p__00_nsd")]
 names(siesta_data_fullsleep) <- c("id", "tst", "rem", "rem_p", "n3", "n3_p")
 siesta_data_sleepdeprived <- siesta_data[, c("id", "tst__00_sd", "r____00_nsd", "rp___00_nsd", "n3___00_sd", "n3p__00_sd")]
@@ -120,6 +122,7 @@ siesta_data_fullsleep$condition <- "fullsleep"
 siesta_data_sleepdeprived$condition <- "sleepdeprived"
 siesta_data_long <- rbind(siesta_data_fullsleep, siesta_data_sleepdeprived)
 
+write.csv2(siesta_data_long, file = "~/Box Sync/Sleepy Brain/Datafiles/siesta_FACES.csv")
 
 # Analyse amygdata data ---------------------------------------------------
 
@@ -131,8 +134,8 @@ for(i in 2:length(amyg_L_fullsleep)){
   test1 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
   corr_amyg_fullsleep[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test1$estimate, 2), round(test1$conf.int[1], 2), round(test1$conf.int[2], 2))
   
-  plot(amyg_L_fullsleep[, i] ~ amyg_R_fullsleep[, i])
-  test2 <- cor.test(amyg_L_fullsleep[, i], amyg_R_fullsleep[, i])
+  plot(amyg_L_sleepdeprived[, i] ~ amyg_R_sleepdeprived[, i])
+  test2 <- cor.test(amyg_L_sleepdeprived[, i], amyg_R_sleepdeprived[, i])
   corr_amyg_sleepdeprived[i-1, ] <- c("fullsleep", names(amyg_L_fullsleep)[i], round(test2$estimate, 2), round(test2$conf.int[1], 2), round(test2$conf.int[2], 2))
 }
 
@@ -224,7 +227,7 @@ for(i in 1:length(dependent_vars)){
 }
 
 rownames(lme_results_amyg_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
-write.csv(lme_results_amyg_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_nocovariates.csv")
+write.csv(lme_results_amyg_nocovariates, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_nocovariates.csv")
 # p-values for prespecified directional analyses should be changed manually to one-sided
 
 for(i in 1:length(lme_covariates_across_list)){
