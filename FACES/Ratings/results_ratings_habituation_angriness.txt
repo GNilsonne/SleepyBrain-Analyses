@@ -1,0 +1,59 @@
+Linear mixed-effects model fit by REML
+ Data: data[data$Question_type == 3, ] 
+       AIC      BIC    logLik
+  5966.136 6020.383 -2971.068
+
+Random effects:
+ Formula: ~1 | subject
+        (Intercept)
+StdDev:    10.17031
+
+ Formula: ~1 | session %in% subject
+        (Intercept) Residual
+StdDev:    11.39957 15.43426
+
+Fixed effects: Rating ~ condition * AgeGroup * Block_type + block 
+                                      Value Std.Error  DF    t-value p-value
+(Intercept)                       25.540188  2.014508 511  12.678124  0.0000
+condition1                        -1.289965  2.115470  83  -0.609777  0.5437
+AgeGroup1                         15.641525  3.046686  85   5.133947  0.0000
+Block_type1                      -13.138774  1.183515 511 -11.101484  0.0000
+block                             -1.045942  0.527283 511  -1.983646  0.0478
+condition1:AgeGroup1               3.025848  4.230940  83   0.715171  0.4765
+condition1:Block_type1             5.369840  2.367193 511   2.268442  0.0237
+AgeGroup1:Block_type1             -6.426976  2.366919 511  -2.715335  0.0068
+condition1:AgeGroup1:Block_type1   9.314890  4.741928 511   1.964368  0.0500
+ Correlation: 
+                                 (Intr) cndtn1 AgGrp1 Blck_1 block  cn1:AG1 c1:B_1 AG1:B_
+condition1                        0.002                                                  
+AgeGroup1                         0.079  0.011                                           
+Block_type1                      -0.008  0.000  0.000                                    
+block                            -0.654  0.000  0.000  0.012                             
+condition1:AgeGroup1              0.008  0.105  0.002  0.000  0.000                      
+condition1:Block_type1           -0.011  0.000  0.000  0.003  0.017  0.000               
+AgeGroup1:Block_type1            -0.004  0.000  0.000  0.105  0.007  0.000   0.012       
+condition1:AgeGroup1:Block_type1 -0.038  0.000  0.000  0.013  0.059  0.000   0.105  0.003
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.95077707 -0.54519093 -0.02982098  0.41455638  3.93007030 
+
+Number of Observations: 688
+Number of Groups: 
+             subject session %in% subject 
+                  87                  172 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                                        lower       est.        upper
+(Intercept)                       21.58245025  25.540188  29.49792613
+condition1                        -5.49755023  -1.289965   2.91761930
+AgeGroup1                          9.58389705  15.641525  21.69915279
+Block_type1                      -15.46392809 -13.138774 -10.81361974
+block                             -2.08185151  -1.045942  -0.01003336
+condition1:AgeGroup1              -5.38932189   3.025848  11.44101717
+condition1:Block_type1             0.71921164   5.369840  10.02046882
+AgeGroup1:Block_type1            -11.07706587  -6.426976  -1.77688704
+condition1:AgeGroup1:Block_type1  -0.00118345   9.314890  18.63096395
+attr(,"label")
+[1] "Fixed effects:"

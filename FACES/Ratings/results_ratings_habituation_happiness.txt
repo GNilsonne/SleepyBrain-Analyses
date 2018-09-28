@@ -1,0 +1,53 @@
+Linear mixed-effects model fit by REML
+ Data: data[data$Question_type == 2, ] 
+       AIC      BIC    logLik
+  5989.048 6034.283 -2984.524
+
+Random effects:
+ Formula: ~1 | subject
+        (Intercept)
+StdDev:    9.758254
+
+ Formula: ~1 | session %in% subject
+        (Intercept) Residual
+StdDev:    9.307425 16.14028
+
+Fixed effects: Rating ~ condition * AgeGroup + Block_type * block 
+                        Value Std.Error  DF   t-value p-value
+(Intercept)          54.43549  1.973871 513 27.578037  0.0000
+condition1           -4.06387  1.893575  83 -2.146136  0.0348
+AgeGroup1             1.42362  2.830313  85  0.502992  0.6163
+Block_type1          22.65251  3.176319 513  7.131687  0.0000
+block                -0.12478  0.550409 513 -0.226711  0.8207
+condition1:AgeGroup1  0.87394  3.790299  83  0.230573  0.8182
+Block_type1:block    -1.24240  1.171273 513 -1.060724  0.2893
+ Correlation: 
+                     (Intr) cndtn1 AgGrp1 Blck_1 block  c1:AG1
+condition1            0.002                                   
+AgeGroup1             0.075  0.011                            
+Block_type1          -0.007 -0.011 -0.003                     
+block                -0.697  0.000  0.000  0.004              
+condition1:AgeGroup1  0.008  0.106  0.002 -0.039  0.000       
+Block_type1:block     0.005  0.012  0.003 -0.922  0.000  0.042
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.68575919 -0.50766219  0.05901497  0.62876611  2.64585727 
+
+Number of Observations: 688
+Number of Groups: 
+             subject session %in% subject 
+                  87                  172 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                         lower       est.      upper
+(Intercept)          50.557626 54.4354915 58.3133568
+condition1           -7.830116 -4.0638704 -0.2976249
+AgeGroup1            -4.203795  1.4236245  7.0510444
+Block_type1          16.412317 22.6525089 28.8927013
+block                -1.206116 -0.1247836  0.9565487
+condition1:AgeGroup1 -6.664812  0.8739400  8.4126919
+Block_type1:block    -3.543478 -1.2423969  1.0586847
+attr(,"label")
+[1] "Fixed effects:"

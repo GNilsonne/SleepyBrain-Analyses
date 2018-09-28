@@ -1,0 +1,56 @@
+Linear mixed-effects model fit by REML
+ Data: data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type ==      2, ] 
+       AIC      BIC    logLik
+  5366.902 5415.413 -2672.451
+
+Random effects:
+ Formula: ~1 | subject
+        (Intercept)
+StdDev:    9.238408
+
+ Formula: ~1 | session %in% subject
+        (Intercept) Residual
+StdDev:    9.552577 16.39753
+
+Fixed effects: Rating ~ Block_type * condition * AgeGroup 
+                                    Value Std.Error  DF  t-value p-value
+(Intercept)                      53.38603  1.472094 458 36.26538  0.0000
+Block_type1                      20.60944  1.330470 458 15.49034  0.0000
+condition1                       -4.20520  2.042830  75 -2.05852  0.0430
+AgeGroup1                         3.02206  2.944187  75  1.02645  0.3080
+Block_type1:condition1           -1.34986  2.660941 458 -0.50729  0.6122
+Block_type1:AgeGroup1             5.92818  2.660941 458  2.22785  0.0264
+condition1:AgeGroup1              1.32216  4.085661  75  0.32361  0.7471
+Block_type1:condition1:AgeGroup1 -3.65321  5.321882 458 -0.68645  0.4928
+ Correlation: 
+                                 (Intr) Blck_1 cndtn1 AgGrp1 Bl_1:1 B_1:AG c1:AG1
+Block_type1                      0.000                                           
+condition1                       0.000  0.000                                    
+AgeGroup1                        0.117  0.000  0.000                             
+Block_type1:condition1           0.000  0.000  0.000  0.000                      
+Block_type1:AgeGroup1            0.000  0.117  0.000  0.000  0.000               
+condition1:AgeGroup1             0.000  0.000  0.117  0.000  0.000  0.000        
+Block_type1:condition1:AgeGroup1 0.000  0.000  0.000  0.000  0.117  0.000  0.000 
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.73347883 -0.50166590  0.03579213  0.58959807  2.63123545 
+
+Number of Observations: 616
+Number of Groups: 
+             subject session %in% subject 
+                  77                  154 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                                       lower      est.      upper
+(Intercept)                       50.4931343 53.386029 56.2789245
+Block_type1                       17.9948556 20.609439 23.2240226
+condition1                        -8.2747249 -4.205198 -0.1356718
+AgeGroup1                         -2.8430627  3.022059  8.8871803
+Block_type1:condition1            -6.5790302 -1.349863  3.8793038
+Block_type1:AgeGroup1              0.6990135  5.928181 11.1573476
+condition1:AgeGroup1              -6.8168917  1.322161  9.4612146
+Block_type1:condition1:AgeGroup1 -14.1115488 -3.653215  6.8051193
+attr(,"label")
+[1] "Fixed effects:"
