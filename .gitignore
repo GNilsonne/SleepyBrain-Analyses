@@ -3,3 +3,5 @@
 .Rhistory
 .RData
 *.jpeg
+
+FACES/EMG/ratings.csv
