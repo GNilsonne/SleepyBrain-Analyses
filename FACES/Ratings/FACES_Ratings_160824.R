@@ -1,7 +1,29 @@
 # Participant ratings
 
+# Rating ~ Block_type * condition * AgeGroup +
+# MAybe all interactions?
+
+# Define functions
+# Function to extract estimates for models without covariates and put them in a table
+fun_extractvalues1 <- function(x){ # For main models
+  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
+  tTable <- summary(x)$tTable
+  results <- data.frame(intercept_estimate_CI = paste(round(tTable[1, 1], 3), " [", round(interv[1, 1], 3), ", ", round(interv[1, 3], 3), "]", sep = ""), intercept_p = round(tTable[1, 5], 3),
+                        intercept_block_type_CI = paste(round(tTable[2, 1], 3), " [", round(interv[2, 1], 3), ", ", round(interv[2, 3], 3), "]", sep = ""), block_type_p = round(tTable[2, 5], 3),
+                        intercept_deprivation_CI = paste(round(tTable[3, 1], 3), " [", round(interv[3, 1], 3), ", ", round(interv[3, 3], 3), "]", sep = ""), deprivation_p = round(tTable[3, 5], 3),
+                        intercept_age_CI = paste(round(tTable[4, 1], 3), " [", round(interv[4, 1], 3), ", ", round(interv[4, 3], 3), "]", sep = ""), age_p = round(tTable[4, 5], 3))
+  return(results)
+}
+# Same for models for models with covariates
+fun_extractvalues2 <- function(x){ # For models with covariates
+  interv <- matrix(unlist(intervals(x, which = "fixed")), ncol = 3)
+  tTable <- summary(x)$tTable
+  results <- data.frame(estimate_CI = paste(round(tTable[5, 1], 3), " [", round(interv[5, 1], 3), ", ", round(interv[5, 3], 3), "]", sep = ""), p = round(tTable[5, 5], 3))
+  return(results)
+}
 
 # Initialise and read data ------------------------------------------------
+setwd("~/Desktop/SleepyBrain-Analyses/")
 
 # Require packages
 require(nlme)
@@ -10,13 +32,13 @@ require(RColorBrewer)
 cols <- brewer.pal(3,"Dark2")
 
 # Read data
-files <- list.files("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles/", recursive = T)
+files <- list.files("~/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles/", recursive = T)
 files <- files[grep(files, pattern = "FACES")] # Select only logfiles from this experiment
 files <- files[grep(files, pattern = ".txt")] # Select only logfiles containing ratings
 files <- files[-grep(files, pattern = "Hanna")] # Remove logfile from one piloting run
 
 for(i in 1:length(files)){
-  thisfile <- read.delim(paste("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles/", files[i], sep = ""), header = T)
+  thisfile <- read.delim(paste("~/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles/", files[i], sep = ""), header = T)
   thisfile$file <- files[i]
   if(i == 1){
     data <- thisfile
@@ -49,14 +71,15 @@ for(i in unique(data$subject)){
 }
 
 # Retain only included subjects
-subjects <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+subjects <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 data <- merge(data, subjects[, c("Subject", "FulfillsCriteriaAndNoPathologicalFinding", "SuccessfulIntervention", "newid")], by.x = "subject", by.y = "Subject")
 data <- data[!is.na(data$FulfillsCriteriaAndNoPathologicalFinding), ]
 data$session[is.na(data$session)] <- 1 # Two participants only, should be session 1 for both
 
 # Add demographic data etc
-demdata <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
-data <- merge(data, demdata[, c("id", "AgeGroup", "Sl_cond", "IRI_EC", "PPIR_C", "ESS", "PSS14", "ECS", "PANAS_Positive_byScanner.x", "PANAS_Negative_byScanner.x", "PANAS_Positive_byScanner.y", "PANAS_Negative_byScanner.y")], by.x = "newid", by.y = "id")
+demdata <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
+data <- merge(data, demdata[, c("id", "AgeGroup", "Sl_cond", "IRI_EC", "PPIR_C", "ESS", "PSS14", "ECS", "PANAS_Positive", "PANAS_Negative", 
+                                "PANAS_Positive_byScanner.x", "PANAS_Negative_byScanner.x", "PANAS_Positive_byScanner.y", "PANAS_Negative_byScanner.y")], by.x = "newid", by.y = "id")
 data$condition <- "fullsleep"
 data$condition[data$session == 1 & data$Sl_cond == 1] <- "sleepdeprived"
 data$condition[data$session == 2 & data$Sl_cond == 2] <- "sleepdeprived"
@@ -197,13 +220,21 @@ legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep depriv
 dev.off()
 
 # Analyse covariates
+# Read KSS data
+KSS_FACES <- read_csv2("~/Box Sync/Sleepy Brain/Datafiles/KSS_FACES.csv")
+# Read sleep data
+siesta_data <- read_csv2("~/Box Sync/Sleepy Brain/Datafiles/siesta_FACES.csv")
+
+data <- merge(data, KSS_FACES, all.x = T)
+data <- merge(data, siesta_data, by.x = c("newid", "condition"), by.y = c("id", "condition"), all.x = T)
+
 # Define covariates
-covariates_across <- c("IRI_EC", "PPIR_C", "ESS", "PSS14", "ECS") # Trait measures in participants, wchich should be investigated across conditions
+covariates_across <- c("IRI_EC", "PPIR_C", "ESS", "PSS14", "ECS", "PANAS_Positive", "PANAS_Negative") # Trait measures in participants, wchich should be investigated across conditions
 # Ratings on ESS, PSS14, and ECS were added post hoc to harmonize with other outcomes, for which they were investigated as predictors
 
 covariates_within <- c("KSS_Rating", "tst", "rem", "rem_p", "n3", "n3_p") # TODO: check variable selection
 # slow wave sleep (SWS), slow wave energy (SWE), slow wave activity (SWA), REM sleep time, and predicted by prefrontal (Fp1 + Fp2) gamma activity in REM sleep.
-# PANAS
+
 
 # Prefrontal (Fp1 + Fp2) gamma (30-40 Hz) in REM sleep was also specified but this variable does not exist
 
@@ -215,32 +246,69 @@ lme_covariates_across_list <- list()
 lme_covariates_within_fullsleep_list <- list()
 lme_covariates_within_sleepdeprived_list <- list()
 # Loop over dependent variables (SPM contrasts)
-for(i in 1:length(dependent_vars)){
+for(i in 1:2){
   # Main analyses without covariates
-  fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup"))
-  this_lm_nocovariate <- lme(fml, data = amyg_joint, random = ~ 1|ID, na.action = na.omit)
+  fml <- as.formula(paste("Rating ~ Block_type * condition * AgeGroup"))
+  this_lm_nocovariate <- lme(fml, 
+                             data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == i+1, ], 
+                             random = ~1|subject/session, na.action = na.omit)
   lme_nocovariates_list[[i]] <- this_lm_nocovariate
+  print(unique(data[data$Question_type == i+1, ]$Question_type))
   
   # Loop over covariates across conditions
   for(j in 1:length(covariates_across)){
     thisindex <- (i-1)*length(covariates_across) + j
-    fml <- as.formula(paste(dependent_vars[i], "~ condition * AgeGroup +", paste(covariates_across[j])))
-    this_lm_covariate <- lme(fml, data = amyg_joint, random = ~ 1|ID, na.action = na.omit)
+    fml <- as.formula(paste("Rating ~ Block_type * condition * AgeGroup +", paste(covariates_across[j])))
+    this_lm_covariate <- lme(fml, data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == i+1, ], 
+                             random = ~1|subject/session, na.action = na.omit)
     lme_covariates_across_list[[thisindex]] <- this_lm_covariate
+    print(paste(covariates_across[j]))
   }
   
   # Loop over covariates within conditions
   for(j in 1:length(covariates_within)){
     thisindex2 <- (i-1)*length(covariates_within) + j
-    fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
-    this_lm_covariate <- lme(fml, data = amyg_joint[amyg_joint$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
+    fml <- as.formula(paste("Rating ~ Block_type * AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate <- lme(fml, 
+                             data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == i+1 & data$condition == "fullsleep", ], 
+                             random = ~1|subject/session, na.action = na.omit)
     lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
     
-    fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
-    this_lm_covariate2 <- lme(fml2, data = amyg_joint[amyg_joint$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
+    fml2 <- as.formula(paste("Rating ~ Block_type * AgeGroup +", paste(covariates_within[j])))
+    this_lm_covariate2 <- lme(fml2, 
+                              data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == i+1 & data$condition == "sleepdeprived", ], 
+                              random = ~1|subject/session, na.action = na.omit)
     lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
   }
 }
+
+
+# Write results to a table
+for(i in 1:2){
+  if (i == 1){
+    lme_results_ratings_nocovariates <- fun_extractvalues1(lme_nocovariates_list[[i]])
+  } else {
+    lme_results_ratings_nocovariates <- rbind(lme_results_ratings_nocovariates, fun_extractvalues1(lme_nocovariates_list[[i]]))
+  }
+}
+
+rownames(lme_results_ratings_nocovariates) <- c("Rated_happiness", "Rated_angriness")
+write.csv(lme_results_ratings_nocovariates, "~/Desktop/SleepyBrain-Analyses/FACES/Ratings/results_ratings_nocovariates.csv")
+# p-values for prespecified directional analyses should be changed manually to one-sided
+
+for(i in 1:length(lme_covariates_across_list)){
+  if (i == 1){
+    lme_results_ratings_covariates_across <- fun_extractvalues2(lme_covariates_across_list[[i]])
+  } else {
+    lme_results_ratings_covariates_across <- rbind(lme_results_ratings_covariates_across, fun_extractvalues2(lme_covariates_across_list[[i]]))
+  }
+}
+
+# This needs to be checked
+lme_results_ratings_covariates_across$dependent_var <- rep(c("Happy", "Angry"), each = length(lme_results_ratings_covariates_across$estimate_CI)/2)
+lme_results_ratings_covariates_across$covariate <- covariates_across
+#lme_results_ratings_covariates_across <- reshape(lme_results_ratings_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+write.csv2(lme_results_ratings_covariates_across, "~/Desktop/SleepyBrain-Analyses/FACES/Ratings/results_ratings_covariates_across.csv", row.names = F)
 
 
 # # Write datafile with aggregated ratings by participant
@@ -255,3 +323,40 @@ for(i in 1:length(dependent_vars)){
 # subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 # data_diff3 <- merge(data_diff2, subjectlist[, c("Subject", "newid")], by.x = "id", by.y = "Subject")
 # write.csv(data_diff3[, -1], "rated_anger_happiness_diff.csv", row.names = FALSE)
+
+# Analyse habituation
+setwd("~/Desktop/SleepyBrain-Analyses/FACES/Ratings/")
+pdf("plots_habituation_happiness.pdf")
+plot(1, frame.plot = F, xlim = c(0, 5), ylim = c(0, 100), xlab = "Block", ylab = "VAS rating", type = "n", main = "Rated happiness")
+points(Rating ~ block, subset(data, data$Question_type == 2 & Block_type == "Happy"), col = "red")
+points(Rating ~ block, subset(data, data$Question_type == 2 & Block_type == "Angry"), col = "blue")
+abline(lm(Rating ~ block, subset(data, data$Question_type == 2 & Block_type == "Happy")), col = "red")
+abline(lm(Rating ~ block, subset(data, data$Question_type == 2 & Block_type == "Angry")), col = "blue")
+legend("topleft",  pch = c(1, 1), legend = c("Happy", "Angry"), col = cols[c(2, 3)], bty = "n")
+dev.off()
+
+pdf("plots_habituation_angriness.pdf")
+plot(1, frame.plot = F, xlim = c(0, 5), ylim = c(0, 100), xlab = "Block", ylab = "VAS rating", type = "n", main = "Rated angriness")
+points(Rating ~ block, subset(data, data$Question_type == 3 & Block_type == "Happy"), col = "red")
+points(Rating ~ block, subset(data, data$Question_type == 3 & Block_type == "Angry"), col = "blue")
+abline(lm(Rating ~ block, subset(data, data$Question_type == 3 & Block_type == "Happy")), col = "red")
+abline(lm(Rating ~ block, subset(data, data$Question_type == 3 & Block_type == "Angry")), col = "blue")
+legend("topleft",  pch = c(1, 1), legend = c("Happy", "Angry"), col = cols[c(2, 3)], bty = "n")
+dev.off()
+
+lme_hab_happy <- lme(Rating ~ condition * AgeGroup + Block_type * block, data = data[data$Question_type == 2, ], random = ~1|subject/session)
+summary(lme_hab_happy)
+intervals(lme_hab_happy)
+sink(file = "results_ratings_habituation_happiness.txt") 
+summary(lme_hab_happy) 
+intervals(lme_hab_happy, which = "fixed")
+sink()
+
+lme_hab_angry <- lme(Rating ~ condition * AgeGroup * Block_type + block, data = data[data$Question_type == 3, ], random = ~1|subject/session)
+summary(lme_hab_angry)
+intervals(lme_hab_angry)
+sink(file = "results_ratings_habituation_angriness.txt") 
+summary(lme_hab_angry) 
+intervals(lme_hab_angry, which = "fixed")
+sink()
+
