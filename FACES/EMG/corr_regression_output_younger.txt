@@ -17,20 +17,20 @@ StdDev: 0.0005014143
 StdDev: 0.0004738691 0.0002138547
 
 Fixed effects: corr_resid ~ stimulus * condition 
-                             Value    Std.Error  DF    t-value p-value
-(Intercept)          -1.108023e-04 7.048993e-05 516 -1.5718881  0.1166
-stimulus1             8.180870e-06 1.251754e-05 516  0.6535526  0.5137
-stimulus2            -1.361522e-05 1.251754e-05 516 -1.0876917  0.2772
-condition1           -1.975762e-04 1.387068e-04  28 -1.4244157  0.1654
-stimulus1:condition1  1.178890e-05 2.503507e-05 516  0.4708954  0.6379
-stimulus2:condition1 -3.290562e-05 2.503507e-05 516 -1.3143808  0.1893
+                                 Value    Std.Error  DF    t-value p-value
+(Intercept)              -1.108023e-04 7.048993e-05 516 -1.5718881  0.1166
+stimulusangry             8.180870e-06 1.251754e-05 516  0.6535526  0.5137
+stimulushappy            -1.361522e-05 1.251754e-05 516 -1.0876917  0.2772
+condition1               -1.975762e-04 1.387068e-04  28 -1.4244157  0.1654
+stimulusangry:condition1  1.178890e-05 2.503507e-05 516  0.4708954  0.6379
+stimulushappy:condition1 -3.290562e-05 2.503507e-05 516 -1.3143808  0.1893
  Correlation: 
-                     (Intr) stmls1 stmls2 cndtn1 stm1:1
-stimulus1            0.000                             
-stimulus2            0.000  0.500                      
-condition1           0.046  0.000  0.000               
-stimulus1:condition1 0.000  0.046  0.023  0.000        
-stimulus2:condition1 0.000  0.023  0.046  0.000  0.500 
+                         (Intr) stmlsn stmlsh cndtn1 stmlsn:1
+stimulusangry            0.000                               
+stimulushappy            0.000  0.500                        
+condition1               0.046  0.000  0.000                 
+stimulusangry:condition1 0.000  0.046  0.023  0.000          
+stimulushappy:condition1 0.000  0.023  0.046  0.000  0.500   
 
 Standardized Within-Group Residuals:
           Min            Q1           Med            Q3           Max 
@@ -38,19 +38,17 @@ Standardized Within-Group Residuals:
 
 Number of Observations: 780
 Number of Groups: 
-                        subject            session %in% subject 
-                             36                              65 
-block %in% session %in% subject 
-                            260 
+                        subject            session %in% subject block %in% session %in% subject 
+                             36                              65                             260 
 Approximate 95% confidence intervals
 
  Fixed effects:
-                             lower          est.        upper
-(Intercept)          -2.492848e-04 -1.108023e-04 2.768026e-05
-stimulus1            -1.641073e-05  8.180869e-06 3.277247e-05
-stimulus2            -3.820682e-05 -1.361522e-05 1.097638e-05
-condition1           -4.817042e-04 -1.975762e-04 8.655187e-05
-stimulus1:condition1 -3.739431e-05  1.178890e-05 6.097211e-05
-stimulus2:condition1 -8.208883e-05 -3.290562e-05 1.627758e-05
+                                 lower          est.        upper
+(Intercept)              -2.492848e-04 -1.108023e-04 2.768026e-05
+stimulusangry            -1.641073e-05  8.180869e-06 3.277247e-05
+stimulushappy            -3.820682e-05 -1.361522e-05 1.097638e-05
+condition1               -4.817042e-04 -1.975762e-04 8.655187e-05
+stimulusangry:condition1 -3.739431e-05  1.178890e-05 6.097211e-05
+stimulushappy:condition1 -8.208883e-05 -3.290562e-05 1.627758e-05
 attr(,"label")
 [1] "Fixed effects:"

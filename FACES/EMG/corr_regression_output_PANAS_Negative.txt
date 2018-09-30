@@ -1,0 +1,54 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2 
+        AIC       BIC   logLik
+  -15236.38 -15185.23 7628.191
+
+Random effects:
+ Formula: ~1 | subject
+         (Intercept)
+StdDev: 3.996503e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0004797796
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)     Residual
+StdDev: 0.0003722075 0.0003478343
+
+Fixed effects: corr_resid ~ stimulus * PANAS_Negative 
+                                     Value    Std.Error  DF    t-value p-value
+(Intercept)                   2.116311e-05 1.608482e-04 820  0.1315719  0.8954
+stimulusangry                -3.464414e-05 5.030260e-05 820 -0.6887147  0.4912
+stimulushappy                -2.601483e-05 5.030260e-05 820 -0.5171667  0.6052
+PANAS_Negative               -7.667470e-06 9.090130e-06  62 -0.8434941  0.4022
+stimulusangry:PANAS_Negative  3.377110e-06 2.842790e-06 820  1.1879573  0.2352
+stimulushappy:PANAS_Negative  1.543050e-06 2.842790e-06 820  0.5427966  0.5874
+ Correlation: 
+                             (Intr) stmlsn stmlsh PANAS_ stmlsn:PANAS_N
+stimulusangry                 0.000                                    
+stimulushappy                 0.000  0.500                             
+PANAS_Negative               -0.947  0.000  0.000                      
+stimulusangry:PANAS_Negative  0.000 -0.947 -0.474  0.000               
+stimulushappy:PANAS_Negative  0.000 -0.474 -0.947  0.000  0.500        
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-10.43675647  -0.04794845   0.01869589   0.05141253  14.75688761 
+
+Number of Observations: 1236
+Number of Groups: 
+                        subject            session %in% subject block %in% session %in% subject 
+                             64                             103                             412 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                                     lower          est.        upper
+(Intercept)                  -2.945596e-04  2.116311e-05 3.368858e-04
+stimulusangry                -1.333811e-04 -3.464414e-05 6.409288e-05
+stimulushappy                -1.247518e-04 -2.601483e-05 7.272218e-05
+PANAS_Negative               -2.583838e-05 -7.667470e-06 1.050344e-05
+stimulusangry:PANAS_Negative -2.202886e-06  3.377108e-06 8.957102e-06
+stimulushappy:PANAS_Negative -4.036940e-06  1.543054e-06 7.123048e-06
+attr(,"label")
+[1] "Fixed effects:"

@@ -1,0 +1,54 @@
+Linear mixed-effects model fit by REML
+ Data: blockdata2 
+        AIC       BIC   logLik
+  -15238.12 -15186.97 7629.061
+
+Random effects:
+ Formula: ~1 | subject
+        (Intercept)
+StdDev: 5.66798e-07
+
+ Formula: ~1 | session %in% subject
+         (Intercept)
+StdDev: 0.0004817594
+
+ Formula: ~1 | block %in% session %in% subject
+         (Intercept)   Residual
+StdDev: 0.0003721684 0.00034796
+
+Fixed effects: corr_resid ~ stimulus * ESS 
+                          Value    Std.Error  DF    t-value p-value
+(Intercept)       -9.541719e-05 1.203376e-04 820 -0.7929127  0.4281
+stimulusangry     -7.754600e-06 3.751748e-05 820 -0.2066931  0.8363
+stimulushappy     -8.345070e-06 3.751748e-05 820 -0.2224314  0.8240
+ESS               -1.657140e-06 1.511575e-05  62 -0.1096297  0.9131
+stimulusangry:ESS  4.134140e-06 4.712620e-06 820  0.8772501  0.3806
+stimulushappy:ESS  1.139630e-06 4.712620e-06 820  0.2418253  0.8090
+ Correlation: 
+                  (Intr) stmlsn stmlsh ESS    stmlsn:ESS
+stimulusangry      0.000                                
+stimulushappy      0.000  0.500                         
+ESS               -0.902  0.000  0.000                  
+stimulusangry:ESS  0.000 -0.902 -0.451  0.000           
+stimulushappy:ESS  0.000 -0.451 -0.902  0.000  0.500    
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-10.42931523  -0.04248197   0.02168141   0.05020694  14.75202089 
+
+Number of Observations: 1236
+Number of Groups: 
+                        subject            session %in% subject block %in% session %in% subject 
+                             64                             103                             412 
+Approximate 95% confidence intervals
+
+ Fixed effects:
+                          lower          est.        upper
+(Intercept)       -3.316231e-04 -9.541719e-05 1.407888e-04
+stimulusangry     -8.139621e-05 -7.754604e-06 6.588701e-05
+stimulushappy     -8.198668e-05 -8.345068e-06 6.529654e-05
+ESS               -3.187309e-05 -1.657136e-06 2.855882e-05
+stimulusangry:ESS -5.116070e-06  4.134144e-06 1.338436e-05
+stimulushappy:ESS -8.110584e-06  1.139630e-06 1.038985e-05
+attr(,"label")
+[1] "Fixed effects:"

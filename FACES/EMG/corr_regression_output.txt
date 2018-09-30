@@ -17,44 +17,44 @@ StdDev: 0.0004763377
 StdDev: 0.0003721408 0.0003480486
 
 Fixed effects: corr_resid ~ stimulus * condition * AgeGroup 
-                                       Value    Std.Error  DF    t-value p-value
-(Intercept)                    -0.0001138257 5.379641e-05 816 -2.1158594  0.0347
-stimulus1                       0.0000254626 1.681797e-05 816  1.5140139  0.1304
-stimulus2                       0.0000025765 1.681797e-05 816  0.1531995  0.8783
-condition1                     -0.0000234195 1.069962e-04  37 -0.2188820  0.8279
-AgeGroup1                      -0.0000059971 1.075928e-04  62 -0.0557389  0.9557
-stimulus1:condition1            0.0000364400 3.363593e-05 816  1.0833654  0.2790
-stimulus2:condition1            0.0000101029 3.363593e-05 816  0.3003592  0.7640
-stimulus1:AgeGroup1             0.0000345635 3.363593e-05 816  1.0275776  0.3045
-stimulus2:AgeGroup1             0.0000323835 3.363593e-05 816  0.9627636  0.3360
-condition1:AgeGroup1            0.0003479448 2.139923e-04  37  1.6259684  0.1124
-stimulus1:condition1:AgeGroup1  0.0000493022 6.727187e-05 816  0.7328801  0.4638
-stimulus2:condition1:AgeGroup1  0.0000860170 6.727187e-05 816  1.2786469  0.2014
+                                           Value    Std.Error  DF    t-value p-value
+(Intercept)                        -0.0001138257 5.379641e-05 816 -2.1158594  0.0347
+stimulusangry                       0.0000254626 1.681797e-05 816  1.5140139  0.1304
+stimulushappy                       0.0000025765 1.681797e-05 816  0.1531995  0.8783
+condition1                         -0.0000234195 1.069962e-04  37 -0.2188820  0.8279
+AgeGroup1                          -0.0000059971 1.075928e-04  62 -0.0557389  0.9557
+stimulusangry:condition1            0.0000364400 3.363593e-05 816  1.0833654  0.2790
+stimulushappy:condition1            0.0000101029 3.363593e-05 816  0.3003592  0.7640
+stimulusangry:AgeGroup1             0.0000345635 3.363593e-05 816  1.0275776  0.3045
+stimulushappy:AgeGroup1             0.0000323835 3.363593e-05 816  0.9627636  0.3360
+condition1:AgeGroup1                0.0003479448 2.139923e-04  37  1.6259684  0.1124
+stimulusangry:condition1:AgeGroup1  0.0000493022 6.727187e-05 816  0.7328801  0.4638
+stimulushappy:condition1:AgeGroup1  0.0000860170 6.727187e-05 816  1.2786469  0.2014
  Correlation: 
-                               (Intr) stmls1 stmls2 cndtn1 AgGrp1 stm1:1 stm2:1 s1:AG1
-stimulus1                       0.000                                                 
-stimulus2                       0.000  0.500                                          
-condition1                     -0.050  0.000  0.000                                   
-AgeGroup1                       0.265  0.000  0.000 -0.084                            
-stimulus1:condition1            0.000 -0.050 -0.025  0.000  0.000                     
-stimulus2:condition1            0.000 -0.025 -0.050  0.000  0.000  0.500              
-stimulus1:AgeGroup1             0.000  0.266  0.133  0.000  0.000 -0.084 -0.042       
-stimulus2:AgeGroup1             0.000  0.133  0.266  0.000  0.000 -0.042 -0.084  0.500
-condition1:AgeGroup1           -0.084  0.000  0.000  0.268 -0.050  0.000  0.000  0.000
-stimulus1:condition1:AgeGroup1  0.000 -0.084 -0.042  0.000  0.000  0.266  0.133 -0.050
-stimulus2:condition1:AgeGroup1  0.000 -0.042 -0.084  0.000  0.000  0.133  0.266 -0.025
-                               s2:AG1 c1:AG1 s1:1:A
-stimulus1                                          
-stimulus2                                          
-condition1                                         
-AgeGroup1                                          
-stimulus1:condition1                               
-stimulus2:condition1                               
-stimulus1:AgeGroup1                                
-stimulus2:AgeGroup1                                
-condition1:AgeGroup1            0.000              
-stimulus1:condition1:AgeGroup1 -0.025  0.000       
-stimulus2:condition1:AgeGroup1 -0.050  0.000  0.500
+                                   (Intr) stmlsn stmlsh cndtn1 AgGrp1 stmlsn:1 stmlsh:1 stmlsn:AG1
+stimulusangry                       0.000                                                         
+stimulushappy                       0.000  0.500                                                  
+condition1                         -0.050  0.000  0.000                                           
+AgeGroup1                           0.265  0.000  0.000 -0.084                                    
+stimulusangry:condition1            0.000 -0.050 -0.025  0.000  0.000                             
+stimulushappy:condition1            0.000 -0.025 -0.050  0.000  0.000  0.500                      
+stimulusangry:AgeGroup1             0.000  0.266  0.133  0.000  0.000 -0.084   -0.042             
+stimulushappy:AgeGroup1             0.000  0.133  0.266  0.000  0.000 -0.042   -0.084    0.500    
+condition1:AgeGroup1               -0.084  0.000  0.000  0.268 -0.050  0.000    0.000    0.000    
+stimulusangry:condition1:AgeGroup1  0.000 -0.084 -0.042  0.000  0.000  0.266    0.133   -0.050    
+stimulushappy:condition1:AgeGroup1  0.000 -0.042 -0.084  0.000  0.000  0.133    0.266   -0.025    
+                                   stmlsh:AG1 c1:AG1 stmlsn:1:AG1
+stimulusangry                                                    
+stimulushappy                                                    
+condition1                                                       
+AgeGroup1                                                        
+stimulusangry:condition1                                         
+stimulushappy:condition1                                         
+stimulusangry:AgeGroup1                                          
+stimulushappy:AgeGroup1                                          
+condition1:AgeGroup1                0.000                        
+stimulusangry:condition1:AgeGroup1 -0.025      0.000             
+stimulushappy:condition1:AgeGroup1 -0.050      0.000  0.500      
 
 Standardized Within-Group Residuals:
           Min            Q1           Med            Q3           Max 
@@ -62,25 +62,23 @@ Standardized Within-Group Residuals:
 
 Number of Observations: 1236
 Number of Groups: 
-                        subject            session %in% subject 
-                             64                             103 
-block %in% session %in% subject 
-                            412 
+                        subject            session %in% subject block %in% session %in% subject 
+                             64                             103                             412 
 Approximate 95% confidence intervals
 
  Fixed effects:
-                                       lower          est.         upper
-(Intercept)                    -2.194213e-04 -1.138257e-04 -8.229992e-06
-stimulus1                      -7.548938e-06  2.546263e-05  5.847421e-05
-stimulus2                      -3.043507e-05  2.576504e-06  3.558808e-05
-condition1                     -2.402143e-04 -2.341953e-05  1.933753e-04
-AgeGroup1                      -2.210721e-04 -5.997111e-06  2.090779e-04
-stimulus1:condition1           -2.958314e-05  3.644001e-05  1.024632e-04
-stimulus2:condition1           -5.592029e-05  1.010286e-05  7.612601e-05
-stimulus1:AgeGroup1            -3.145961e-05  3.456353e-05  1.005867e-04
-stimulus2:AgeGroup1            -3.363970e-05  3.238345e-05  9.840660e-05
-condition1:AgeGroup1           -8.564486e-05  3.479448e-04  7.815344e-04
-stimulus1:condition1:AgeGroup1 -8.274408e-05  4.930221e-05  1.813485e-04
-stimulus2:condition1:AgeGroup1 -4.602933e-05  8.601696e-05  2.180633e-04
+                                           lower          est.         upper
+(Intercept)                        -2.194213e-04 -1.138257e-04 -8.229992e-06
+stimulusangry                      -7.548938e-06  2.546263e-05  5.847421e-05
+stimulushappy                      -3.043507e-05  2.576504e-06  3.558808e-05
+condition1                         -2.402143e-04 -2.341953e-05  1.933753e-04
+AgeGroup1                          -2.210721e-04 -5.997111e-06  2.090779e-04
+stimulusangry:condition1           -2.958314e-05  3.644001e-05  1.024632e-04
+stimulushappy:condition1           -5.592029e-05  1.010286e-05  7.612601e-05
+stimulusangry:AgeGroup1            -3.145961e-05  3.456353e-05  1.005867e-04
+stimulushappy:AgeGroup1            -3.363970e-05  3.238345e-05  9.840660e-05
+condition1:AgeGroup1               -8.564486e-05  3.479448e-04  7.815344e-04
+stimulusangry:condition1:AgeGroup1 -8.274408e-05  4.930221e-05  1.813485e-04
+stimulushappy:condition1:AgeGroup1 -4.602933e-05  8.601696e-05  2.180633e-04
 attr(,"label")
 [1] "Fixed effects:"
