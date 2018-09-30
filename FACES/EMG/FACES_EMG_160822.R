@@ -8,7 +8,7 @@ cols <- brewer.pal(3,"Dark2")
 
 # Read data
 # Define files
-files <- list.files("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Acqknowledge_logfiles_exported/")
+files <- list.files("~/Box Sync/Sleepy Brain/Datafiles/Acqknowledge_logfiles_exported/")
 files <- files[-grep(files, pattern = "excluded")] # Remove files from participants excluded from the experiment altogether
 files <- files[-length(files)] # Remove last, provisional due to zipped archive present in folder
 
@@ -21,7 +21,7 @@ files <- files[files != "9025_2.txt"] # Remove file where reference wave was on 
 
 # Loop over data files, read them, write check plots for reference waves, regress the signals on one another
 for(i in 1:length(files)){
-  data <- read.delim(paste("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Acqknowledge_logfiles_exported/", files[i], sep = ""), skip = 19, header = F)
+  data <- read.delim(paste("~/Box Sync/Sleepy Brain/Datafiles/Acqknowledge_logfiles_exported/", files[i], sep = ""), skip = 19, header = F)
   data <- data[, c(1, 4:8)]
   subject_session <- substr(files[i], 1, 6)
   plot(data$V6, type = "l", frame.plot = F, col = "gray", xlab = "Time (min)", ylab = "", xaxt = "n", main = subject_session)
@@ -183,9 +183,9 @@ qqline(blockdata$log_corr_resid)
 # Data are not well approximating a normal distribution, but it looks like a log transformation won't help
 
 # Read demographic and other data, add, prepare for modelling
-demdata <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
+demdata <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonymized.csv")
 blockdata <- merge(blockdata, demdata[, c("id", "AgeGroup", "Sl_cond")], by.x = "subject", by.y = "id")
-subjects <- read.csv2("C:/Users/gusta/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+subjects <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 blockdata <- merge(blockdata, subjects[, c("SuccessfulIntervention", "newid")], by.x = "subject", by.y = "newid")
 
 blockdata$condition <- "fullsleep"
@@ -454,14 +454,14 @@ lm_diff <- lm(diff_zyg ~ diff_corr, data = data_diff2)
 abline(lm_diff, col = "red")
 cor.test(data_diff2$diff_corr, data_diff2$diff_zyg, method = "kendall")
 
-subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+subjectlist <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 data_diff3 <- merge(data_diff2, subjectlist[, c("Subject", "newid")], by.x = "id", by.y = "newid")
 
 write.csv(data_diff3[, -1], "EMG_diff.csv", row.names = FALSE)
 
 # Temporary workaround to fix file written with wrong ID:s
 temp <- read.csv("EMG_diff.csv")
-subjectlist <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+subjectlist <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 temp2 <- merge(temp, subjectlist[, c("Subject", "newid")])
 temp2 <- temp2[, -1]
 write.csv(temp2, "EMG_diff_2.csv", row.names = FALSE)
@@ -528,8 +528,8 @@ summary(lme2g)
 intervals(lme2g, which = "fixed")
 sink() 
 
-blockdata2 <- merge(blockdata2, demdata[, c("id", "IRI_EC", "PANAS_Positive_byScanner.x", "PANAS_Positive_byScanner.y", "PANAS_Negative_byScanner.x", "PANAS_Negative_byScanner.y",
-                                            "PSS14", "PPIR_C")], by.x = "subject", by.y = "id")
+blockdata2 <- merge(blockdata2, demdata[, c("id", "IRI_EC", "PANAS_Positive", "PANAS_Negative", 
+                                            "PSS14", "PPIR_C", "ESS", "ECS")], by.x = "subject", by.y = "id")
 
 lme1h <- lme(zyg_resid ~ stimulus*IRI_EC, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
 plot(lme1h)
@@ -589,6 +589,80 @@ summary(lme2l)
 intervals(lme2l, which = "fixed")
 sink()
 
+lme1m <- lme(zyg_resid ~ stimulus*ESS, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme1m)
+plot(effect("ESS", lme1m))
+summary(lme1m)
+sink(file = "FACES/EMG/zyg_regression_output_ESS.txt") 
+summary(lme1m) 
+intervals(lme1m, which = "fixed")
+sink() 
+
+lme2m <- lme(corr_resid ~ stimulus*ESS, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme2m)
+plot(effect("ESS", lme2m))
+summary(lme2m)
+sink(file = "FACES/EMG/corr_regression_output_ESS.txt") 
+summary(lme2m) 
+intervals(lme2m, which = "fixed")
+sink()
+
+
+lme1n <- lme(zyg_resid ~ stimulus*ECS, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme1n)
+plot(effect("ECS", lme1n))
+summary(lme1n)
+sink(file = "FACES/EMG/zyg_regression_output_ECS.txt") 
+summary(lme1n) 
+intervals(lme1n, which = "fixed")
+sink() 
+
+lme2n <- lme(corr_resid ~ stimulus*ECS, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme2n)
+plot(effect("ECS", lme2n))
+summary(lme2n)
+sink(file = "FACES/EMG/corr_regression_output_ECS.txt") 
+summary(lme2n) 
+intervals(lme2n, which = "fixed")
+sink()
+
+lme1o <- lme(zyg_resid ~ stimulus*PANAS_Positive, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme1o)
+plot(effect("PANAS_Positive", lme1o))
+summary(lme1o)
+sink(file = "FACES/EMG/zyg_regression_output_PANAS_Positive.txt") 
+summary(lme1o) 
+intervals(lme1o, which = "fixed")
+sink() 
+
+lme2o <- lme(corr_resid ~ stimulus*PANAS_Positive, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme2o)
+plot(effect("PANAS_Positive", lme2o))
+summary(lme2o)
+sink(file = "FACES/EMG/corr_regression_output_PANAS_Positive.txt") 
+summary(lme2o) 
+intervals(lme2o, which = "fixed")
+sink()
+
+
+
+lme1p <- lme(zyg_resid ~ stimulus*PANAS_Negative, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme1p)
+plot(effect("PANAS_Negative", lme1p))
+summary(lme1p)
+sink(file = "FACES/EMG/zyg_regression_output_PANAS_Negative.txt") 
+summary(lme1p) 
+intervals(lme1p, which = "fixed")
+sink() 
+
+lme2p <- lme(corr_resid ~ stimulus*PANAS_Negative, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+plot(lme2p)
+plot(effect("PANAS_Negative", lme2p))
+summary(lme2p)
+sink(file = "FACES/EMG/corr_regression_output_PANAS_Negative.txt") 
+summary(lme2p) 
+intervals(lme2p, which = "fixed")
+sink()
 
 #############################
 EMG responses will be predicted by 
