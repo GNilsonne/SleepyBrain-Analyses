@@ -39,14 +39,22 @@ demdata <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/demdata_160225_pseudonym
 
 # Amygdala and FFA data
 setwd("~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses")
-amyg_L_fullsleep <- read.csv("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
-amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
-amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
-amyg_R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
-FFA_L_fullsleep <- read.csv("FFA_ROI_betas_L_fullsleep.csv", sep=";", dec=",")
-FFA_R_fullsleep <- read.csv("FFA_ROI_betas_R_fullsleep.csv", sep=";", dec=",")
-FFA_L_sleepdeprived <- read.csv("FFA_ROI_betas_L_sleepdeprived.csv", sep=";", dec=",")
-FFA_R_sleepdeprived <- read.csv("FFA_ROI_betas_R_sleepdeprived.csv", sep=";", dec=",")
+amyg_L_fullsleep <- read.csv2("amygdala_ROI_betas_L_fullsleep.csv", sep=";", dec=".")
+colnames(amyg_L_fullsleep)[1] <- 'ID'
+amyg_R_fullsleep <- read.csv("amygdala_ROI_betas_R_fullsleep.csv", sep=";", dec=".")
+colnames(amyg_R_fullsleep)[1] <- 'ID'
+amyg_L_sleepdeprived <- read.csv("amygdala_ROI_betas_L_sleepdeprived.csv", sep=";", dec=".")
+colnames(amyg_L_sleepdeprived)[1] <- 'ID'
+amyg_R_sleepdeprived <- read.csv("amygdala_ROI_betas_R_sleepdeprived.csv", sep=";", dec=".")
+colnames(amyg_R_sleepdeprived)[1] <- 'ID'
+FFA_L_fullsleep <- read.csv("FFA_ROI_betas_L_fullsleep.csv", sep=";", dec=".")
+colnames(FFA_L_fullsleep)[1] <- 'ID'
+FFA_R_fullsleep <- read.csv("FFA_ROI_betas_R_fullsleep.csv", sep=";", dec=".")
+colnames(FFA_R_fullsleep)[1] <- 'ID'
+FFA_L_sleepdeprived <- read.csv("FFA_ROI_betas_L_sleepdeprived.csv", sep=";", dec=".")
+colnames(FFA_L_sleepdeprived)[1] <- 'ID'
+FFA_R_sleepdeprived <- read.csv("FFA_ROI_betas_R_sleepdeprived.csv", sep=";", dec=".")
+colnames(FFA_R_sleepdeprived)[1] <- 'ID'
 
 # KSS data
 setwd("~/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles")
@@ -205,16 +213,16 @@ for(i in 1:length(dependent_vars)){
   }
 
   # Loop over covariates within conditions
-  for(j in 1:length(covariates_within)){
-    thisindex2 <- (i-1)*length(covariates_within) + j
-    fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
-    this_lm_covariate <- lme(fml, data = amyg_joint[amyg_joint$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
-    lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
+  #for(j in 1:length(covariates_within)){
+    #thisindex2 <- (i-1)*length(covariates_within) + j
+    #fml <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    #this_lm_covariate <- lme(fml, data = amyg_joint[amyg_joint$condition == "fullsleep", ], random = ~ 1|ID, na.action = na.omit)
+    #lme_covariates_within_fullsleep_list[[thisindex2]] <- this_lm_covariate
     
-    fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
-    this_lm_covariate2 <- lme(fml2, data = amyg_joint[amyg_joint$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
-    lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
-  }
+    #fml2 <- as.formula(paste(dependent_vars[i], "~ AgeGroup +", paste(covariates_within[j])))
+    #this_lm_covariate2 <- lme(fml2, data = amyg_joint[amyg_joint$condition == "sleepdeprived", ], random = ~ 1|ID, na.action = na.omit)
+   # lme_covariates_within_sleepdeprived_list[[thisindex2]] <- this_lm_covariate2
+  #}
 }
 
 # Write results to a table
@@ -239,9 +247,27 @@ for(i in 1:length(lme_covariates_across_list)){
 }
 
 lme_results_amyg_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_amyg_covariates_across$estimate_CI)/8)
-lme_results_amyg_covariates_across$covariate <- covariates
+lme_results_amyg_covariates_across$covariate <- covariates_across
 lme_results_amyg_covariates_across <- reshape(lme_results_amyg_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
-write.csv(lme_results_amyg_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates_across.csv", row.names = F)
+write.csv(lme_results_amyg_covariates_across, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates_across.csv", row.names = F)
+
+# To be done for publication
+# for(i in 1:length(lme_covariates_within_fullsleep_list)){
+#   if (i == 1){
+#     lme_results_amyg_covariates_within_fullsleep <- fun_extractvalues2(lme_covariates_within_fullsleep_list[[i]])
+#   } else {
+#     lme_results_amyg_covariates_within_fullsleep <- rbind(lme_results_amyg_covariates_within_fullsleep, fun_extractvalues2(lme_covariates_within_fullsleep_list[[i]]))
+#   }
+# }
+# 
+# 
+# # Needs to be checked
+# lme_results_amyg_covariates_within_fullsleep$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_amyg_covariates_within_fullsleep$estimate_CI)/8)
+# lme_results_amyg_covariates_within_fullsleep$covariate <- covariates_within
+# lme_results_amyg_covariates_within_fullsleep <- reshape(lme_results_amyg_covariates_within_fullsleep, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
+# #write.csv(lme_results_amyg_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_amyg_covariates_across.csv", row.names = F)
+
+
 
 # # TODO: Plot results
 # # This snippet is pasted from elsewhere and requires considerable adaptation
@@ -373,7 +399,7 @@ for(i in 1:length(dependent_vars)){
 }
 
 rownames(lme_results_FFA_L_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
-write.csv(lme_results_FFA_L_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_nocovariates.csv")
+write.csv(lme_results_FFA_L_nocovariates, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_nocovariates.csv")
 # p-values for prespecified directional analyses should be changed manually to one-sided
 
 for(i in 1:length(lme_covariates_across_list)){
@@ -385,9 +411,9 @@ for(i in 1:length(lme_covariates_across_list)){
 }
 
 lme_results_FFA_L_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_L_covariates_across$estimate_CI)/8)
-lme_results_FFA_L_covariates_across$covariate <- covariates
+lme_results_FFA_L_covariates_across$covariate <- covariates_across
 lme_results_FFA_L_covariates_across <- reshape(lme_results_FFA_L_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
-write.csv(lme_results_FFA_L_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_covariates_across.csv", row.names = F)
+write.csv(lme_results_FFA_L_covariates_across, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_L_covariates_across.csv", row.names = F)
 
 
 # Then FFA right side
@@ -437,7 +463,7 @@ for(i in 1:length(dependent_vars)){
 }
 
 rownames(lme_results_FFA_R_nocovariates) <- c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline")
-write.csv(lme_results_FFA_R_nocovariates, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_nocovariates.csv")
+write.csv(lme_results_FFA_R_nocovariates, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_nocovariates.csv")
 # p-values for prespecified directional analyses should be changed manually to one-sided
 
 for(i in 1:length(lme_covariates_across_list)){
@@ -449,7 +475,7 @@ for(i in 1:length(lme_covariates_across_list)){
 }
 
 lme_results_FFA_R_covariates_across$dependent_var <- rep(c("Happy_vs_Angry", "Happy_vs_Neutral", "Angry_vs_Neutral", "Happy_vs_Baseline", "Angry_vs_Baseline", "Neutral_vs_Baseline", "Happy_and_Angry_vs_Baseline", "All_vs_Baseline"), each = length(lme_results_FFA_R_covariates_across$estimate_CI)/8)
-lme_results_FFA_R_covariates_across$covariate <- covariates
+lme_results_FFA_R_covariates_across$covariate <- covariates_across
 lme_results_FFA_R_covariates_across <- reshape(lme_results_FFA_R_covariates_across, direction = "wide", v.names = c("estimate_CI", "p"), timevar = "covariate", idvar = "dependent_var")
-write.csv(lme_results_FFA_R_covariates_across, "~/Git Sleepy Brain/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_covariates_across.csv", row.names = F)
+write.csv(lme_results_FFA_R_covariates_across, "~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/results_FFA_R_covariates_across.csv", row.names = F)
 
