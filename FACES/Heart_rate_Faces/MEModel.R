@@ -35,7 +35,7 @@ IncludedSubjects <- as.integer(IncludedSubjects$SuccessfulIntervention)
 filenames <- Files
 filenames[substr(filenames, 3, 3) == "_"] <- paste(0, filenames[substr(filenames, 3, 3) == "_"], sep = "")
 
-# Start here and think of what should acually be done
+
 
 timecoursesNeutral <- data.frame(time = 1:2401)
 timecoursesHappy <- data.frame(time = 1:2401)
