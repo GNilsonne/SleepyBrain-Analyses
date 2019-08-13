@@ -364,18 +364,22 @@ data_out$diameter <- (data_out$height + data_out$width)/2
 # Make data frame with mean responses for each event
 data_eventmeans <- NULL
 for (i in unique(data_out$subject)){
-  for (j in unique(data_out$event_no[data_out$subject == i])){
-    cutout5 <- data_out[data_out$subject == i & data_out$event_no == j, ]
-    eventmeans <- data.frame(subject = cutout5$subject[1], date = cutout5$date[1], 
-                             event_no <- cutout5$event_no[1], stimulus <- cutout5$stimulus[1],
-                             mean_event <- mean(cutout5$diameter[21:60]))
-    if(exists("data_eventmeans") == FALSE){
-      data_eventmeans <- eventmeans
-    } else {
-      data_eventmeans <- rbind(data_eventmeans, eventmeans)
+  data_subject <- subset(data_out, subject == i)
+  for (k in unique(data_subject$date)){
+    for (j in unique(data_out$event_no[data_out$subject == i])){
+      cutout5 <- data_subject[data_subject$date == k & data_subject$event_no == j, ]
+      eventmeans <- data.frame(subject = cutout5$subject[1], date = cutout5$date[1], 
+                               event_no <- cutout5$event_no[1], stimulus <- cutout5$stimulus[1],
+                               mean_event <- mean(cutout5$diameter[21:60]))
+      if(exists("data_eventmeans") == FALSE){
+        data_eventmeans <- eventmeans
+      } else {
+        data_eventmeans <- rbind(data_eventmeans, eventmeans)
+      }
     }
   }
 }
+
 names(data_eventmeans) <- c("subject", "date", "event_no", "stimulus", "mean_event")
 # Removes NA caused by last registrations that are not complete
 data_eventmeans <- subset(data_eventmeans, !is.na(mean_event))
