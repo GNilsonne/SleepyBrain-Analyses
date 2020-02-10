@@ -64,6 +64,21 @@ IncludedAnyAnalysis <- as.integer(IncludedSubjects$IncludedAnyfMRI)
 Data_all <- Data[Data$Subject %in% as.integer(IncludedAnyAnalysis), ]
 Data <- Data[Data$Subject %in% as.integer(IncludedForIntervention), ]
 
+# Save file to use in other analyses
+Data_ROIs <- subset(Data_all, select = c("Subject", "DeprivationCondition", "Amygdala_L_negneu_full", 
+                    "Amygdala_R_negneu_full", "Amygdala_R_negneu_0s", "Amygdala_L_negneu_0s", "Amygdala_R_Down", "Amygdala_L_Down", "dlPFC_L_Down", 
+                    "dlPFC_R_Down", "lOFC_L_Down","lOFC_R_Down"))
+
+
+subjectlist <- read.csv("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv", sep=";")
+Data_ROIs <- merge(Data_ROIs, subjectlist[, c("Subject", "newid")])
+Data_ROIs <- subset(Data_ROIs, select = -c(Subject))
+names(Data_ROIs)[12] <- "Subject"
+write.csv2(Data_ROIs, "~/Desktop/SleepyBrain_ARROWS/Data/Data_ROIs_all.csv", row.names = F)
+
+
+Data_all <- Data_all[order(Data_all$Subject), ]
+
 
 plot.mean <- function(x) {
   m <- mean(x)
