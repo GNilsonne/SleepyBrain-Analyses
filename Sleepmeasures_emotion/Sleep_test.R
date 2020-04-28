@@ -4,8 +4,6 @@
 library(readr)
 library(corrplot)
 library(Hmisc)
-library(nlme)
-require(Gmisc)
 setwd("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/")
 source('Utils/SummarisingFunctions.R', chdir = T)
 
@@ -16,23 +14,22 @@ Data_HANDSRatings <- read.csv("~/Desktop/SleepyBrain_HANDS/Data/Data_HANDS_ratin
 Demographic <- Data_HANDSRatings[!duplicated(Data_HANDSRatings$Subject),]
 Demographic <- subset(Data_HANDSRatings, Picture_no. == 1)
 
-Demographic_tabledata <- Demographic
-
 
 Ratings <- subset(Data_HANDSRatings, select = c("Condition", "Rated_Unpleasantness", "Subject", "DeprivationCondition"))
 
-Ratings <- summarySE(data <- Ratings, measurevar = "Rated_Unpleasantness", 
-                     groupvars = c("Condition", "Subject", "DeprivationCondition"),
-                     na.rm = T) 
-
 Ratings_pain <- subset(Ratings, Condition == "Pain")
 Ratings_nopain <- subset(Ratings, Condition == "No_Pain")
+
+Ratings_nopain <- summarySE(data <- Ratings_nopain, measurevar = "Rated_Unpleasantness", 
+groupvars = c("Subject", "DeprivationCondition"),
+na.rm = T) 
+
 
 Ratings_wide <- merge(Ratings_pain, Ratings_nopain, by = c("Subject", "DeprivationCondition"))
 
 Ratings_wide$Mean_unpleasantness <- Ratings_wide$Rated_Unpleasantness.x - Ratings_wide$Rated_Unpleasantness.y
 
-SEM_file <- subset(Ratings_wide, select = c("Subject", "Mean_unpleasantness", "DeprivationCondition"))
+Data_sleep <- subset(Ratings_wide, select = c("Subject", "Mean_unpleasantness", "DeprivationCondition"))
 
 
 # Read FACES data
@@ -112,6 +109,30 @@ SEM_file <- merge(SEM_file, Ratings_MaintainNeutral, all = T)
 
 
 
+# Read image ratings
+Image_data <- read_delim("~/Desktop/SleepyBrain-Analyses/ARROWS/Data/Data_Image_ratings.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+Image_data <- subset(Image_data, select = c("Subject", "Valence", "RatedUnpleasantness", "DeprivationCondition"))
+
+Image_data <- summarySE(Image_data, measurevar = "RatedUnpleasantness", 
+                        groupvars = c("Valence", "Subject", "DeprivationCondition"),
+                        na.rm = T) 
+
+Image_data_negative <- subset(Image_data, Valence == "Negative")
+Image_data_negative <- subset(Image_data_negative, select = c("Subject", "RatedUnpleasantness", "DeprivationCondition"))
+Image_data_neutral <- subset(Image_data, Valence == "Neutral")
+Image_data_neutral <- subset(Image_data_neutral, select = c("Subject", "RatedUnpleasantness", "DeprivationCondition"))
+
+Image_data <- merge(Image_data_negative, Image_data_neutral, by = c("Subject", "DeprivationCondition"))
+Image_data$Image_unpleasantness <- Image_data$RatedUnpleasantness.x - Image_data$RatedUnpleasantness.y
+
+Image_data <- subset(Image_data, select = c("Subject", "Image_unpleasantness", "DeprivationCondition"))
+Image_data$DeprivationCondition <- as.factor(Image_data$DeprivationCondition)
+
+levels(Image_data$DeprivationCondition)[levels(Image_data$DeprivationCondition) == "Sleep Deprived"] <- "SleepRestriction"
+levels(Image_data$DeprivationCondition)[levels(Image_data$DeprivationCondition) == "Not Sleep Deprived"] <- "NormalSleep"
+
+
+SEM_file <- merge(SEM_file, Image_data, all = T)
 
 # Add sleep
 Demographic <- subset(Demographic, select = c("Subject", "DeprivationCondition", "Sex", "AgeGroup", "KSS_Rating", "ISI", "tst__00_nsd",
@@ -119,7 +140,7 @@ Demographic <- subset(Demographic, select = c("Subject", "DeprivationCondition",
 
 
 #Demographic <- subset(Demographic, select = c("Subject", "DeprivationCondition", "KSS_Rating", "ISI", "tst__00_nsd", "tst__00_sd", 
-                                             # "n3___00_nsd", "n3___00_sd", "r____00_nsd", "r____00_sd"))
+# "n3___00_nsd", "n3___00_sd", "r____00_nsd", "r____00_sd"))
 
 SEM_file <- merge(SEM_file, Demographic, all = T)
 
@@ -156,23 +177,10 @@ colnames(SEM_file) <- c("Subject", "DeprivationCondition", "Sex", "AgeGroup", "E
 
 
 SEM_file_sd <- subset(SEM_file, DeprivationCondition == "SleepRestriction")
-SEM_file_sd <- subset(SEM_file_sd, select =-c(TST_fullsleep, SWS_fullsleep, REM_fullsleep))
+SEM_file_sd <- subset(SEM_file_sd, select =-c(TST_fullsleep, SWS_fullsleep, REM_sleepdeprived))
 
 SEM_file_nsd <- subset(SEM_file, DeprivationCondition == "NormalSleep")
 SEM_file_nsd <- subset(SEM_file_nsd, select =-c(TST_sleepdeprived, SWS_sleepdeprived, REM_sleepdeprived))
-
-
-str(SEM_file_sd)
-
-#Save files
-SEM_file_sd_standardized <- SEM_file_sd
-SEM_file_sd_standardized[ ,5:13] <- scale(SEM_file_sd_standardized[ ,5:13])
-write.csv(SEM_file_sd_standardized, "SEM_file_sd.csv")
-
-
-SEM_file_nsd_standardized <- SEM_file_nsd
-SEM_file_nsd_standardized[ ,5:13] <- scale(SEM_file_nsd_standardized[ ,5:13])
-write.csv(SEM_file_nsd_standardized, "SEM_file_nsd.csv")
 
 
 #SEM_file_diff <- merge(SEM_file_nsd, SEM_file_sd, by = "Subject")
@@ -214,7 +222,7 @@ summariseRow <- function(measurevar, predictorvar, Data) {
   
   f_sleep_unadj <- reformulate(paste(predictorvar), measurevar)
   model_sleep_predictor_unadj <- lme(f_sleep_unadj, data = Data,
-                  random = ~1|Subject, na.action = na.exclude)
+                                     random = ~1|Subject, na.action = na.exclude)
   
   estimate_sleep_predictor_unadj <- intervals(model_sleep_predictor_unadj, which = "fixed")
   RoundEstimates_sleep_predictor_unadj <- round(estimate_sleep_predictor_unadj$fixed, digits = 3)
@@ -222,7 +230,7 @@ summariseRow <- function(measurevar, predictorvar, Data) {
   
   f_sleep_adj <- reformulate(paste(predictorvar, "+ AgeGroup + Sex"), measurevar)
   model_sleep_predictor_adj <- lme(f_sleep_adj, data = Data,
-                                     random = ~1|Subject, na.action = na.exclude)
+                                   random = ~1|Subject, na.action = na.exclude)
   
   estimate_sleep_predictor_adj <- intervals(model_sleep_predictor_adj, which = "fixed")
   RoundEstimates_sleep_predictor_adj <- round(estimate_sleep_predictor_adj$fixed, digits = 3)
@@ -239,7 +247,7 @@ summariseRow <- function(measurevar, predictorvar, Data) {
                     "-",  RoundEstimates_sleep_predictor_adj[2,3], ")",
                     sep = ""),
               paste(round(pval_sleep_predictor_adj[2,4], digits = 3), sep = "")
-              )
+  )
   
   return(result)
 }
@@ -295,7 +303,7 @@ for(i in 5:9){
 
 write.csv2(results_nsd, "Predictors_nsd.csv")
 
-# Loop to obtain results sleep restriction condition
+# Loop to obtain results full sleep condition
 for(i in 5:9){
   measurevar <- names(SEM_file_sd_2)[i]
   for(j in 10:13){
@@ -324,69 +332,6 @@ write.csv2(results_sd, "Predictors_sd.csv")
 write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Sleep.csv")
 
 
-Demographic_tabledata <- subset(Demographic_tabledata, DeprivationCondition == "NormalSleep")
-# Add mean KSS
-Demographic <- subset(Demographic, select = -KSS_Rating) 
-Demographic <- merge(Demographic, KSS_data)
-
-Count_data <- summary(Demographic_tabledata$AgeGroup)
-Age_data <- getDescriptionStatsBy(Demographic_tabledata$Age, Demographic_tabledata$AgeGroup, html=TRUE, 
-                                  continuous_fn = describeMedian)
-Sex_data <- getDescriptionStatsBy(Demographic_tabledata$Sex, Demographic_tabledata$AgeGroup, html=TRUE)
-BMI_data <- getDescriptionStatsBy(Demographic_tabledata$BMI1, Demographic_tabledata$AgeGroup, html=TRUE)
-Edu_data <- getDescriptionStatsBy(Demographic_tabledata$EducationLevel, Demographic_tabledata$AgeGroup, html=TRUE)
-Depression_data <- getDescriptionStatsBy(Demographic_tabledata$HADS_Depression, Demographic_tabledata$AgeGroup, html=TRUE)
-Anxiety_data <- getDescriptionStatsBy(Demographic_tabledata$HADS_Anxiety, Demographic_tabledata$AgeGroup, html=TRUE)
-ISI_data <- getDescriptionStatsBy(Demographic_tabledata$ISI, Demographic_tabledata$AgeGroup, html=TRUE)
-TST_fullsleep <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "NormalSleep")$tst__00_nsd, 
-                                       subset(Demographic, DeprivationCondition == "NormalSleep")$AgeGroup, useNA = c("no"), html=TRUE)
-TST_sleeprestriction <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "SleepRestriction")$tst__00_sd, 
-                                              subset(Demographic, DeprivationCondition == "SleepRestriction")$AgeGroup, useNA = c("no"), html=TRUE)
-REM_fullsleep <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "NormalSleep")$r____00_nsd, 
-                                       subset(Demographic, DeprivationCondition == "NormalSleep")$AgeGroup, useNA = c("no"), html=TRUE)
-REM_sleeprestriction <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "SleepRestriction")$r____00_sd, 
-                                              subset(Demographic, DeprivationCondition == "SleepRestriction")$AgeGroup, useNA = c("no"), html=TRUE)
-SWS_fullsleep <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "NormalSleep")$n3___00_nsd, 
-                                       subset(Demographic, DeprivationCondition == "NormalSleep")$AgeGroup, useNA = c("no"), html=TRUE)
-SWS_sleeprestriction <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "SleepRestriction")$n3___00_sd, 
-                                              subset(Demographic, DeprivationCondition == "SleepRestriction")$AgeGroup, useNA = c("no"), html=TRUE)
-Sleepiness_fullsleep <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "NormalSleep")$KSS_Rating, 
-                                       subset(Demographic, DeprivationCondition == "NormalSleep")$AgeGroup, useNA = c("no"), html=TRUE)
-Sleepiness_sleeprestriction <- getDescriptionStatsBy(subset(Demographic, DeprivationCondition == "SleepRestriction")$KSS_Rating, 
-                                              subset(Demographic, DeprivationCondition == "SleepRestriction")$AgeGroup, useNA = c("no"), html=TRUE)
 
 
-# Make table with demographics
-htmlTable(
-  x        = rbind(Count_data, Age_data, Sex_data, BMI_data, Edu_data, 
-                   Depression_data, Anxiety_data, 
-                   ISI_data,
-                   TST_fullsleep, TST_sleeprestriction,
-                   REM_fullsleep, REM_sleeprestriction,
-                   SWS_fullsleep, SWS_sleeprestriction,
-                   Sleepiness_fullsleep, Sleepiness_sleeprestriction),
-  caption  = paste("Table 1. Continuous values are reported as",
-                   "means with standard deviations, unless otherwise indicated). Categorical data",
-                   "are reported with percentages. Sleep measures are reported in minutes"),
-  label    = "Table1",
-  rowlabel = "Variables",
-  rnames = c("Number of subjects", "Age (median, interquartile range)", "Sex (females)", "BMI", "Elementary school", "High school", 
-             "University degree", "University student", "Depression", "Anxiety", 
-             "Insomnia severity index", "Total sleep time (min), full sleep",
-             "Total sleep time (min), sleep restriction", "REM sleep (min), full sleep",
-             "REM sleep (min), sleep restriction", "Slow wave sleep (min), full sleep",
-             "Slow wave sleep (min), sleep restriction", "Mean KSS, full sleep", "Mean KSS, sleep restriction"),
-  rgroup   = c("Sample", 
-               "Demographics",
-               "Education",
-               "Questionnaires",
-               "Sleep",
-               "Sleepiness"),
-  n.rgroup = c(1,
-               3,
-               NROW(Edu_data),
-               3,
-               6,
-               2),
-  ctable   = TRUE)
 

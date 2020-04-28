@@ -1,0 +1,105 @@
+lavaan 0.6-5 ended normally after 24 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of free parameters                         24
+                                                      
+  Number of observations                            86
+  Number of missing patterns                         3
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                               138.484
+  Degrees of freedom                                30
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                               250.958
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.495
+  Tucker-Lewis Index (TLI)                       0.394
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)               -919.720
+  Loglikelihood unrestricted model (H1)       -850.477
+                                                      
+  Akaike (AIC)                                1887.439
+  Bayesian (BIC)                              1946.344
+  Sample-size adjusted Bayesian (BIC)         1870.622
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.205
+  90 Percent confidence interval - lower         0.171
+  90 Percent confidence interval - upper         0.240
+  P-value RMSEA <= 0.05                          0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.146
+
+Parameter Estimates:
+
+  Information                                 Observed
+  Observed information based on                Hessian
+  Standard errors                             Standard
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  Ep =~                                               
+    ACC               1.000                           
+    AI                1.000                           
+  ER =~                                               
+    Amy_do            1.000                           
+    lOFC              1.000                           
+    dlPFC             1.000                           
+  EC =~                                               
+    FFA_an            1.000                           
+    FFA_ha            1.000                           
+    Amy_an            1.000                           
+    Amy_ha            1.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  Ep ~~                                               
+    EC    (COV_EC)    0.038    0.084    0.454    0.650
+    ER    (COV_E_)   -0.035    0.072   -0.486    0.627
+  ER ~~                                               
+    EC    (COV_ER)   -0.039    0.062   -0.635    0.526
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .AI               -0.000    0.106   -0.000    1.000
+   .ACC               0.000    0.108    0.000    1.000
+   .Amy_ha            0.004    0.121    0.036    0.971
+   .Amy_an            0.004    0.123    0.035    0.972
+   .FFA_ha            0.004    0.117    0.037    0.971
+   .FFA_an            0.004    0.118    0.036    0.971
+   .Amy_do            0.003    0.121    0.021    0.983
+   .lOFC              0.003    0.108    0.023    0.981
+   .dlPFC             0.003    0.105    0.024    0.981
+    Ep                0.000                           
+    ER                0.000                           
+    EC                0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+    EC    (VAR_EC)    0.483    0.105    4.623    0.000
+    Ep    (VAR_Ep)    0.559    0.123    4.558    0.000
+   .AI    (VAR_AI)    0.415    0.116    3.593    0.000
+   .AC    (VAR_AC)    0.445    0.118    3.766    0.000
+   .A_ (VAR_Amy_h)    0.519    0.120    4.319    0.000
+   .A_ (VAR_Amy_n)    0.561    0.127    4.416    0.000
+    ER    (VAR_ER)    0.136    0.122    1.119    0.263
+   .FF (VAR_FFA_h)    0.455    0.110    4.154    0.000
+   .FF (VAR_FFA_n)    0.484    0.113    4.266    0.000
+   .A_ (VAR_Amy_d)    1.043    0.217    4.796    0.000
+   .lO     (VAR_O)    0.808    0.211    3.835    0.000
+   .dP     (VAR_P)    0.754    0.219    3.452    0.001
+

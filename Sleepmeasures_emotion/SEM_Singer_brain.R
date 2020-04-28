@@ -4,41 +4,65 @@ library(lavaan);
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer_standardized.csv") ;
 model<-"
 ! regressions 
-Empathy=~1.0*Mean_ACC
-Empathy=~1.0*Mean_AI
-Emotional_regulation=~1.0*Mean_amygdala_down
-Emotional_regulation=~1.0*Mean_lOFC
-Emotional_regulation=~1.0*Mean_dlPFC
-Emotional_contagion=~1.0*FFA_angry
-Emotional_contagion=~1.0*FFA_happy
-Emotional_contagion=~1.0*Amygdala_angry
-Emotional_contagion=~1.0*Amygdala_happy
+Ep=~1.0*ACC
+Ep=~1.0*AI
+ER=~1.0*Amy_do
+ER=~1.0*lOFC
+ER=~1.0*dlPFC
+EC=~1.0*FFA_an
+EC=~1.0*FFA_ha
+EC=~1.0*Amy_an
+EC=~1.0*Amy_ha
 ! residuals, variances and covariances
-Emotional_contagion ~~ VAR_Emotional_contagion*Emotional_contagion
-Empathy ~~ VAR_Empathy*Empathy
-Emotional_contagion ~~ COV_Emotional_contagion_Empathy*Empathy
-Mean_AI ~~ VAR_Mean_AI*Mean_AI
-Mean_ACC ~~ VAR_Mean_ACC*Mean_ACC
-Amygdala_happy ~~ VAR_Amygdala_happy*Amygdala_happy
-Amygdala_angry ~~ VAR_Amygdala_angry*Amygdala_angry
-Emotional_regulation ~~ VAR_Emotional_regulation*Emotional_regulation
-Empathy ~~ COV_Empathy_Emotional_regulation*Emotional_regulation
-Emotional_regulation ~~ COV_Emotional_regulation_Emotional_contagion*Emotional_contagion
-FFA_happy ~~ VAR_FFA_happy*FFA_happy
-FFA_angry ~~ VAR_FFA_angry*FFA_angry
-Mean_amygdala_down ~~ VAR_Mean_amygdala_down*Mean_amygdala_down
-Mean_lOFC ~~ VAR_Mean_lOFC*Mean_lOFC
-Mean_dlPFC ~~ VAR_Mean_dlPFC*Mean_dlPFC
+EC ~~ VAR_EC*EC
+Ep ~~ VAR_Ep*Ep
+EC ~~ COV_EC_Ep*Ep
+AI ~~ VAR_AI*AI
+ACC ~~ VAR_ACC*ACC
+Amy_ha ~~ VAR_Amy_ha*Amy_ha
+Amy_an ~~ VAR_Amy_an*Amy_an
+ER ~~ VAR_ER*ER
+Ep ~~ COV_Ep_ER*ER
+ER ~~ COV_ER_EC*EC
+FFA_ha ~~ VAR_FFA_ha*FFA_ha
+FFA_an ~~ VAR_FFA_an*FFA_an
+Amy_do ~~ VAR_Amy_do*Amy_do
+lOFC ~~ VAR_lOFC*lOFC
+dlPFC ~~ VAR_dlPFC*dlPFC
 ! observed means
-Mean_AI~1;
-Mean_ACC~1;
-Amygdala_happy~1;
-Amygdala_angry~1;
-FFA_happy~1;
-FFA_angry~1;
-Mean_amygdala_down~1;
-Mean_lOFC~1;
-Mean_dlPFC~1;
+AI~1;
+ACC~1;
+Amy_ha~1;
+Amy_an~1;
+FFA_ha~1;
+FFA_an~1;
+Amy_do~1;
+lOFC~1;
+dlPFC~1;
 ";
 result<-lavaan(model, data=modelData, fixed.x=FALSE, missing="FIML");
-summary(result, fit.measures=TRUE);
+
+result<-lavaan(model, data=modelData, fixed.x=FALSE, missing="FIML");
+summary(result, fit.measures=T);
+sink("Singer_SEM_brain.txt")
+summary(result, fit.measures=T);
+sink()
+
+
+fit <- lavaan:::cfa(model, data = modelData, std.lv = TRUE)
+
+# Plot path diagram:
+
+semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 5,
+         exoVar = F,
+         groups = list(c("Ep", "AI", "ACC"), 
+                       c("EC", "Amy_ha", "Amy_an", "FFA_a", "FFA_ha"),
+                       c("ER", "lOFC", "Amy_do", "dlPFC")),
+         residuals = F, exoCov = T, layout = "spring", ask = F, as.expression = "edges", fixedStyle = c("black",3),
+         pastel = T)
+
+
+# Parameter estimates
+parameterEstimates(result)
+# Standardized estimates
+standardizedSolution(result)

@@ -3,7 +3,9 @@ library(readr)
 library(corrplot)
 library(psycho)
 library(tidyverse)
+library(Hmisc)
 
+setwd("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion")
 source('Utils/SummarisingFunctions.R', chdir = T)
 
 # Read empathy ratings
@@ -197,11 +199,15 @@ Ratings_DownregulateNegative <- subset(Ratings_DownregulateNegative, select = c(
 Ratings_UpregulateNegative <- subset(Ratings_UpregulateNegative, select = c("Subject", "UpregulateNegative")) 
 Ratings_MaintainNegative <- subset(Ratings_MaintainNegative, select = c("Subject", "MaintainNegative"))
 Ratings_MaintainNeutral <- subset(Ratings_MaintainNeutral, select = c("Subject", "MaintainNeutral"))
+Ratings_ER <- merge(Ratings_DownregulateNegative, Ratings_UpregulateNegative)
+Ratings_ER <- merge(Ratings_ER, Ratings_MaintainNegative)
+Ratings_ER$DownregulateNegative <- Ratings_ER$DownregulateNegative - (7 - Ratings_ER$MaintainNegative)
+Ratings_ER$UpregulateNegative <- Ratings_ER$UpregulateNegative - (7 - Ratings_ER$MaintainNegative)
 
+
+SEM_file <- merge(SEM_file, Ratings_ER, all = T)
 SEM_file <- merge(SEM_file, Ratings_MaintainNeutral, all = T)
-SEM_file <- merge(SEM_file, Ratings_MaintainNegative, all = T)
-SEM_file <- merge(SEM_file, Ratings_UpregulateNegative, all = T)
-SEM_file <- merge(SEM_file, Ratings_DownregulateNegative, all = T)
+
 
 
 
@@ -250,6 +256,10 @@ Data_ROIs_Amygdala_down <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_amygda
                                     na.rm = T) 
 Data_ROIs_Amygdala_down <- subset(Data_ROIs_Amygdala_down, select = c("Subject", "Mean_amygdala_down"))
 
+# Reverse amygdala value 
+Data_ROIs_Amygdala_down$Mean_amygdala_down <- (-0.61959)+(0.66170)-Data_ROIs_Amygdala_down$Mean_amygdala_down
+
+
 Data_ROIs_lOFC <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_lOFC", 
                                      groupvars = c("Subject"),
                                      na.rm = T) 
@@ -286,6 +296,12 @@ corrplot(Correlation_matrix$r, p.mat = res1$p, insig = "label_sig",
 Data_IRI <- unique(Data_IRI)
 
 SEM_file <- merge(SEM_file, Data_IRI)
+
+colnames(SEM_file) <- c("Subject", "Unp", "AI", "ACC", "C_ang", "Happiness_angry",
+                        "Angriness_happy", "C_hap", "zyg", "corr", "Amy_ha", "Amy_an",
+                        "FFA_ha", "FFA_an", "Downr", "Upreg", "MaintainNegative", "MaintainNeutral",
+                         "Image_unpleasantness", "Amy_neg", "Amy_do",
+                        "lOFC", "dlPFC", "IRI_EC", "IRI_PT", "IRI_PD", "IRI_F")
 
 
 # Standardize 

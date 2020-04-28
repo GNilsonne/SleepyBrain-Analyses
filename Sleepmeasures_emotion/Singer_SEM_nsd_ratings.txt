@@ -1,0 +1,94 @@
+lavaan 0.6-5 ended normally after 23 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of free parameters                         10
+                                                      
+                                                  Used       Total
+  Number of observations                            86          87
+  Number of missing patterns                         2            
+                                                                  
+Model Test User Model:
+                                                      
+  Test statistic                                 7.938
+  Degrees of freedom                                10
+  P-value (Chi-square)                           0.635
+
+Model Test Baseline Model:
+
+  Test statistic                               119.585
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.019
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)               -503.560
+  Loglikelihood unrestricted model (H1)       -499.591
+                                                      
+  Akaike (AIC)                                1027.120
+  Bayesian (BIC)                              1051.664
+  Sample-size adjusted Bayesian (BIC)         1020.113
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.098
+  P-value RMSEA <= 0.05                          0.773
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.045
+
+Parameter Estimates:
+
+  Information                                 Observed
+  Observed information based on                Hessian
+  Standard errors                             Standard
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  ER =~                                               
+    Downr             1.000                           
+    Upreg             1.000                           
+  EC =~                                               
+    C_hap             1.000                           
+    C_ang             1.000                           
+  Ep =~                                               
+    Unp               1.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  ER ~~                                               
+    EC (COV_ER_EC)   -0.269    0.098   -2.756    0.006
+    Ep (COV_ER_Ep)   -0.225    0.123   -1.832    0.067
+  EC ~~                                               
+    Ep    (COV_E_)    0.179    0.080    2.230    0.026
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+    EC                0.000                           
+   .C_ang             0.000                           
+   .C_hap             0.000                           
+   .Unp               0.000                           
+    ER                0.000                           
+   .Downr             0.000                           
+   .Upreg             0.000                           
+    Ep                0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+    EC    (VAR_EC)    0.071    0.107    0.660    0.509
+   .C_ng (VAR_C_n)    0.901    0.169    5.336    0.000
+   .C_hp (VAR_C_h)    0.935    0.173    5.402    0.000
+   .Unp               0.000                           
+    ER    (VAR_ER)    0.889    0.171    5.206    0.000
+   .Dwnr   (VAR_D)    0.072    0.059    1.212    0.226
+   .Uprg   (VAR_U)    0.195    0.067    2.917    0.004
+    Ep    (VAR_Ep)    0.988    0.151    6.557    0.000
+
