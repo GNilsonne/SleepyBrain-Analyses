@@ -40,6 +40,7 @@ files <- files[-grep(files, pattern = "Hanna")] # Remove logfile from one piloti
 for(i in 1:length(files)){
   thisfile <- read.delim(paste("~/Box Sync/Sleepy Brain/Datafiles/Presentation_logfiles/", files[i], sep = ""), header = T)
   thisfile$file <- files[i]
+  thisfile$Rating_no <- 1:length(thisfile$Rating)
   if(i == 1){
     data <- thisfile
   } else {
@@ -88,8 +89,13 @@ data$condition <- relevel(data$condition, ref = "fullsleep")
 data$AgeGroup <- relevel(data$AgeGroup, ref = "Young")
 
 # Write data file
-write.csv(data[, c("newid", "block", "Block_type", "Question_type", "Rating", "Response_time",                                    
-                   "session", "AgeGroup", "condition")], file = "FACES/EMG/ratings.csv", row.names = F)
+#write.csv(data[, c("newid", "block", "Block_type", "Question_type", "Rating", "Response_time",                                    
+#                   "session", "AgeGroup", "condition")], file = "FACES/EMG/ratings.csv", row.names = F)
+
+
+# This piece of code was written to answer reviewer comments. Here we just removed the second half of the data
+
+#data <- subset(data, Rating_no < 5)
 
 
 # Analyse data ------------------------------------------------------------

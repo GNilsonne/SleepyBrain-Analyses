@@ -1,10 +1,14 @@
 # Read data
-demdata <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv")
-subjects <- read.csv2("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
+demdata <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/150215_Demographic.csv")
+subjects <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/Subjects_151215.csv")
 demdata <- merge(demdata, subjects[, c("Subject", "CanBeIncludedForInterventionEffectsWithMRI", "newid")], by = "Subject")
 demdata <- demdata[!is.na(demdata$CanBeIncludedForInterventionEffectsWithMRI), ]
-randlist <- read.csv("C:/Users/Gustav Nilsonne/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
+randlist <- read.csv("~/Box Sync/Sleepy Brain/Datafiles/RandomisationList_140804.csv", sep=";")
 demdata <- merge(demdata, randlist, by = "Subject")
+sleepdata <- read_delim("~/Box Sync/Sleepy Brain/Datafiles/sleepdata_short_160731.txt", 
+                        "\t", escape_double = FALSE, trim_ws = TRUE)
+demdata <- merge(demdata, sleepdata, all.x = T)
+
 
 # Make table with demographic data
 outtable <- data.frame(variable = "n", younger = summary(demdata$AgeGroup)[2], older = summary(demdata$AgeGroup)[1])
@@ -24,17 +28,38 @@ outtable <- rbind(outtable, data.frame(variable = "Completed secondary education
                                        younger = paste(length(demdata$Sex[demdata$AgeGroup == "Young" & demdata$EducationLevel == "Har avslutat gymnasieskolan"])),
                                        older = paste(length(demdata$Sex[demdata$AgeGroup == "Old" & demdata$EducationLevel == "Har avslutat gymnasieskolan"]))))
 outtable <- rbind(outtable, data.frame(variable = "Currently enrolled in tertiary education (n)", 
-                                       younger = paste(length(demdata$Sex[demdata$AgeGroup == "Young" & demdata$EducationLevel == "Studerar fÌ¦r nÌ_rvarande pÌ´ universitet/hÌ¦gskola"])),
-                                       older = paste(length(demdata$Sex[demdata$AgeGroup == "Old" & demdata$EducationLevel == "Studerar fÌ¦r nÌ_rvarande pÌ´ universitet/hÌ¦gskola"]))))
+                                       younger = paste(length(demdata$Sex[demdata$AgeGroup == "Young" & demdata$EducationLevel == "Studerar f????r n??_rvarande p???? universitet/h????gskola"])),
+                                       older = paste(length(demdata$Sex[demdata$AgeGroup == "Old" & demdata$EducationLevel == "Studerar f????r n??_rvarande p???? universitet/h????gskola"]))))
 outtable <- rbind(outtable, data.frame(variable = "Completed tertiary education (n)", 
-                                       younger = paste(length(demdata$Sex[demdata$AgeGroup == "Young" & demdata$EducationLevel == "Har examen frÌ´n universitet/hÌ¦gskola"])),
-                                       older = paste(length(demdata$Sex[demdata$AgeGroup == "Old" & demdata$EducationLevel == "Har examen frÌ´n universitet/hÌ¦gskola"]))))
+                                       younger = paste(length(demdata$Sex[demdata$AgeGroup == "Young" & demdata$EducationLevel == "Har examen fr????n universitet/h????gskola"])),
+                                       older = paste(length(demdata$Sex[demdata$AgeGroup == "Old" & demdata$EducationLevel == "Har examen fr????n universitet/h????gskola"]))))
 outtable <- rbind(outtable, data.frame(variable = "ISI (mean, SD)", 
                                        younger = paste(round(mean(demdata$ISI[demdata$AgeGroup == "Young"]), 1), "(", round(sd(demdata$ISI[demdata$AgeGroup == "Young"]), 1), ")"),
                                        older = paste(round(mean(demdata$ISI[demdata$AgeGroup == "Old"]), 1), "(", round(sd(demdata$ISI[demdata$AgeGroup == "Old"]), 1), ")")))
 outtable <- rbind(outtable, data.frame(variable = "HADS-Depression (mean, SD)", 
                                        younger = paste(round(mean(demdata$HADS_Depression[demdata$AgeGroup == "Young"]), 1), "(", round(sd(demdata$HADS_Depression[demdata$AgeGroup == "Young"]), 1), ")"),
                                        older = paste(round(mean(demdata$HADS_Depression[demdata$AgeGroup == "Old"]), 1), "(", round(sd(demdata$HADS_Depression[demdata$AgeGroup == "Old"]), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "Total sleep time, full sleep (mean, SD)", 
+                                       younger = paste(round(mean(demdata$tst__00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$tst__00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$tst__00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$tst__00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "Total sleep time, partial sleep deprivation (mean, SD)", 
+                                       younger = paste(round(mean(demdata$tst__00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$tst__00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$tst__00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$tst__00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "Slow wave sleep, full sleep (mean, SD)", 
+                                       younger = paste(round(mean(demdata$n3___00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$n3___00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$n3___00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$n3___00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "Slow wave sleep, partial sleep deprivation (mean, SD)", 
+                                       younger = paste(round(mean(demdata$n3___00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$n3___00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$n3___00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$n3___00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "REM sleep, full sleep (mean, SD)", 
+                                       younger = paste(round(mean(demdata$r____00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$r____00_nsd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$r____00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$r____00_nsd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+outtable <- rbind(outtable, data.frame(variable = "REM sleep, partial sleep deprivation (mean, SD)", 
+                                       younger = paste(round(mean(demdata$r____00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), "(", round(sd(demdata$r____00_sd[demdata$AgeGroup == "Young"], na.rm = T), 1), ")"),
+                                       older = paste(round(mean(demdata$r____00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), "(", round(sd(demdata$r____00_sd[demdata$AgeGroup == "Old"], na.rm = T), 1), ")")))
+
+
+
 
 # Analyse PANAS
 demdata$PANAS_Positive_fullsleep <- NA
