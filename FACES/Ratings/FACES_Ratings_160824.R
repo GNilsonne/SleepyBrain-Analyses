@@ -183,6 +183,31 @@ eff2 <- effect("Block_type*condition*AgeGroup", lme2)
 pdf("FACES/Ratings/Ratings.pdf", height = 5, width = 5) 
 #par(mar = c(4, 5, 1, 2))
 
+# Test plot for reviewers
+barplot(eff1,
+        main = "Survival of Each Class",
+        xlab = "Block_type",
+        col = c("red","green")
+)
+legend("topleft",
+       c("Not survived","Survived"),
+       fill = c("red","green")
+)
+
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated happiness, young")
+axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
+lines(x = c(0, 0.9), y = eff1$fit[c(2, 1)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
+lines(x = c(0.1, 1), y = eff1$fit[c(4, 3)], pch = 15, col = cols[3], type = "b", lwd = 1.5)
+lines(x = c(0, 0), y = c(eff1$lower[2], eff1$upper[2]), col = cols[2], lwd = 1.5)
+lines(x = c(0.9, 0.9), y = c(eff1$lower[1], eff1$upper[1]), col = cols[2], lwd = 1.5)
+lines(x = c(0.1, 0.1), y = c(eff1$lower[4], eff1$upper[4]), col = cols[3], lwd = 1.5)
+lines(x = c(1, 1), y = c(eff1$lower[3], eff1$upper[3]), col = cols[3], lwd = 1.5)
+legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep deprivation"), col = cols[c(2, 3)], bty = "n")
+
+
+
+
+
 plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated happiness, young")
 axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
 lines(x = c(0, 0.9), y = eff1$fit[c(2, 1)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
