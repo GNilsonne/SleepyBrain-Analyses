@@ -184,6 +184,15 @@ pdf("FACES/Ratings/Ratings.pdf", height = 5, width = 5)
 #par(mar = c(4, 5, 1, 2))
 
 # Test plot for reviewers
+x <- as.data.frame(eff1)
+x <- x[1:4, ]
+
+ggplot(x, aes(y = fit, Block_type, fill=condition, color=condition)) + 
+  geom_bar(stat= "identity", position= "dodge") +
+  geom_errorbar(aes(ymin=fit-se, ymax=fit+se), width=0.4, position=position_dodge(width=0.9)) + 
+  ggtitle("Young, ratings of happiness") + 
+  theme_bw(base_size=12)
+
 barplot(eff1,
         main = "Survival of Each Class",
         xlab = "Block_type",
