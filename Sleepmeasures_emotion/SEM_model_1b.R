@@ -78,13 +78,13 @@ fit <- lavaan:::cfa(model, data = modelData, std.lv = TRUE)
 
 # Plot path diagram:
 
-semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 5,
+semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 8, sizeLat = 8,
          exoVar = F,
          groups = list(c("Ep", "R_Ep", "B_Ep", "AI", "ACC", "Unp"), 
                        c("EC", "Amy_ha", "Amy_an", "C_ang", "C_hap", "FFA_an", "FFA_ha", "EMG_EC", "corr", "zyg"),
                        c("ER", "B_ER", "lOFC", "Amy_do", "dlPFC", "R_ER", "Downr", "Upreg")),
-         residuals = F, exoCov = T, layout = "tree", ask = F, as.expression = "edges", fixedStyle = c("black",3),
-         pastel = T, rotation = 2)
+         residuals = F, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("black",3),
+         pastel = T, rotation = 1)
 
 # Parameter estimates
 parameterEstimates(result)

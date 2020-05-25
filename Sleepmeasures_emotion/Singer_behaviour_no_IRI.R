@@ -45,13 +45,16 @@ sink()
 # Plot path diagram:
 fit <- lavaan:::cfa(model, data = modelData, missing="FIML")
 
-semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, sizeMan = 5,
+semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 10,
          exoVar = F,
          groups = list(c("Ep", "Unp"), 
                       c("EC", "C_Ang", "C_hap"),
                       c("ER", "Downr", "Upreg")),
-         residuals = T, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("black",3),
+         residuals = T, exoCov = T, layout = "circle", ask = F, fixedStyle = c("black",3),
+         edge.label.cex = 1,
          pastel = T)
+
+
 
 # Parameter estimates
 parameterEstimates(result)
