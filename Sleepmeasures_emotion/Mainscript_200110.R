@@ -312,6 +312,23 @@ SEM_file_standardized <- scale(SEM_file)
 write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer.csv")
 write.csv(SEM_file_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer_standardized.csv")
 
+
+# Write separate files for young and old
+AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup")))
+
+SEM_file_age <- merge(SEM_file, AgeGroup)
+SEM_file_young <- subset(SEM_file_age, AgeGroup == "Young")
+SEM_file_young <- subset(SEM_file_young, select = -AgeGroup)
+SEM_file_young_standardized <- scale(SEM_file_young)
+write.csv(SEM_file_young_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_young_Singer_standardized.csv")
+
+SEM_file_old <- subset(SEM_file_age, AgeGroup == "Old")
+SEM_file_old <- subset(SEM_file_old, select = -AgeGroup)
+SEM_file_old_standardized <- scale(SEM_file_old)
+write.csv(SEM_file_old_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_old_Singer_standardized.csv")
+
+
+
 # 2 = rated happiness
 # 3 = rated angriness
 
