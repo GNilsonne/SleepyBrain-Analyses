@@ -81,3 +81,4 @@ t.test(demdata$PANAS_Positive_fullsleep, demdata$PANAS_Positive_sleepdeprived, p
 
 boxplot(demdata$PANAS_Negative, demdata$PANAS_Negative_fullsleep, demdata$PANAS_Negative_sleepdeprived, frame.plot = F, names = c("Baseline", "Full sleep", "Sleep deprived"), main = "PANAS negative")
 t.test(demdata$PANAS_Negative_fullsleep, demdata$PANAS_Negative_sleepdeprived, paired = T)
+
