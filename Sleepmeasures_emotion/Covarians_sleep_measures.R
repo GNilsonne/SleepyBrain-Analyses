@@ -149,10 +149,19 @@ levels(KSS_data$DeprivationCondition)[levels(KSS_data$DeprivationCondition) == "
 
 SEM_file <- merge(SEM_file, KSS_data, all = T)
 
+
+# Add PANAS
+
+PANAS <- read.csv2("~/Box Sync/Sleepy Brain/Datafiles/PANAS_newids.csv")
+
+PANAS <- subset(PANAS, select=-c(X1))
+SEM_file <- merge(SEM_file, PANAS, all.x = TRUE)
+
 colnames(SEM_file) <- c("Subject", "DeprivationCondition", "Sex", "AgeGroup", "Empathic_unpleasantness",
                         "Contagion_angriness", "Contagion_happiness", "Upregulation_success", "Downregulation_success",
                         "TST_fullsleep", "TST_sleepdeprived", "SWS_fullsleep", "SWS_sleepdeprived", "REM_fullsleep",
-                        "REM_sleepdeprived", "Sleepiness_KSS")
+                        "REM_sleepdeprived", "Sleepiness_KSS", "PANAS_Negative", "PANAS_Negative_fullsleep", 
+                        "PANAS_Negative_sleepdeprived", "PANAS_Positive", "PANAS_Positive_fullsleep", "PANAS_Positive_sleepdeprived")
 
 
 SEM_file_sd <- subset(SEM_file, DeprivationCondition == "SleepRestriction")
