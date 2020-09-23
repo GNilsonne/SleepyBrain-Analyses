@@ -8,32 +8,32 @@ library("readr")
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
 model<-"
 ! regressions 
-ER=~1.0*Downr
-ER=~1.0*Upreg
-EC=~1.0*C_hap
-EC=~1.0*C_ang
-Ep =~1.0*Unp
+Emotional Regulation=~1.0*Downr
+Emotional Regulation=~1.0*Upreg
+Emotional Contagion=~1.0*Happiness
+Emotional Contagion=~1.0*Anger
+Empathy =~1.0*Unp
 ! residuals, variances and covariances
-EC ~~ VAR_EC*EC
-C_ang ~~ VAR_C_ang*C_ang
-C_hap ~~ VAR_C_hap*C_hap
+Emotional Contagion ~~ VAR_Emotional Contagion*Emotional Contagion
+Anger ~~ VAR_Anger*Anger
+Happiness ~~ VAR_Happiness*Happiness
 Unp ~~ 0*Unp
-ER ~~ VAR_ER*ER
-ER ~~ COV_ER_EC*EC
+Emotional Regulation ~~ VAR_Emotional Regulation*Emotional Regulation
+Emotional Regulation ~~ COV_Emotional Regulation_Emotional Contagion*Emotional Contagion
 Downr ~~ VAR_Downr*Downr
 Upreg ~~ VAR_Upreg*Upreg
-Ep ~~ VAR_Ep*Ep
-ER ~~ COV_ER_Ep*Ep
-Ep ~~ COV_Ep_EC*EC
+Empathy ~~ VAR_Empathy*Empathy
+Emotional Regulation ~~ COV_Emotional Regulation_Empathy*Empathy
+Empathy ~~ COV_Empathy_Emotional Contagion*Emotional Contagion
 ! means
-EC~0*1;
-C_ang~0*1;
-C_hap~0*1;
+Emotional Contagion~0*1;
+Anger~0*1;
+Happiness~0*1;
 Unp~0*1;
-ER~0*1;
+Emotional Regulation~0*1;
 Downr~0*1;
 Upreg~0*1;
-Ep~0*1;
+Empathy~0*1;
 ";
 result<-lavaan(model, data=modelData, missing="FIML");
 
@@ -45,11 +45,11 @@ sink()
 # Plot path diagram:
 fit <- lavaan:::cfa(model, data = modelData, missing="FIML")
 
-semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 10,
+semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 14,
          exoVar = F,
-         groups = list(c("Ep", "Unp"), 
-                      c("EC", "C_Ang", "C_hap"),
-                      c("ER", "Downr", "Upreg")),
+         groups = list(c("Empathy", "Unp"), 
+                      c("EmotionalContagion", "Anger", "Happiness"),
+                      c("EmotionalRegulation", "Downr", "Upreg")),
          residuals = T, exoCov = T, layout = "circle", ask = F, fixedStyle = c("black",3),
          edge.label.cex = 1,
          pastel = T)

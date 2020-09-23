@@ -7,59 +7,59 @@ library(readr)
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
 model<-"
 ! regressions 
-EC=~1.0*zyg
-EC=~1.0*corr
-EC=~1.0*C_ang
-EC=~1.0*C_hap
-EC=~1.0*FFA_an
-EC=~1.0*FFA_ha
-EC=~1.0*Amy_an
-EC=~1.0*Amy_ha
-Ep=~1.0*AI
-Ep=~1.0*ACC
-Ep=~1.0*Unp
-ER=~1.0*Amy_do
-ER=~1.0*lOFC
-ER=~1.0*dlPFC
-ER=~1.0*Downr
-ER=~1.0*Upreg
+Emotional Contagion=~1.0*Zyg
+Emotional Contagion=~1.0*Corr
+Emotional Contagion=~1.0*Anger
+Emotional Contagion=~1.0*Happiness
+Emotional Contagion=~1.0*FFA_angry
+Emotional Contagion=~1.0*FFA_happy
+Emotional Contagion=~1.0*Amy_angry
+Emotional Contagion=~1.0*Amy_happy
+Empathy=~1.0*AI
+Empathy=~1.0*ACC
+Empathy=~1.0*Unp
+Emotional Regulation=~1.0*Amy_down
+Emotional Regulation=~1.0*lOFC
+Emotional Regulation=~1.0*dlPFC
+Emotional Regulation=~1.0*Downr
+Emotional Regulation=~1.0*Upreg
 ! residuals, variances and covariances
-EC ~~ VAR_EC*EC
-Ep ~~ VAR_Ep*Ep
-C_ang ~~ VAR_C_ang*C_ang
-EC ~~ COV_EC_Ep*Ep
-C_hap ~~ VAR_C_hap*C_hap
-corr ~~ VAR_corr*corr
-zyg ~~ VAR_zyg*zyg
+Emotional Contagion ~~ VAR_Emotional Contagion*Emotional Contagion
+Empathy ~~ VAR_Empathy*Empathy
+Anger ~~ VAR_Anger*Anger
+Emotional Contagion ~~ COV_Emotional Contagion_Empathy*Empathy
+Happiness ~~ VAR_Happiness*Happiness
+Corr ~~ VAR_Corr*Corr
+Zyg ~~ VAR_Zyg*Zyg
 Unp ~~ 0*Unp
 AI ~~ VAR_AI*AI
 ACC ~~ VAR_ACC*ACC
-Amy_ha ~~ VAR_Amy_ha*Amy_ha
-Amy_an ~~ VAR_Amy_an*Amy_an
-ER ~~ VAR_ER*ER
-Ep ~~ COV_Ep_ER*ER
-ER ~~ COV_ER_EC*EC
-FFA_ha ~~ VAR_FFA_ha*FFA_ha
-FFA_an ~~ VAR_FFA_a*FFA_an
-Amy_do ~~ VAR_Amy_do*Amy_do
+Amy_happy ~~ VAR_Amy_happy*Amy_happy
+Amy_angry ~~ VAR_Amy_angry*Amy_angry
+Emotional Regulation ~~ VAR_Emotional Regulation*Emotional Regulation
+Empathy ~~ COV_Empathy_Emotional Regulation*Emotional Regulation
+Emotional Regulation ~~ COV_Emotional Regulation_Emotional Contagion*Emotional Contagion
+FFA_happy ~~ VAR_FFA_happy*FFA_happy
+FFA_angry ~~ VAR_FFA_a*FFA_angry
+Amy_down ~~ VAR_Amy_down*Amy_down
 lOFC ~~ VAR_lOFC*lOFC
 dlPFC ~~ VAR_dlPFC*dlPFC
 Downr ~~ VAR_Downr*Downr
 Upreg ~~ VAR_Upreg*Upreg
 
 ! observed means
-C_ang~1;
-C_hap~1;
-corr~1;
-zyg~1;
+Anger~1;
+Happiness~1;
+Corr~1;
+Zyg~1;
 Unp~1;
 AI~1;
 ACC~1;
-Amy_ha~1;
-Amy_an~1;
-FFA_ha~1;
-FFA_an~1;
-Amy_do~1;
+Amy_happy~1;
+Amy_angry~1;
+FFA_happy~1;
+FFA_angry~1;
+Amy_down~1;
 lOFC~1;
 dlPFC~1;
 Downr~1;
@@ -78,11 +78,11 @@ fit <- lavaan:::cfa(model, data = modelData, std.lv = TRUE)
 
 # Plot path diagram:
 
-semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 8, sizeLat = 8,
+semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 8, sizeLat = 14, label.prop = 1,
          exoVar = F,
-         groups = list(c("Ep", "R_Ep", "B_Ep", "AI", "ACC", "Unp"), 
-                       c("EC", "Amy_ha", "Amy_an", "C_ang", "C_hap", "FFA_an", "FFA_ha", "EMG_EC", "corr", "zyg"),
-                       c("ER", "B_ER", "lOFC", "Amy_do", "dlPFC", "R_ER", "Downr", "Upreg")),
+         groups = list(c("Empathy", "R_Empathy", "B_Empathy", "AI", "ACC", "Unp"), 
+                       c("EmotionalContagion", "Amy_happy", "Amy_angry", "Anger", "Happiness", "FFA_angry", "FFA_happy", "EMG_Emotional Contagion", "Corr", "Zyg"),
+                       c("EmotionalRegulation", "B_Emotional Regulation", "lOFC", "Amy_down", "dlPFC", "R_Emotional Regulation", "Downr", "Upreg")),
          residuals = F, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("black",3),
          pastel = T, rotation = 1)
 

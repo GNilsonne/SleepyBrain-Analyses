@@ -286,10 +286,10 @@ Data_IRI <- unique(Data_IRI)
 
 SEM_file <- merge(SEM_file, Data_IRI)
 
-colnames(SEM_file) <- c("Subject", "Unp", "AI", "ACC", "C_ang", "Happiness_angry",
-                        "Angriness_happy", "C_hap", "zyg", "corr", "Amy_ha", "Amy_an",
-                        "FFA_ha", "FFA_an", "Downr", "Upreg", "MaintainNegative", "MaintainNeutral",
-                         "Image_unpleasantness", "Amy_neg", "Amy_do",
+colnames(SEM_file) <- c("Subject", "Unp", "AI", "ACC", "Anger", "Happiness_angry",
+                        "Angriness_happy", "Happiness", "Zyg", "Corr", "Amy_happy", "Amy_angry",
+                        "FFA_happy", "FFA_angry", "Downr", "Upreg", "MaintainNegative", "MaintainNeutral",
+                         "Image_unpleasantness", "Amy_neg", "Amy_down",
                         "lOFC", "dlPFC", "IRI_EC", "IRI_PT", "IRI_PD", "IRI_F")
 
 
