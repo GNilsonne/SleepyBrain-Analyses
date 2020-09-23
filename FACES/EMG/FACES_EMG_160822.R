@@ -672,3 +672,11 @@ EMG responses will be predicted by
     - the Positive and Negative Affect Scale (PANAS)
     - the Perceived Stress Scale (PSS), and 
     - inversely predicted by the Psychopathic Personality Index-Revised Coldheartedness subscale (PPI-R-C).
+
+
+# Test effect of session for review Sci Rep
+lmeX <- lme(zyg_resid ~ stimulus*condition*AgeGroup+session, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+summary(lmeX)
+
+lmeY <- lme(corr_resid ~ stimulus*condition*AgeGroup+session, data = blockdata2, random = ~ 1|subject/session/block, na.action = na.omit)
+summary(lmeY)

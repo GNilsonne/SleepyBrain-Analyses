@@ -216,7 +216,7 @@ legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep depriv
 
 
 
-
+pdf("FACES/Ratings/Happ_young.pdf", height = 5, width = 5) 
 plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated happiness, young")
 axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
 lines(x = c(0, 0.9), y = eff1$fit[c(2, 1)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
@@ -226,7 +226,9 @@ lines(x = c(0.9, 0.9), y = c(eff1$lower[1], eff1$upper[1]), col = cols[2], lwd =
 lines(x = c(0.1, 0.1), y = c(eff1$lower[4], eff1$upper[4]), col = cols[3], lwd = 1.5)
 lines(x = c(1, 1), y = c(eff1$lower[3], eff1$upper[3]), col = cols[3], lwd = 1.5)
 legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep deprivation"), col = cols[c(2, 3)], bty = "n")
+dev.off()
 
+pdf("FACES/Ratings/Happ_old.pdf", height = 5, width = 5) 
 plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated happiness, older")
 axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
 lines(x = c(0, 0.9), y = eff1$fit[c(6, 5)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
@@ -236,8 +238,10 @@ lines(x = c(0.9, 0.9), y = c(eff1$lower[5], eff1$upper[5]), col = cols[2], lwd =
 lines(x = c(0.1, 0.1), y = c(eff1$lower[8], eff1$upper[8]), col = cols[3], lwd = 1.5)
 lines(x = c(1, 1), y = c(eff1$lower[7], eff1$upper[7]), col = cols[3], lwd = 1.5)
 legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep deprivation"), col = cols[c(2, 3)], bty = "n")
+dev.off()
 
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated angriness, young")
+pdf("FACES/Ratings/Ang_young.pdf", height = 5, width = 5) 
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated anger, young")
 axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
 lines(x = c(0, 0.9), y = eff2$fit[c(2, 1)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
 lines(x = c(0.1, 1), y = eff2$fit[c(4, 3)], pch = 15, col = cols[3], type = "b", lwd = 1.5)
@@ -246,8 +250,10 @@ lines(x = c(0.9, 0.9), y = c(eff2$lower[1], eff2$upper[1]), col = cols[2], lwd =
 lines(x = c(0.1, 0.1), y = c(eff2$lower[4], eff2$upper[4]), col = cols[3], lwd = 1.5)
 lines(x = c(1, 1), y = c(eff2$lower[3], eff2$upper[3]), col = cols[3], lwd = 1.5)
 legend("top", lwd = 1.5, pch = c(16, 15), legend = c("full sleep", "sleep deprivation"), col = cols[c(2, 3)], bty = "n")
+dev.off()
 
-plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated angriness, older")
+pdf("FACES/Ratings/Ang_old.pdf", height = 5, width = 5) 
+plot(1, frame.plot = F, xlim = c(0, 1), ylim = c(0, 100), xlab = "stimulus block", ylab = "VAS rating", xaxt = "n", type = "n", main = "Rated anger, older")
 axis(1, at = c(0.05, 0.95), labels = c("Happy", "Angry"))
 lines(x = c(0, 0.9), y = eff2$fit[c(6, 5)], pch = 16, col = cols[2], type = "b", lwd = 1.5)
 lines(x = c(0.1, 1), y = eff2$fit[c(8, 7)], pch = 15, col = cols[3], type = "b", lwd = 1.5)
@@ -400,3 +406,13 @@ summary(lme_hab_angry)
 intervals(lme_hab_angry, which = "fixed")
 sink()
 
+
+# Test effect of session for revision Sci Rep
+
+lmeY <- lme(Rating ~ Block_type * condition * AgeGroup + session, data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == 2, ], random = ~1|subject)
+summary(lmeY)
+intervals(lmeY)
+
+# Rated angriness
+lmeX <- lme(Rating ~ Block_type * condition * AgeGroup + session, data = data[data$subject %in% subjects$SuccessfulIntervention & data$Question_type == 3, ], random = ~1|subject)
+summary(lmeX)
