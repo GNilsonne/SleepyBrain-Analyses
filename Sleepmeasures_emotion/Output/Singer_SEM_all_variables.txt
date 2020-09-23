@@ -53,88 +53,88 @@ Parameter Estimates:
   Standard errors                             Standard
 
 Latent Variables:
-                   Estimate  Std.Err  z-value  P(>|z|)
-  EMG_EC =~                                           
-    zyg               1.000                           
-    corr              1.000                           
-  R_EC =~                                             
-    C_ang             1.000                           
-    C_hap             1.000                           
-  B_EC =~                                             
-    FFA_an            1.000                           
-    FFA_ha            1.000                           
-    Amy_an            1.000                           
-    Amy_ha            1.000                           
-  B_Ep =~                                             
-    AI                1.000                           
-    ACC               1.000                           
-  R_Ep =~                                             
-    Unp               1.000                           
-  B_ER =~                                             
-    Amy_do            1.000                           
-    lOFC              1.000                           
-    dlPFC             1.000                           
-  R_ER =~                                             
-    Downr             1.000                           
-    Upreg             1.000                           
-  EC =~                                               
-    EMG_EC            1.000                           
-    R_EC              1.000                           
-    B_EC              1.000                           
-  Ep =~                                               
-    B_Ep              1.000                           
-  ER =~                                               
-    B_ER              1.000                           
-    R_ER              1.000                           
-  Ep =~                                               
-    R_Ep              1.000                           
+                            Estimate  Std.Err  z-value  P(>|z|)
+  EMG_EmotionalContagion =~                                    
+    Zyg                        1.000                           
+    Corr                       1.000                           
+  R_EmotionalContagion =~                                      
+    Anger                      1.000                           
+    Happiness                  1.000                           
+  B_EmotionalContagion =~                                      
+    FFA_angry                  1.000                           
+    FFA_happy                  1.000                           
+    Amy_angry                  1.000                           
+    Amy_happy                  1.000                           
+  B_Empathy =~                                                 
+    AI                         1.000                           
+    ACC                        1.000                           
+  R_Empathy =~                                                 
+    Unp                        1.000                           
+  B_EmotionalRegulation =~                                     
+    Amy_down                   1.000                           
+    lOFC                       1.000                           
+    dlPFC                      1.000                           
+  R_EmotionalRegulation =~                                     
+    Downr                      1.000                           
+    Upreg                      1.000                           
+  EmotionalContagion =~                                        
+    EMG_EmtnlCntgn             1.000                           
+    R_EmotinlCntgn             1.000                           
+    B_EmotinlCntgn             1.000                           
+  Empathy =~                                                   
+    B_Empathy                  1.000                           
+  EmotionalRegulation =~                                       
+    B_EmotinlRgltn             1.000                           
+    R_EmotinlRgltn             1.000                           
+  Empathy =~                                                   
+    R_Empathy                  1.000                           
 
 Covariances:
-                   Estimate  Std.Err  z-value  P(>|z|)
-  EC ~~                                               
-    Ep    (COV_EC)    0.027    0.036    0.765    0.444
-  Ep ~~                                               
-    ER    (COV_E_)   -0.059    0.051   -1.150    0.250
-  EC ~~                                               
-    ER    (COV_ER)   -0.005    0.038   -0.136    0.892
+                        Estimate  Std.Err  z-value  P(>|z|)
+  EmotionalContagion ~~                                    
+    Empth (COV_EC)         0.027    0.036    0.765    0.444
+  Empathy ~~                                               
+    EmtnR (COV_E_)        -0.059    0.051   -1.150    0.250
+  EmotionalContagion ~~                                    
+    EmtnR (COV_ER)        -0.005    0.038   -0.136    0.892
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(>|z|)
-   .C_ang             0.000    0.107    0.000    1.000
-   .C_hap             0.000    0.107    0.000    1.000
-   .corr             -0.003    0.142   -0.019    0.985
-   .zyg              -0.003    0.137   -0.020    0.984
+   .Anger             0.000    0.107    0.000    1.000
+   .Happiness         0.000    0.107    0.000    1.000
+   .Corr             -0.003    0.142   -0.019    0.985
+   .Zyg              -0.003    0.137   -0.020    0.984
    .Unp              -0.000    0.105   -0.000    1.000
    .AI               -0.000    0.100   -0.000    1.000
    .ACC               0.000    0.104    0.000    1.000
-   .Amy_ha           -0.001    0.121   -0.005    0.996
-   .Amy_an           -0.001    0.123   -0.005    0.996
-   .FFA_ha           -0.001    0.117   -0.005    0.996
-   .FFA_an           -0.001    0.118   -0.005    0.996
-   .Amy_do            0.004    0.156    0.029    0.977
+   .Amy_happy        -0.001    0.121   -0.005    0.996
+   .Amy_angry        -0.001    0.123   -0.005    0.996
+   .FFA_happy        -0.001    0.117   -0.005    0.996
+   .FFA_angry        -0.001    0.118   -0.005    0.996
+   .Amy_down          0.004    0.156    0.029    0.977
    .lOFC              0.004    0.113    0.040    0.968
    .dlPFC             0.004    0.108    0.041    0.967
    .Downr             0.007    0.119    0.055    0.956
    .Upreg             0.007    0.118    0.055    0.956
-   .EMG_EC            0.000                           
-   .R_EC              0.000                           
-   .B_EC              0.000                           
-   .B_Ep              0.000                           
-   .R_Ep              0.000                           
-   .B_ER              0.000                           
-   .R_ER              0.000                           
-    EC                0.000                           
-    Ep                0.000                           
-    ER                0.000                           
+   .EMG_EmtnlCntgn    0.000                           
+   .R_EmotinlCntgn    0.000                           
+   .B_EmotinlCntgn    0.000                           
+   .B_Empathy         0.000                           
+   .R_Empathy         0.000                           
+   .B_EmotinlRgltn    0.000                           
+   .R_EmotinlRgltn    0.000                           
+    EmotionalCntgn    0.000                           
+    Empathy           0.000                           
+    EmotionalRgltn    0.000                           
 
 Variances:
                    Estimate  Std.Err  z-value  P(>|z|)
     EC    (VAR_EC)    0.025    0.047    0.532    0.595
-    Ep    (VAR_Ep)   -0.029    0.078   -0.372    0.710
-   .C_   (VAR_C_n)    0.814    0.162    5.018    0.000
-   .C_   (VAR_C_h)    0.814    0.162    5.017    0.000
-   .cr     (VAR_c)    0.964    0.239    4.030    0.000
-   .zy     (VAR_z)    0.895    0.228    3.918    0.000
+    Em    (VAR_Em)   -0.029    0.078   -0.372    0.710
+   .An    (VAR_An)    0.814    0.162    5.018    0.000
+   .Hp     (VAR_H)    0.814    0.162    5.017    0.000
+   .Cr     (VAR_C)    0.964    0.239    4.030    0.000
+   .Zy     (VAR_Z)    0.895    0.228    3.918    0.000
    .Un                0.000                           
    .AI    (VAR_AI)    0.425    0.111    3.834    0.000
    .AC    (VAR_AC)    0.496    0.118    4.214    0.000
@@ -146,13 +146,13 @@ Variances:
    .EM    (VAR_EM)    0.033    0.142    0.228    0.819
    .R_  (VAR_R_EC)    0.145    0.116    1.254    0.210
    .B_  (VAR_B_EC)    0.460    0.113    4.065    0.000
-   .B_  (VAR_B_Ep)    0.466    0.113    4.129    0.000
-   .B_  (VAR_B_Ep)    0.466    0.113    4.129    0.000
+   .B_  (VAR_B_Em)    0.466    0.113    4.129    0.000
+   .B_  (VAR_B_Em)    0.466    0.113    4.129    0.000
    .A_ (VAR_Amy_d)    1.465    0.283    5.180    0.000
    .lO     (VAR_O)    0.517    0.122    4.225    0.000
    .dP     (VAR_P)    0.432    0.115    3.754    0.000
    .R_  (VAR_R_ER)    0.794    0.189    4.209    0.000
    .Dw     (VAR_D)    0.127    0.062    2.057    0.040
    .Up     (VAR_U)    0.121    0.061    1.974    0.048
-   .R_  (VAR_R_Ep)    0.976    0.159    6.150    0.000
+   .R_  (VAR_R_Em)    0.976    0.159    6.150    0.000
 

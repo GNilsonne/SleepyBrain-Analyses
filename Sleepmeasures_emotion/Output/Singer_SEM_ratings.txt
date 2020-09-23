@@ -51,43 +51,43 @@ Parameter Estimates:
   Standard errors                             Standard
 
 Latent Variables:
-                   Estimate  Std.Err  z-value  P(>|z|)
-  ER =~                                               
-    Downr             1.000                           
-    Upreg             1.000                           
-  EC =~                                               
-    C_hap             1.000                           
-    C_ang             1.000                           
-  Ep =~                                               
-    Unp               1.000                           
+                         Estimate  Std.Err  z-value  P(>|z|)
+  EmotionalRegulation =~                                    
+    Downr                   1.000                           
+    Upreg                   1.000                           
+  EmotionalContagion =~                                     
+    Happiness               1.000                           
+    Anger                   1.000                           
+  Empathy =~                                                
+    Unp                     1.000                           
 
 Covariances:
-                   Estimate  Std.Err  z-value  P(>|z|)
-  ER ~~                                               
-    EC (COV_ER_EC)   -0.215    0.102   -2.114    0.034
-    Ep (COV_ER_Ep)   -0.244    0.123   -1.980    0.048
-  EC ~~                                               
-    Ep    (COV_E_)    0.300    0.088    3.390    0.001
+                         Estimate  Std.Err  z-value  P(>|z|)
+  EmotionalRegulation ~~                                    
+    EC (COV_ER_EC)         -0.215    0.102   -2.114    0.034
+    Em (COV_EmR_E)         -0.244    0.123   -1.980    0.048
+  EmotionalContagion ~~                                     
+    Em    (COV_E_)          0.300    0.088    3.390    0.001
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(>|z|)
-    EC                0.000                           
-   .C_ang             0.000                           
-   .C_hap             0.000                           
+    EmotionalCntgn    0.000                           
+   .Anger             0.000                           
+   .Happiness         0.000                           
    .Unp               0.000                           
-    ER                0.000                           
+    EmotionalRgltn    0.000                           
    .Downr             0.000                           
    .Upreg             0.000                           
-    Ep                0.000                           
+    Empathy           0.000                           
 
 Variances:
                    Estimate  Std.Err  z-value  P(>|z|)
-    EC    (VAR_EC)    0.179    0.109    1.638    0.101
-   .C_ng (VAR_C_n)    0.750    0.150    5.005    0.000
-   .C_hp (VAR_C_h)    0.878    0.165    5.313    0.000
+    EmtnC (VAR_EC)    0.179    0.109    1.638    0.101
+   .Anger  (VAR_A)    0.750    0.150    5.005    0.000
+   .Hppns  (VAR_H)    0.878    0.165    5.313    0.000
    .Unp               0.000                           
-    ER    (VAR_ER)    0.880    0.165    5.322    0.000
-   .Dwnr   (VAR_D)    0.071    0.059    1.206    0.228
-   .Uprg   (VAR_U)    0.176    0.065    2.704    0.007
-    Ep    (VAR_Ep)    0.988    0.151    6.557    0.000
+    EmtnR (VAR_ER)    0.880    0.165    5.322    0.000
+   .Downr  (VAR_D)    0.071    0.059    1.206    0.228
+   .Upreg  (VAR_U)    0.176    0.065    2.704    0.007
+    Empth (VAR_Em)    0.988    0.151    6.557    0.000
 
