@@ -5,7 +5,7 @@ library("dplyr")
 library("semPlot")
 library("readr")
 
-modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer_standardized.csv") ;
+modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
 model<-"
 ! regressions 
 ER=~1.0*Downr

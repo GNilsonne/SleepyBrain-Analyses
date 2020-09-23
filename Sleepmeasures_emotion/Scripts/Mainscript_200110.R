@@ -279,17 +279,6 @@ SEM_file <- merge(SEM_file, Data_ROIs_dlPFC, all = T)
 SEM_file_no_subject <- subset(SEM_file, select =-Subject)
 
 
-#SEM_file_clean <- subset(SEM_file, complete.cases(SEM_file))
-#SEM_file_clean <- as.matrix(SEM_file_clean[ ,2:14])
-Correlation_matrix <- rcorr(as.matrix(SEM_file_no_subject))
-
-res1 <- cor.mtest(SEM_file_no_subject, conf.level = .95)
-
-
-## specialized the insignificant value according to the significant level
-corrplot(Correlation_matrix$r, p.mat = res1$p, insig = "label_sig",
-         sig.level = c(.001, .01, .05), pch.cex = .7, pch.col = "black")
-
 
 #Add IRI
 
@@ -309,8 +298,8 @@ colnames(SEM_file) <- c("Subject", "Unp", "AI", "ACC", "C_ang", "Happiness_angry
 SEM_file_standardized <- scale(SEM_file)
 
 
-write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer.csv")
-write.csv(SEM_file_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer_standardized.csv")
+write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer.csv")
+write.csv(SEM_file_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv")
 
 
 # Write separate files for young and old
@@ -320,12 +309,12 @@ SEM_file_age <- merge(SEM_file, AgeGroup)
 SEM_file_young <- subset(SEM_file_age, AgeGroup == "Young")
 SEM_file_young <- subset(SEM_file_young, select = -AgeGroup)
 SEM_file_young_standardized <- scale(SEM_file_young)
-write.csv(SEM_file_young_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_young_Singer_standardized.csv")
+write.csv(SEM_file_young_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_young_Singer_standardized.csv")
 
 SEM_file_old <- subset(SEM_file_age, AgeGroup == "Old")
 SEM_file_old <- subset(SEM_file_old, select = -AgeGroup)
 SEM_file_old_standardized <- scale(SEM_file_old)
-write.csv(SEM_file_old_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_old_Singer_standardized.csv")
+write.csv(SEM_file_old_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_old_Singer_standardized.csv")
 
 
 

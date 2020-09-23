@@ -3,32 +3,26 @@
 #
 library(lavaan);
 library(semPlot);
-modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_Singer_standardized.csv") ;
+library(readr)
+modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
 model<-"
 ! regressions 
-EMG_EC=~1.0*zyg
-EMG_EC=~1.0*corr
-R_EC=~1.0*C_ang
-R_EC=~1.0*C_hap
-B_EC=~1.0*FFA_an
-B_EC=~1.0*FFA_ha
-B_EC=~1.0*Amy_an
-B_EC=~1.0*Amy_ha
-B_Ep=~1.0*AI
-B_Ep=~1.0*ACC
-R_Ep=~1.0*Unp
-B_ER=~1.0*Amy_do
-B_ER=~1.0*lOFC
-B_ER=~1.0*dlPFC
-R_ER=~1.0*Downr
-R_ER=~1.0*Upreg
-EC=~1.0*EMG_EC
-EC=~1.0*R_EC
-EC=~1.0*B_EC
-Ep=~1.0*B_Ep
-ER=~1.0*B_ER
-ER=~1.0*R_ER
-Ep=~1.0*R_Ep
+EC=~1.0*zyg
+EC=~1.0*corr
+EC=~1.0*C_ang
+EC=~1.0*C_hap
+EC=~1.0*FFA_an
+EC=~1.0*FFA_ha
+EC=~1.0*Amy_an
+EC=~1.0*Amy_ha
+Ep=~1.0*AI
+Ep=~1.0*ACC
+Ep=~1.0*Unp
+ER=~1.0*Amy_do
+ER=~1.0*lOFC
+ER=~1.0*dlPFC
+ER=~1.0*Downr
+ER=~1.0*Upreg
 ! residuals, variances and covariances
 EC ~~ VAR_EC*EC
 Ep ~~ VAR_Ep*Ep
@@ -47,18 +41,11 @@ Ep ~~ COV_Ep_ER*ER
 ER ~~ COV_ER_EC*EC
 FFA_ha ~~ VAR_FFA_ha*FFA_ha
 FFA_an ~~ VAR_FFA_a*FFA_an
-EMG_EC ~~ VAR_EMG_EC*EMG_EC
-R_EC ~~ VAR_R_EC*R_EC
-B_EC ~~ VAR_B_EC*B_EC
-B_Ep ~~ VAR_B_Ep*B_Ep
-B_ER ~~ VAR_B_Ep*B_ER
 Amy_do ~~ VAR_Amy_do*Amy_do
 lOFC ~~ VAR_lOFC*lOFC
 dlPFC ~~ VAR_dlPFC*dlPFC
-R_ER ~~ VAR_R_ER*R_ER
 Downr ~~ VAR_Downr*Downr
 Upreg ~~ VAR_Upreg*Upreg
-R_Ep ~~ VAR_R_Ep*R_Ep
 
 ! observed means
 C_ang~1;
@@ -82,7 +69,7 @@ Upreg~1;
 
 result<-lavaan(model, data=modelData, fixed.x=FALSE, missing="FIML");
 summary(result, fit.measures=T);
-sink("Singer_SEM_all_variables.txt")
+sink("Singer_SEM_all_variables_together.txt")
 summary(result, fit.measures=T);
 sink()
 
@@ -91,18 +78,15 @@ fit <- lavaan:::cfa(model, data = modelData, std.lv = TRUE)
 
 # Plot path diagram:
 
-semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 8, sizeLat = 6,
+semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 8, sizeLat = 8,
          exoVar = F,
          groups = list(c("Ep", "R_Ep", "B_Ep", "AI", "ACC", "Unp"), 
-         c("EC", "Amy_ha", "Amy_an", "C_ang", "C_hap", "FFA_an", "FFA_ha", "EMG_EC", "corr", "zyg"),
-         c("ER", "B_ER", "lOFC", "Amy_do", "dlPFC", "R_ER", "Downr", "Upreg")),
-         residuals = F, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("grey",5),
-         pastel = T, rotation = 3)
+                       c("EC", "Amy_ha", "Amy_an", "C_ang", "C_hap", "FFA_an", "FFA_ha", "EMG_EC", "corr", "zyg"),
+                       c("ER", "B_ER", "lOFC", "Amy_do", "dlPFC", "R_ER", "Downr", "Upreg")),
+         residuals = F, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("black",3),
+         pastel = T, rotation = 1)
 
 # Parameter estimates
 parameterEstimates(result)
 # Standardized estimates
 standardizedSolution(result)
-
-
-
