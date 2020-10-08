@@ -397,6 +397,11 @@ data_corr2 <- agg_corr[agg_corr$stimulus == "angry", ]
 data_diff_corr <- data_corr1
 data_diff_corr$diff <- data_diff_corr$corr_resid - data_corr2$corr_resid
 
+# Save these files
+setwd("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data")
+write.csv2(data_diff_zyg, "data_diff_zyg.csv")
+write.csv2(data_diff_corr, "data_diff_corr.csv")
+
 # Build models
 lme0 <- lme(diff ~ 1, data = data_diff_zyg, random = ~1|subject/session)
 summary(lme0)
