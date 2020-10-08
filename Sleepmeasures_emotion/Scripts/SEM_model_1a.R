@@ -5,6 +5,10 @@ library(lavaan);
 library(semPlot);
 library(readr)
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
+# Use only full sleep data
+modelData <- subset(modelData, DeprivationCondition == "NormalSleep")
+
+
 model<-"
 ! regressions 
 Emotional Contagion=~1.0*Zyg
@@ -69,7 +73,7 @@ Upreg~1;
 
 result<-lavaan(model, data=modelData, fixed.x=FALSE, missing="FIML");
 summary(result, fit.measures=T);
-sink("Singer_SEM_all_variables_together.txt")
+sink("Output/Singer_SEM_all_variables_together.txt")
 summary(result, fit.measures=T);
 sink()
 
@@ -86,7 +90,4 @@ semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, 
          residuals = F, exoCov = T, layout = "circle", ask = F, as.expression = "edges", fixedStyle = c("black",3),
          pastel = T, rotation = 1)
 
-# Parameter estimates
-parameterEstimates(result)
-# Standardized estimates
-standardizedSolution(result)
+

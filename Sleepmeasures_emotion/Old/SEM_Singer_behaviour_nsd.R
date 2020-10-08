@@ -7,7 +7,7 @@ library("dplyr")
 library("semPlot")
 library("readr")
 
-modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/SEM_file_nsd.csv") ;
+modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_file_nsd.csv") ;
 colnames(modelData) <- c("X1", "Subject", "DeprivationCondition", "Sex", "AgeGroup",
                          "Unp", "C_ang", "C_hap", "Upreg", "Downr", "TST_fullsleep",
                          "SWS_fullsleep", "REM_fullsleep", "Sleepiness_KSS")
@@ -63,4 +63,4 @@ semPaths(fit, intercept = F, whatLabel = "est", nCharNodes = 0, nCharEdges =0, s
 # Parameter estimates
 parameterEstimates(result)
 # Standardized estimates
-standardizedSolution(result)
+parameterEstimates(result, standardized = TRUE)

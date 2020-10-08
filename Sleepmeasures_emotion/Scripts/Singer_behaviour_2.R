@@ -6,6 +6,9 @@ library("semPlot")
 library("readr")
 
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
+# Use only full sleep data
+modelData <- subset(modelData, DeprivationCondition == "NormalSleep")
+
 model<-"
 ! regressions 
 Emotional Regulation=~1.0*Downr
@@ -38,14 +41,14 @@ Empathy~0*1;
 result<-lavaan(model, data=modelData, missing="FIML");
 
 summary(result, fit.measures=TRUE);
-sink("Singer_SEM_ratings.txt")
+sink("Output/Singer_SEM_ratings.txt")
 summary(result, fit.measures=T);
 sink()
 
 # Plot path diagram:
 fit <- lavaan:::cfa(model, data = modelData, missing="FIML")
 
-semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 14,
+semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 14,
          exoVar = F,
          groups = list(c("Empathy", "Unp"), 
                       c("EmotionalContagion", "Anger", "Happiness"),
@@ -56,18 +59,6 @@ semPaths(fit, intercept = F, whatLabel = "std", nCharNodes = 0, nCharEdges =0, s
 
 
 
-# Parameter estimates
-parameterEstimates(result)
-# Standardized estimates
-standardizedSolution(result)
-
-library(dplyr) 
-library(tidyr)
-library(knitr)
-parameterEstimates(fit, standardized=TRUE) %>% 
-  filter(op == "=~") %>% 
-  select('Latent Factor'=lhs, Indicator=rhs, B=est, SE=se, Z=z, 'p-value'=pvalue, Beta=std.all) %>% 
-  kable(digits = 3, format="pandoc", caption="Factor Loadings")
 
 
 

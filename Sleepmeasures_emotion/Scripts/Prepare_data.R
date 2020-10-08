@@ -13,10 +13,11 @@ source('Utils/SummarisingFunctions.R', chdir = T)
 Data_HANDSRatings <- read.csv("~/Desktop/SleepyBrain_HANDS/Data/Data_HANDS_ratings.csv", sep=";", dec=",")
 
 
-Ratings <- subset(Data_HANDSRatings, select = c("Condition", "Rated_Unpleasantness", "Subject"))
+Ratings <- subset(Data_HANDSRatings, select = c("Condition", "Rated_Unpleasantness", "Subject", "DeprivationCondition"))
 
+# Calculate mean response per subject and session (for pain and no pain respectively)
 Ratings <- summarySE(data <- Ratings, measurevar = "Rated_Unpleasantness", 
-                  groupvars = c("Condition", "Subject"),
+                  groupvars = c("Condition", "Subject", "DeprivationCondition"),
                   na.rm = T) 
         
 
@@ -24,13 +25,15 @@ Ratings <- summarySE(data <- Ratings, measurevar = "Rated_Unpleasantness",
 Ratings_pain <- subset(Ratings, Condition == "Pain")
 Ratings_nopain <- subset(Ratings, Condition == "No_Pain")
 
-Ratings_wide <- merge(Ratings_pain, Ratings_nopain, by = "Subject")
+Ratings_wide <- merge(Ratings_pain, Ratings_nopain, by = c("Subject", "DeprivationCondition"))
 
 Ratings_wide$Mean_unpleasantness <- Ratings_wide$Rated_Unpleasantness.x - Ratings_wide$Rated_Unpleasantness.y
 
 
 #SEM_file will be the main file to use for later
-SEM_file <- subset(Ratings_wide, select = c("Subject", "Mean_unpleasantness"))
+SEM_file <- subset(Ratings_wide, select = c("Subject", "DeprivationCondition", "Mean_unpleasantness"))
+
+
 
 # Read ROI data HANDS
 
@@ -41,27 +44,39 @@ Data_ROI_HANDS <- subset(Data_ROI_HANDS, select = c("Subject", "ACC", "AI_L", "A
 Data_ROI_HANDS$ACC <- as.numeric(as.character(Data_ROI_HANDS$ACC))
 Data_ROI_HANDS$AI <- (as.numeric(as.character(Data_ROI_HANDS$AI_L)) + as.numeric(as.character(Data_ROI_HANDS$AI_R)))/2
 
+# Change name of deprivation condition to be same for all files
+levels(Data_ROI_HANDS$DeprivationCondition)[Data_ROI_HANDS$DeprivationCondition == "Sleep Deprived"] <- "SleepRestriction"
+levels(Data_ROI_HANDS$DeprivationCondition)[Data_ROI_HANDS$DeprivationCondition == "Not Sleep Deprived"] <- "NormalSleep"
 
-ROI_SD <- subset(Data_ROI_HANDS, DeprivationCondition == "Sleep Deprived")
-ROI_NSD <- subset(Data_ROI_HANDS, DeprivationCondition == "Not Sleep Deprived")
+# ROI_SD <- subset(Data_ROI_HANDS, DeprivationCondition == "Sleep Deprived")
+# ROI_NSD <- subset(Data_ROI_HANDS, DeprivationCondition == "Not Sleep Deprived")
+# 
+# ROIs_wide <- merge(ROI_SD, ROI_NSD, by = "Subject", all = T)
+# 
+# ROIs_wide$Mean_ACC <- rowMeans(ROIs_wide[c('ACC.x', 'ACC.y')], na.rm=TRUE)
+# ROIs_wide$Mean_AI <- rowMeans(ROIs_wide[c('AI.x', 'AI.y')], na.rm=TRUE)
+# ROIs_wide <- subset(ROIs_wide, select = c("Subject", "Mean_AI", "Mean_ACC"))
 
-ROIs_wide <- merge(ROI_SD, ROI_NSD, by = "Subject", all = T)
-
-ROIs_wide$Mean_ACC <- rowMeans(ROIs_wide[c('ACC.x', 'ACC.y')], na.rm=TRUE)
-ROIs_wide$Mean_AI <- rowMeans(ROIs_wide[c('AI.x', 'AI.y')], na.rm=TRUE)
-ROIs_wide <- subset(ROIs_wide, select = c("Subject", "Mean_AI", "Mean_ACC"))
-
-SEM_file <- merge(SEM_file, ROIs_wide)
+Data_ROI_HANDS <- subset(Data_ROI_HANDS, select = c("Subject", "ACC", "DeprivationCondition", "AI"))
+SEM_file <- merge(SEM_file, Data_ROI_HANDS, all = TRUE)
 
 # Read FACES data
 
 Faces_data <- read_csv("~/Desktop/SleepyBrain-Analyses/FACES/EMG/ratings.csv")
 
-Faces_data <- subset(Faces_data, select = c("Block_type", "Question_type", "Rating", "newid"))
+Faces_data <- subset(Faces_data, select = c("Block_type", "Question_type", "Rating", "newid", "condition"))
 
 Faces_data <- summarySE(data <- Faces_data, measurevar = "Rating", 
-                     groupvars = c("Block_type", "Question_type", "newid"),
+                     groupvars = c("Block_type", "Question_type", "newid", "condition"),
                      na.rm = T) 
+
+# Change colnames to be same as in other files
+colnames(Faces_data)[colnames(Faces_data) == "condition"] <- "DeprivationCondition"
+
+# Change name of deprivation condition to be same for all files
+Faces_data$DeprivationCondition[Faces_data$DeprivationCondition == "sleepdeprived"] <- "SleepRestriction"
+Faces_data$DeprivationCondition[Faces_data$DeprivationCondition == "fullsleep"] <- "NormalSleep"
+Faces_data$DeprivationCondition <- as.factor(Faces_data$DeprivationCondition)
 
 # Change numbers to actual rating types
 Faces_angry_angriness <- subset(Faces_data, Question_type == 3 & Block_type == "Angry")
@@ -74,13 +89,34 @@ Faces_happy_happiness <- subset(Faces_data, Question_type == 2 & Block_type == "
 colnames(Faces_happy_happiness)[which(names(Faces_happy_happiness) == "Rating")] <- "Happiness_happy"
 
 Faces_data <- cbind(Faces_angry_angriness, Faces_angry_happiness, Faces_happy_angriness, Faces_happy_happiness)
-Faces_data <- subset(Faces_data, select = c("newid", "Angriness_angry", "Happiness_angry", "Angriness_happy", "Happiness_happy"))
+Faces_data <- subset(Faces_data, select = c("newid", "Angriness_angry", "Happiness_angry", "Angriness_happy", 
+                                            "Happiness_happy", "DeprivationCondition"))
 
-SEM_file <- merge(SEM_file, Faces_data, by.x = "Subject", by.y = "newid", all = T)
+SEM_file <- merge(SEM_file, Faces_data, by.x = c("Subject", "DeprivationCondition"), by.y = c("newid", "DeprivationCondition"), all = T)
 
-# Read EMG data
-EMG_FACES <- read_csv("~/Desktop/SleepyBrain-Analyses/EMG_diff_2.csv")
-SEM_file <- merge(SEM_file, EMG_FACES, by.x = "Subject", by.y = "newid", all = T)
+
+# Read EMG data. 
+data_diff_zyg <- read.csv2("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/data_diff_zyg.csv")
+
+data_diff_zyg <- subset(data_diff_zyg, select = c("subject", "condition", "diff"))
+colnames(data_diff_zyg) <- c("subject", "condition", "Zyg")
+
+data_diff_corr <- read.csv2("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/data_diff_corr.csv")
+
+data_diff_corr <- subset(data_diff_corr, select = c("subject", "condition", "diff"))
+colnames(data_diff_corr) <- c("subject", "condition", "Corr")
+
+
+# Change name of deprivation condition to be same for all files
+levels(data_diff_zyg$condition)[levels(data_diff_zyg$condition) == "sleepdeprived"] <- "SleepRestriction"
+levels(data_diff_zyg$condition)[levels(data_diff_zyg$condition) == "fullsleep"] <- "NormalSleep"
+
+levels(data_diff_corr$condition)[levels(data_diff_corr$condition) == "sleepdeprived"] <- "SleepRestriction"
+levels(data_diff_corr$condition)[levels(data_diff_corr$condition) == "fullsleep"] <- "NormalSleep"
+
+
+SEM_file <- merge(SEM_file, data_diff_zyg, by.x = c("Subject", "DeprivationCondition"), by.y = c("subject", "condition"), all = T)
+SEM_file <- merge(SEM_file, data_diff_corr, by.x = c("Subject", "DeprivationCondition"), by.y = c("subject", "condition"), all = T)
 
 # Read ROI data Amygdala
 amyg_L_sleepdeprived <- read_delim("~/Desktop/SleepyBrain-Analyses/FACES/ROI_analyses/amygdala_ROI_betas_L_sleepdeprived.csv",
@@ -111,25 +147,38 @@ for(i in 2:length(amyg_joint_sleepdeprived)){
 amyg_joint_sleepdeprived$condition <- "sleepdeprived"
 
 amyg_joint <- rbind(amyg_joint_fullsleep, amyg_joint_sleepdeprived) 
-amyg_joint <- subset(amyg_joint, select = c("ID", "'HA_NE'", "'AN_NE'"))
+amyg_joint <- subset(amyg_joint, select = c("ID", "'HA_NE'", "'AN_NE'", "condition"))
 
+# Calculate mean responses 
 Amygdala_Happy <- summarySE(data <- amyg_joint, measurevar = "'HA_NE'", 
-                     groupvars = c("ID"),
+                     groupvars = c("ID", "condition"),
                      na.rm = T) 
 
 colnames(Amygdala_Happy)[which(names(Amygdala_Happy) == "'HA_NE'")] <- "Amygdala_happy"
-Amygdala_Happy <- subset(Amygdala_Happy, select = c("ID", "Amygdala_happy"))
+Amygdala_Happy <- subset(Amygdala_Happy, select = c("ID", "Amygdala_happy", "condition"))
 
 Amygdala_Angry <- summarySE(data <- amyg_joint, measurevar = "'AN_NE'", 
-                            groupvars = c("ID"),
+                            groupvars = c("ID", "condition"),
                             na.rm = T) 
 
 colnames(Amygdala_Angry)[which(names(Amygdala_Angry) == "'AN_NE'")] <- "Amygdala_angry"
-Amygdala_Angry <- subset(Amygdala_Angry, select = c("ID", "Amygdala_angry"))
+Amygdala_Angry <- subset(Amygdala_Angry, select = c("ID", "Amygdala_angry", "condition"))
 
 
-SEM_file <- merge(SEM_file, Amygdala_Happy, by.x = "Subject", by.y = "ID", all = T)
-SEM_file <- merge(SEM_file, Amygdala_Angry, by.x = "Subject", by.y = "ID", all = T)
+
+# Change name of deprivation condition to be same for all files
+Amygdala_Happy$condition[Amygdala_Happy$condition == "sleepdeprived"] <- "SleepRestriction"
+Amygdala_Happy$condition[Amygdala_Happy$condition == "fullsleep"] <- "NormalSleep"
+Amygdala_Happy$condition <- as.factor(Amygdala_Happy$condition)
+
+Amygdala_Angry$condition[Amygdala_Angry$condition == "sleepdeprived"] <- "SleepRestriction"
+Amygdala_Angry$condition[Amygdala_Angry$condition == "fullsleep"] <- "NormalSleep"
+Amygdala_Angry$condition <- as.factor(Amygdala_Angry$condition)
+
+
+SEM_file <- merge(SEM_file, Amygdala_Happy, by.x = c("Subject", "DeprivationCondition"), by.y = c("ID", "condition"), all = T)
+SEM_file <- merge(SEM_file, Amygdala_Angry, by.x = c("Subject", "DeprivationCondition"), by.y = c("ID", "condition"), all = T)
+
 
 
 # Read ROI data FFA
@@ -151,42 +200,32 @@ FFA_joint_fullsleep <- FFA_L_fullsleep
 for(i in 2:length(FFA_joint_fullsleep)){ # Loop over columns
   FFA_joint_fullsleep[, i] <- (FFA_L_fullsleep[, i] + FFA_R_fullsleep[, i])/2 #Calculate mean
 }
-FFA_joint_fullsleep$condition <- "fullsleep"
+FFA_joint_fullsleep$DeprivationCondition <- "NormalSleep"
 
 FFA_joint_sleepdeprived <- FFA_L_sleepdeprived
 for(i in 2:length(FFA_joint_sleepdeprived)){
   FFA_joint_sleepdeprived[, i] <- (FFA_L_sleepdeprived[, i] + FFA_R_sleepdeprived[, i])/2
 }
-FFA_joint_sleepdeprived$condition <- "sleepdeprived"
+FFA_joint_sleepdeprived$DeprivationCondition <- "SleepRestriction"
 
 FFA_joint <- rbind(FFA_joint_fullsleep, FFA_joint_sleepdeprived) 
-FFA_joint <- subset(FFA_joint, select = c("ID", "'HA_NE'", "'AN_NE'"))
+FFA_joint <- subset(FFA_joint, select = c("ID", "'HA_NE'", "'AN_NE'", "DeprivationCondition"))
 
-FFA_Happy <- summarySE(data <- FFA_joint, measurevar = "'HA_NE'", 
-                            groupvars = c("ID"),
-                            na.rm = T) 
+colnames(FFA_joint)[which(names(FFA_joint) == "'HA_NE'")] <- "FFA_happy"
+colnames(FFA_joint)[which(names(FFA_joint) == "'AN_NE'")] <- "FFA_angry"
 
-colnames(FFA_Happy)[which(names(FFA_Happy) == "'HA_NE'")] <- "FFA_happy"
-FFA_Happy <- subset(FFA_Happy, select = c("ID", "FFA_happy"))
 
-FFA_Angry <- summarySE(data <- FFA_joint, measurevar = "'AN_NE'", 
-                            groupvars = c("ID"),
-                            na.rm = T) 
+SEM_file <- merge(SEM_file, FFA_joint, by.x = c("Subject", "DeprivationCondition"), by.y = c("ID", "DeprivationCondition"), all = T)
 
-colnames(FFA_Angry)[which(names(FFA_Angry) == "'AN_NE'")] <- "FFA_angry"
-FFA_Angry <- subset(FFA_Angry, select = c("ID", "FFA_angry"))
-
-SEM_file <- merge(SEM_file, FFA_Happy, by.x = "Subject", by.y = "ID", all = T)
-SEM_file <- merge(SEM_file, FFA_Angry, by.x = "Subject", by.y = "ID", all = T)
 
 # Read success ratings ARROWS
 Data_ARROWS_ratings <- read_delim("~/Desktop/SleepyBrain-Analyses/ARROWS/Data/Data_ARROWS_ratings.csv", ";", escape_double = FALSE, trim_ws = TRUE)
 Data_ARROWS_ratings <- subset(Data_ARROWS_ratings, Definitely_Understood == T)
-Data_ARROWS_ratings <- subset(Data_ARROWS_ratings, select = c("Subject", "StimulusType", "RatedSuccessOfRegulation"))
+Data_ARROWS_ratings <- subset(Data_ARROWS_ratings, select = c("Subject", "StimulusType", "RatedSuccessOfRegulation", "DeprivationCondition"))
 
 
 Data_ARROWS_ratings <- summarySE(data <- Data_ARROWS_ratings, measurevar = "RatedSuccessOfRegulation", 
-                     groupvars = c("StimulusType", "Subject"),
+                     groupvars = c("StimulusType", "Subject", "DeprivationCondition"),
                      na.rm = T) 
 
 # New columns with each rating type
@@ -199,104 +238,100 @@ colnames(Ratings_MaintainNegative)[which(names(Ratings_MaintainNegative) == "Rat
 Ratings_MaintainNeutral <- subset(Data_ARROWS_ratings, StimulusType == "MaintainNeutral")
 colnames(Ratings_MaintainNeutral)[which(names(Ratings_MaintainNeutral) == "RatedSuccessOfRegulation")] <- "MaintainNeutral"
 
-Ratings_DownregulateNegative <- subset(Ratings_DownregulateNegative, select = c("Subject", "DownregulateNegative"))
-Ratings_UpregulateNegative <- subset(Ratings_UpregulateNegative, select = c("Subject", "UpregulateNegative")) 
-Ratings_MaintainNegative <- subset(Ratings_MaintainNegative, select = c("Subject", "MaintainNegative"))
-Ratings_MaintainNeutral <- subset(Ratings_MaintainNeutral, select = c("Subject", "MaintainNeutral"))
+Ratings_DownregulateNegative <- subset(Ratings_DownregulateNegative, select = c("Subject", "DownregulateNegative", "DeprivationCondition"))
+Ratings_UpregulateNegative <- subset(Ratings_UpregulateNegative, select = c("Subject", "UpregulateNegative", "DeprivationCondition")) 
+Ratings_MaintainNegative <- subset(Ratings_MaintainNegative, select = c("Subject", "MaintainNegative", "DeprivationCondition"))
+Ratings_MaintainNeutral <- subset(Ratings_MaintainNeutral, select = c("Subject", "MaintainNeutral", "DeprivationCondition"))
 Ratings_ER <- merge(Ratings_DownregulateNegative, Ratings_UpregulateNegative)
 Ratings_ER <- merge(Ratings_ER, Ratings_MaintainNegative)
+
+# Standaradise to maintain negative
 Ratings_ER$DownregulateNegative <- Ratings_ER$DownregulateNegative - (7 - Ratings_ER$MaintainNegative)
 Ratings_ER$UpregulateNegative <- Ratings_ER$UpregulateNegative - (7 - Ratings_ER$MaintainNegative)
 
 
-SEM_file <- merge(SEM_file, Ratings_ER, all = T)
-SEM_file <- merge(SEM_file, Ratings_MaintainNeutral, all = T)
+# Change name of deprivation condition to be same for all files
+Ratings_ER$DeprivationCondition[Ratings_ER$DeprivationCondition == "Sleep Deprived"] <- "SleepRestriction"
+Ratings_ER$DeprivationCondition[Ratings_ER$DeprivationCondition == "Not Sleep Deprived"] <- "NormalSleep"
+Ratings_ER$DeprivationCondition <- as.factor(Ratings_ER$DeprivationCondition)
 
+
+SEM_file <- merge(SEM_file, Ratings_ER, all = T)
+#SEM_file <- merge(SEM_file, Ratings_MaintainNeutral, all = T)
 
 
 # Read ROI data ARROWS
 
 Data_ROIs_ARROWS <- read_csv("~/Desktop/SleepyBrain_ARROWS/Data/Data_ROIs_all.csv")
 
-Data_ROIs_ARROWS$Mean_amygdala_negative <- (Data_ROIs_ARROWS$Amygdala_L_negneu_full + Data_ROIs_ARROWS$Amygdala_R_negneu_full +
-                                            Data_ROIs_ARROWS$Amygdala_R_negneu_0s + Data_ROIs_ARROWS$Amygdala_L_negneu_0s)/4
+#Data_ROIs_ARROWS$Mean_amygdala_negative <- (Data_ROIs_ARROWS$Amygdala_L_negneu_full + Data_ROIs_ARROWS$Amygdala_R_negneu_full +
+#                                            Data_ROIs_ARROWS$Amygdala_R_negneu_0s + Data_ROIs_ARROWS$Amygdala_L_negneu_0s)/4
 
-
+# Combine left and right ROIs
 Data_ROIs_ARROWS$Mean_lOFC <- (Data_ROIs_ARROWS$lOFC_L_Down + Data_ROIs_ARROWS$lOFC_R_Down)/2
 Data_ROIs_ARROWS$Mean_dlPFC <- (Data_ROIs_ARROWS$dlPFC_L_Down + Data_ROIs_ARROWS$dlPFC_R_Down)/2
 Data_ROIs_ARROWS$Mean_amygdala_down <- (Data_ROIs_ARROWS$Amygdala_L_Down + Data_ROIs_ARROWS$Amygdala_R_Down)/2
 
-Data_ROIs_ARROWS <- subset(Data_ROIs_ARROWS, select = c("DeprivationCondition", "Subject", "Mean_amygdala_negative",
+Data_ROIs_ARROWS <- subset(Data_ROIs_ARROWS, select = c("DeprivationCondition", "Subject",
                                                         "Mean_lOFC", "Mean_dlPFC", "Mean_amygdala_down"))
 
 
-Data_ROIs_Amygdala_neg <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_amygdala_negative", 
-                                 groupvars = c("Subject"),
-                                 na.rm = T) 
-Data_ROIs_Amygdala_neg <- subset(Data_ROIs_Amygdala_neg, select = c("Subject", "Mean_amygdala_negative"))
-
-Data_ROIs_Amygdala_down <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_amygdala_down", 
-                                    groupvars = c("Subject"),
-                                    na.rm = T) 
-Data_ROIs_Amygdala_down <- subset(Data_ROIs_Amygdala_down, select = c("Subject", "Mean_amygdala_down"))
+# Data_ROIs_Amygdala_neg <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_amygdala_negative", 
+#                                  groupvars = c("Subject"),
+#                                  na.rm = T) 
+# Data_ROIs_Amygdala_neg <- subset(Data_ROIs_Amygdala_neg, select = c("Subject", "Mean_amygdala_negative"))
+# 
+# Data_ROIs_Amygdala_down <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_amygdala_down", 
+#                                     groupvars = c("Subject"),
+#                                     na.rm = T) 
+# Data_ROIs_Amygdala_down <- subset(Data_ROIs_Amygdala_down, select = c("Subject", "Mean_amygdala_down"))
 
 # Reverse amygdala value 
-Data_ROIs_Amygdala_down$Mean_amygdala_down <- (-0.61959)+(0.66170)-Data_ROIs_Amygdala_down$Mean_amygdala_down
+Data_ROIs_ARROWS$Mean_amygdala_down <- Data_ROIs_ARROWS$Mean_amygdala_down*-1
 
 
-Data_ROIs_lOFC <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_lOFC", 
-                                     groupvars = c("Subject"),
-                                     na.rm = T) 
-Data_ROIs_lOFC <- subset(Data_ROIs_lOFC, select = c("Subject", "Mean_lOFC"))
+# Data_ROIs_lOFC <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_lOFC", 
+#                                      groupvars = c("Subject"),
+#                                      na.rm = T) 
+# Data_ROIs_lOFC <- subset(Data_ROIs_lOFC, select = c("Subject", "Mean_lOFC"))
+# 
+# Data_ROIs_dlPFC <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_dlPFC", 
+#                             groupvars = c("Subject"),
+#                             na.rm = T) 
+# Data_ROIs_dlPFC <- subset(Data_ROIs_dlPFC, select = c("Subject", "Mean_dlPFC"))
 
-Data_ROIs_dlPFC <- summarySE(Data_ROIs_ARROWS, measurevar = "Mean_dlPFC", 
-                            groupvars = c("Subject"),
-                            na.rm = T) 
-Data_ROIs_dlPFC <- subset(Data_ROIs_dlPFC, select = c("Subject", "Mean_dlPFC"))
-
-SEM_file <- merge(SEM_file, Data_ROIs_Amygdala_neg, all = T)
-SEM_file <- merge(SEM_file, Data_ROIs_Amygdala_down, all = T)
-SEM_file <- merge(SEM_file, Data_ROIs_lOFC, all = T)
-SEM_file <- merge(SEM_file, Data_ROIs_dlPFC, all = T)
-
-
-SEM_file_no_subject <- subset(SEM_file, select =-Subject)
+# Change name of deprivation condition to be same for all files
+Data_ROIs_ARROWS$DeprivationCondition[Data_ROIs_ARROWS$DeprivationCondition == "Sleep Deprived"] <- "SleepRestriction"
+Data_ROIs_ARROWS$DeprivationCondition[Data_ROIs_ARROWS$DeprivationCondition == "Not Sleep Deprived"] <- "NormalSleep"
+Data_ROIs_ARROWS$DeprivationCondition <- as.factor(Data_ROIs_ARROWS$DeprivationCondition)
 
 
+SEM_file <- merge(SEM_file, Data_ROIs_ARROWS, all = T)
 
-colnames(SEM_file) <- c("Subject", "Unp", "AI", "ACC", "Anger", "Happiness_angry",
+
+
+#SEM_file_no_subject <- subset(SEM_file, select =-Subject)
+
+
+
+colnames(SEM_file) <- c("Subject", "DeprivationCondition", "Unp", "ACC", "AI", "Anger", "Happiness_angry",
                         "Angriness_happy", "Happiness", "Zyg", "Corr", "Amy_happy", "Amy_angry",
-                        "FFA_happy", "FFA_angry", "Downr", "Upreg", "MaintainNegative", "MaintainNeutral",
-                         "Image_unpleasantness", "Amy_neg", "Amy_down")
+                        "FFA_happy", "FFA_angry", "Downr", "Upreg", "MaintainNegative",
+                        "lOFC", "dlPFC", "Amy_down")
 
+# Add variable for young and old
+AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup")))
+SEM_file <- merge(SEM_file, AgeGroup, all = T)
 
 # Standardize 
-
-SEM_file_standardized <- scale(SEM_file)
+SEM_file_standardized <- SEM_file
+SEM_file_standardized[ ,3:21] <- scale(SEM_file_standardized[ ,3:21])
 
 
 write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer.csv")
 write.csv(SEM_file_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv")
 
 
-# Write separate files for young and old
-AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup")))
-
-SEM_file_age <- merge(SEM_file, AgeGroup)
-SEM_file_young <- subset(SEM_file_age, AgeGroup == "Young")
-SEM_file_young <- subset(SEM_file_young, select = -AgeGroup)
-SEM_file_young_standardized <- scale(SEM_file_young)
-write.csv(SEM_file_young_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_young_Singer_standardized.csv")
-
-SEM_file_old <- subset(SEM_file_age, AgeGroup == "Old")
-SEM_file_old <- subset(SEM_file_old, select = -AgeGroup)
-SEM_file_old_standardized <- scale(SEM_file_old)
-write.csv(SEM_file_old_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_old_Singer_standardized.csv")
-
-
-
-# 2 = rated happiness
-# 3 = rated angriness
 
 
 

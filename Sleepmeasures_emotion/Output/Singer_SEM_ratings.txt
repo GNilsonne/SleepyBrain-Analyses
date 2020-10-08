@@ -1,4 +1,4 @@
-lavaan 0.6-5 ended normally after 25 iterations
+lavaan 0.6-5 ended normally after 22 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
@@ -9,40 +9,40 @@ lavaan 0.6-5 ended normally after 25 iterations
                                                       
 Model Test User Model:
                                                       
-  Test statistic                                12.123
+  Test statistic                                13.482
   Degrees of freedom                                10
-  P-value (Chi-square)                           0.277
+  P-value (Chi-square)                           0.198
 
 Model Test Baseline Model:
 
-  Test statistic                               136.116
+  Test statistic                               119.585
   Degrees of freedom                                10
   P-value                                        0.000
 
 User Model versus Baseline Model:
 
-  Comparative Fit Index (CFI)                    0.983
-  Tucker-Lewis Index (TLI)                       0.983
+  Comparative Fit Index (CFI)                    0.968
+  Tucker-Lewis Index (TLI)                       0.968
 
 Loglikelihood and Information Criteria:
 
-  Loglikelihood user model (H0)               -497.387
-  Loglikelihood unrestricted model (H1)       -491.326
+  Loglikelihood user model (H0)               -504.746
+  Loglikelihood unrestricted model (H1)       -498.005
                                                       
-  Akaike (AIC)                                1014.774
-  Bayesian (BIC)                              1039.318
-  Sample-size adjusted Bayesian (BIC)         1007.767
+  Akaike (AIC)                                1029.492
+  Bayesian (BIC)                              1054.035
+  Sample-size adjusted Bayesian (BIC)         1022.485
 
 Root Mean Square Error of Approximation:
 
-  RMSEA                                          0.050
+  RMSEA                                          0.064
   90 Percent confidence interval - lower         0.000
-  90 Percent confidence interval - upper         0.133
-  P-value RMSEA <= 0.05                          0.445
+  90 Percent confidence interval - upper         0.142
+  P-value RMSEA <= 0.05                          0.351
 
 Standardized Root Mean Square Residual:
 
-  SRMR                                           0.080
+  SRMR                                           0.062
 
 Parameter Estimates:
 
@@ -64,10 +64,10 @@ Latent Variables:
 Covariances:
                          Estimate  Std.Err  z-value  P(>|z|)
   EmotionalRegulation ~~                                    
-    EC (COV_ER_EC)         -0.215    0.102   -2.114    0.034
-    Em (COV_EmR_E)         -0.244    0.123   -1.980    0.048
+    EC (COV_ER_EC)         -0.248    0.099   -2.508    0.012
+    Em (COV_EmR_E)         -0.202    0.124   -1.636    0.102
   EmotionalContagion ~~                                     
-    Em    (COV_E_)          0.300    0.088    3.390    0.001
+    Em    (COV_E_)          0.181    0.083    2.175    0.030
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(>|z|)
@@ -82,12 +82,12 @@ Intercepts:
 
 Variances:
                    Estimate  Std.Err  z-value  P(>|z|)
-    EmtnC (VAR_EC)    0.179    0.109    1.638    0.101
-   .Anger  (VAR_A)    0.750    0.150    5.005    0.000
-   .Hppns  (VAR_H)    0.878    0.165    5.313    0.000
+    EmtnC (VAR_EC)    0.079    0.108    0.739    0.460
+   .Anger  (VAR_A)    0.951    0.176    5.403    0.000
+   .Hppns  (VAR_H)    0.882    0.167    5.266    0.000
    .Unp               0.000                           
-    EmtnR (VAR_ER)    0.880    0.165    5.322    0.000
-   .Downr  (VAR_D)    0.071    0.059    1.206    0.228
-   .Upreg  (VAR_U)    0.176    0.065    2.704    0.007
-    Empth (VAR_Em)    0.988    0.151    6.557    0.000
+    EmtnR (VAR_ER)    0.830    0.157    5.271    0.000
+   .Downr  (VAR_D)    0.128    0.061    2.082    0.037
+   .Upreg  (VAR_U)    0.132    0.062    2.134    0.033
+    Empth (VAR_Em)    1.043    0.159    6.557    0.000
 

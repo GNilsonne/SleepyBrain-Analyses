@@ -1,0 +1,126 @@
+lavaan 0.6-5 ended normally after 45 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of free parameters                         24
+                                                      
+                                                  Used       Total
+  Number of observations                           137         172
+  Number of clusters [Subject]                      69            
+                                                                  
+Model Test User Model:
+                                                      
+  Test statistic                                 3.551
+  Degrees of freedom                                 5
+  P-value (Chi-square)                           0.616
+
+Model Test Baseline Model:
+
+  Test statistic                               260.864
+  Degrees of freedom                                15
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.018
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)               -967.902
+  Loglikelihood unrestricted model (H1)       -966.126
+                                                      
+  Akaike (AIC)                                1983.804
+  Bayesian (BIC)                              2053.883
+  Sample-size adjusted Bayesian (BIC)         1977.958
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.099
+  P-value RMSEA <= 0.05                          0.764
+
+Standardized Root Mean Square Residual (corr metric):
+
+  SRMR (within covariance matrix)                0.033
+  SRMR (between covariance matrix)               0.000
+
+Parameter Estimates:
+
+  Information                                 Observed
+  Observed information based on                Hessian
+  Standard errors                             Standard
+
+
+Level 1 [within]:
+
+Latent Variables:
+                          Estimate  Std.Err  z-value  P(>|z|)
+  Sleep =~                                                   
+    DeprivatnCndtn           1.000                           
+  Empathy =~                                                 
+    Unp                      1.000                           
+  Emotional_Contagion =~                                     
+    Happiness                1.000                           
+    Anger                    1.435    0.415    3.461    0.001
+  Emotional_regulation =~                                    
+    Upreg                    1.000                           
+    Downr                    1.688    0.404    4.176    0.000
+
+Covariances:
+                         Estimate  Std.Err  z-value  P(>|z|)
+  Sleep ~~                                                  
+    Empathy                -0.006    0.041   -0.138    0.890
+    Emotionl_Cntgn         -0.041    0.027   -1.549    0.121
+    Emotionl_rgltn         -0.006    0.024   -0.250    0.803
+  Empathy ~~                                                
+    Emotionl_Cntgn          0.272    0.077    3.528    0.000
+    Emotionl_rgltn         -0.166    0.074   -2.249    0.025
+  Emotional_Contagion ~~                                    
+    Emotionl_rgltn         -0.109    0.051   -2.156    0.031
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .DeprivatnCndtn    1.496    0.043   35.030    0.000
+   .Unp              -0.019    0.083   -0.230    0.818
+   .Happiness         0.005    0.083    0.056    0.955
+   .Anger            -0.206    0.079   -2.620    0.009
+   .Upreg            -0.000    0.085   -0.000    1.000
+   .Downr             0.000    0.085    0.000    1.000
+    Sleep             0.000                           
+    Empathy           0.000                           
+    Emotionl_Cntgn    0.000                           
+    Emotionl_rgltn    0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .DeprivatnCndtn    0.000                           
+   .Unp               0.000                           
+   .Happiness         0.837    0.110    7.594    0.000
+   .Anger             0.635    0.118    5.363    0.000
+   .Upreg             0.485    0.128    3.784    0.000
+   .Downr            -0.453    0.329   -1.376    0.169
+    Sleep             0.250    0.030    8.276    0.000
+    Empathy           0.935    0.113    8.276    0.000
+    Emotionl_Cntgn    0.104    0.068    1.532    0.125
+    Emotionl_rgltn    0.508    0.155    3.280    0.001
+
+
+Level 2 [Subject]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  Age =~                                              
+    AgeGroup          1.000                           
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .AgeGroup          1.667    0.057   29.368    0.000
+    Age               0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .AgeGroup          0.000                           
+    Age               0.222    0.038    5.874    0.000
+
