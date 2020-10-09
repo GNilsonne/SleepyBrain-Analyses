@@ -1,4 +1,7 @@
+
 # Script to check normality/outliers
+
+library("readr")
 
 #SEM_Singer <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer.csv")
 
