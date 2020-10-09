@@ -21,7 +21,7 @@ SEM_Singer_standardized <- as.data.frame(SEM_Singer_standardized)
 #   polygon(d, col="red", border="gray")
 # }
 
-par(mfrow=c(4, 5))
+par(mfrow=c(4, 4))
 colnames <- dimnames(SEM_Singer_standardized)[[2]]
 for (i in c(4:7, 10:18, 20:22)) {
   d <- density(SEM_Singer_standardized[,i], na.rm = T)
