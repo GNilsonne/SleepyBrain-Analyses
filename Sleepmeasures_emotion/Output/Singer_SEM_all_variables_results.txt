@@ -1,0 +1,154 @@
+lavaan 0.6-5 ended normally after 153 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of free parameters                         57
+                                                      
+  Number of observations                            86
+  Number of missing patterns                        14
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                               211.712
+  Degrees of freedom                                95
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                               558.898
+  Degrees of freedom                               120
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.734
+  Tucker-Lewis Index (TLI)                       0.664
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1489.861
+  Loglikelihood unrestricted model (H1)      -1384.005
+                                                      
+  Akaike (AIC)                                3093.721
+  Bayesian (BIC)                              3233.619
+  Sample-size adjusted Bayesian (BIC)         3053.780
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.120
+  90 Percent confidence interval - lower         0.098
+  90 Percent confidence interval - upper         0.141
+  P-value RMSEA <= 0.05                          0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.117
+
+Parameter Estimates:
+
+  Information                                 Observed
+  Observed information based on                Hessian
+  Standard errors                             Standard
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  EMG_EC =~                                           
+    Zyg               1.000                           
+    Corr             -1.562    1.500   -1.042    0.298
+  R_EC =~                                             
+    Anger             1.000                           
+    Happiness         0.724    0.289    2.507    0.012
+  B_EC =~                                             
+    FFA_angry         1.000                           
+    FFA_happy         0.313    0.118    2.660    0.008
+    Amy_angry         0.766    0.144    5.332    0.000
+    Amy_happy         0.284    0.146    1.948    0.051
+  B_Ep =~                                             
+    AI                1.000                           
+    ACC               2.845    5.649    0.504    0.614
+  R_Ep =~                                             
+    Unp               1.000                           
+  B_ER =~                                             
+    Amy_down          1.000                           
+    lOFC             -3.151    1.387   -2.271    0.023
+    dlPFC            -2.163    0.723   -2.993    0.003
+  R_ER =~                                             
+    Downr             1.000                           
+    Upreg             0.640    0.146    4.390    0.000
+  EC =~                                               
+    R_EC              1.000                           
+    B_EC              0.223    0.179    1.245    0.213
+    EMG_EC            0.215    0.208    1.032    0.302
+  Ep =~                                               
+    R_Ep              1.000                           
+    B_Ep             -0.173    0.434   -0.398    0.691
+  ER =~                                               
+    R_ER              1.000                           
+    B_ER              0.117    0.116    1.008    0.313
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  EC ~~                                               
+    Ep                0.203    0.098    2.072    0.038
+    ER               -0.377    0.118   -3.201    0.001
+  Ep ~~                                               
+    ER               -0.212    0.117   -1.811    0.070
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .Zyg               0.001    0.127    0.004    0.997
+   .Corr             -0.028    0.139   -0.200    0.841
+   .Anger            -0.000    0.107   -0.000    1.000
+   .Happiness        -0.000    0.107   -0.000    1.000
+   .FFA_angry        -0.014    0.119   -0.115    0.909
+   .FFA_happy        -0.004    0.120   -0.036    0.971
+   .Amy_angry        -0.011    0.119   -0.088    0.930
+   .Amy_happy        -0.004    0.120   -0.033    0.974
+   .AI               -0.001    0.109   -0.005    0.996
+   .ACC              -0.002    0.109   -0.014    0.988
+   .Unp              -0.000    0.107   -0.000    1.000
+   .Amy_down         -0.004    0.114   -0.031    0.975
+   .lOFC              0.011    0.114    0.099    0.921
+   .dlPFC             0.008    0.114    0.068    0.946
+   .Downr            -0.061    0.119   -0.511    0.609
+   .Upreg            -0.039    0.120   -0.325    0.745
+   .EMG_EC            0.000                           
+   .R_EC              0.000                           
+   .B_EC              0.000                           
+   .B_Ep              0.000                           
+   .R_Ep              0.000                           
+   .B_ER              0.000                           
+   .R_ER              0.000                           
+    EC                0.000                           
+    Ep                0.000                           
+    ER                0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .Zyg               1.031    0.226    4.562    0.000
+   .Corr              1.111    0.388    2.860    0.004
+   .Anger             0.891    0.188    4.732    0.000
+   .Happiness         0.937    0.158    5.915    0.000
+   .FFA_angry        -0.033    0.173   -0.189    0.850
+   .FFA_happy         0.886    0.151    5.884    0.000
+   .Amy_angry         0.388    0.112    3.449    0.001
+   .Amy_happy         0.904    0.159    5.699    0.000
+   .AI                0.737    0.508    1.449    0.147
+   .ACC              -1.045    4.014   -0.260    0.795
+   .Unp               0.000                           
+   .Amy_down          0.879    0.146    6.032    0.000
+   .lOFC             -0.079    0.302   -0.262    0.793
+   .dlPFC             0.484    0.164    2.956    0.003
+   .Downr            -0.345    0.276   -1.253    0.210
+   .Upreg             0.440    0.133    3.299    0.001
+   .EMG_EC           -0.077    0.131   -0.593    0.553
+   .R_EC             -0.585    0.441   -1.328    0.184
+   .B_EC              0.983    0.246    3.990    0.000
+   .B_Ep              0.249    0.496    0.503    0.615
+   .R_Ep              0.932    0.245    3.808    0.000
+   .B_ER              0.108    0.079    1.366    0.172
+   .R_ER              1.366    0.416    3.287    0.001
+    EC                0.682    0.449    1.518    0.129
+    Ep                0.056    0.205    0.274    0.784
+    ER               -0.022    0.302   -0.073    0.942
+

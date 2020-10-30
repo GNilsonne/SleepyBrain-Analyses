@@ -323,10 +323,17 @@ colnames(SEM_file) <- c("Subject", "DeprivationCondition", "Unp", "ACC", "AI", "
 AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup")))
 SEM_file <- merge(SEM_file, AgeGroup, all = T)
 
-# Standardize 
-SEM_file_standardized <- SEM_file
-SEM_file_standardized[ ,3:21] <- scale(SEM_file_standardized[ ,3:21])
+SEM_file_sd <- subset(SEM_file, DeprivationCondition == "SleepRestriction")
+SEM_file_nsd <- subset(SEM_file, DeprivationCondition == "NormalSleep")
 
+# Standardize 
+SEM_file_sd_standardized <- SEM_file_sd
+SEM_file_sd_standardized[ ,3:21] <- scale(SEM_file_sd_standardized[ ,3:21])
+
+SEM_file_nsd_standardized <- SEM_file_nsd
+SEM_file_nsd_standardized[ ,3:21] <- scale(SEM_file_nsd_standardized[ ,3:21])
+
+SEM_file_standardized <- rbind(SEM_file_nsd_standardized, SEM_file_sd_standardized)
 
 write.csv(SEM_file, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer.csv")
 write.csv(SEM_file_standardized, "~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv")

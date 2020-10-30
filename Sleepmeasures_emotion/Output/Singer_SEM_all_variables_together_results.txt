@@ -1,0 +1,128 @@
+lavaan 0.6-5 ended normally after 105 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of free parameters                         49
+  Number of equality constraints                     7
+  Row rank of the constraints matrix                 7
+                                                      
+  Number of observations                            86
+  Number of missing patterns                        14
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                               338.036
+  Degrees of freedom                               110
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                               558.898
+  Degrees of freedom                               120
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.480
+  Tucker-Lewis Index (TLI)                       0.433
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1553.022
+  Loglikelihood unrestricted model (H1)      -1384.005
+                                                      
+  Akaike (AIC)                                3190.045
+  Bayesian (BIC)                              3293.127
+  Sample-size adjusted Bayesian (BIC)         3160.615
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.155
+  90 Percent confidence interval - lower         0.137
+  90 Percent confidence interval - upper         0.174
+  P-value RMSEA <= 0.05                          0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.146
+
+Parameter Estimates:
+
+  Information                                 Observed
+  Observed information based on                Hessian
+  Standard errors                             Standard
+
+Latent Variables:
+                         Estimate  Std.Err  z-value  P(>|z|)
+  EmotionalContagion =~                                     
+    Anger      (A)          1.000                           
+    Happiness  (A)          1.000                           
+    FFA_angry  (B)          4.510    3.115    1.448    0.148
+    FFA_happy  (B)          4.510    3.115    1.448    0.148
+    Amy_angry  (B)          4.510    3.115    1.448    0.148
+    Amy_happy  (B)          4.510    3.115    1.448    0.148
+    Zyg        (C)          0.977    1.000    0.978    0.328
+    Corr       (C)          0.977    1.000    0.978    0.328
+  Empathy =~                                                
+    Unp        (D)          1.000                           
+    AI         (E)        -13.066   24.425   -0.535    0.593
+    ACC        (E)        -13.066   24.425   -0.535    0.593
+  EmotionalRegulation =~                                    
+    Downr      (F)          1.000                           
+    Upreg      (F)          1.000                           
+    Amy_down   (G)          0.140    0.077    1.821    0.069
+    lOFC       (G)          0.140    0.077    1.821    0.069
+    dlPFC      (G)          0.140    0.077    1.821    0.069
+
+Covariances:
+                        Estimate  Std.Err  z-value  P(>|z|)
+  EmotionalContagion ~~                                    
+    Empathy                0.000    0.002    0.234    0.815
+    EmotionalRgltn         0.007    0.020    0.343    0.732
+  Empathy ~~                                               
+    EmotionalRgltn        -0.006    0.015   -0.423    0.672
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .Anger             0.000    0.106    0.000    1.000
+   .Happiness         0.000    0.109    0.000    1.000
+   .FFA_angry        -0.013    0.112   -0.114    0.909
+   .FFA_happy        -0.013    0.127   -0.101    0.920
+   .Amy_angry        -0.013    0.119   -0.107    0.914
+   .Amy_happy        -0.013    0.124   -0.103    0.918
+   .Zyg              -0.000    0.126   -0.000    1.000
+   .Corr             -0.001    0.140   -0.004    0.997
+   .Unp               0.000    0.107    0.000    1.000
+   .AI               -0.003    0.110   -0.027    0.978
+   .ACC              -0.003    0.109   -0.027    0.978
+   .Downr             0.003    0.119    0.027    0.979
+   .Upreg             0.003    0.120    0.026    0.979
+   .Amy_down         -0.002    0.113   -0.021    0.983
+   .lOFC             -0.002    0.115   -0.021    0.983
+   .dlPFC            -0.002    0.114   -0.021    0.983
+    EmotionalCntgn    0.000                           
+    Empathy           0.000                           
+    EmotionalRgltn    0.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .Anger             0.939    0.148    6.363    0.000
+   .Happiness         0.997    0.154    6.491    0.000
+   .FFA_angry         0.435    0.130    3.342    0.001
+   .FFA_happy         0.682    0.175    3.892    0.000
+   .Amy_angry         0.545    0.154    3.546    0.000
+   .Amy_happy         0.629    0.164    3.845    0.000
+   .Zyg               0.946    0.174    5.441    0.000
+   .Corr              0.982    0.196    5.016    0.000
+   .Unp               0.984    0.150    6.550    0.000
+   .AI                0.284    0.091    3.119    0.002
+   .ACC               0.264    0.089    2.952    0.003
+   .Downr             0.120    0.062    1.916    0.055
+   .Upreg             0.148    0.064    2.299    0.021
+   .Amy_down          0.949    0.155    6.126    0.000
+   .lOFC              0.983    0.160    6.149    0.000
+   .dlPFC             0.978    0.159    6.149    0.000
+    EmotionalCntgn    0.021    0.029    0.721    0.471
+    Empathy           0.004    0.016    0.267    0.789
+    EmotionalRgltn    0.853    0.157    5.424    0.000
+

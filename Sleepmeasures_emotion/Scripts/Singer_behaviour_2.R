@@ -9,6 +9,7 @@ modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data
 # Use only full sleep data
 modelData <- subset(modelData, DeprivationCondition == "NormalSleep")
 
+# Build model with following constraints: Where only 2 indicator variables, these are set to factor loading 1
 model<-"
 ! regressions 
 Emotional Regulation=~1.0*Downr
@@ -41,14 +42,13 @@ Empathy~0*1;
 result<-lavaan(model, data=modelData, missing="FIML");
 
 summary(result, fit.measures=TRUE);
-sink("Output/Singer_SEM_ratings.txt")
+sink("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Output/Singer_SEM_ratings.txt")
 summary(result, fit.measures=T);
 sink()
 
 # Plot path diagram:
-fit <- lavaan:::cfa(model, data = modelData, missing="FIML")
 
-semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 14,
+semPaths(result, intercept = F, whatLabel = "est", nCharNodes = 0, nCharEdges =0, sizeMan = 10, sizeLat = 14,
          exoVar = F,
          groups = list(c("Empathy", "Unp"), 
                       c("EmotionalContagion", "Anger", "Happiness"),

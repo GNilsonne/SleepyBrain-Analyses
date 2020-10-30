@@ -1,8 +1,8 @@
-lavaan 0.6-5 ended normally after 45 iterations
+lavaan 0.6-5 ended normally after 31 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
-  Number of free parameters                         24
+  Number of free parameters                         22
                                                       
                                                   Used       Total
   Number of observations                           137         172
@@ -10,40 +10,40 @@ lavaan 0.6-5 ended normally after 45 iterations
                                                                   
 Model Test User Model:
                                                       
-  Test statistic                                 3.551
-  Degrees of freedom                                 5
-  P-value (Chi-square)                           0.616
+  Test statistic                                14.663
+  Degrees of freedom                                 7
+  P-value (Chi-square)                           0.041
 
 Model Test Baseline Model:
 
-  Test statistic                               260.864
+  Test statistic                               256.514
   Degrees of freedom                                15
   P-value                                        0.000
 
 User Model versus Baseline Model:
 
-  Comparative Fit Index (CFI)                    1.000
-  Tucker-Lewis Index (TLI)                       1.018
+  Comparative Fit Index (CFI)                    0.968
+  Tucker-Lewis Index (TLI)                       0.932
 
 Loglikelihood and Information Criteria:
 
-  Loglikelihood user model (H0)               -967.902
-  Loglikelihood unrestricted model (H1)       -966.126
+  Loglikelihood user model (H0)               -973.263
+  Loglikelihood unrestricted model (H1)       -965.932
                                                       
-  Akaike (AIC)                                1983.804
-  Bayesian (BIC)                              2053.883
-  Sample-size adjusted Bayesian (BIC)         1977.958
+  Akaike (AIC)                                1990.527
+  Bayesian (BIC)                              2054.766
+  Sample-size adjusted Bayesian (BIC)         1985.168
 
 Root Mean Square Error of Approximation:
 
-  RMSEA                                          0.000
-  90 Percent confidence interval - lower         0.000
-  90 Percent confidence interval - upper         0.099
-  P-value RMSEA <= 0.05                          0.764
+  RMSEA                                          0.089
+  90 Percent confidence interval - lower         0.018
+  90 Percent confidence interval - upper         0.154
+  P-value RMSEA <= 0.05                          0.137
 
 Standardized Root Mean Square Residual (corr metric):
 
-  SRMR (within covariance matrix)                0.033
+  SRMR (within covariance matrix)                0.043
   SRMR (between covariance matrix)               0.000
 
 Parameter Estimates:
@@ -58,36 +58,36 @@ Level 1 [within]:
 Latent Variables:
                           Estimate  Std.Err  z-value  P(>|z|)
   Sleep =~                                                   
-    DeprivatnCndtn           1.000                           
+    DprvtnCndt               1.000                           
   Empathy =~                                                 
     Unp                      1.000                           
   Emotional_Contagion =~                                     
-    Happiness                1.000                           
-    Anger                    1.435    0.415    3.461    0.001
+    Happiness  (C)           1.000                           
+    Anger      (C)           1.000                           
   Emotional_regulation =~                                    
-    Upreg                    1.000                           
-    Downr                    1.688    0.404    4.176    0.000
+    Upreg      (C)           1.000                           
+    Downr      (C)           1.000                           
 
 Covariances:
                          Estimate  Std.Err  z-value  P(>|z|)
   Sleep ~~                                                  
-    Empathy                -0.006    0.041   -0.138    0.890
-    Emotionl_Cntgn         -0.041    0.027   -1.549    0.121
-    Emotionl_rgltn         -0.006    0.024   -0.250    0.803
+    Empathy                -0.016    0.041   -0.393    0.695
+    Emotionl_Cntgn         -0.005    0.031   -0.158    0.874
+    Emotionl_rgltn          0.000    0.041    0.000    1.000
   Empathy ~~                                                
-    Emotionl_Cntgn          0.272    0.077    3.528    0.000
-    Emotionl_rgltn         -0.166    0.074   -2.249    0.025
+    Emotionl_Cntgn          0.340    0.066    5.134    0.000
+    Emotionl_rgltn         -0.238    0.084   -2.833    0.005
   Emotional_Contagion ~~                                    
-    Emotionl_rgltn         -0.109    0.051   -2.156    0.031
+    Emotionl_rgltn         -0.196    0.063   -3.100    0.002
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(>|z|)
    .DeprivatnCndtn    1.496    0.043   35.030    0.000
-   .Unp              -0.019    0.083   -0.230    0.818
-   .Happiness         0.005    0.083    0.056    0.955
-   .Anger            -0.206    0.079   -2.620    0.009
-   .Upreg            -0.000    0.085   -0.000    1.000
-   .Downr             0.000    0.085    0.000    1.000
+   .Unp              -0.020    0.082   -0.240    0.811
+   .Happiness         0.004    0.086    0.042    0.966
+   .Anger            -0.208    0.076   -2.744    0.006
+   .Upreg             0.000    0.087    0.000    1.000
+   .Downr            -0.000    0.084   -0.000    1.000
     Sleep             0.000                           
     Empathy           0.000                           
     Emotionl_Cntgn    0.000                           
@@ -97,14 +97,14 @@ Variances:
                    Estimate  Std.Err  z-value  P(>|z|)
    .DeprivatnCndtn    0.000                           
    .Unp               0.000                           
-   .Happiness         0.837    0.110    7.594    0.000
-   .Anger             0.635    0.118    5.363    0.000
-   .Upreg             0.485    0.128    3.784    0.000
-   .Downr            -0.453    0.329   -1.376    0.169
+   .Happiness         0.862    0.123    7.024    0.000
+   .Anger             0.638    0.101    6.329    0.000
+   .Upreg             0.178    0.047    3.770    0.000
+   .Downr             0.089    0.043    2.057    0.040
     Sleep             0.250    0.030    8.276    0.000
-    Empathy           0.935    0.113    8.276    0.000
-    Emotionl_Cntgn    0.104    0.068    1.532    0.125
-    Emotionl_rgltn    0.508    0.155    3.280    0.001
+    Empathy           0.931    0.112    8.276    0.000
+    Emotionl_Cntgn    0.149    0.078    1.909    0.056
+    Emotionl_rgltn    0.866    0.116    7.498    0.000
 
 
 Level 2 [Subject]:

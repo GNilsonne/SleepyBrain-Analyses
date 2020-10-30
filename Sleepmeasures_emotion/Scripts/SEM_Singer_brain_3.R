@@ -4,17 +4,19 @@ library(lavaan);
 modelData <- read_csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_Singer_standardized.csv") ;
 # Use only full sleep data
 modelData <- subset(modelData, DeprivationCondition == "NormalSleep")
+
+
 model<-"
 ! regressions 
 Ep=~1.0*ACC
 Ep=~1.0*AI
-ER=~1.0*Amy_down
-ER=~1.0*lOFC
-ER=~1.0*dlPFC
-EC=~1.0*FFA_angry
-EC=~1.0*FFA_happy
-EC=~1.0*Amy_angry
-EC=~1.0*Amy_happy
+ER=~Amy_down
+ER=~lOFC
+ER=~dlPFC
+EC=~FFA_angry
+EC=~FFA_happy
+EC=~Amy_angry
+EC=~Amy_happy
 ! residuals, variances and covariances
 EC ~~ VAR_EC*EC
 Ep ~~ VAR_Ep*Ep
@@ -45,16 +47,14 @@ dlPFC~1;
 result<-lavaan(model, data=modelData, fixed.x=FALSE, missing="FIML");
 
 summary(result, fit.measures=T);
-sink("Output/Singer_SEM_brain.txt")
+sink("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Output/Singer_SEM_brain.txt")
 summary(result, fit.measures=T);
 sink()
 
 
-fit <- lavaan:::cfa(model, data = modelData, std.lv = TRUE)
-
 # Plot path diagram:
 
-semPaths(fit, intercept = F, whatLabel = "omit", nCharNodes = 0, nCharEdges =0, sizeMan = 5,
+semPaths(result, intercept = F, whatLabel = "est", nCharNodes = 0, nCharEdges =0, sizeMan = 5,
          exoVar = F,
          groups = list(c("Ep", "AI", "ACC"), 
                        c("EC", "Amy_happy", "Amy_angry", "FFA_a", "FFA_happy"),

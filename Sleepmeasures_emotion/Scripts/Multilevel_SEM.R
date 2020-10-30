@@ -3,12 +3,14 @@ Data <- read.csv("~/Desktop/SleepyBrain-Analyses/Sleepmeasures_emotion/Data/SEM_
 Data$AgeGroup <- as.numeric(Data$AgeGroup)  
 Data$DeprivationCondition <- as.numeric(Data$DeprivationCondition)
 
+# Build model. Constraining indicator variables in cases where latent variable only have 2 indicator variables
+
 model <- "
   level: 1
     Sleep =~ DeprivationCondition
     Empathy =~ Unp
-    Emotional_Contagion =~ Happiness + Anger
-    Emotional_regulation =~ Upreg + Downr
+    Emotional_Contagion =~ C*Happiness + C*Anger
+    Emotional_regulation =~ C*Upreg + C*Downr
   level: 2
     Age =~ AgeGroup
 "
