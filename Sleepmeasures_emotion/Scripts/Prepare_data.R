@@ -320,7 +320,7 @@ colnames(SEM_file) <- c("Subject", "DeprivationCondition", "Unp", "ACC", "AI", "
                         "lOFC", "dlPFC", "Amy_down")
 
 # Add variable for young and old
-AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup")))
+AgeGroup <- unique(subset(Data_HANDSRatings, select = c("Subject", "AgeGroup", "Sex")))
 SEM_file <- merge(SEM_file, AgeGroup, all = T)
 
 SEM_file_sd <- subset(SEM_file, DeprivationCondition == "SleepRestriction")
